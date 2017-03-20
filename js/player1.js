@@ -31,7 +31,7 @@ var initYPosition=0;
 var whichPic;
 
 function playerOneClass(){
-  this.playerDidSwing=false;
+  
   this.keyHeld_Gas = false;
   this.keyHeld_Reverse = false;
   this.keyHeld_TurnLeft = false;
@@ -107,26 +107,27 @@ function playerOneClass(){
     var hereCollision = this.ballAtReach(this.x,this.y,p1.x,p1.y);
     var quadrantHit = hereCollision.quadrant;
     
-      switch(quadrantHit){//maybe quadrantHit=0 in which case none called
-            case TOPRIGHTQUADRANT:
-              whichPic = p1_shot_top_right;
-              this.isSwinging=true;          
-              break;
-            case TOPLEFTQUADRANT:
-              whichPic = p1_shot_top_left;
-              this.isSwinging=true;
-              break;
-            case BOTTOMRIGHTQUADRANT:
-              whichPic = p1_shot_bottom_right;
-              this.isSwinging=true;
-              break;
-            case BOTTOMLEFTQUADRANT:
-              whichPic = p1_shot_bottom_left;
-              this.isSwinging=true;
-              break;
+      if(p1.bouncedOnFloor && p1.bouncedOnFrontWall && quadrantHit!=0){
+        switch(quadrantHit){//maybe quadrantHit=0 in which case none called
+              case TOPRIGHTQUADRANT:
+                whichPic = p1_shot_top_right;
+                this.isSwinging=true;          
+                break;
+              case TOPLEFTQUADRANT:
+                whichPic = p1_shot_top_left;
+                this.isSwinging=true;
+                break;
+              case BOTTOMRIGHTQUADRANT:
+                whichPic = p1_shot_bottom_right;
+                this.isSwinging=true;
+                break;
+              case BOTTOMLEFTQUADRANT:
+                whichPic = p1_shot_bottom_left;
+                this.isSwinging=true;
+                break;
+        }
       }
     }
-
    this.ballAtReach = function(playerPixelX, playerPixelY, ballPixelX,ballPixelY){
       //segments of png to determine ball collision
       if(p1.z>PLAYER_MAX_HEIGHT_REACH){
@@ -212,22 +213,18 @@ function playerOneClass(){
       if(this.keyHeld_Gas){
                   nextY -= PLAYER_MOVE_SPEED;
                   whichPic = p1_running;
-                  
       }
       if(this.keyHeld_Reverse){
                   nextY += PLAYER_MOVE_SPEED;
                   whichPic = p1_running;
-                  
       }
       if(this.keyHeld_TurnLeft){
                   nextX -= PLAYER_MOVE_SPEED;
                   whichPic = p1_running;
-                  
       }
       if(this.keyHeld_TurnRight){
                   nextX+= PLAYER_MOVE_SPEED
                   whichPic = p1_running;
-                  
       }
     }
 

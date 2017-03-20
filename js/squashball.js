@@ -24,10 +24,12 @@ function ballClass(){
     this.x=COURT_W/2;
     this.y=COURT_L/2;
     this.z=0;
-    this.zv=1.5;//1.5
+    this.zv=1;//1.5
     this.heightOscillate=0.0;
     this.speedX = 1;
     this.speedY = 2;
+    this.bouncedOnFrontWall=true;
+    this.bouncedOnFloor=true;
     this.canBeHit=true;
   }
     
@@ -61,15 +63,10 @@ function ballClass(){
     var prevQuadrantHit=prevCollision.quadrant;
     //console.log(quadrantHit,prevQuadrantHit)
     
-    //did the ball leave a playable quadrant? If so it's fair play
-    if(prevQuadrantHit == NOQUADRANTHIT){
-          prevQuadrantWasAHit=false;
-        }
-
-    //console.log(quadrantHit,quadrantHit!=prevQuadrantHit,prevQuadrantHit)
-    if(this.canBeHit && quadrantHit!=0){          
-      this.canBeHit=false;
-      p2.playerDidSwing=true;
+    console.log(this.z)
+    if(this.bouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0){          
+      this.bouncedOnFloor=false;
+      this.bouncedOnFrontWall=false;
       //prevQuadrantWasAHit=true;
       switch(quadrantHit){
             //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
@@ -119,11 +116,12 @@ function ballClass(){
     }
     if(this.nextX>COURT_W){
       this.speedX*=-1;
+      this.bouncedOnFloor=true;
     }
 
     if(this.nextY<0)  {
       this.speedY*=-1;
-      this.canBeHit=true;
+      this.bouncedOnFrontWall=true;
     }
     if(this.nextY>COURT_L){
       this.speedY*=-1;
