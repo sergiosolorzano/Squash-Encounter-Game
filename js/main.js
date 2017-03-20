@@ -89,6 +89,7 @@ function drawAll() {
 	p1.drawShadow();
   p1.drawInAir();
 	p2.drawPlayer();
+  p2.drawTargetFrontWall();
   //colorRect(0,0,64,97,"orange");//real life court
   //colorRect(p1.x,p1.y,3,3,"green");////real life ball
 }

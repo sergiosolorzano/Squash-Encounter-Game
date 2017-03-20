@@ -4,7 +4,7 @@ function drawAtBaseSheetSprite(graphic, idx, atX, atY) {
   canvasContext.drawImage(graphic,
     idx * PLAYER_W, 0,
     PLAYER_W, PLAYER_H,
-    -PLAYER_W/4, -PLAYER_H,
+    -PLAYER_W/2, -PLAYER_H/2,
     PLAYER_W, PLAYER_H);
   canvasContext.restore();
 }
