@@ -11,7 +11,6 @@ const COURT_T=56.0;
 var ballHeightNormal = 6;
 var heightChangePace = 0.04;
 var ballSinkRate = 0.03;
-var ballRaiseSlowShot = 0.0;
 var lenghtCourt=440;
 var prevQuadrantWasAHit = false;
 
@@ -53,14 +52,13 @@ function ballClass(){
       }
 
   this.moveBall = function(){
-    ballRaiseSlowShot=0.0;
     //determine if ball is coming from a swingable quadrant. If yes, it would have been swang already and therefore no swing occurs here.
     var prevX=this.x-this.speedX;
     var prevY=this.y-this.speedY;
     var hereCollision = p2.ballAtReach(p2.x,p2.y,this.x,this.y);
     var prevCollision = p2.ballAtReach(p2.x,p2.y,prevX,prevY);
-    var quadrantHit=hereCollision[0];
-    var prevQuadrantHit=prevCollision[0];
+    var quadrantHit=hereCollision.quadrant;
+    var prevQuadrantHit=prevCollision.quadrant;
     //console.log(quadrantHit,prevQuadrantHit)
     
     //did the ball leave a playable quadrant? If so it's fair play
@@ -77,19 +75,19 @@ function ballClass(){
             //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
             case TOPRIGHTQUADRANT:
               this.speedY*=-1;
-              ballRaiseSlowShot=0.5;
+              this.zv=1;
               break;
             case TOPLEFTQUADRANT:
               this.speedY*=-1;
-              ballRaiseSlowShot=0.5;
+              this.zv=1;
               break;
             case BOTTOMRIGHTQUADRANT:
               this.speedY*=-1;
-              ballRaiseSlowShot=0.5;
+              this.zv=1;
               break;
             case BOTTOMLEFTQUADRANT:
               this.speedY*=-1;
-              ballRaiseSlowShot=0.5;
+              this.zv=1;
               break;
             default: //shouldn't be reached
             console.log("error, invalid quadrant squashball.js")
@@ -101,7 +99,7 @@ function ballClass(){
     }
 
     //wall bouncing mechanics:
-    this.zv += -ballSinkRate + ballRaiseSlowShot;
+    this.zv += -ballSinkRate;
     this.z += this.zv;
     
     if(this.z>COURT_T){//hit ceiling
@@ -126,7 +124,6 @@ function ballClass(){
     if(this.nextY<0)  {
       this.speedY*=-1;
       this.canBeHit=true;
-      console.log("ball hit front wall")
     }
     if(this.nextY>COURT_L){
       this.speedY*=-1;

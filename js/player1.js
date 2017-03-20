@@ -1,9 +1,17 @@
-var playerStepsPerAnimFrame = 0;
+var playerStepsPerAnimFrame = 2;
 var playerFrame = 0;
-var playerFrameTimer = 0;//how quick it changes between frames
+var playerFrameTimer = 2;//how quick it changes between frames
 const PLAYER_H=55;
 const PLAYER_W=55;
 var PLAYER_MOVE_SPEED=2;
+const PLAYER_MAX_HEIGHT_REACH=15;
+
+const SHIFTTOCENTERX = -3;
+const SHIFTTOCENTERY = 3;
+const HITSQUAREW=8;
+const HITSQUAREH=8;
+const SHIFTTORAQUETPOSITIONX=6;
+const SHIFTTORAQUETPOSITIONY=-5;
 
 const NOQUADRANTHIT = 0;
 const TOPRIGHTQUADRANT=1;
@@ -53,6 +61,7 @@ function playerOneClass(){
     initYPosition=COURT_L*0.4
     this.y=initYPosition;
     whichPic = p1_standing;  
+    this.isSwinging=false; 
   }
     
   this.drawPlayer = function(){
@@ -62,18 +71,20 @@ function playerOneClass(){
      // whichPic=p1_standing
     //}
     
-    drawAtBaseSheetSprite(whichPic, playerFrame, drawLocation.x, drawLocation.y);
     this.playerHitWindowCoords();
     this.frontWallHitWindowCoords();
     var playerAnimationFrames = whichPic.width/PLAYER_W;
     if (playerFrameTimer-- < 0) {
-            playerFrameTimer = playerStepsPerAnimFrame;
-            playerFrame++;
-            if (playerFrame >= playerAnimationFrames) {
-                playerFrame = 0;
-            }
-        }
+      playerFrameTimer = playerStepsPerAnimFrame;
+      playerFrame++;
     }
+    if (playerFrame >= playerAnimationFrames) {
+          playerFrame = 0;
+          whichPic = p1_standing; 
+          this.isSwinging=false; 
+      }
+    drawAtBaseSheetSprite(whichPic, playerFrame, drawLocation.x, drawLocation.y);
+  }
 
     this.drawTargetFrontWall = function(){
       var frontWallTargeted = this.targetFrontWall(p1.x,p2.y);
@@ -94,40 +105,39 @@ function playerOneClass(){
 
     this.hitGraphicSelection=function(){
     var hereCollision = this.ballAtReach(this.x,this.y,p1.x,p1.y);
-    var quadrantHit = hereCollision[0];
+    var quadrantHit = hereCollision.quadrant;
     
-    if(p1.canBeHit){
-      switch(quadrantHit){
+      switch(quadrantHit){//maybe quadrantHit=0 in which case none called
             case TOPRIGHTQUADRANT:
               whichPic = p1_shot_top_right;
-              playerAnimationFrames = whichPic.width/PLAYER_W;
+              this.isSwinging=true;          
               break;
             case TOPLEFTQUADRANT:
               whichPic = p1_shot_top_left;
-              playerAnimationFrames = whichPic.width/PLAYER_W;
+              this.isSwinging=true;
               break;
             case BOTTOMRIGHTQUADRANT:
               whichPic = p1_shot_bottom_right;
-              playerAnimationFrames = whichPic.width/PLAYER_W;    
+              this.isSwinging=true;
               break;
             case BOTTOMLEFTQUADRANT:
               whichPic = p1_shot_bottom_left;
-              playerAnimationFrames = whichPic.width/PLAYER_W;
+              this.isSwinging=true;
               break;
-          }
       }
     }
 
    this.ballAtReach = function(playerPixelX, playerPixelY, ballPixelX,ballPixelY){
       //segments of png to determine ball collision
+      if(p1.z>PLAYER_MAX_HEIGHT_REACH){
+        //console.log(p1.z)
+        return {
+          quadrant:0,
+          distToBallX:0,
+          distToBallY:0
+        } 
+      }
       var quadrantHit;
-      const SHIFTTOCENTERX = -3;
-      const SHIFTTOCENTERY = 3;
-      const HITSQUAREW=16;
-      const HITSQUAREH=15;
-      const SHIFTTORAQUETPOSITIONX=6;
-      const SHIFTTORAQUETPOSITIONY=-5;
-      
       var centerX=playerPixelX+SHIFTTOCENTERX;
       var centerY=playerPixelY+SHIFTTOCENTERY;
       var scaleAdjustmentX = (1-playerPixelY/initYPosition)*100*WINDOWXSCALE;
@@ -185,35 +195,40 @@ function playerOneClass(){
       if(quadrantHit==TOPRIGHTQUADRANT){
       }
 
-      return [quadrantHit, distanceRaquetToBallX,distanceRaquetToBallY];
+      //return [quadrantHit, distanceRaquetToBallX,distanceRaquetToBallY];
+      return {
+        quadrant:quadrantHit,
+        distToBallX:distanceRaquetToBallX,
+        distToBallY:distanceRaquetToBallY
+      }
     }
 
   this.movePlayer = function(){
     var nextX = this.x;
     var nextY = this.y;
-    whichPic = p1_standing;  
     
     this.hitGraphicSelection();
-
-    if(this.keyHeld_Gas){
-                nextY -= PLAYER_MOVE_SPEED;
-                whichPic = p1_running;
-                playerAnimationFrames = whichPic.width/PLAYER_W;
-    }
-    if(this.keyHeld_Reverse){
-                nextY += PLAYER_MOVE_SPEED;
-                whichPic = p1_running;
-                playerAnimationFrames = whichPic.width/PLAYER_W;
-    }
-    if(this.keyHeld_TurnLeft){
-                nextX -= PLAYER_MOVE_SPEED;
-                whichPic = p1_running;
-                playerAnimationFrames = whichPic.width/PLAYER_W;
-    }
-    if(this.keyHeld_TurnRight){
-                nextX+= PLAYER_MOVE_SPEED
-                whichPic = p1_running;
-                playerAnimationFrames = whichPic.width/PLAYER_W;
+    if(this.isSwinging==false){
+      if(this.keyHeld_Gas){
+                  nextY -= PLAYER_MOVE_SPEED;
+                  whichPic = p1_running;
+                  
+      }
+      if(this.keyHeld_Reverse){
+                  nextY += PLAYER_MOVE_SPEED;
+                  whichPic = p1_running;
+                  
+      }
+      if(this.keyHeld_TurnLeft){
+                  nextX -= PLAYER_MOVE_SPEED;
+                  whichPic = p1_running;
+                  
+      }
+      if(this.keyHeld_TurnRight){
+                  nextX+= PLAYER_MOVE_SPEED
+                  whichPic = p1_running;
+                  
+      }
     }
 
     //determine if ball is coming from a swingable quadrant. If yes, it would have been swang already and therefore no swing occurs here.
@@ -221,12 +236,12 @@ function playerOneClass(){
     var prevY=p1.y-p1.speedY;
     var hereCollision = this.ballAtReach(this.x,this.y,p1.x,p1.y);
     var prevCollision = this.ballAtReach(this.x,this.y,prevX,prevY);
-    var quadrantHit=hereCollision[0];
-    var prevQuadrantHit=prevCollision[0];
+    var quadrantHit=hereCollision.quadrant;
+    var prevQuadrantHit=prevCollision.quadrant;
 
     //Shift the racket pic position to the ball if collision occurs
-    var raquetMeetShadowX=hereCollision[1];
-    var raquetMeetShadowY=hereCollision[2];
+    var raquetMeetShadowX=hereCollision.distToBallX;
+    var raquetMeetShadowY=hereCollision.distToBallY;
     //console.log(quadrantHit,prevQuadrantHit)
 
     //did the ball leave a playable quadrant? If so it's fair play
@@ -325,13 +340,6 @@ this.targetFrontWall = function(ballPixelX,ballPixelY){
 //Drawing calculations
   //determine window range for racket hit: Draw only
   this.playerHitWindowCoords = function(){
-      const SHIFTTOCENTERX = -3;
-      const SHIFTTOCENTERY = 3;
-      const HITSQUAREW=15;
-      const HITSQUAREH=15;
-      const SHIFTTORAQUETPOSITIONX=6;
-      const SHIFTTORAQUETPOSITIONY=-5;
-      
       var centerX=this.x+SHIFTTOCENTERX;
       var centerY=this.y+SHIFTTOCENTERY;
       var scaleAdjustmentX = (1-this.y/initYPosition)*100*WINDOWXSCALE;
