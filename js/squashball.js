@@ -103,9 +103,11 @@ function ballClass(){
       this.z=COURT_T;
       this.zv*=-1;
     }
-    if(this.z < 0) {
+
+    if(this.z <= 0) {
       this.zv*=-0.7;
       this.z = 0;
+      this.bouncedOnFloor=true;
     }
     
     this.nextX=this.x+this.speedX;
@@ -116,7 +118,6 @@ function ballClass(){
     }
     if(this.nextX>COURT_W){
       this.speedX*=-1;
-      this.bouncedOnFloor=true;
     }
 
     if(this.nextY<0)  {
