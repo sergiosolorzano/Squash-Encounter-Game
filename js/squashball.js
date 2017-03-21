@@ -57,8 +57,8 @@ function ballClass(){
     //determine if ball is coming from a swingable quadrant. If yes, it would have been swang already and therefore no swing occurs here.
     var prevX=this.x-this.speedX;
     var prevY=this.y-this.speedY;
-    var hereCollision = p2.ballAtReach(p2.x,p2.y,this.x,this.y);
-    var prevCollision = p2.ballAtReach(p2.x,p2.y,prevX,prevY);
+    var hereCollision = playerClass.ballAtReach(playerClass.x,playerClass.y,this.x,this.y);
+    var prevCollision = playerClass.ballAtReach(playerClass.x,playerClass.y,prevX,prevY);
     var quadrantHit=hereCollision.quadrant;
     var prevQuadrantHit=prevCollision.quadrant;
     //console.log(quadrantHit,prevQuadrantHit)

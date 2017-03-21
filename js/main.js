@@ -1,7 +1,7 @@
 var canvas, canvasContext, scaledContext;
 
-var p1 = new ballClass();
-var p2 = new playerOneClass();
+var ballClass = new ballClass();
+var playerClass = new playerOneClass();
 
 // x,y pixel coordinates on the render of the near 'wall' (opening) corners
 var nearTopLeftX=3;
@@ -66,8 +66,8 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function loadLevel() {
-	p1.Init();
-	p2.Init();
+	ballClass.Init();
+	playerClass.Init();
 	}
 
 function updateAll() {
@@ -76,8 +76,8 @@ function updateAll() {
 }
 
 function moveAll() {
-	p1.moveBall();
-  p2.movePlayer();
+	ballClass.moveBall();
+  playerClass.movePlayer();
 	}
 
 function clearScreen() {
@@ -86,11 +86,11 @@ function clearScreen() {
 
 function drawAll() {
 	drawBitmapCenteredWithRotation(squashcourt, canvas.width/2, canvas.height/2, 0);
-	p1.drawShadow();
-  p1.drawInAir();
-	p2.drawPlayer();
-  p2.drawTargetFrontWall();
+	ballClass.drawShadow();
+  ballClass.drawInAir();
+	playerClass.drawPlayer();
+  playerClass.drawTargetFrontWall();
 	drawUI();
   //colorRect(0,0,64,97,"orange");//real life court
-  //colorRect(p1.x,p1.y,3,3,"green");////real life ball
+  //colorRect(ballClass.x,ballClass.y,3,3,"green");////real life ball
 }

@@ -75,7 +75,7 @@ function playerOneClass(){
     var drawLocation = perspectiveLocation(this.x,this.y,0);
     //game crashes with this
     //if(this.keyHeld_Gas==false || this.keyHeld_Reverse==false ||  this.keyHeld_TurnLeft== false || this.keyHeld_TurnRight== false || this.keyHeld_Shoot==false){
-     // whichPic=p1_standing
+     // whichPic=ballClass_standing
     //}
 
     this.playerHitWindowCoords();
@@ -94,7 +94,7 @@ function playerOneClass(){
   }
 
     this.drawTargetFrontWall = function(){
-      var frontWallTargeted = this.targetFrontWall(p1.x,p2.y);
+      var frontWallTargeted = this.targetFrontWall(ballClass.x,playerClass.y);
       var rectRealLifeAnchorX=frontWallTargeted[1];
       var rectRealLifeAnchorY=frontWallTargeted[2];
       var rectRealLifeWidthPoint=frontWallTargeted[3];
@@ -111,10 +111,10 @@ function playerOneClass(){
     }
 
     this.hitGraphicSelection=function(){
-    var hereCollision = this.ballAtReach(this.x,this.y,p1.x,p1.y);
+    var hereCollision = this.ballAtReach(this.x,this.y,ballClass.x,ballClass.y);
     var quadrantHit = hereCollision.quadrant;
 
-      if(p1.bouncedOnFloor && p1.bouncedOnFrontWall && quadrantHit!=0){
+      if(ballClass.bouncedOnFloor && ballClass.bouncedOnFrontWall && quadrantHit!=0){
         switch(quadrantHit){//maybe quadrantHit=0 in which case none called
               case TOPRIGHTQUADRANT:
                 whichPic = p1_shot_top_right;
@@ -137,8 +137,8 @@ function playerOneClass(){
     }
    this.ballAtReach = function(playerPixelX, playerPixelY, ballPixelX,ballPixelY){
       //segments of png to determine ball collision
-      if(p1.z>PLAYER_MAX_HEIGHT_REACH){
-        //console.log(p1.z)
+      if(ballClass.z>PLAYER_MAX_HEIGHT_REACH){
+        //console.log(ballClass.z)
         return {
           quadrant:0,
           distToBallX:0,
@@ -197,8 +197,8 @@ function playerOneClass(){
       }
 
       //distance from raquet to ballX,Y
-      var distanceRaquetToBallX=p1.x-raquetPositionX;
-      var distanceRaquetToBallY=p1.y-raquetPositionY;
+      var distanceRaquetToBallX=ballClass.x-raquetPositionX;
+      var distanceRaquetToBallY=ballClass.y-raquetPositionY;
 
       if(quadrantHit==TOPRIGHTQUADRANT){
       }
@@ -244,9 +244,9 @@ function playerOneClass(){
     }
 
     //determine if ball is coming from a swingable quadrant. If yes, it would have been swang already and therefore no swing occurs here.
-    var prevX=p1.x-p1.speedX;
-    var prevY=p1.y-p1.speedY;
-    var hereCollision = this.ballAtReach(this.x,this.y,p1.x,p1.y);
+    var prevX=ballClass.x-ballClass.speedX;
+    var prevY=ballClass.y-ballClass.speedY;
+    var hereCollision = this.ballAtReach(this.x,this.y,ballClass.x,ballClass.y);
     var prevCollision = this.ballAtReach(this.x,this.y,prevX,prevY);
     var quadrantHit=hereCollision.quadrant;
     var prevQuadrantHit=prevCollision.quadrant;
