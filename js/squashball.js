@@ -55,24 +55,29 @@ function BallClass(){
       }
 
   this.moveBall = function(){
-    //determine if ball is coming from a swingable quadrant. If yes, it would have been swang already and therefore no swing occurs here.
+    //quadrant from where player swings
     var prevX=this.x-this.speedX;
     var prevY=this.y-this.speedY;
     var hereCollision = PlayerClass.ballAtReach(PlayerClass.x,PlayerClass.y,this.x,this.y);
-    var prevCollision = PlayerClass.ballAtReach(PlayerClass.x,PlayerClass.y,prevX,prevY);
     var quadrantHit=hereCollision.quadrant;
-    var prevQuadrantHit=prevCollision.quadrant;
 
-    console.log(PlayerClass.backWallClicked)
+    //radiants to hit backwall
+    var ang = PlayerClass.GradientShotToBackWall();
+
+
     if(this.bouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0){          
       this.bouncedOnFloor=false;
       this.bouncedOnFrontWall=false;
       this.bouncedOnBackWall=false;
+      
       //Back Wall is a target swing
         if(PlayerClass.backWallClicked){
           PlayerClass.backWallClicked=false;
+          
+
+          //this.x += Math.cos(this.ang) * this.speed;
+
           switch(quadrantHit){
-                //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
                 case TOPRIGHTQUADRANT:
                   if(prevY>this.y){
                   this.speedY*=-1;

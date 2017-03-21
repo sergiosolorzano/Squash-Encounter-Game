@@ -76,7 +76,7 @@ function updateAll() {
 }
 
 function moveAll() {
-	BallClass.moveBall();
+  BallClass.moveBall();
   PlayerClass.movePlayer();
 	}
 
