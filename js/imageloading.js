@@ -29,7 +29,7 @@ function loadImages(){
 	{varName: ballPic, theFile: "ball_sprite_6x6.png"},
 	{varName: ballShadow, theFile: "ball_shadow.png"},
 	{varName: p1_shot_bottom_left, theFile: "shortsprite_p1_shot_bottom_left.png"},
-	{varName: p1_shot_bottom_right, theFile: "shortsprite_p1_shot_bottom_right.png"},
+	{varName: p1_shot_bottom_right, theFile: "shortsprite_p1_shot_bottom_right2.png"},
 	{varName: p1_standing, theFile: "p1_standing.png"},
 	{varName: p1_running, theFile: "p1_running.png"},
 	{varName: p1_sprint_shot_down_right, theFile: "sprite_p1_sprint_shot_down_right_v2.png"},

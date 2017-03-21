@@ -8,11 +8,17 @@ const KEY_LEFT_SHIFT = 16;
 
 var mouseX = 0;
 var mouseY = 0;
+var mouseClickPos = {x:0,y:0};
+var backWallClicked = false;
 
 function initInput() {
   canvas.addEventListener('mousemove', updateMousePos);
   document.addEventListener('keydown', keyPressed);
   document.addEventListener('keyup', keyReleased);
+  document.addEventListener('click', function(evt){
+    var mouseClickPos=updateMousePos(evt);
+    PlayerClass.selectBackWall(mouseClickPos.x,mouseClickPos.y);
+  });
   PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_LEFT_SHIFT);
 }
 
@@ -22,7 +28,10 @@ function updateMousePos(evt) {
 
   mouseX = evt.clientX - rect.left - root.scrollLeft;
   mouseY = evt.clientY - rect.top - root.scrollTop;
-
+  return {
+    x:mouseX,
+    y:mouseY
+  };
   // cheat / hack to test car in any position
   /*carX = mouseX;
   carY = mouseY;

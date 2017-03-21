@@ -91,6 +91,7 @@ function drawAll() {
 	PlayerClass.drawPlayer();
   PlayerClass.drawTargetFrontWall();
 	drawUI();
+  //colorText(Math.floor(mouseX)+","+Math.floor(mouseY), mouseX,mouseY,'blue');
   //colorRect(0,0,64,97,"orange");//real life court
   //colorRect(BallClass.x,BallClass.y,3,3,"green");////real life ball
 }

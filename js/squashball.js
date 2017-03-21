@@ -61,29 +61,36 @@ function BallClass(){
     var prevCollision = PlayerClass.ballAtReach(PlayerClass.x,PlayerClass.y,prevX,prevY);
     var quadrantHit=hereCollision.quadrant;
     var prevQuadrantHit=prevCollision.quadrant;
-    //console.log(quadrantHit,prevQuadrantHit)
-    
-    //console.log(this.z)
+
     if(this.bouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0){          
       this.bouncedOnFloor=false;
       this.bouncedOnFrontWall=false;
       //prevQuadrantWasAHit=true;
+      
       switch(quadrantHit){
             //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
             case TOPRIGHTQUADRANT:
+              if(prevY<this.y){
               this.speedY*=-1;
               this.zv=1;
+              } else {
+                this.zv=1;  
+                }
               break;
             case TOPLEFTQUADRANT:
+              if(prevY<this.y){
               this.speedY*=-1;
               this.zv=1;
+              } else {
+                this.zv=1;  
+                }
               break;
             case BOTTOMRIGHTQUADRANT:
-              this.speedY*=-1;
+              //this.speedY*=-1;
               this.zv=1;
               break;
             case BOTTOMLEFTQUADRANT:
-              this.speedY*=-1;
+              //this.speedY*=-1;
               this.zv=1;
               break;
             default: //shouldn't be reached
@@ -91,8 +98,6 @@ function BallClass(){
               break;  
         }
         
-        //console.log("this.x",this.x,"prevX", prevX,"this.y",this.y,"prevY",prevY)
-        //console.log("quadrantHit", quadrantHit, "prevQuadrantHit", prevQuadrantHit,prevQuadrantWasAHit)  
     }
 
     //wall bouncing mechanics:

@@ -7,12 +7,29 @@ var PLAYER_MOVE_SPEED=2;
 const SPRINT_MULTIPLER = 3.0;
 const PLAYER_MAX_HEIGHT_REACH=15;
 
+//front wall sizing
 const SHIFTTOCENTERX = -3;
 const SHIFTTOCENTERY = 3;
 const HITSQUAREW=8;
 const HITSQUAREH=8;
 const SHIFTTORAQUETPOSITIONX=6;
 const SHIFTTORAQUETPOSITIONY=-5;
+//front wall quadrants
+const NOFRONTWALLSELECTED=0;
+const TOPRIGHTFRONTWALL=1;
+const BOTTOMRIGHTFRONTWALL=2;
+const BOTTOMLEFTFRONTWALL=3;
+const TOPLEFTFRONTWALL=4;
+
+//back wall sizing
+const HITSQUAREBOTTOMW=32;
+const HITSQUARECENTERW=42;
+const HITSQUAREBOTTOMZ=17;
+const centerZ=20;
+//back wall quadrants
+const NOBACKWALLSELECTED=0;
+const RIGHTBACKWALL=1;
+const LEFTBACKWALL=2;
 
 const NOQUADRANTHIT = 0;
 const TOPRIGHTQUADRANT=1;
@@ -20,19 +37,12 @@ const BOTTOMRIGHTQUADRANT=2;
 const BOTTOMLEFTQUADRANT=3;
 const TOPLEFTQUADRANT=4;
 
-const NOFRONTWALLSELECTED=0;
-const TOPRIGHTFRONTWALL=1;
-const BOTTOMRIGHTFRONTWALL=2;
-const BOTTOMLEFTFRONTWALL=3;
-const TOPLEFTFRONTWALL=4;
-
 const WINDOWXSCALE=0.02;//For Hit Window range: every real life 20% move across the Y axis, the X hit span visually decreases by 4%
 
 var initYPosition=0;
 var whichPic;
 
 function PlayerClass(){
-
   this.sprintMultiplier = 1;
   this.sprintStamina = 50;
 
@@ -69,15 +79,12 @@ function PlayerClass(){
     this.y=initYPosition;
     whichPic = p1_standing;
     this.isSwinging=false;
+    this.targetBackWall=NOBACKWALLSELECTED;
   }
 
   this.drawPlayer = function(){
     var drawLocation = perspectiveLocation(this.x,this.y,0);
-    //game crashes with this
-    //if(this.keyHeld_Gas==false || this.keyHeld_Reverse==false ||  this.keyHeld_TurnLeft== false || this.keyHeld_TurnRight== false || this.keyHeld_Shoot==false){
-     // whichPic=BallClass_standing
-    //}
-
+    
     this.playerHitWindowCoords();
     this.frontWallHitWindowCoords();
     var playerAnimationFrames = whichPic.width/PLAYER_W;
@@ -110,6 +117,99 @@ function PlayerClass(){
       colorRect(rectDrawnAnchor.x,rectDrawnAnchor.y,targetWallDrawnWidth,targetWalltDrawnHeight,"blue");
     }
 
+    this.drawTargetBackWall = function(nearX,farX,nearY,farY){
+      var visualAdjustmentX=40;//adjustment so the selected wall rectangle does not draw into canvas
+      const visualAdjustmentY=5;//adjustment so selected wall covers to side wall line
+      if(this.targetBackWall==LEFTBACKWALL){
+        visualAdjustmentX*=-1;
+      }
+      var targetWallDrawnWidth = farX-nearX-visualAdjustmentX;
+      var targetWalltDrawnHeight = farY-nearY+visualAdjustmentY;
+      colorRect(nearX,nearY,targetWallDrawnWidth,targetWalltDrawnHeight,"blue");  
+    }
+
+    //on mouseclick checks whether backwall is selected as target
+    this.selectBackWall = function(mouseClickX,mouseClickY){
+      var centerTopX=COURT_W/2;
+      var centerTopY=COURT_L-centerZ;
+
+      centerBottomX=centerTopX;
+      centerBottomY=centerTopY+HITSQUAREBOTTOMZ;
+
+      rightTopX=centerTopX+HITSQUARECENTERW;
+      rightTopY=centerTopY;
+
+      rightBottomX=centerTopX+HITSQUAREBOTTOMW;
+      rightBottomY=centerTopY+HITSQUAREBOTTOMZ;
+
+      leftTopX=centerTopX-HITSQUARECENTERW;
+      leftTopY=centerTopY;
+
+      leftBottomX=centerTopX-HITSQUAREBOTTOMW;
+      leftBottomY=centerTopY+HITSQUAREBOTTOMZ;
+
+      //draw coordinates for backwall
+      var drawThisLocation = perspectiveLocation(centerTopX,centerTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualCenterTopX = drawThisLocation.x
+      var visualCenterTopY = drawThisLocation.y
+      
+      var drawThisLocation = perspectiveLocation(centerBottomX,centerBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualcenterBottomX = drawThisLocation.x;
+      var visualcenterBottomY = drawThisLocation.y;      
+
+      var drawThisLocation = perspectiveLocation(rightTopX,rightTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualRightTopX = drawThisLocation.x;
+      var visualRightTopY = drawThisLocation.y;
+
+      var drawThisLocation = perspectiveLocation(leftTopX,leftTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualRightTopX = drawThisLocation.x;
+      var visualRightTopY = drawThisLocation.y;
+
+      var drawThisLocation = perspectiveLocation(rightBottomX,rightBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualLeftBottomX = drawThisLocation.x;
+      var visualLeftBottomY = drawThisLocation.y;      
+
+      var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualLeftBottomX = drawThisLocation.x;
+      var visualLeftBottomY = drawThisLocation.y;      
+
+      //mouse selection for back wall
+      var centerTopDrawn = perspectiveLocation(centerTopX,centerTopY,0);
+      var centerBottomDrawn = perspectiveLocation(centerBottomX,centerBottomY,0);
+      var rightTopDrawn =perspectiveLocation(rightTopX,rightTopY,0);
+      var rightBottomDrawn = perspectiveLocation(rightBottomX,rightBottomY,0);
+      var leftTopDrawn = perspectiveLocation(leftTopX,leftTopY,0);
+      var leftBottomDrawn=perspectiveLocation(leftBottomX,leftBottomY,0);
+
+      //determine target wall and its corner coordinates
+      //console.log(centerTopDrawn.x,rightTopDrawn.x,centerTopDrawn.y,centerBottomDrawn.y)
+      //console.log(mouseX>=centerTopDrawn.x && mouseX<=rightTopDrawn.x && mouseY>=centerTopDrawn.y && mouseY<=centerBottomDrawn.y)
+      if(mouseClickX>=centerTopDrawn.x && mouseClickX<=rightTopDrawn.x && mouseClickY>=centerTopDrawn.y && mouseClickY<=centerBottomDrawn.y){
+        this.targetBackWall=RIGHTBACKWALL;
+          var targetBackWall= targetBackWall;
+          var farX=rightTopDrawn.x;
+          var nearX=centerTopDrawn.x;
+          var farY=centerBottomDrawn.y;
+          var nearY=centerTopDrawn.y;
+      }
+      if(mouseClickX<centerTopDrawn.x && mouseClickX>=leftTopDrawn.x && mouseClickY>centerTopDrawn.y && mouseClickY<=leftBottomDrawn.y){
+        this.targetBackWall=LEFTBACKWALL;
+          targetBackWall= targetBackWall;
+          farX= leftTopDrawn.x;
+          nearX= centerTopDrawn.x;
+          farY=leftBottomDrawn.y;
+          nearY=centerTopDrawn.y;
+      }
+      //call function to draw the target wall
+      this.drawTargetBackWall(nearX,farX,nearY,farY);
+  }//end of function to target the back wall
+
     this.hitGraphicSelection=function(){
     var hereCollision = this.ballAtReach(this.x,this.y,BallClass.x,BallClass.y);
     var quadrantHit = hereCollision.quadrant;
@@ -136,13 +236,10 @@ function PlayerClass(){
       }
     }
    this.ballAtReach = function(playerPixelX, playerPixelY, ballPixelX,ballPixelY){
-      //segments of png to determine ball collision
       if(BallClass.z>PLAYER_MAX_HEIGHT_REACH){
         //console.log(BallClass.z)
         return {
           quadrant:0,
-          distToBallX:0,
-          distToBallY:0
         }
       }
       var quadrantHit;
@@ -194,20 +291,9 @@ function PlayerClass(){
       }
       if(quadrantHit!=TOPRIGHTQUADRANT && quadrantHit !=TOPLEFTQUADRANT && quadrantHit!=BOTTOMRIGHTQUADRANT && quadrantHit!= BOTTOMLEFTQUADRANT){
         quadrantHit=NOQUADRANTHIT;
-      }
-
-      //distance from raquet to ballX,Y
-      var distanceRaquetToBallX=BallClass.x-raquetPositionX;
-      var distanceRaquetToBallY=BallClass.y-raquetPositionY;
-
-      if(quadrantHit==TOPRIGHTQUADRANT){
-      }
-
-      //return [quadrantHit, distanceRaquetToBallX,distanceRaquetToBallY];
+      }      
       return {
         quadrant:quadrantHit,
-        distToBallX:distanceRaquetToBallX,
-        distToBallY:distanceRaquetToBallY
       }
     }
 
@@ -250,17 +336,6 @@ function PlayerClass(){
     var prevCollision = this.ballAtReach(this.x,this.y,prevX,prevY);
     var quadrantHit=hereCollision.quadrant;
     var prevQuadrantHit=prevCollision.quadrant;
-
-    //Shift the racket pic position to the ball if collision occurs
-    var raquetMeetShadowX=hereCollision.distToBallX;
-    var raquetMeetShadowY=hereCollision.distToBallY;
-    //console.log(quadrantHit,prevQuadrantHit)
-
-    //did the ball leave a playable quadrant? If so it's fair play
-    if(prevQuadrantHit == NOQUADRANTHIT){
-          prevQuadrantWasAHit=false;
-        }
-
 
     //check so player doesn't go outside the court
     if(nextX>=0 && nextX<=COURT_W-2)  {//COURT_W reduced by two so the racket doesn't paint black on canvas outside the court
