@@ -7,13 +7,33 @@ var PLAYER_MOVE_SPEED=2;
 const SPRINT_MULTIPLER = 3.0;
 const PLAYER_MAX_HEIGHT_REACH=15;
 
-//front wall sizing
+//player swing-quadrants
+const NOQUADRANTHIT = 0;
+const TOPRIGHTQUADRANT=1;
+const BOTTOMRIGHTQUADRANT=2;
+const BOTTOMLEFTQUADRANT=3;
+const TOPLEFTQUADRANT=4;
+
+//ballAtReach and playerHitWindowCoords functions constants to determine
+//the quadrant where the player swings. 
+const WINDOWXSCALE=0.02;//For Hit Window range: every real life 20% move across the Y axis, the X hit span visually decreases by 4%
 const SHIFTTOCENTERX = -3;
 const SHIFTTOCENTERY = 3;
 const HITSQUAREW=8;
 const HITSQUAREH=8;
 const SHIFTTORAQUETPOSITIONX=6;
 const SHIFTTORAQUETPOSITIONY=-5;
+
+//back wall sizing
+const HITSQUAREBOTTOMW=32;
+const HITSQUARECENTERW=42;
+const HITSQUAREBOTTOMZ=17;
+const BACKWALLCENTERZ=20;
+//back wall quadrants
+const NOBACKWALLSELECTED=0;
+const RIGHTBACKWALL=1;
+const LEFTBACKWALL=2;
+
 //front wall quadrants
 const NOFRONTWALLSELECTED=0;
 const TOPRIGHTFRONTWALL=1;
@@ -21,23 +41,19 @@ const BOTTOMRIGHTFRONTWALL=2;
 const BOTTOMLEFTFRONTWALL=3;
 const TOPLEFTFRONTWALL=4;
 
-//back wall sizing
-const HITSQUAREBOTTOMW=32;
-const HITSQUARECENTERW=42;
-const HITSQUAREBOTTOMZ=17;
-const centerZ=20;
-//back wall quadrants
-const NOBACKWALLSELECTED=0;
-const RIGHTBACKWALL=1;
-const LEFTBACKWALL=2;
+//court floor sizing
+const WALKTOPSQUAREW=71;
+const WALKBOTTOMSQUAREW=34;
+const WALKCENTERSQUAREW=39;
+const WALKTOPSQUAREZ=28;
+const WALKBOTTOMSQUAREZ=8;
+const WALKCENTERZ=14;
 
-const NOQUADRANTHIT = 0;
-const TOPRIGHTQUADRANT=1;
-const BOTTOMRIGHTQUADRANT=2;
-const BOTTOMLEFTQUADRANT=3;
-const TOPLEFTQUADRANT=4;
-
-const WINDOWXSCALE=0.02;//For Hit Window range: every real life 20% move across the Y axis, the X hit span visually decreases by 4%
+//court floor quadrants
+const TOPRIGHTCOURT=1;
+const TOPLEFTFCOURT=4;
+const BOTTOMRIGHTCOURT=2;
+const BOTTOMLEFTCOURT=3;
 
 var initYPosition=0;
 var whichPic;
@@ -80,12 +96,13 @@ function PlayerClass(){
     whichPic = p1_standing;
     this.isSwinging=false;
     this.targetBackWall=NOBACKWALLSELECTED;
+    this.backWallClicked = false;
   }
 
   this.drawPlayer = function(){
     var drawLocation = perspectiveLocation(this.x,this.y,0);
     
-    this.playerHitWindowCoords();
+    //this.playerHitWindowCoords();
     this.frontWallHitWindowCoords();
     var playerAnimationFrames = whichPic.width/PLAYER_W;
     if (playerFrameTimer-- < 0) {
@@ -131,7 +148,7 @@ function PlayerClass(){
     //on mouseclick checks whether backwall is selected as target
     this.selectBackWall = function(mouseClickX,mouseClickY){
       var centerTopX=COURT_W/2;
-      var centerTopY=COURT_L-centerZ;
+      var centerTopY=COURT_L-BACKWALLCENTERZ;
 
       centerBottomX=centerTopX;
       centerBottomY=centerTopY+HITSQUAREBOTTOMZ;
@@ -213,8 +230,8 @@ function PlayerClass(){
     this.hitGraphicSelection=function(){
     var hereCollision = this.ballAtReach(this.x,this.y,BallClass.x,BallClass.y);
     var quadrantHit = hereCollision.quadrant;
-
-      if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0){
+    
+    if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0){
         switch(quadrantHit){//maybe quadrantHit=0 in which case none called
               case TOPRIGHTQUADRANT:
                 whichPic = p1_shot_top_right;
@@ -329,14 +346,6 @@ function PlayerClass(){
       }
     }
 
-    //determine if ball is coming from a swingable quadrant. If yes, it would have been swang already and therefore no swing occurs here.
-    var prevX=BallClass.x-BallClass.speedX;
-    var prevY=BallClass.y-BallClass.speedY;
-    var hereCollision = this.ballAtReach(this.x,this.y,BallClass.x,BallClass.y);
-    var prevCollision = this.ballAtReach(this.x,this.y,prevX,prevY);
-    var quadrantHit=hereCollision.quadrant;
-    var prevQuadrantHit=prevCollision.quadrant;
-
     //check so player doesn't go outside the court
     if(nextX>=0 && nextX<=COURT_W-2)  {//COURT_W reduced by two so the racket doesn't paint black on canvas outside the court
       this.x=nextX;
@@ -420,13 +429,147 @@ this.targetFrontWall = function(ballPixelX,ballPixelY){
       }
   }//end of function to target the front wall
 
+//Playing court coordinates to located floor-quadrant where the player is swinging
+ this.playerIsHere = function(){
+      var centerX=COURT_W/2;
+      var centerY=0-centerZ;
+
+      centerTopX=centerX;
+      centerTopY=centerY-WALKTOPSQUAREZ;
+
+      centerBottomX=centerX;
+      centerBottomY=centerY+WALKBOTTOMSQUAREZ;
+
+      rightCenterX=centerX+WALKCENTERSQUAREW;
+      rightCenterY=centerY;
+
+      rightTopX=centerX+WALKTOPSQUAREW;
+      rightTopY=centerY-WALKTOPSQUAREZ;
+
+      rightBottomX=centerX+WALKBOTTOMSQUAREW;
+      rightBottomY=centerY+WALKBOTTOMSQUAREZ;
+
+      leftCenterX=centerX-WALKCENTERSQUAREW;
+      leftCenterY=centerY;
+
+      leftTopX=centerX-WALKTOPSQUAREW;
+      leftTopY=centerY-WALKTOPSQUAREZ;
+
+      leftBottomX=centerX-WALKBOTTOMSQUAREW;
+      leftBottomY=centerY+WALKBOTTOMSQUAREZ;
+
+      var drawThisLocation = perspectiveLocation(centerX,centerY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualCenterX = drawThisLocation.x
+      var visualCenterY = drawThisLocation.y
+
+      var drawThisLocation = perspectiveLocation(centerTopX,centerTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualCenterTopY = drawThisLocation.y
+
+      var drawThisLocation = perspectiveLocation(rightTopX,rightTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualRightTopX = drawThisLocation.x
+
+      var drawThisLocation = perspectiveLocation(rightCenterX,rightCenterY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualRightCenterX = drawThisLocation.x
+
+      var drawThisLocation = perspectiveLocation(rightBottomX,rightBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(centerBottomX,centerBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftCenterX,leftCenterY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftTopX,leftTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+
+      var distanceCenterXToRightCenterX= visualRightCenterX- visualCenterX
+      var distanceCenterYToCenterTopY= visualCenterTopY-visualCenterY
+  }//end of function
 
 
 
 
 //Drawing calculations
   //determine window range for racket hit: Draw only
-  this.playerHitWindowCoords = function(){
+  
+  //draws real life coordinates of front wall: Draw only
+  this.frontWallHitWindowCoords = function(){
+      const HITSQUARETOPW=71;
+      const HITSQUAREBOTTOMW=34;
+      const HITSQUARECENTERW=39;
+      const HITSQUARETOPZ=28;
+      const HITSQUAREBOTTOMZ=8;
+      const centerZ=14;
+
+      var centerX=COURT_W/2;
+      var centerY=0-centerZ;
+
+      centerTopX=centerX;
+      centerTopY=centerY-HITSQUARETOPZ;
+
+      centerBottomX=centerX;
+      centerBottomY=centerY+HITSQUAREBOTTOMZ;
+
+      rightCenterX=centerX+HITSQUARECENTERW;
+      rightCenterY=centerY;
+
+      rightTopX=centerX+HITSQUARETOPW;
+      rightTopY=centerY-HITSQUARETOPZ;
+
+      rightBottomX=centerX+HITSQUAREBOTTOMW;
+      rightBottomY=centerY+HITSQUAREBOTTOMZ;
+
+      leftCenterX=centerX-HITSQUARECENTERW;
+      leftCenterY=centerY;
+
+      leftTopX=centerX-HITSQUARETOPW;
+      leftTopY=centerY-HITSQUARETOPZ;
+
+      leftBottomX=centerX-HITSQUAREBOTTOMW;
+      leftBottomY=centerY+HITSQUAREBOTTOMZ;
+
+      var drawThisLocation = perspectiveLocation(centerX,centerY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualCenterX = drawThisLocation.x
+      var visualCenterY = drawThisLocation.y
+
+      var drawThisLocation = perspectiveLocation(centerTopX,centerTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualCenterTopY = drawThisLocation.y
+
+      var drawThisLocation = perspectiveLocation(rightTopX,rightTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualRightTopX = drawThisLocation.x
+
+      var drawThisLocation = perspectiveLocation(rightCenterX,rightCenterY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualRightCenterX = drawThisLocation.x
+
+      var drawThisLocation = perspectiveLocation(rightBottomX,rightBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(centerBottomX,centerBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftCenterX,leftCenterY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftTopX,leftTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+
+      var distanceCenterXToRightCenterX= visualRightCenterX- visualCenterX
+      var distanceCenterYToCenterTopY= visualCenterTopY-visualCenterY
+  }//end function to build front wall coords
+}//end PlayerClass
+
+
+//Possibly delete: function determines where the squash racket is so it can be shifted at swing
+//to make the swing transition visually less glitchy
+
+/*this.playerHitWindowCoords = function(){
       var centerX=this.x+SHIFTTOCENTERX;
       var centerY=this.y+SHIFTTOCENTERY;
       var scaleAdjustmentX = (1-this.y/initYPosition)*100*WINDOWXSCALE;
@@ -499,73 +642,4 @@ this.targetFrontWall = function(ballPixelX,ballPixelY){
       var visualThisX = drawThisLocation.x
       var visualThisY = drawThisLocation.y
       //end of function to determine window of racket hit
-  }
-
-  //draws real life coordinates of front wall: Draw only
-  this.frontWallHitWindowCoords = function(){
-      const HITSQUARETOPW=71;
-      const HITSQUAREBOTTOMW=34;
-      const HITSQUARECENTERW=39;
-      const HITSQUARETOPZ=28;
-      const HITSQUAREBOTTOMZ=8;
-      const centerZ=14;
-
-      var centerX=COURT_W/2;
-      var centerY=0-centerZ;
-
-      centerTopX=centerX;
-      centerTopY=centerY-HITSQUARETOPZ;
-
-      centerBottomX=centerX;
-      centerBottomY=centerY+HITSQUAREBOTTOMZ;
-
-      rightCenterX=centerX+HITSQUARECENTERW;
-      rightCenterY=centerY;
-
-      rightTopX=centerX+HITSQUARETOPW;
-      rightTopY=centerY-HITSQUARETOPZ;
-
-      rightBottomX=centerX+HITSQUAREBOTTOMW;
-      rightBottomY=centerY+HITSQUAREBOTTOMZ;
-
-      leftCenterX=centerX-HITSQUARECENTERW;
-      leftCenterY=centerY;
-
-      leftTopX=centerX-HITSQUARETOPW;
-      leftTopY=centerY-HITSQUARETOPZ;
-
-      leftBottomX=centerX-HITSQUAREBOTTOMW;
-      leftBottomY=centerY+HITSQUAREBOTTOMZ;
-
-      var drawThisLocation = perspectiveLocation(centerX,centerY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var visualCenterX = drawThisLocation.x
-      var visualCenterY = drawThisLocation.y
-
-      var drawThisLocation = perspectiveLocation(centerTopX,centerTopY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var visualCenterTopY = drawThisLocation.y
-
-      var drawThisLocation = perspectiveLocation(rightTopX,rightTopY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var visualRightTopX = drawThisLocation.x
-
-      var drawThisLocation = perspectiveLocation(rightCenterX,rightCenterY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var visualRightCenterX = drawThisLocation.x
-
-      var drawThisLocation = perspectiveLocation(rightBottomX,rightBottomY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var drawThisLocation = perspectiveLocation(centerBottomX,centerBottomY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var drawThisLocation = perspectiveLocation(leftCenterX,leftCenterY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var drawThisLocation = perspectiveLocation(leftTopX,leftTopY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-
-      var distanceCenterXToRightCenterX= visualRightCenterX- visualCenterX
-      var distanceCenterYToCenterTopY= visualCenterTopY-visualCenterY
-  }//end function to build front wall coords
-}//end PlayerClass
+  }*/

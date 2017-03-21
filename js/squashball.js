@@ -29,6 +29,7 @@ function BallClass(){
     this.speedX = 1;
     this.speedY = 2;
     this.bouncedOnFrontWall=true;
+    this.bouncedOnBackWall=true;
     this.bouncedOnFloor=true;
     this.canBeHit=true;
   }
@@ -62,42 +63,94 @@ function BallClass(){
     var quadrantHit=hereCollision.quadrant;
     var prevQuadrantHit=prevCollision.quadrant;
 
+    console.log(PlayerClass.backWallClicked)
     if(this.bouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0){          
       this.bouncedOnFloor=false;
       this.bouncedOnFrontWall=false;
-      //prevQuadrantWasAHit=true;
-      
-      switch(quadrantHit){
-            //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
-            case TOPRIGHTQUADRANT:
-              if(prevY<this.y){
-              this.speedY*=-1;
-              this.zv=1;
-              } else {
-                this.zv=1;  
-                }
-              break;
-            case TOPLEFTQUADRANT:
-              if(prevY<this.y){
-              this.speedY*=-1;
-              this.zv=1;
-              } else {
-                this.zv=1;  
-                }
-              break;
-            case BOTTOMRIGHTQUADRANT:
-              //this.speedY*=-1;
-              this.zv=1;
-              break;
-            case BOTTOMLEFTQUADRANT:
-              //this.speedY*=-1;
-              this.zv=1;
-              break;
-            default: //shouldn't be reached
-            console.log("error, invalid quadrant squashball.js")
-              break;  
-        }
-        
+      this.bouncedOnBackWall=false;
+      //Back Wall is a target swing
+        if(PlayerClass.backWallClicked){
+          PlayerClass.backWallClicked=false;
+          switch(quadrantHit){
+                //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
+                case TOPRIGHTQUADRANT:
+                  if(prevY>this.y){
+                  this.speedY*=-1;
+                  this.zv=1;
+                  } else {
+                    this.zv=1;  
+                    }
+                  break;
+                case TOPLEFTQUADRANT:
+                  if(prevY>this.y){
+                  this.speedY*=-1;
+                  this.zv=1;
+                  } else {
+                    this.zv=1;  
+                    }
+                  break;
+                case BOTTOMRIGHTQUADRANT:
+                  if(prevY>this.y){
+                  this.speedY*=-1;
+                  this.zv=1;
+                  } else {
+                    this.zv=1;  
+                    }
+                  this.zv=1;
+                  break;
+                case BOTTOMLEFTQUADRANT:
+                  if(prevY>this.y){
+                  this.speedY*=-1;
+                  this.zv=1;
+                  } else {
+                    this.zv=1;  
+                    }
+                  break;
+                default: //shouldn't be reached
+                console.log("error, invalid quadrant squashball.js")
+                  break;  
+            }  
+          } else {
+          //Back Wall is not a target swing
+              switch(quadrantHit){
+                    //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
+                    case TOPRIGHTQUADRANT:
+                      if(prevY<this.y){
+                      this.speedY*=-1;
+                      this.zv=1;
+                      } else {
+                        this.zv=1;  
+                        }
+                      break;
+                    case TOPLEFTQUADRANT:
+                      if(prevY<this.y){
+                      this.speedY*=-1;
+                      this.zv=1;
+                      } else {
+                        this.zv=1;  
+                        }
+                      break;
+                    case BOTTOMRIGHTQUADRANT:
+                      if(prevY<this.y){
+                      this.speedY*=-1;
+                      this.zv=1;
+                      } else {
+                        this.zv=1;  
+                        }
+                      break;
+                    case BOTTOMLEFTQUADRANT:
+                      if(prevY<this.y){
+                      this.speedY*=-1;
+                      this.zv=1;
+                      } else {
+                        this.zv=1;  
+                        }
+                      break;
+                    default: //shouldn't be reached
+                    console.log("error, invalid quadrant squashball.js")
+                      break;  
+              }
+          }
     }
 
     //wall bouncing mechanics:
@@ -131,6 +184,7 @@ function BallClass(){
     }
     if(this.nextY>COURT_L){
       this.speedY*=-1;
+      this.bouncedOnBackWall=true;
     }
 
     this.x += this.speedX;

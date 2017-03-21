@@ -89,7 +89,8 @@ function drawAll() {
 	BallClass.drawShadow();
   BallClass.drawInAir();
 	PlayerClass.drawPlayer();
-  PlayerClass.drawTargetFrontWall();
+  //PlayerClass.drawTargetFrontWall();
+  //PlayerClass.selectBackWall();//shows backwal coords on screen
 	drawUI();
   //colorText(Math.floor(mouseX)+","+Math.floor(mouseY), mouseX,mouseY,'blue');
   //colorRect(0,0,64,97,"orange");//real life court
