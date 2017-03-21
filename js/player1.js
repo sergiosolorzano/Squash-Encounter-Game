@@ -4,6 +4,7 @@ var playerFrameTimer = 2;//how quick it changes between frames
 const PLAYER_H=55;
 const PLAYER_W=55;
 var PLAYER_MOVE_SPEED=2;
+const SPRINT_MULTIPLER = 3.0;
 const PLAYER_MAX_HEIGHT_REACH=15;
 
 const SHIFTTOCENTERX = -3;
@@ -31,46 +32,51 @@ var initYPosition=0;
 var whichPic;
 
 function playerOneClass(){
-  
+
+  this.sprintMultiplier = 1;
+
   this.keyHeld_Gas = false;
   this.keyHeld_Reverse = false;
   this.keyHeld_TurnLeft = false;
   this.keyHeld_TurnRight = false;
   this.keyHeld_Shoot = false;
-  
+  this.keyHeld_Sprint = false;
+
   this.controlKeyUp;
   this.controlKeyRight;
   this.controlKeyDown;
   this.controlKeyLeft;
   this.controlKeyShoot;
-  
-  this.initInput = function (upKey, rightKey, downKey, leftKey,shootKey){
+  this.controlKeySprint;
+
+  this.initInput = function (upKey, rightKey, downKey, leftKey,shootKey, sprintKey){
   this.controlKeyUp = upKey;
   this.controlKeyRight = rightKey;
   this.controlKeyDown= downKey;
   this.controlKeyLeft = leftKey;
   this.controlKeyShoot = shootKey;
+  this.controlKeySprint = sprintKey;
   }
 
   this.Init = function(){
-    this.Reset(); 
+    this.Reset();
   }
 
   this.Reset = function(){
     this.x=COURT_W*0.2;
     initYPosition=COURT_L*0.4
     this.y=initYPosition;
-    whichPic = p1_standing;  
-    this.isSwinging=false; 
+    whichPic = p1_standing;
+    this.isSwinging=false;
   }
-    
+
   this.drawPlayer = function(){
     var drawLocation = perspectiveLocation(this.x,this.y,0);
     //game crashes with this
     //if(this.keyHeld_Gas==false || this.keyHeld_Reverse==false ||  this.keyHeld_TurnLeft== false || this.keyHeld_TurnRight== false || this.keyHeld_Shoot==false){
      // whichPic=p1_standing
     //}
-    
+
     this.playerHitWindowCoords();
     this.frontWallHitWindowCoords();
     var playerAnimationFrames = whichPic.width/PLAYER_W;
@@ -80,8 +86,8 @@ function playerOneClass(){
     }
     if (playerFrame >= playerAnimationFrames) {
           playerFrame = 0;
-          whichPic = p1_standing; 
-          this.isSwinging=false; 
+          whichPic = p1_standing;
+          this.isSwinging=false;
       }
     drawAtBaseSheetSprite(whichPic, playerFrame, drawLocation.x, drawLocation.y);
   }
@@ -106,12 +112,12 @@ function playerOneClass(){
     this.hitGraphicSelection=function(){
     var hereCollision = this.ballAtReach(this.x,this.y,p1.x,p1.y);
     var quadrantHit = hereCollision.quadrant;
-    
+
       if(p1.bouncedOnFloor && p1.bouncedOnFrontWall && quadrantHit!=0){
         switch(quadrantHit){//maybe quadrantHit=0 in which case none called
               case TOPRIGHTQUADRANT:
                 whichPic = p1_shot_top_right;
-                this.isSwinging=true;          
+                this.isSwinging=true;
                 break;
               case TOPLEFTQUADRANT:
                 whichPic = p1_shot_top_left;
@@ -136,7 +142,7 @@ function playerOneClass(){
           quadrant:0,
           distToBallX:0,
           distToBallY:0
-        } 
+        }
       }
       var quadrantHit;
       var centerX=playerPixelX+SHIFTTOCENTERX;
@@ -148,7 +154,7 @@ function playerOneClass(){
 
       centerBottomX=centerX;
       centerBottomY=centerY+HITSQUAREH;
-      
+
       rightCenterX=centerX+HITSQUAREW+scaleAdjustmentX;
       rightCenterY=centerY;
 
@@ -160,7 +166,7 @@ function playerOneClass(){
 
       leftCenterX=centerX-HITSQUAREW-scaleAdjustmentX;
       leftCenterY=centerY;
-      
+
       leftTopX=centerX-HITSQUAREW-scaleAdjustmentX;
       leftTopY=centerY-HITSQUAREH;
 
@@ -188,11 +194,11 @@ function playerOneClass(){
       if(quadrantHit!=TOPRIGHTQUADRANT && quadrantHit !=TOPLEFTQUADRANT && quadrantHit!=BOTTOMRIGHTQUADRANT && quadrantHit!= BOTTOMLEFTQUADRANT){
         quadrantHit=NOQUADRANTHIT;
       }
-      
+
       //distance from raquet to ballX,Y
       var distanceRaquetToBallX=p1.x-raquetPositionX;
       var distanceRaquetToBallY=p1.y-raquetPositionY;
-      
+
       if(quadrantHit==TOPRIGHTQUADRANT){
       }
 
@@ -207,23 +213,30 @@ function playerOneClass(){
   this.movePlayer = function(){
     var nextX = this.x;
     var nextY = this.y;
-    
+
     this.hitGraphicSelection();
     if(this.isSwinging==false){
+      if(this.keyHeld_Sprint){
+        this.sprintMultiplier = SPRINT_MULTIPLER;
+      } else {
+        this.sprintMultiplier = 1;
+      }
+        //TODO might need to reset this.sprintMultiplier
+
       if(this.keyHeld_Gas){
-                  nextY -= PLAYER_MOVE_SPEED;
+                  nextY -= PLAYER_MOVE_SPEED * this.sprintMultiplier;
                   whichPic = p1_running;
       }
       if(this.keyHeld_Reverse){
-                  nextY += PLAYER_MOVE_SPEED;
+                  nextY += PLAYER_MOVE_SPEED * this.sprintMultiplier;
                   whichPic = p1_running;
       }
       if(this.keyHeld_TurnLeft){
-                  nextX -= PLAYER_MOVE_SPEED;
+                  nextX -= PLAYER_MOVE_SPEED * this.sprintMultiplier;
                   whichPic = p1_running;
       }
       if(this.keyHeld_TurnRight){
-                  nextX+= PLAYER_MOVE_SPEED
+                  nextX+= PLAYER_MOVE_SPEED * this.sprintMultiplier;
                   whichPic = p1_running;
       }
     }
@@ -245,8 +258,8 @@ function playerOneClass(){
     if(prevQuadrantHit == NOQUADRANTHIT){
           prevQuadrantWasAHit=false;
         }
-    
-    
+
+
     //check so player doesn't go outside the court
     if(nextX>=0 && nextX<=COURT_W-2)  {//COURT_W reduced by two so the racket doesn't paint black on canvas outside the court
       this.x=nextX;
@@ -254,7 +267,7 @@ function playerOneClass(){
 
     if(nextY>=0 && nextY<=COURT_L-8.2)  {//COURT_H reduced by two so the racket doesn't paint black on canvas outside the court
       this.y=nextY;
-    }   
+    }
   }
 
 //on mouse target front wall
@@ -269,13 +282,13 @@ this.targetFrontWall = function(ballPixelX,ballPixelY){
 
       var centerX=COURT_W/2;
       var centerY=0-centerZ;
-      
+
       centerTopX=centerX;
       centerTopY=centerY-HITSQUARETOPZ;
 
       centerBottomX=centerX;
       centerBottomY=centerY+HITSQUAREBOTTOMZ;
-      
+
       rightCenterX=centerX+HITSQUARECENTERW;
       rightCenterY=centerY;
 
@@ -287,7 +300,7 @@ this.targetFrontWall = function(ballPixelX,ballPixelY){
 
       leftCenterX=centerX-HITSQUARECENTERW;
       leftCenterY=centerY;
-      
+
       leftTopX=centerX-HITSQUARETOPW;
       leftTopY=centerY-HITSQUARETOPZ;
 
@@ -346,7 +359,7 @@ this.targetFrontWall = function(ballPixelX,ballPixelY){
 
       centerBottomX=centerX;
       centerBottomY=centerY+HITSQUAREH;
-      
+
       rightCenterX=centerX+HITSQUAREW+scaleAdjustmentX;
       rightCenterY=centerY;
 
@@ -358,7 +371,7 @@ this.targetFrontWall = function(ballPixelX,ballPixelY){
 
       leftCenterX=centerX-HITSQUAREW-scaleAdjustmentX;
       leftCenterY=centerY;
-      
+
       leftTopX=centerX-HITSQUAREW-scaleAdjustmentX;
       leftTopY=centerY-HITSQUAREH;
 
@@ -422,13 +435,13 @@ this.targetFrontWall = function(ballPixelX,ballPixelY){
 
       var centerX=COURT_W/2;
       var centerY=0-centerZ;
-      
+
       centerTopX=centerX;
       centerTopY=centerY-HITSQUARETOPZ;
 
       centerBottomX=centerX;
       centerBottomY=centerY+HITSQUAREBOTTOMZ;
-      
+
       rightCenterX=centerX+HITSQUARECENTERW;
       rightCenterY=centerY;
 
@@ -440,7 +453,7 @@ this.targetFrontWall = function(ballPixelX,ballPixelY){
 
       leftCenterX=centerX-HITSQUARECENTERW;
       leftCenterY=centerY;
-      
+
       leftTopX=centerX-HITSQUARETOPW;
       leftTopY=centerY-HITSQUARETOPZ;
 
@@ -479,4 +492,3 @@ this.targetFrontWall = function(ballPixelX,ballPixelY){
       var distanceCenterYToCenterTopY= visualCenterTopY-visualCenterY
   }//end function to build front wall coords
 }//end playerClass
-

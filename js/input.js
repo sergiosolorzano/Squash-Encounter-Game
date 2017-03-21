@@ -4,6 +4,8 @@ const KEY_A = 65;
 const KEY_D = 68;
 
 const KEY_SPACE = 32;
+const KEY_LEFT_SHIFT = 16;
+
 var mouseX = 0;
 var mouseY = 0;
 
@@ -11,7 +13,7 @@ function initInput() {
   canvas.addEventListener('mousemove', updateMousePos);
   document.addEventListener('keydown', keyPressed);
   document.addEventListener('keyup', keyReleased);
-  p2.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE);
+  p2.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_LEFT_SHIFT);
 }
 
 function updateMousePos(evt) {
@@ -43,6 +45,9 @@ if(keyEvent.keyCode == whichPlayer.controlKeyLeft) {
   }
   if(keyEvent.keyCode == whichPlayer.controlKeyShoot) {
     whichPlayer.keyHeld_Shoot = setTo;
+  }
+  if(keyEvent.keyCode == whichPlayer.controlKeySprint) {
+    whichPlayer.keyHeld_Sprint = setTo;
   }
   }
 
