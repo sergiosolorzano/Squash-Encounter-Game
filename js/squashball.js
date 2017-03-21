@@ -14,7 +14,7 @@ var ballSinkRate = 0.03;
 var lenghtCourt=440;
 var prevQuadrantWasAHit = false;
 
-function ballClass(){
+function BallClass(){
   
   this.Init = function(){
     this.Reset(); 
@@ -57,8 +57,8 @@ function ballClass(){
     //determine if ball is coming from a swingable quadrant. If yes, it would have been swang already and therefore no swing occurs here.
     var prevX=this.x-this.speedX;
     var prevY=this.y-this.speedY;
-    var hereCollision = playerClass.ballAtReach(playerClass.x,playerClass.y,this.x,this.y);
-    var prevCollision = playerClass.ballAtReach(playerClass.x,playerClass.y,prevX,prevY);
+    var hereCollision = PlayerClass.ballAtReach(PlayerClass.x,PlayerClass.y,this.x,this.y);
+    var prevCollision = PlayerClass.ballAtReach(PlayerClass.x,PlayerClass.y,prevX,prevY);
     var quadrantHit=hereCollision.quadrant;
     var prevQuadrantHit=prevCollision.quadrant;
     //console.log(quadrantHit,prevQuadrantHit)
@@ -131,4 +131,4 @@ function ballClass(){
     this.x += this.speedX;
     this.y += this.speedY;
   }
-}//end ballClass
+}//end BallClass

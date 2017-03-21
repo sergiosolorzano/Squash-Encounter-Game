@@ -13,7 +13,7 @@ function initInput() {
   canvas.addEventListener('mousemove', updateMousePos);
   document.addEventListener('keydown', keyPressed);
   document.addEventListener('keyup', keyReleased);
-  playerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_LEFT_SHIFT);
+  PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_LEFT_SHIFT);
 }
 
 function updateMousePos(evt) {
@@ -53,11 +53,11 @@ if(keyEvent.keyCode == whichPlayer.controlKeyLeft) {
 
 function keyPressed(evt) {
   //console.log("Key pressed: "+evt.keyCode);
-  keySet(evt, playerClass, true);
+  keySet(evt, PlayerClass, true);
   evt.preventDefault();
 }
 
 function keyReleased(evt) {
   // console.log("Key pressed: "+evt.keyCode);
-  keySet(evt, playerClass,false);
+  keySet(evt, PlayerClass,false);
 }
