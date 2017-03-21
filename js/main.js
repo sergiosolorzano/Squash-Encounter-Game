@@ -51,18 +51,18 @@ window.onload = function() {
     var wallHeightHere = (1.0-percTowardNear) * wallHeightFar + percTowardNear * wallHeightNear;
     var courtHeightHere = (pixelZ/COURT_T)*wallHeightHere;
     visualLocation.z=courtHeightHere;
-    
+
     return visualLocation;
   }
 
-function imageLoadingDoneSoStartGame() { 
+function imageLoadingDoneSoStartGame() {
   var framesPerSecond = 30;
   setInterval(function() {
       moveAll();
       drawAll();
     }, 1000/framesPerSecond);
-  loadLevel();  
-  initInput();  
+  loadLevel();
+  initInput();
 }
 
 function loadLevel() {
@@ -90,6 +90,7 @@ function drawAll() {
   p1.drawInAir();
 	p2.drawPlayer();
   p2.drawTargetFrontWall();
+	drawUI();
   //colorRect(0,0,64,97,"orange");//real life court
   //colorRect(p1.x,p1.y,3,3,"green");////real life ball
 }

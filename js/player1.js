@@ -34,6 +34,7 @@ var whichPic;
 function playerOneClass(){
 
   this.sprintMultiplier = 1;
+  this.sprintStamina = 50;
 
   this.keyHeld_Gas = false;
   this.keyHeld_Reverse = false;
@@ -218,6 +219,7 @@ function playerOneClass(){
     if(this.isSwinging==false){
       if(this.keyHeld_Sprint){
         this.sprintMultiplier = SPRINT_MULTIPLER;
+        this.sprintStamina--;
       } else {
         this.sprintMultiplier = 1;
       }
