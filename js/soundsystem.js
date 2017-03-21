@@ -5,13 +5,16 @@
 
 "use strict";
 
-var SoundSystem = (function () {
+var Sound = new SoundSystem(); // global
+
+function SoundSystem() {
 
 	var mute = false;	// if true ignore all play()
 	var music = null;	// one looping Howl() object
   	var sounds = [];	// an array of Howl() objects
+	var atlas = null;	// one big sound sprite
 
-	var play = function(samplename,looping,vol) 
+	this.play = function(samplename,looping,vol) 
 	{
 		if (mute) return;
 		if (looping==null) looping = false;
@@ -35,16 +38,62 @@ var SoundSystem = (function () {
 		sounds[samplename].play();
 	}
 	
-	var init = function()
+	function init()
 	{
-		// TODO: normally a game should not auto play sound but 
-		play("music",true,0.5); // looping quite music
-		
-		// test voiceover intro
-		//play("Wendy_B_Loon_Intro_Cinematic_VO"); // once only
+		// squash encounter uses a sound atlas:
+		// so it downloads one mp3 file, not 25.
+		// we define multiple "sound sprites" of our
+		// samples which are spaced apart 1.2 seconds
+		atlas = new Howl({
+		  src: [
+			'audio/squash-sound-atlas.ogg',
+			'audio/squash-sound-atlas.mp3',
+			'audio/squash-sound-atlas.webm'],
+		  pool:10, // how many concurrent sounds max
+		  volume:0.25, // quieter. (the range is 0 to 1)
+		  sprite: {
+			// start, length in ms 
+			hit1: [1200*0, 1200],
+			hit2: [1200*1, 1200],
+			hit3: [1200*2, 1200],
+			hit4: [1200*3, 1200],
+			hit5: [1200*4, 1200],
+			wall1: [1200*5, 1200],
+			wall2: [1200*6, 1200],
+			wall3: [1200*7, 1200],
+			wall4: [1200*8, 1200],
+			wall5: [1200*9, 1200],
+			bounce1: [1200*10, 1200],
+			bounce2: [1200*11, 1200],
+			bounce3: [1200*12, 1200],
+			bounce4: [1200*13, 1200],
+			bounce5: [1200*14, 1200],
+			shoe1: [1200*15, 1200],
+			shoe2: [1200*16, 1200],
+			shoe3: [1200*17, 1200],
+			shoe4: [1200*18, 1200],
+			shoe5: [1200*19, 1200],
+			shoe6: [1200*20, 1200],
+			shoe7: [1200*21, 1200],
+			shoe8: [1200*22, 1200],
+			shoe9: [1200*23, 1200],
+			shoe10: [1200*24, 1200]
+		  }
+		});
+
 	}
+	
+	// inclusive: eg 1,10 may include 1 or 10
+	function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+	
+	// shortcuts for squash encounter. example:
+	// Sound.hit(); // randomly play a hit sound
+	this.hit = function() { atlas.play('hit'+randomInt(1,5)); }
+	this.wall = function() { atlas.play('wall'+randomInt(1,5)); }
+	this.bounce = function() { atlas.play('bounce'+randomInt(1,5)); }
+	this.shoe = function() { atlas.play('shoe'+randomInt(1,10)); }
 	
 	init();
 	
-})();
+}
 
