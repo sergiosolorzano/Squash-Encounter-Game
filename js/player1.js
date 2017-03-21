@@ -234,18 +234,22 @@ function PlayerClass(){
               case TOPRIGHTQUADRANT:
                 whichPic = p1_shot_top_right;
                 this.isSwinging=true;
+				Sound.hit();
                 break;
               case TOPLEFTQUADRANT:
                 whichPic = p1_shot_top_left;
                 this.isSwinging=true;
+				Sound.hit();
                 break;
               case BOTTOMRIGHTQUADRANT:
                 whichPic = p1_shot_bottom_right;
                 this.isSwinging=true;
+				Sound.hit();
                 break;
               case BOTTOMLEFTQUADRANT:
                 whichPic = p1_shot_bottom_left;
                 this.isSwinging=true;
+				Sound.hit();
                 break;
         }
       }

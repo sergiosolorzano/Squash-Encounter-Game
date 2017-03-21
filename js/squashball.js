@@ -165,12 +165,14 @@ function BallClass(){
     if(this.z>COURT_T){//hit ceiling
       this.z=COURT_T;
       this.zv*=-1;
+	  Sound.bounce();
     }
 
     if(this.z <= 0) {
       this.zv*=-0.7;
       this.z = 0;
       this.bouncedOnFloor=true;
+	  Sound.bounce();
     }
     
     this.nextX=this.x+this.speedX;
@@ -181,15 +183,18 @@ function BallClass(){
     }
     if(this.nextX>COURT_W){
       this.speedX*=-1;
+	  Sound.wall();
     }
 
     if(this.nextY<0)  {
       this.speedY*=-1;
       this.bouncedOnFrontWall=true;
+	  Sound.wall();
     }
     if(this.nextY>COURT_L){
       this.speedY*=-1;
       this.bouncedOnBackWall=true;
+	  Sound.wall();
     }
 
     this.x += this.speedX;
