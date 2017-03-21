@@ -63,7 +63,7 @@ function BallClass(){
     var prevQuadrantHit=prevCollision.quadrant;
     //console.log(quadrantHit,prevQuadrantHit)
     
-    console.log(this.z)
+    //console.log(this.z)
     if(this.bouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0){          
       this.bouncedOnFloor=false;
       this.bouncedOnFrontWall=false;
