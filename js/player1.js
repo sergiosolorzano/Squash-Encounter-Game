@@ -34,6 +34,10 @@ const NOBACKWALLSELECTED=0;
 const RIGHTBACKWALL=1;
 const LEFTBACKWALL=2;
 
+//quadrant where player is standing
+const RIGHTCOURTQUADRANT=1;
+const LEFTCOURTQUADRANT=2;
+
 //front wall quadrants
 const NOFRONTWALLSELECTED=0;
 const TOPRIGHTFRONTWALL=1;
@@ -47,12 +51,6 @@ const WALKBOTTOMSQUAREW=35;
 const WALKCENTERSQUAREW=35;
 const WALKTOPSQUAREY=39;
 const WALKBOTTOMSQUAREY=58;
-
-//court floor quadrants
-const TOPRIGHTCOURTQUAD=1;
-const TOPLEFTFCOURTQUAD=4;
-const BOTTOMRIGHTCOURTQUAD=2;
-const BOTTOMLEFTCOURTQUAD=3;
 
 var initYPosition=COURT_L*0.4;
 var whichPic;
@@ -92,9 +90,10 @@ function PlayerClass(){
     this.x=COURT_W*0.2;
     this.y=initYPosition;
     whichPic = p1_standing;
-    this.isSwinging=false;
+    this.isSwinging=false;//used so player does not run if gif showing it's swinging the racket
     this.targetBackWall=NOBACKWALLSELECTED;
     this.backWallClicked = false;
+    this.playerStandingOnCourtQuadrant=LEFTCOURTQUADRANT;
   }
 
   this.drawPlayer = function(){
@@ -203,11 +202,8 @@ function PlayerClass(){
       var leftBottomDrawn=perspectiveLocation(leftBottomX,leftBottomY,0);
 
       //determine target wall and its corner coordinates
-      //console.log(centerTopDrawn.x,rightTopDrawn.x,centerTopDrawn.y,centerBottomDrawn.y)
-      //console.log(mouseX>=centerTopDrawn.x && mouseX<=rightTopDrawn.x && mouseY>=centerTopDrawn.y && mouseY<=centerBottomDrawn.y)
       if(mouseClickX>=centerTopDrawn.x && mouseClickX<=rightTopDrawn.x && mouseClickY>=centerTopDrawn.y && mouseClickY<=centerBottomDrawn.y){
         this.targetBackWall=RIGHTBACKWALL;
-          var targetBackWall= targetBackWall;
           var farX=rightTopDrawn.x;
           var nearX=centerTopDrawn.x;
           var farY=centerBottomDrawn.y;
@@ -215,7 +211,6 @@ function PlayerClass(){
       }
       if(mouseClickX<centerTopDrawn.x && mouseClickX>=leftTopDrawn.x && mouseClickY>centerTopDrawn.y && mouseClickY<=leftBottomDrawn.y){
         this.targetBackWall=LEFTBACKWALL;
-          targetBackWall= targetBackWall;
           farX= leftTopDrawn.x;
           nearX= centerTopDrawn.x;
           farY=leftBottomDrawn.y;
@@ -234,22 +229,22 @@ function PlayerClass(){
               case TOPRIGHTQUADRANT:
                 whichPic = p1_shot_top_right;
                 this.isSwinging=true;
-				Sound.hit();
+				//Sound.hit();
                 break;
               case TOPLEFTQUADRANT:
                 whichPic = p1_shot_top_left;
                 this.isSwinging=true;
-				Sound.hit();
+				//Sound.hit();
                 break;
               case BOTTOMRIGHTQUADRANT:
                 whichPic = p1_shot_bottom_right;
                 this.isSwinging=true;
-				Sound.hit();
+				//Sound.hit();
                 break;
               case BOTTOMLEFTQUADRANT:
                 whichPic = p1_shot_bottom_left;
                 this.isSwinging=true;
-				Sound.hit();
+				//Sound.hit();
                 break;
         }
       }
@@ -328,6 +323,7 @@ function PlayerClass(){
       }
         //TODO might need to reset this.sprintMultiplier
 
+    if(this.isSwinging==false){
       if(this.keyHeld_Gas){
                   nextY -= PLAYER_MOVE_SPEED * this.sprintMultiplier;
                   whichPic = p1_running;
@@ -345,6 +341,7 @@ function PlayerClass(){
                   whichPic = p1_running;
       }
     }
+  }
     //check so player doesn't go outside the court
     if(nextX>=0 && nextX<=COURT_W-2)  {//COURT_W reduced by two so the racket doesn't paint black on canvas outside the court
       this.x=nextX;
@@ -356,7 +353,6 @@ function PlayerClass(){
 
 //Playing court coordinates to located floor-quadrant where the player is swinging
  this.GradientShotToBackWall = function(){
-      var courtQuadrantAtSwing;
       var centerX=COURT_W/2;
       var centerY=COURT_L*0.38;
 
@@ -410,30 +406,39 @@ function PlayerClass(){
       colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");*/
 
       //determine X point target and radiants to shoot to backwall on swing
+      //what court quadrant is player standing:
+      
       var targetXOnBackWall;
-      switch(this.targetBackWall){
-        case RIGHTBACKWALL:
-          targetXOnBackWall=centerBottomX+(rightBottomX-this.x)/2;
-          distPlayerToTargetX=targetXOnBackWall-this.x;
-          distPlayerToBackWall=centerBottomY-this.y;
-          var tanResult=Math.tan(distPlayerToTargetX/distPlayerToBackWall);
-          var degreeTarget=Math.atan(tanResult);
-          console.log(degreeTarget)
-          var ang=degreeTarget*Math.PI/180;
-          return ang;
-          break;
-
-        case LEFTBACKWALL:
-          targetXOnBackWall=centerBottomX-(this.x-leftBottomX)/2;
-          distPlayerToTargetX=this.x-targetXOnBackWall;
-          distPlayerToBackWall=centerBottomY-this.y;
-          var tanResult=Math.tan(distPlayerToTargetX/distPlayerToBackWall);
-          var degreeTarget=Math.atan(tanResult);
-          console.log(degreeTarget);
-          var ang=degreeTarget*Math.PI/180;
-          return ang;
-          break;
-      }
+        if(this.targetBackWall==RIGHTBACKWALL){
+            targetXOnBackWall=centerBottomX+(rightBottomX-this.x)/2;
+            distPlayerToTargetX=targetXOnBackWall-this.x;//opposite side of triangle
+            distPlayerToBackWallY=centerBottomY-this.y;//adjacent side of triangle
+            var atanResult=Math.atan(distPlayerToTargetX/distPlayerToBackWallY);//radians
+            var degreeTarget=atanResult*180/Math.PI;
+            //console.log(atanResult,degreeTarget);
+            var ballAng=atanResult;
+        }
+        if(this.targetBackWall==LEFTBACKWALL){
+            targetXOnBackWall=centerBottomX-(this.x-leftBottomX)/2;
+            distPlayerToTargetX=this.x-targetXOnBackWall;
+            distPlayerToBackWallY=centerBottomY-this.y;
+            var atanResult=Math.atan(distPlayerToTargetX/distPlayerToBackWallY);//radians
+            var degreeTarget=atanResult*180/Math.PI;
+            var ballAng=atanResult;
+        }
+        //what quadrant is player standing
+        if(this.x>=centerX){
+          this.playerStandingOnCourtQuadrant=RIGHTCOURTQUADRANT;
+        } else {
+          this.playerStandingOnCourtQuadrant=LEFTCOURTQUADRANT;
+        }
+        
+      return {
+        ballAng:ballAng,
+        playerOnThisCourtQuad:this.playerStandingOnCourtQuadrant,
+        tgtBackWall:this.targetBackWall
+      };
+      
   }//end of function
 
 //on mouse target front wall

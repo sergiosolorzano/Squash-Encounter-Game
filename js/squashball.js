@@ -61,27 +61,50 @@ function BallClass(){
     var hereCollision = PlayerClass.ballAtReach(PlayerClass.x,PlayerClass.y,this.x,this.y);
     var quadrantHit=hereCollision.quadrant;
 
-    //radiants to hit backwall
-    var ang = PlayerClass.GradientShotToBackWall();
-
-
+    //radians to hit backwall quadrant
+    var targetBackWallVars=PlayerClass.GradientShotToBackWall();
+    var ballAng;
+    var playerStandHereQuad=targetBackWallVars.playerOnThisCourtQuad;
+    var targetBackWallQuadrant=targetBackWallVars.tgtBackWall;
+    
+    if(targetBackWallQuadrant==RIGHTBACKWALL && playerStandHereQuad==RIGHTCOURTQUADRANT){
+      ballAng=Math.PI/2
+    }
+    if(targetBackWallQuadrant==LEFTBACKWALL && playerStandHereQuad==LEFTCOURTQUADRANT){
+      ballAng=Math.PI/2;
+    }
+    if (targetBackWallQuadrant==RIGHTBACKWALL && playerStandHereQuad==LEFTCOURTQUADRANT){
+      ballAng=Math.PI/2+targetBackWallVars.ballAng;
+    }
+    if (targetBackWallQuadrant==LEFTBACKWALL && playerStandHereQuad==RIGHTCOURTQUADRANT){
+      ballAng=Math.PI/2+targetBackWallVars.ballAng;
+    }
+    
+    //swing takes place, target front or back wall
     if(this.bouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0){          
       this.bouncedOnFloor=false;
       this.bouncedOnFrontWall=false;
       this.bouncedOnBackWall=false;
       
       //Back Wall is a target swing
+      var degreeTarget=ballAng*180/Math.PI;
+      //console.log("ang",ballAng,"degrees",degreeTarget,"targetbackWall",targetBackWallQuadrant,"playerQuad",playerStandHereQuad)
         if(PlayerClass.backWallClicked){
           PlayerClass.backWallClicked=false;
-          
-
-          //this.x += Math.cos(this.ang) * this.speed;
-
-          switch(quadrantHit){
+          this.speedX=Math.cos(ballAng)*this.speedX;
+          this.speedY=Math.sin(ballAng)*this.speedY;
+          if(prevY>this.y){
+                  this.speedY*=-1;
+                  this.zv=1.5;
+                  } else {
+                    this.zv=1;  
+                    }
+          //console.log(quadrantHit)
+          /*switch(quadrantHit){
                 case TOPRIGHTQUADRANT:
                   if(prevY>this.y){
                   this.speedY*=-1;
-                  this.zv=1;
+                  this.zv=1.5;
                   } else {
                     this.zv=1;  
                     }
@@ -89,7 +112,7 @@ function BallClass(){
                 case TOPLEFTQUADRANT:
                   if(prevY>this.y){
                   this.speedY*=-1;
-                  this.zv=1;
+                  this.zv=1.5;
                   } else {
                     this.zv=1;  
                     }
@@ -97,7 +120,7 @@ function BallClass(){
                 case BOTTOMRIGHTQUADRANT:
                   if(prevY>this.y){
                   this.speedY*=-1;
-                  this.zv=1;
+                  this.zv=1.5;
                   } else {
                     this.zv=1;  
                     }
@@ -106,7 +129,7 @@ function BallClass(){
                 case BOTTOMLEFTQUADRANT:
                   if(prevY>this.y){
                   this.speedY*=-1;
-                  this.zv=1;
+                  this.zv=1.5;
                   } else {
                     this.zv=1;  
                     }
@@ -114,7 +137,7 @@ function BallClass(){
                 default: //shouldn't be reached
                 console.log("error, invalid quadrant squashball.js")
                   break;  
-            }  
+            }  */
           } else {
           //Back Wall is not a target swing
               switch(quadrantHit){
@@ -157,7 +180,6 @@ function BallClass(){
               }
           }
     }
-
     //wall bouncing mechanics:
     this.zv += -ballSinkRate;
     this.z += this.zv;
@@ -165,14 +187,14 @@ function BallClass(){
     if(this.z>COURT_T){//hit ceiling
       this.z=COURT_T;
       this.zv*=-1;
-	  Sound.bounce();
+	  //Sound.bounce();
     }
 
     if(this.z <= 0) {
       this.zv*=-0.7;
       this.z = 0;
       this.bouncedOnFloor=true;
-	  Sound.bounce();
+	  //Sound.bounce();
     }
     
     this.nextX=this.x+this.speedX;
@@ -183,18 +205,18 @@ function BallClass(){
     }
     if(this.nextX>COURT_W){
       this.speedX*=-1;
-	  Sound.wall();
+	  //Sound.wall();
     }
 
     if(this.nextY<0)  {
       this.speedY*=-1;
       this.bouncedOnFrontWall=true;
-	  Sound.wall();
+	  //Sound.wall();
     }
     if(this.nextY>COURT_L){
       this.speedY*=-1;
       this.bouncedOnBackWall=true;
-	  Sound.wall();
+	  //Sound.wall();
     }
 
     this.x += this.speedX;

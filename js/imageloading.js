@@ -9,6 +9,8 @@ var p1_sprint_shot_down_right = document.createElement("img");
 var p1_shot_top_right = document.createElement("img");
 var p1_shot_top_left = document.createElement("img");
 
+var p2_standing = document.createElement("img");
+
 var picsToLoad=0;
 
 function countLoadedImagesAndLaunchIfReady(){
@@ -34,7 +36,8 @@ function loadImages(){
 	{varName: p1_running, theFile: "p1_running.png"},
 	{varName: p1_sprint_shot_down_right, theFile: "sprite_p1_sprint_shot_down_right_v2.png"},
 	{varName: p1_shot_top_right, theFile: "shortsprite_p1_shot_top_right.png"},
-	{varName: p1_shot_top_left, theFile: "shortsprite_p1_shot_top_left.png"}
+	{varName: p1_shot_top_left, theFile: "shortsprite_p1_shot_top_left.png"},
+	{varName: p2_standing, theFile: "p2_standing.png"}
 	];
 
 	picsToLoad = imageList.length;

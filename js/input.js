@@ -45,7 +45,7 @@ function keySet (keyEvent, whichPlayer, setTo){
 	// previous player direction and velocity and only
 	// play shoe squeaks when you turn 180 degrees
 	// at high speed. For now, just random shoe noise!
-	if (Math.random() > 0.75) Sound.shoe();
+	//if (Math.random() > 0.75) Sound.shoe();
 
 if(keyEvent.keyCode == whichPlayer.controlKeyLeft) {
     whichPlayer.keyHeld_TurnLeft = setTo;

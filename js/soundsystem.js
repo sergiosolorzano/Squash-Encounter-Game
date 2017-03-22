@@ -87,7 +87,7 @@ function SoundSystem() {
 	function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
 	
 	// shortcuts for squash encounter. example:
-	// Sound.hit(); // randomly play a hit sound
+	//Sound.hit(); // randomly play a hit sound
 	this.hit = function() { atlas.play('hit'+randomInt(1,5)); }
 	this.wall = function() { atlas.play('wall'+randomInt(1,5)); }
 	this.bounce = function() { atlas.play('bounce'+randomInt(1,5)); }
