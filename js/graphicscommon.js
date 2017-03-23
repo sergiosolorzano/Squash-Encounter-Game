@@ -20,6 +20,17 @@ function drawBallAtBaseSheetSprite(graphic, idx, atX, atY) {
   canvasContext.restore();
 }
 
+function drawAtBaseSheetCounter(graphic, idx, atX, atY) {
+  canvasContext.save();
+  canvasContext.translate(atX, atY);
+  canvasContext.drawImage(graphic,
+    idx * COUNTER_W, 0,
+    COUNTER_W, COUNTER_H,
+    -COUNTER_W, -COUNTER_H,
+    COUNTER_W, COUNTER_H);
+  canvasContext.restore();
+}
+
 function drawBitmapCenteredWithRotation(useBitmap, atX,atY, withAng) {
   canvasContext.save();
   canvasContext.translate(atX, atY);

@@ -100,7 +100,7 @@ function PlayerClass(){
     var drawLocation = perspectiveLocation(this.x,this.y,0);
     
     //this.playerHitWindowCoords();//shows swing quadrants of player
-    this.frontWallHitWindowCoords();//shows quadrants of the front wall
+    //this.frontWallHitWindowCoords();//shows quadrants of the front wall
     var playerAnimationFrames = whichPic.width/PLAYER_W;
     if (playerFrameTimer-- < 0) {
       playerFrameTimer = playerStepsPerAnimFrame;
@@ -229,22 +229,22 @@ function PlayerClass(){
               case TOPRIGHTQUADRANT:
                 whichPic = p1_shot_top_right;
                 this.isSwinging=true;
-				//Sound.hit();
+				Sound.hit();
                 break;
               case TOPLEFTQUADRANT:
                 whichPic = p1_shot_top_left;
                 this.isSwinging=true;
-				//Sound.hit();
+				Sound.hit();
                 break;
               case BOTTOMRIGHTQUADRANT:
                 whichPic = p1_shot_bottom_right;
                 this.isSwinging=true;
-				//Sound.hit();
+				Sound.hit();
                 break;
               case BOTTOMLEFTQUADRANT:
                 whichPic = p1_shot_bottom_left;
                 this.isSwinging=true;
-				//Sound.hit();
+				Sound.hit();
                 break;
         }
       }
