@@ -10,9 +10,9 @@ function drawScoreCounter(){
 	//drawBitmapCenteredWithRotation(zero, 80, 456,0);
 	//drawBitmapCenteredWithRotation(zero, 726, 456,0);
 	drawBitmapCenteredWithRotation(scorecounterbackground, 100, 40,0);
-	drawBitmapCenteredWithRotation(zero, 40, 40,0);
+	drawBitmapCenteredWithRotation(zero, 44, 40,0);
 	drawBitmapCenteredWithRotation(three, 75, 40,0);
-	drawBitmapCenteredWithRotation(zero, 125, 40,0);
-	drawBitmapCenteredWithRotation(seven, 160, 40,0);
+	drawBitmapCenteredWithRotation(zero, 120, 40,0);
+	drawBitmapCenteredWithRotation(seven, 151, 40,0);
 
 }
