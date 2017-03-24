@@ -92,7 +92,7 @@ function drawAll() {
   //PlayerClass.drawTargetFrontWall();
   //PlayerClass.selectBackWall();//shows backwal coords on screen
 	drawStaminaBar();
-	drawUI();
+	//drawUI();
   drawScoreCounter();
   //colorText(Math.floor(mouseX)+","+Math.floor(mouseY), mouseX,mouseY,'blue');
   //colorRect(0,0,64,97,"orange");//real life court

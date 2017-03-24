@@ -313,11 +313,14 @@ function PlayerClass(){
     var nextX = this.x;
     var nextY = this.y;
 
+    var isPlayerMoving = (this.keyHeld_Gas || this.keyHeld_Reverse || this.keyHeld_TurnLeft || this.keyHeld_TurnRight);
+
     this.hitGraphicSelection();
     if(this.isSwinging==false){
-      if(this.keyHeld_Sprint){
-        this.sprintMultiplier = SPRINT_MULTIPLER;
-        if(this.sprintStamina > 0){
+      if(this.keyHeld_Sprint && isPlayerMoving){
+        if(this.sprintStamina > 1){
+          console.log(this.sprintStamina);
+          this.sprintMultiplier = SPRINT_MULTIPLER;
           this.sprintStamina--;
         }
       } else {
