@@ -57,7 +57,9 @@ var whichPic;
 
 function PlayerClass(){
   this.sprintMultiplier = 1;
-  this.sprintStamina = 100;
+  this.sprintStamina = 20;
+  this.isExhausted = false;
+  this.sprintCooldown = 0;
 
   this.keyHeld_Gas = false;
   this.keyHeld_Reverse = false;
@@ -317,11 +319,21 @@ function PlayerClass(){
 
     this.hitGraphicSelection();
     if(this.isSwinging==false){
+
+      if(this.sprintCooldown > 0){
+        this.sprintCooldown--;
+        console.log(this.sprintCooldown);
+      }
+
       if(this.keyHeld_Sprint && isPlayerMoving){
-        if(this.sprintStamina > 1){
-          console.log(this.sprintStamina);
+        if(this.sprintStamina > 0 && this.sprintCooldown == 0){
           this.sprintMultiplier = SPRINT_MULTIPLER;
           this.sprintStamina--;
+        }
+        else if (this.sprintStamina == 0){
+          this.sprintMultiplier = 1;
+          this.isExhausted = true;
+          this.sprintCooldown = 50;
         }
       } else {
         this.sprintMultiplier = 1;
