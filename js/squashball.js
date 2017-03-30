@@ -58,11 +58,11 @@ function BallClass(){
     //quadrant from where player swings
     var prevX=this.x-this.speedX;
     var prevY=this.y-this.speedY;
-    var hereCollision = PlayerClass.ballAtReach(PlayerClass.x,PlayerClass.y,this.x,this.y);
+    var hereCollision = ballAtReach(PlayerClass.x,PlayerClass.y,this.x,this.y);
     var quadrantHit=hereCollision.quadrant;
 
     //radians to hit backwall quadrant
-    var targetBackWallVars=PlayerClass.GradientShotToBackWall();
+    var targetBackWallVars=GradientShotToBackWall(PlayerClass.x,PlayerClass.y);
     var ballAng;
     var playerStandHereQuad=targetBackWallVars.playerOnThisCourtQuad;
     var targetBackWallQuadrant=targetBackWallVars.tgtBackWall;

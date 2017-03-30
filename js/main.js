@@ -2,25 +2,7 @@ var canvas, canvasContext, scaledContext;
 
 var BallClass = new BallClass();
 var PlayerClass = new PlayerClass();
-
-// x,y pixel coordinates on the render of the near 'wall' (opening) corners
-var nearTopLeftX=3;
-var nearTopLeftY=248;
-var nearTopRightX=798;
-var nearTopRightY=248;
-var nearBottomLeftX=198;
-var nearBottomLeftY=535;
-var nearBottomRightX=612;
-var nearBottomRightY=535;
-// x,y pixel coordinates on the render of the far wall corners
-var farTopLeftX=272;
-var farTopLeftY=0;
-var farTopRightX=537;
-var farTopRightY=0;
-var farBottomLeftX=304;
-var farBottomLeftY=200;
-var farBottomRightX=505;
-var farBottomRightY=200;
+var ComputerClass = new ComputerClass();
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -68,6 +50,7 @@ function imageLoadingDoneSoStartGame() {
 function loadLevel() {
 	BallClass.Init();
 	PlayerClass.Init();
+  ComputerClass.Init();
 	}
 
 function updateAll() {
@@ -78,6 +61,7 @@ function updateAll() {
 function moveAll() {
   BallClass.moveBall();
   PlayerClass.movePlayer();
+  ComputerClass.movePlayer();
 	}
 
 function clearScreen() {
@@ -89,6 +73,7 @@ function drawAll() {
 	BallClass.drawShadow();
   BallClass.drawInAir();
 	PlayerClass.drawPlayer();
+  ComputerClass.drawPlayer();
   //PlayerClass.drawTargetFrontWall();
   //PlayerClass.selectBackWall();//shows backwal coords on screen
 	drawStaminaBar();
