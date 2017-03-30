@@ -1,6 +1,8 @@
-var playerStepsPerAnimFrame = 2;
 var playerFrame = 0;
-var playerFrameTimer = 2;//how quick it changes between frames
+var playerStepsPerAnimFrame = 2;
+var playerFrameTimer=2;
+var initPlayerStepsPerAnimFrame = 2;//for players entry only
+var initPlayerFrameTimer = 600;//how quick it changes between frames; for players entry only
 const PLAYER_H=55;
 const PLAYER_W=55;
 var PLAYER_MOVE_SPEED=2;
@@ -40,6 +42,8 @@ function PlayerClass(){
 
   this.Init = function(){
     this.Reset();
+    this.whichPic = p1_start;
+    this.initDrawPlayer();
   }
 
   this.Reset = function(){
@@ -50,6 +54,21 @@ function PlayerClass(){
     this.targetBackWall=NOBACKWALLSELECTED;
     this.backWallClicked = false;
     this.playerStandingOnCourtQuadrant=LEFTCOURTQUADRANT;
+  }
+
+this.initDrawPlayer = function(){
+    var drawLocation = perspectiveLocation(this.x,this.y,0);
+    var playerAnimationFrames = this.whichPic.width/PLAYER_W;
+    if (initPlayerFrameTimer-- < 0) {
+      initPlayerFrameTimer = initPlayerStepsPerAnimFrame;
+      playerFrame++;
+    }
+    if (playerFrame >= playerAnimationFrames) {
+          playerFrame = 0;
+          this.whichPic = p1_standing;
+          this.isSwinging=false;
+      }
+    drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y);
   }
 
   this.drawPlayer = function(){

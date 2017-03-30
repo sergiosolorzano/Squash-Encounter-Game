@@ -6,6 +6,8 @@ function ComputerClass(){
   
   this.Init = function(){
     this.Reset();
+    this.whichPic = p2_start;
+    this.initDrawPlayer();
   }
 
   this.Reset = function(){
@@ -13,6 +15,21 @@ function ComputerClass(){
     this.y=initYPosition;
     this.isSwinging=false;//used so player does not run if gif showing it's swinging the racket
     this.whichPic = p2_standing;
+  }
+
+  this.initDrawPlayer = function(){
+    var drawLocation = perspectiveLocation(this.x,this.y,0);
+    var computerAnimationFrames = this.whichPic.width/PLAYER_W;
+    if (computerFrameTimer-- < 0) {
+      computerFrameTimer = computerStepsPerAnimFrame;
+      computerFrame++;
+    }
+    if (computerFrame >= computerAnimationFrames) {
+          computerFrame = 0;
+          this.whichPic = p2_standing;
+          this.isSwinging=false;
+      }
+    drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y);
   }
 
   this.drawPlayer = function(){

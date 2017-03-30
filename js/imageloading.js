@@ -31,6 +31,9 @@ var seven = document.createElement("img");
 var eight = document.createElement("img");
 var nine = document.createElement("img");
 
+var p1_start = document.createElement("img");
+var p2_start = document.createElement("img");
+
 var picsToLoad=0;
 
 function countLoadedImagesAndLaunchIfReady(){
@@ -78,7 +81,10 @@ function loadImages(){
 	{varName: six, theFile: "six.png"},
 	{varName: seven, theFile: "seven.png"},
 	{varName: eight, theFile: "eight.png"},
-	{varName: nine, theFile: "nine.png"}
+	{varName: nine, theFile: "nine.png"},
+
+	{varName: p1_start, theFile: "p1_start.png"},
+	{varName: p2_start, theFile: "p2_start.png"}
 
 	];
 
