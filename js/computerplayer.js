@@ -29,7 +29,7 @@ function ComputerClass(){
           this.whichPic = p2_standing;
           this.isSwinging=false;
       }
-    drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y);
+    drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
   }
 
   this.drawPlayer = function(){
@@ -44,7 +44,7 @@ function ComputerClass(){
           this.whichPic = p2_standing;
           this.isSwinging=false;
       }
-    drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y);
+    drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
   }
 
   this.movePlayer = function(){  

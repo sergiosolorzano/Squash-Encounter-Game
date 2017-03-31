@@ -33,6 +33,7 @@ var nine = document.createElement("img");
 
 var p1_start = document.createElement("img");
 var p2_start = document.createElement("img");
+var serve_spin = document.createElement("img");
 
 var picsToLoad=0;
 
@@ -84,7 +85,9 @@ function loadImages(){
 	{varName: nine, theFile: "nine.png"},
 
 	{varName: p1_start, theFile: "p1_start.png"},
-	{varName: p2_start, theFile: "p2_start.png"}
+	{varName: p2_start, theFile: "p2_start.png"},
+
+	{varName: serve_spin, theFile: "serve_spin.png"}
 
 	];
 

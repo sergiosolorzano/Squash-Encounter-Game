@@ -46,12 +46,12 @@ function BallClass(){
                 ballFrame = 0;
             }
         }
-    drawBallAtBaseSheetSprite(whichPic, ballFrame, draw.x, draw.y - draw.z);
+    drawAtBaseSheetSprite(whichPic, ballFrame, draw.x, draw.y - draw.z,BALL_W,BALL_H);
     }
 
   this.drawShadow = function() {
       var draw = perspectiveLocation(this.x,this.y,0);
-      drawBallAtBaseSheetSprite(ballShadow, 0, draw.x, draw.y);
+      drawAtBaseSheetSprite(ballShadow, 0, draw.x, draw.y,BALL_W,BALL_H);
       }
 
   this.moveBall = function(){

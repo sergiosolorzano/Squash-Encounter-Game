@@ -1,5 +1,6 @@
 var canvas, canvasContext, scaledContext;
 
+var serveBet=false;
 var BallClass = new BallClass();
 var PlayerClass = new PlayerClass();
 var ComputerClass = new ComputerClass();
@@ -11,8 +12,7 @@ window.onload = function() {
 
 	scaledCanvas = document.getElementById('gameCanvas');
 	scaledContext = scaledCanvas.getContext('2d');
-  	scaledContext.fillStyle = "black";
-
+  scaledContext.fillStyle = "black";
 	loadImages();
 }
 	//perspective location for player and ball
@@ -48,20 +48,19 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function loadLevel() {
-	BallClass.Init();
+  BallClass.Init();
 	PlayerClass.Init();
   ComputerClass.Init();
 	}
 
-function updateAll() {
-	moveAll();
-	//drawAll();
-}
-
 function moveAll() {
-  BallClass.moveBall();
-  PlayerClass.movePlayer();
-  ComputerClass.movePlayer();
+  if(serveBet){
+  return;  
+  } else {
+    BallClass.moveBall();
+    PlayerClass.movePlayer();
+    ComputerClass.movePlayer();
+    }
 	}
 
 function clearScreen() {
@@ -69,17 +68,21 @@ function clearScreen() {
 }
 
 function drawAll() {
-	drawBitmapCenteredWithRotation(squashcourt, canvas.width/2, canvas.height/2, 0);
-	BallClass.drawShadow();
-  BallClass.drawInAir();
-	PlayerClass.drawPlayer();
-  ComputerClass.drawPlayer();
-  //PlayerClass.drawTargetFrontWall();
-  //PlayerClass.selectBackWall();//shows backwal coords on screen
-	drawStaminaBar();
-	//drawUI();
-  drawScoreCounter();
-  //colorText(Math.floor(mouseX)+","+Math.floor(mouseY), mouseX,mouseY,'blue');
-  //colorRect(0,0,64,97,"orange");//real life court
-  //colorRect(BallClass.x,BallClass.y,3,3,"green");////real life ball
+    drawBitmapCenteredWithRotation(squashcourt, canvas.width/2, canvas.height/2, 0);
+    if(serveBet){
+    rightToServe();  
+    } else {
+    	BallClass.drawShadow();
+      BallClass.drawInAir();
+    	PlayerClass.drawPlayer();
+      ComputerClass.drawPlayer();
+      //PlayerClass.drawTargetFrontWall();
+      //PlayerClass.selectBackWall();//shows backwal coords on screen
+    	drawStaminaBar();
+    	//drawUI();
+      drawScoreCounter();
+      //colorText(Math.floor(mouseX)+","+Math.floor(mouseY), mouseX,mouseY,'blue');
+      //colorRect(0,0,64,97,"orange");//real life court
+      //colorRect(BallClass.x,BallClass.y,3,3,"green");////real life ball
+    }
 }

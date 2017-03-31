@@ -68,7 +68,7 @@ this.initDrawPlayer = function(){
           this.whichPic = p1_standing;
           this.isSwinging=false;
       }
-    drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y);
+    drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
   }
 
   this.drawPlayer = function(){
@@ -86,7 +86,7 @@ this.initDrawPlayer = function(){
           this.whichPic = p1_standing;
           this.isSwinging=false;
       }
-    drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y);
+    drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
   }
 
     this.hitGraphicSelection=function(){

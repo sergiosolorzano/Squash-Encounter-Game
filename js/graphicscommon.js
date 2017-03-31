@@ -1,33 +1,11 @@
-function drawAtBaseSheetSprite(graphic, idx, atX, atY) {
+function drawAtBaseSheetSprite(graphic, idx, atX, atY,picW,picH) {
   canvasContext.save();
   canvasContext.translate(atX, atY);
   canvasContext.drawImage(graphic,
-    idx * PLAYER_W, 0,
-    PLAYER_W, PLAYER_H,
-    -PLAYER_W/2, -PLAYER_H/2,
-    PLAYER_W, PLAYER_H);
-  canvasContext.restore();
-}
-
-function drawBallAtBaseSheetSprite(graphic, idx, atX, atY) {
-  canvasContext.save();
-  canvasContext.translate(atX, atY);
-  canvasContext.drawImage(graphic,
-    idx * BALL_W, 0,
-    BALL_W, BALL_H,
-    -BALL_W/4, -BALL_H,
-    BALL_W, BALL_H);
-  canvasContext.restore();
-}
-
-function drawAtBaseSheetCounter(graphic, idx, atX, atY) {
-  canvasContext.save();
-  canvasContext.translate(atX, atY);
-  canvasContext.drawImage(graphic,
-    idx * COUNTER_W, 0,
-    COUNTER_W, COUNTER_H,
-    -COUNTER_W, -COUNTER_H,
-    COUNTER_W, COUNTER_H);
+    idx * picW, 0,
+    picW, picH,
+    -picW/2, -picH/2,
+    picW, picH);
   canvasContext.restore();
 }
 
