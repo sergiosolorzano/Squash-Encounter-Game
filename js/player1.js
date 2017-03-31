@@ -3,6 +3,7 @@ var playerStepsPerAnimFrame = 2;
 var playerFrameTimer=2;
 var initPlayerStepsPerAnimFrame = 2;//for players entry only
 var initPlayerFrameTimer = 600;//how quick it changes between frames; for players entry only
+
 const PLAYER_H=55;
 const PLAYER_W=55;
 var PLAYER_MOVE_SPEED=2;
@@ -83,6 +84,7 @@ this.initDrawPlayer = function(){
     }
     if (playerFrame >= playerAnimationFrames) {
           playerFrame = 0;
+          playerHit=false;
           this.whichPic = p1_standing;
           this.isSwinging=false;
       }
@@ -91,29 +93,42 @@ this.initDrawPlayer = function(){
 
     this.hitGraphicSelection=function(){
     var hereCollision = ballAtReach(this.x,this.y,BallClass.x,BallClass.y);
+    var computerIsAtReach=playerAtReach(this.x,this.y,ComputerClass.x,ComputerClass.y);
     var quadrantHit = hereCollision.quadrant;
 
     if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0){
         switch(quadrantHit){//maybe quadrantHit=0 in which case none called
               case TOPRIGHTQUADRANT:
-                this.whichPic = p1_shot_top_right;
                 this.isSwinging=true;
-				Sound.hit();
+                Sound.hit();
+                //if(computerIsAtReach){
+                //  ComputerClass.whichPic = p2_right_hit;
+                //}
+                this.whichPic = p1_shot_top_right;
                 break;
               case TOPLEFTQUADRANT:
-                this.whichPic = p1_shot_top_left;
                 this.isSwinging=true;
-				Sound.hit();
+                Sound.hit();
+                //if(computerIsAtReach){
+                //  ComputerClass.whichPic = p2_left_hit;
+                //}
+                this.whichPic = p1_shot_top_left;
                 break;
               case BOTTOMRIGHTQUADRANT:
-                this.whichPic = p1_shot_bottom_right;
                 this.isSwinging=true;
-				Sound.hit();
+                Sound.hit();
+                //if(computerIsAtReach){
+                // ComputerClass.whichPic = p2_right_hit;
+                //}
+                this.whichPic = p1_shot_bottom_right;
                 break;
               case BOTTOMLEFTQUADRANT:
-                this.whichPic = p1_shot_bottom_left;
                 this.isSwinging=true;
-				Sound.hit();
+                Sound.hit();
+                //if(computerIsAtReach){
+                //  ComputerClass.whichPic = p2_left_hit;
+                //}
+                this.whichPic = p1_shot_bottom_left;
                 break;
         }
       }
@@ -126,7 +141,7 @@ this.initDrawPlayer = function(){
     var isPlayerMoving = (this.keyHeld_Gas || this.keyHeld_Reverse || this.keyHeld_TurnLeft || this.keyHeld_TurnRight);
 
     this.hitGraphicSelection();
-    if(this.isSwinging==false){
+    if(this.isSwinging==false && playerHit==false){
 
       if(this.sprintCooldown > 0){
         this.sprintCooldown--;
@@ -146,12 +161,12 @@ this.initDrawPlayer = function(){
       } else {
         this.sprintMultiplier = 1;
         if(this.sprintStamina < 100){
-          this.sprintStamina++
+          this.sprintStamina++;
         }
       }
         //TODO might need to reset this.sprintMultiplier
 
-    if(this.isSwinging==false){
+    if(this.isSwinging==false && playerHit==false){
       if(this.keyHeld_Gas){
                   nextY -= PLAYER_MOVE_SPEED * this.sprintMultiplier;
                   this.whichPic = p1_running;

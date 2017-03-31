@@ -49,33 +49,47 @@ function ComputerClass(){
 
   this.movePlayer = function(){  
     this.hitGraphicSelection();
+    //if computerHit=false can move
   }
 
   this.hitGraphicSelection=function(){
     var hereCollision = ballAtReach(this.x,this.y,BallClass.x,BallClass.y);
     var quadrantHit = hereCollision.quadrant;
+    var playerIsAtReach=playerAtReach(this.x,this.y,PlayerClass.x,PlayerClass.y);
 
     if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0){
         switch(quadrantHit){
               case TOPRIGHTQUADRANT:
-                this.whichPic = p2_shot_top_right;
                 this.isSwinging=true;
-        Sound.hit();
+                Sound.hit();
+                //if(playerIsAtReach){
+                //  PlayerClass.whichPic = p1_right_hit;
+                //}
+                this.whichPic = p2_shot_top_right;
                 break;
               case TOPLEFTQUADRANT:
-                this.whichPic = p2_shot_top_left;
                 this.isSwinging=true;
-        Sound.hit();
+                Sound.hit();
+                //if(playerIsAtReach){
+                //  PlayerClass.whichPic = p1_left_hit;
+                //}
+                this.whichPic = p2_shot_top_left;
                 break;
               case BOTTOMRIGHTQUADRANT:
-                this.whichPic = p2_shot_bottom_right;
                 this.isSwinging=true;
-        Sound.hit();
+                Sound.hit();
+                //if(playerIsAtReach){
+                //  PlayerClass.whichPic = p1_right_hit;
+                //}
+                this.whichPic = p2_shot_bottom_right;
                 break;
               case BOTTOMLEFTQUADRANT:
-                this.whichPic = p2_shot_bottom_left;
                 this.isSwinging=true;
-        Sound.hit();
+                Sound.hit();
+                //if(playerIsAtReach){
+                // PlayerClass.whichPic = p1_left_hit;
+                //}
+                this.whichPic = p2_shot_bottom_left;
                 break;
         }
       }

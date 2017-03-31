@@ -63,6 +63,10 @@ const WALKCENTERSQUAREW=35;
 const WALKTOPSQUAREY=39;
 const WALKBOTTOMSQUAREY=58;
 
+//player or computer whacked by opponent racket
+var playerHit=false;
+var computerHit=false;
+
 function drawTargetBackWall (nearX,farX,nearY,farY){
       var visualAdjustmentX=40;//adjustment so the selected wall rectangle does not draw into canvas
       const visualAdjustmentY=5;//adjustment so selected wall covers to side wall line
@@ -298,8 +302,69 @@ function GradientShotToBackWall (playerX,playerY){
         playerOnThisCourtQuad:PlayerClass.playerStandingOnCourtQuadrant,
         tgtBackWall:PlayerClass.targetBackWall
       };
-
   }//end of function
+
+//player is at racket reach by other player's racket at swing
+function playerAtReach (playerPixelX, playerPixelY, opponentPixelX,opponentPixelY){
+      var opponentAtReach=false;
+      var centerX=playerPixelX+SHIFTTOCENTERX;
+      var centerY=playerPixelY+SHIFTTOCENTERY;
+      var scaleAdjustmentX = (1-playerPixelY/initYPosition)*100*WINDOWXSCALE;
+
+      centerTopX=centerX;
+      centerTopY=centerY-HITSQUAREH;
+
+      centerBottomX=centerX;
+      centerBottomY=centerY+HITSQUAREH;
+
+      rightCenterX=centerX+HITSQUAREW+scaleAdjustmentX;
+      rightCenterY=centerY;
+
+      rightTopX=centerX+HITSQUAREW+scaleAdjustmentX;
+      rightTopY=centerY-HITSQUAREH;
+
+      rightBottomX=centerX+HITSQUAREW+scaleAdjustmentX;
+      rightBottomY=centerY+HITSQUAREH;
+
+      leftCenterX=centerX-HITSQUAREW-scaleAdjustmentX;
+      leftCenterY=centerY;
+
+      leftTopX=centerX-HITSQUAREW-scaleAdjustmentX;
+      leftTopY=centerY-HITSQUAREH;
+
+      leftBottomX=centerX-HITSQUAREW-scaleAdjustmentX;
+      leftBottomY=centerY+HITSQUAREH;
+
+      raquetPositionX=centerX+SHIFTTORAQUETPOSITIONX+scaleAdjustmentX;
+      raquetPositionY=centerY+SHIFTTORAQUETPOSITIONY;
+
+      if(opponentPixelX>=centerX && opponentPixelX<=rightCenterX && opponentPixelY<=centerY && opponentPixelY>=centerTopY){
+        opponentAtReach=true;
+      } else {
+        opponentAtReach=false;
+      }
+      if(opponentPixelX<centerX && opponentPixelX>=leftCenterX && opponentPixelY<centerY && opponentPixelY>=leftTopY){
+        opponentAtReach=true;
+      } else {
+        opponentAtReach=false;
+      }
+      if(opponentPixelX>centerX && opponentPixelX<=rightBottomX && opponentPixelY>centerY && opponentPixelY<=rightBottomY){
+        opponentAtReach=true;
+      } else {
+        opponentAtReach=false;
+      }
+
+      if(opponentPixelX<centerX && opponentPixelX >= leftBottomX && opponentPixelY>centerY & opponentPixelY<= leftBottomY){
+        opponentAtReach=true;
+      } else {
+        opponentAtReach=false;
+      }
+      return {
+        oppAtReach:opponentAtReach,
+      }
+    }
+
+
 
 /*function drawTargetFrontWall () {
       var frontWallTargeted = targetFrontWall(BallClass.x,PlayerClass.y);

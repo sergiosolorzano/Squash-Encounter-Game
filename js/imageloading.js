@@ -34,6 +34,11 @@ var nine = document.createElement("img");
 var p1_start = document.createElement("img");
 var p2_start = document.createElement("img");
 var serve_spin = document.createElement("img");
+var p1_right_hit = document.createElement("img");
+var p1_left_hit = document.createElement("img");
+var p2_right_hit = document.createElement("img");
+var p2_left_hit = document.createElement("img");
+
 
 var picsToLoad=0;
 
@@ -87,7 +92,12 @@ function loadImages(){
 	{varName: p1_start, theFile: "p1_start.png"},
 	{varName: p2_start, theFile: "p2_start.png"},
 
-	{varName: serve_spin, theFile: "serve_spin.png"}
+	{varName: serve_spin, theFile: "serve_spin.png"},
+
+	{varName: p1_right_hit, theFile: "p1_right_hit.png"},
+	{varName: p1_left_hit, theFile: "p1_left_hit.png"},
+	{varName: p2_right_hit, theFile: "p2_right_hit.png"},
+	{varName: p2_left_hit, theFile: "p2_left_hit.png"}
 
 	];
 
