@@ -50,6 +50,9 @@ function PlayerClass(){
   this.Reset = function(){
     this.x=COURT_W*0.2;
     this.y=initYPosition;
+    ParticleSystem.remove(this.particles);
+    this.particles = ParticleSystem.add(-14,4, {}, "sweat");
+    this.particles.active = false;
     this.whichPic = p1_standing;
     this.isSwinging=false;//used so player does not run if gif showing it's swinging the racket
     this.targetBackWall=NOBACKWALLSELECTED;
@@ -137,6 +140,7 @@ this.initDrawPlayer = function(){
   this.movePlayer = function(){
     var nextX = this.x;
     var nextY = this.y;
+    this.particles.active = false;
 
     var isPlayerMoving = (this.keyHeld_Gas || this.keyHeld_Reverse || this.keyHeld_TurnLeft || this.keyHeld_TurnRight);
 
@@ -145,10 +149,12 @@ this.initDrawPlayer = function(){
 
       if(this.sprintCooldown > 0){
         this.sprintCooldown--;
+        this.particles.active = true;
         console.log(this.sprintCooldown);
       }
 
       if(this.keyHeld_Sprint && isPlayerMoving){
+        this.particles.active = true;
         if(this.sprintStamina > 0 && this.sprintCooldown == 0){
           this.sprintMultiplier = SPRINT_MULTIPLER;
           this.sprintStamina--;
@@ -192,6 +198,10 @@ this.initDrawPlayer = function(){
     if(nextY>=0 && nextY<=COURT_L-8.2)  {//COURT_H reduced by two so the racket doesn't paint black on canvas outside the court
       this.y=nextY;
     }
+
+    var pLoc = perspectiveLocation(this.x,this.y,0);
+    this.particles.xOffset = pLoc.x;
+    this.particles.yOffset = pLoc.y;
   }
 }
 

@@ -14,6 +14,8 @@ window.onload = function() {
 	scaledContext = scaledCanvas.getContext('2d');
   scaledContext.fillStyle = "black";
 	loadImages();
+  //
+  ParticleSystem.init(scaledCanvas, 1000/30, false);
 }
 	//perspective location for player and ball
   function perspectiveLocation(pixelX,pixelY,pixelZ){
@@ -74,6 +76,7 @@ function drawAll() {
     } else {
     	BallClass.drawShadow();
       BallClass.drawInAir();
+      ParticleSystem.draw();
     	PlayerClass.drawPlayer();
       ComputerClass.drawPlayer();
       //PlayerClass.drawTargetFrontWall();
