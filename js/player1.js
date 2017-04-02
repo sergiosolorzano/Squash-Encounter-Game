@@ -107,15 +107,19 @@ this.initDrawPlayer = function(){
     var hereCollision = ballAtReach(this.x,this.y,BallClass.x,BallClass.y);
     var quadrantHit = hereCollision.quadrant;
     var computerIsAtReach=playerAtReach(this.x,this.y,ComputerClass.x,ComputerClass.y);
-
+    var computerIsAtReachNow=computerIsAtReach.oppAtReach;
+    
     if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0){
+        if(computerIsAtReachNow){
+          console.log("player at reach")
+        }
         switch(quadrantHit){//maybe quadrantHit=0 in which case none called
               
               case TOPRIGHTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                if(computerIsAtReach){
-                  ComputerClass.whichPic = p2_right_hit;
+                if(computerIsAtReachNow){
+                  ComputerClass.whichPic = p2_left_hit;
                   computerHit=true;
                 }
                 this.whichPic = p1_shot_top_right;
@@ -123,7 +127,7 @@ this.initDrawPlayer = function(){
               case TOPLEFTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                if(computerIsAtReach){
+                if(computerIsAtReachNow){
                   ComputerClass.whichPic = p2_left_hit;
                   computerHit=true;
                 }
@@ -132,7 +136,7 @@ this.initDrawPlayer = function(){
               case BOTTOMRIGHTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                if(computerIsAtReach){
+                if(computerIsAtReachNow){
                  ComputerClass.whichPic = p2_right_hit;
                  computerHit=true;
                 }
@@ -141,7 +145,7 @@ this.initDrawPlayer = function(){
               case BOTTOMLEFTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                if(computerIsAtReach){
+                if(computerIsAtReachNow){
                   ComputerClass.whichPic = p2_left_hit;
                   computerHit=true;
                 }

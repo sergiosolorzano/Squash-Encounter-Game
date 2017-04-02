@@ -62,14 +62,18 @@ function ComputerClass(){
   this.hitGraphicSelection=function(){
     var hereCollision = ballAtReach(this.x,this.y,BallClass.x,BallClass.y);
     var quadrantHit = hereCollision.quadrant;
-    var computerIsAtReach=playerAtReach(this.x,this.y,PlayerClass.x,PlayerClass.y);
+    var player1IsAtReach=playerAtReach(this.x,this.y,PlayerClass.x,PlayerClass.y);
+    var player1IsAtReachNow=player1IsAtReach.oppAtReach;
 
     if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0){
+        if(player1IsAtReachNow){
+          console.log("computer at reach")
+        }
         switch(quadrantHit){
               case TOPRIGHTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                if(computerIsAtReach){
+                if(player1IsAtReachNow){
                   PlayerClass.whichPic = p1_right_hit;
                 }
                 this.whichPic = p2_shot_top_right;
@@ -77,7 +81,7 @@ function ComputerClass(){
               case TOPLEFTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                if(computerIsAtReach){
+                if(player1IsAtReachNow){
                   PlayerClass.whichPic = p1_left_hit;
                   playerHit=true;
                 }
@@ -86,7 +90,7 @@ function ComputerClass(){
               case BOTTOMRIGHTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                if(computerIsAtReach){
+                if(player1IsAtReachNow){
                   PlayerClass.whichPic = p1_right_hit;
                   playerHit=true;
                 }
@@ -95,7 +99,7 @@ function ComputerClass(){
               case BOTTOMLEFTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                if(computerIsAtReach){
+                if(player1IsAtReachNow){
                  PlayerClass.whichPic = p1_left_hit;
                  playerHit=true;
                 }
