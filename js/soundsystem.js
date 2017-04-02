@@ -34,7 +34,6 @@ function SoundSystem() {
 				volume: vol
 			});
 		}
-		
 		sounds[samplename].play();
 	}
 	

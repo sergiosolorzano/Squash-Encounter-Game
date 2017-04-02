@@ -164,7 +164,7 @@ this.initDrawPlayer = function(){
       if(this.sprintCooldown > 0){
         this.sprintCooldown--;
         this.particles.active = true;
-        console.log(this.sprintCooldown);
+        //console.log(this.sprintCooldown);
       }
 
       if(this.keyHeld_Sprint && isPlayerMoving){
@@ -203,6 +203,9 @@ this.initDrawPlayer = function(){
                   nextX+= PLAYER_MOVE_SPEED * this.sprintMultiplier;
                   this.whichPic = p1_running;
       }
+    if(this.sprintStamina < 30){
+          //soundSystem.play("sprint_breath",false,1);
+        }
     }
   }
     //check so player doesn't go outside the court
