@@ -203,8 +203,8 @@ this.initDrawPlayer = function(){
                   nextX+= PLAYER_MOVE_SPEED * this.sprintMultiplier;
                   this.whichPic = p1_running;
       }
-    if(this.sprintStamina < 30){
-          //soundSystem.play("sprint_breath",false,1);
+    if(this.sprintStamina > 30){
+          //Sound.play("sprint_breath",false,1);
         }
     }
   }

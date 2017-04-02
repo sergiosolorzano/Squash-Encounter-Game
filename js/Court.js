@@ -137,13 +137,19 @@ function selectBackWall (mouseClickX,mouseClickY){
       var leftTopDrawn = perspectiveLocation(leftTopX,leftTopY,0);
       var leftBottomDrawn=perspectiveLocation(leftBottomX,leftBottomY,0);
 
+      var farX;
+      var nearX;
+      var farY;
+      var nearY;
+
       //determine target wall and its corner coordinates
       if(mouseClickX>=centerTopDrawn.x && mouseClickX<=rightTopDrawn.x && mouseClickY>=centerTopDrawn.y && mouseClickY<=centerBottomDrawn.y){
         PlayerClass.targetBackWall=RIGHTBACKWALL;
-          var farX=rightTopDrawn.x;
-          var nearX=centerTopDrawn.x;
-          var farY=centerBottomDrawn.y;
-          var nearY=centerTopDrawn.y;
+          farX=rightTopDrawn.x;
+          nearX=centerTopDrawn.x;
+          farY=centerBottomDrawn.y;
+          nearY=centerTopDrawn.y;
+          console.log("rightwall clicked")
       }
       if(mouseClickX<centerTopDrawn.x && mouseClickX>=leftTopDrawn.x && mouseClickY>centerTopDrawn.y && mouseClickY<=leftBottomDrawn.y){
         PlayerClass.targetBackWall=LEFTBACKWALL;
@@ -151,6 +157,7 @@ function selectBackWall (mouseClickX,mouseClickY){
           nearX= centerTopDrawn.x;
           farY=leftBottomDrawn.y;
           nearY=centerTopDrawn.y;
+          console.log("leftwall clicked")
       }
       //call function to draw the target wall
       drawTargetBackWall(nearX,farX,nearY,farY);
@@ -271,30 +278,36 @@ function GradientShotToBackWall (playerX,playerY){
 
       //determine X point target and radiants to shoot to backwall on swing
       //what court quadrant is player standing:
+      var ballAng;
+      var atanResult;
+      var degreeTarget;
 
       var targetXOnBackWall;
+      
+
         if(PlayerClass.targetBackWall==RIGHTBACKWALL){
-            targetXOnBackWall=centerBottomX+(rightBottomX-playerX)/2;
-            distPlayerToTargetX=targetXOnBackWall-playerX;//opposite side of triangle
-            distPlayerToBackWallY=centerBottomY-playerY;//adjacent side of triangle
-            var atanResult=Math.atan(distPlayerToTargetX/distPlayerToBackWallY);//radians
-            var degreeTarget=atanResult*180/Math.PI;
-            //console.log(atanResult,degreeTarget);
-            var ballAng=atanResult;
+            targetXOnBackWall=(rightBottomX+playerX)/2;//add centerBottomX?
+            //console.log("rightwall");
         }
         if(PlayerClass.targetBackWall==LEFTBACKWALL){
-            targetXOnBackWall=centerBottomX-(playerX-leftBottomX)/2;
-            distPlayerToTargetX=playerX-targetXOnBackWall;
-            distPlayerToBackWallY=centerBottomY-playerY;
-            var atanResult=Math.atan(distPlayerToTargetX/distPlayerToBackWallY);//radians
-            var degreeTarget=atanResult*180/Math.PI;
-            var ballAng=atanResult;
+            targetXOnBackWall=(leftBottomX+playerX)/2;
+            //console.log("leftwall");
         }
+        if(PlayerClass.targetBackWall==RIGHTBACKWALL || PlayerClass.targetBackWall==LEFTBACKWALL){
+            distPlayerToTargetX=targetXOnBackWall-playerX;
+            distPlayerToBackWallY=centerBottomY-playerY;
+            atanResult=Math.atan2(distPlayerToBackWallY,distPlayerToTargetX);//radians
+            degreeTarget=atanResult*180/Math.PI;
+            ballAng=atanResult;
+        }
+
         //what quadrant is player standing
         if(playerX>=centerX){
           PlayerClass.playerStandingOnCourtQuadrant=RIGHTCOURTQUADRANT;
+          //console.log("playerright")
         } else {
           PlayerClass.playerStandingOnCourtQuadrant=LEFTCOURTQUADRANT;
+          //console.log("playerleft")
         }
 
       return {
