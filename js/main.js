@@ -1,9 +1,10 @@
 var canvas, canvasContext, scaledContext;
 
-var serveBet=false;
+var serveBet=true;
 var BallClass = new BallClass();
 var PlayerClass = new PlayerClass();
 var ComputerClass = new ComputerClass();
+var playerEntryRunning;
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -50,6 +51,7 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function loadLevel() {
+  playerEntryRunning=true;
   BallClass.Init();
 	PlayerClass.Init();
   ComputerClass.Init();
@@ -58,34 +60,44 @@ function loadLevel() {
 function moveAll() {
   if(serveBet){
   return;  
-  } else {
-    BallClass.moveBall();
-    PlayerClass.movePlayer();
-    ComputerClass.movePlayer();
-    }
-	}
+  } else if (playerEntryRunning==false){
+        BallClass.moveBall();
+        PlayerClass.movePlayer();
+        ComputerClass.movePlayer();
+      }
+}
 
 function clearScreen() {
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 }
 
 function drawAll() {
+    //console.log(playerEntryRunning)
+
     drawBitmapCenteredWithRotation(squashcourt, canvas.width/2, canvas.height/2, 0);
+    drawStaminaBar();
+    drawScoreCounter();
+
     if(serveBet){
     rightToServe();  
     } else {
-    	BallClass.drawShadow();
+
+      BallClass.drawShadow();
       BallClass.drawInAir();
       ParticleSystem.draw();
-    	PlayerClass.drawPlayer();
-      ComputerClass.drawPlayer();
+    
+      if(playerEntryRunning){
+        PlayerClass.initDrawPlayer();
+        ComputerClass.initDrawPlayer();
+      } else if (playerEntryRunning==false){
+        PlayerClass.drawPlayer();
+        ComputerClass.drawPlayer();  
+        }
+    }    
       //PlayerClass.drawTargetFrontWall();
       //PlayerClass.selectBackWall();//shows backwal coords on screen
-    	drawStaminaBar();
     	//drawUI();
-      drawScoreCounter();
       //colorText(Math.floor(mouseX)+","+Math.floor(mouseY), mouseX,mouseY,'blue');
       //colorRect(0,0,64,97,"orange");//real life court
-      //colorRect(BallClass.x,BallClass.y,3,3,"green");////real life ball
-    }
+      //colorRect(BallClass.x,BallClass.y,3,3,"green");////real life ball   
 }

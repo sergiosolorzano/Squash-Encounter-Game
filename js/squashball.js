@@ -35,6 +35,7 @@ function BallClass(){
   }
     
   this.drawInAir = function () {
+    
     var draw=perspectiveLocation(this.x,this.y,this.z)
     var whichPic = ballPic;
     var ballAnimationFrames = whichPic.width/BALL_W;

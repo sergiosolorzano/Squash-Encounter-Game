@@ -1,8 +1,9 @@
 var playerFrame = 0;
 var playerStepsPerAnimFrame = 2;
 var playerFrameTimer=2;
-var initPlayerStepsPerAnimFrame = 2;//for players entry only
-var initPlayerFrameTimer = 600;//how quick it changes between frames; for players entry only
+
+var initPlayerStepsPerAnimFrame = 5;//for players entry only
+var initPlayerFrameTimer = 5;//how quick it changes between frames; for players entry only
 
 const PLAYER_H=55;
 const PLAYER_W=55;
@@ -11,6 +12,9 @@ const SPRINT_MULTIPLER = 3.0;
 const PLAYER_MAX_HEIGHT_REACH=15;
 
 var initYPosition=COURT_L*0.4;
+
+var playerHit=false;
+var computerHit=false;
 
 function PlayerClass(){
   this.sprintMultiplier = 1;
@@ -43,8 +47,6 @@ function PlayerClass(){
 
   this.Init = function(){
     this.Reset();
-    this.whichPic = p1_start;
-    this.initDrawPlayer();
   }
 
   this.Reset = function(){
@@ -53,7 +55,7 @@ function PlayerClass(){
     ParticleSystem.remove(this.particles);
     this.particles = ParticleSystem.add(-14,4, {}, "sweat");
     this.particles.active = false;
-    this.whichPic = p1_standing;
+    
     this.isSwinging=false;//used so player does not run if gif showing it's swinging the racket
     this.targetBackWall=NOBACKWALLSELECTED;
     this.backWallClicked = false;
@@ -61,8 +63,12 @@ function PlayerClass(){
   }
 
 this.initDrawPlayer = function(){
+    this.whichPic = p1_start;
+   
     var drawLocation = perspectiveLocation(this.x,this.y,0);
     var playerAnimationFrames = this.whichPic.width/PLAYER_W;
+
+    
     if (initPlayerFrameTimer-- < 0) {
       initPlayerFrameTimer = initPlayerStepsPerAnimFrame;
       playerFrame++;
@@ -71,15 +77,17 @@ this.initDrawPlayer = function(){
           playerFrame = 0;
           this.whichPic = p1_standing;
           this.isSwinging=false;
+          
       }
     drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
   }
 
   this.drawPlayer = function(){
-    var drawLocation = perspectiveLocation(this.x,this.y,0);
 
+    var drawLocation = perspectiveLocation(this.x,this.y,0);
     //this.playerHitWindowCoords();//shows swing quadrants of player
     //this.frontWallHitWindowCoords();//shows quadrants of the front wall
+    if(playerEntryRunning==false){
     var playerAnimationFrames = this.whichPic.width/PLAYER_W;
     if (playerFrameTimer-- < 0) {
       playerFrameTimer = playerStepsPerAnimFrame;
@@ -91,46 +99,52 @@ this.initDrawPlayer = function(){
           this.whichPic = p1_standing;
           this.isSwinging=false;
       }
-    drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
+    drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);  
+    }
   }
 
     this.hitGraphicSelection=function(){
     var hereCollision = ballAtReach(this.x,this.y,BallClass.x,BallClass.y);
-    var computerIsAtReach=playerAtReach(this.x,this.y,ComputerClass.x,ComputerClass.y);
     var quadrantHit = hereCollision.quadrant;
+    var computerIsAtReach=playerAtReach(this.x,this.y,ComputerClass.x,ComputerClass.y);
 
     if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0){
         switch(quadrantHit){//maybe quadrantHit=0 in which case none called
+              
               case TOPRIGHTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                //if(computerIsAtReach){
-                //  ComputerClass.whichPic = p2_right_hit;
-                //}
+                if(computerIsAtReach){
+                  ComputerClass.whichPic = p2_right_hit;
+                  computerHit=true;
+                }
                 this.whichPic = p1_shot_top_right;
                 break;
               case TOPLEFTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                //if(computerIsAtReach){
-                //  ComputerClass.whichPic = p2_left_hit;
-                //}
+                if(computerIsAtReach){
+                  ComputerClass.whichPic = p2_left_hit;
+                  computerHit=true;
+                }
                 this.whichPic = p1_shot_top_left;
                 break;
               case BOTTOMRIGHTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                //if(computerIsAtReach){
-                // ComputerClass.whichPic = p2_right_hit;
-                //}
+                if(computerIsAtReach){
+                 ComputerClass.whichPic = p2_right_hit;
+                 computerHit=true;
+                }
                 this.whichPic = p1_shot_bottom_right;
                 break;
               case BOTTOMLEFTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
-                //if(computerIsAtReach){
-                //  ComputerClass.whichPic = p2_left_hit;
-                //}
+                if(computerIsAtReach){
+                  ComputerClass.whichPic = p2_left_hit;
+                  computerHit=true;
+                }
                 this.whichPic = p1_shot_bottom_left;
                 break;
         }

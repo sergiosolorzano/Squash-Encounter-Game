@@ -5,6 +5,7 @@ const KEY_D = 68;
 
 const KEY_SPACE = 32;
 const KEY_LEFT_SHIFT = 16;
+const KEY_ENTER = 13;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -65,7 +66,14 @@ if(keyEvent.keyCode == whichPlayer.controlKeyLeft) {
   if(keyEvent.keyCode == whichPlayer.controlKeySprint) {
     whichPlayer.keyHeld_Sprint = setTo;
   }
+  if(setTo){ //only detecting when key goes down not held keys
+    if (keyEvent.keyCode == KEY_ENTER ) {//TODO Remove cheat: cheat to avoid waiting for the draw to play, to remove cheat add && drawNow in if condition
+      if (serveBet) {
+        serveBet = false;
+      }
   }
+}
+}
 
 function keyPressed(evt) {
   //console.log("Key pressed: "+evt.keyCode);
