@@ -41,15 +41,18 @@ function ComputerClass(){
   this.drawPlayer = function(){
     var drawLocation = perspectiveLocation(this.x,this.y,0);
     var computerAnimationFrames = this.whichPic.width/PLAYER_W;
+    
     if (computerFrameTimer-- < 0) {
       computerFrameTimer = computerStepsPerAnimFrame;
       computerFrame++;
     }
     if (computerFrame >= computerAnimationFrames) {
           computerFrame = 0;
-          computerHit=false;
+          //computerHit=false;
           this.whichPic = p2_standing;
           this.isSwinging=false;
+          computerFrameTimer =2
+          computerStepsPerAnimFrame=2
       }
     drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
   }
@@ -66,15 +69,14 @@ function ComputerClass(){
     var player1IsAtReachNow=player1IsAtReach.oppAtReach;
 
     if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0){
-        if(player1IsAtReachNow){
-          console.log("computer at reach")
-        }
         switch(quadrantHit){
               case TOPRIGHTQUADRANT:
                 this.isSwinging=true;
                 Sound.hit();
                 if(player1IsAtReachNow){
-                  PlayerClass.whichPic = p1_right_hit;
+                  PlayerClass.whichPic = p1_left_hit;
+                  playerFrameTimer=10
+                  playerStepsPerAnimFrame=10
                 }
                 this.whichPic = p2_shot_top_right;
                 break;
@@ -82,8 +84,10 @@ function ComputerClass(){
                 this.isSwinging=true;
                 Sound.hit();
                 if(player1IsAtReachNow){
-                  PlayerClass.whichPic = p1_left_hit;
+                  PlayerClass.whichPic = p1_right_hit;
                   playerHit=true;
+                  playerFrameTimer=10
+                  playerStepsPerAnimFrame=10
                 }
                 this.whichPic = p2_shot_top_left;
                 break;
@@ -91,8 +95,10 @@ function ComputerClass(){
                 this.isSwinging=true;
                 Sound.hit();
                 if(player1IsAtReachNow){
-                  PlayerClass.whichPic = p1_right_hit;
+                  PlayerClass.whichPic = p1_left_hit;
                   playerHit=true;
+                  playerFrameTimer=10
+                  playerStepsPerAnimFrame=10
                 }
                 this.whichPic = p2_shot_bottom_right;
                 break;
@@ -100,8 +106,10 @@ function ComputerClass(){
                 this.isSwinging=true;
                 Sound.hit();
                 if(player1IsAtReachNow){
-                 PlayerClass.whichPic = p1_left_hit;
-                 playerHit=true;
+                 PlayerClass.whichPic = p1_right_hit;
+                  playerHit=true;
+                  playerFrameTimer=10
+                  playerStepsPerAnimFrame=10
                 }
                 this.whichPic = p2_shot_bottom_left;
                 break;

@@ -149,7 +149,6 @@ function selectBackWall (mouseClickX,mouseClickY){
           nearX=centerTopDrawn.x;
           farY=centerBottomDrawn.y;
           nearY=centerTopDrawn.y;
-          console.log("rightwall clicked")
       }
       if(mouseClickX<centerTopDrawn.x && mouseClickX>=leftTopDrawn.x && mouseClickY>centerTopDrawn.y && mouseClickY<=leftBottomDrawn.y){
         PlayerClass.targetBackWall=LEFTBACKWALL;
@@ -157,7 +156,6 @@ function selectBackWall (mouseClickX,mouseClickY){
           nearX= centerTopDrawn.x;
           farY=leftBottomDrawn.y;
           nearY=centerTopDrawn.y;
-          console.log("leftwall clicked")
       }
       //call function to draw the target wall
       drawTargetBackWall(nearX,farX,nearY,farY);
@@ -319,7 +317,6 @@ function GradientShotToBackWall (playerX,playerY){
 
 //player is at racket reach by other player's racket at swing
 function playerAtReach (playerPixelX, playerPixelY, opponentPixelX,opponentPixelY){
-      var opponentAtReach=false;
       var centerX=playerPixelX+SHIFTTOCENTERX;
       var centerY=playerPixelY+SHIFTTOCENTERY;
       var scaleAdjustmentX = (1-playerPixelY/initYPosition)*100*WINDOWXSCALE;
@@ -353,31 +350,21 @@ function playerAtReach (playerPixelX, playerPixelY, opponentPixelX,opponentPixel
 
       if(opponentPixelX>=centerX && opponentPixelX<=rightCenterX && opponentPixelY<=centerY && opponentPixelY>=centerTopY){
         opponentAtReach=true;
-      } else {
-        opponentAtReach=false;
       }
       if(opponentPixelX<centerX && opponentPixelX>=leftCenterX && opponentPixelY<centerY && opponentPixelY>=leftTopY){
         opponentAtReach=true;
-      } else {
-        opponentAtReach=false;
       }
       if(opponentPixelX>centerX && opponentPixelX<=rightBottomX && opponentPixelY>centerY && opponentPixelY<=rightBottomY){
         opponentAtReach=true;
-      } else {
-        opponentAtReach=false;
       }
 
       if(opponentPixelX<centerX && opponentPixelX >= leftBottomX && opponentPixelY>centerY & opponentPixelY<= leftBottomY){
         opponentAtReach=true;
-      } else {
-        opponentAtReach=false;
       }
       return {
         oppAtReach:opponentAtReach,
       }
     }
-
-
 
 /*function drawTargetFrontWall () {
       var frontWallTargeted = targetFrontWall(BallClass.x,PlayerClass.y);

@@ -95,7 +95,7 @@ function BallClass(){
       var degreeTarget=ballAng*180/Math.PI;
       //console.log("ang",ballAng,"degrees",degreeTarget,"targetbackWall",targetBackWallQuadrant,"playerQuad",playerStandHereQuad)
         if(PlayerClass.backWallClicked){
-          console.log("Aiming for back wall")
+          //console.log("Aiming for back wall")
           PlayerClass.backWallClicked=false;
           var ballSpeed = magnitude(this.speedX,this.speedY);
           this.speedX=Math.cos(ballAng)*ballSpeed;
@@ -147,7 +147,7 @@ function BallClass(){
             }  */
           } else {
           //Back Wall is not a target swing
-              console.log("not aiming for back wall")
+              //console.log("not aiming for back wall")
               switch(quadrantHit){
                     //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
                     case TOPRIGHTQUADRANT:
