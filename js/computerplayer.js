@@ -17,6 +17,7 @@ function ComputerClass(){
     this.x=COURT_W*0.8;
     this.y=initYPosition;
     this.isSwinging=false;//used so player does not run if gif showing it's swinging the racket
+    this.swingTurn=false;
   }
 
   this.initDrawPlayer = function(){
@@ -68,10 +69,12 @@ function ComputerClass(){
     var player1IsAtReach=playerAtReach(this.x,this.y,PlayerClass.x,PlayerClass.y);
     var player1IsAtReachNow=player1IsAtReach.oppAtReach;
 
-    if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0){
+    if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn){
         switch(quadrantHit){
               case TOPRIGHTQUADRANT:
                 this.isSwinging=true;
+                //PlayerClass.swingTurn=true;
+                //this.swingTurn=false;//todo: remove when 
                 Sound.hit();
                 if(player1IsAtReachNow){
                   PlayerClass.whichPic = p1_left_hit;
@@ -82,6 +85,8 @@ function ComputerClass(){
                 break;
               case TOPLEFTQUADRANT:
                 this.isSwinging=true;
+                //PlayerClass.swingTurn=true;
+                //this.swingTurn=false;
                 Sound.hit();
                 if(player1IsAtReachNow){
                   PlayerClass.whichPic = p1_right_hit;
@@ -93,6 +98,8 @@ function ComputerClass(){
                 break;
               case BOTTOMRIGHTQUADRANT:
                 this.isSwinging=true;
+                //PlayerClass.swingTurn=true;
+                //this.swingTurn=false;
                 Sound.hit();
                 if(player1IsAtReachNow){
                   PlayerClass.whichPic = p1_left_hit;
@@ -104,6 +111,8 @@ function ComputerClass(){
                 break;
               case BOTTOMLEFTQUADRANT:
                 this.isSwinging=true;
+                //PlayerClass.swingTurn=true;
+                //this.swingTurn=false;
                 Sound.hit();
                 if(player1IsAtReachNow){
                  PlayerClass.whichPic = p1_right_hit;

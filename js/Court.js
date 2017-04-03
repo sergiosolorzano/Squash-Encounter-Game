@@ -156,16 +156,18 @@ function selectBackWall (mouseClickX,mouseClickY){
           nearX= centerTopDrawn.x;
           farY=leftBottomDrawn.y;
           nearY=centerTopDrawn.y;
+          
       }
       //call function to draw the target wall
       drawTargetBackWall(nearX,farX,nearY,farY);
   }//end of function to target the back wall
 
-function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY){
+function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY, swingTurn){
       if(BallClass.z>PLAYER_MAX_HEIGHT_REACH){
         //console.log(BallClass.z)
         return {
           quadrant:0,
+          canSwing:swingTurn,
         }
       }
       var quadrantHit;
@@ -218,6 +220,7 @@ function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY){
       }
       return {
         quadrant:quadrantHit,
+        canSwing:swingTurn,
       }
     }
 

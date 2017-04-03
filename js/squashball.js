@@ -59,8 +59,24 @@ function BallClass(){
     //quadrant from where player swings
     var prevX=this.x-this.speedX;
     var prevY=this.y-this.speedY;
-    var hereCollision = ballAtReach(PlayerClass.x,PlayerClass.y,this.x,this.y);
-    var quadrantHit=hereCollision.quadrant;
+    var quadrantHit;
+    var swingTurn;
+    
+    var herePlayerCollision = ballAtReach(PlayerClass.x,PlayerClass.y,this.x,this.y,PlayerClass.swingTurn);
+    var playerSwingTurn=herePlayerCollision.canSwing;
+
+    var hereComputerCollision = ballAtReach(ComputerClass.x,ComputerClass.y,this.x,this.y,ComputerClass.swingTurn);
+    var computerSwingTurn=hereComputerCollision.canSwing;
+
+    if(playerSwingTurn){
+      quadrantHit=herePlayerCollision.quadrant;
+      swingTurn=herePlayerCollision.canSwing;  
+    } else {
+      quadrantHit=hereComputerCollision.quadrant;
+      swingTurn=hereComputerCollision.canSwing;  
+    }
+
+    
 
     //radians to hit backwall quadrant
     var targetBackWallVars=GradientShotToBackWall(PlayerClass.x,PlayerClass.y);
@@ -86,7 +102,18 @@ function BallClass(){
     }
     
     //swing takes place, target front or back wall
-    if(this.bouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0){          
+    if(this.bouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0 && swingTurn){          
+      console.log(PlayerClass.swingTurn)
+
+      if(playerSwingTurn){
+        PlayerClass.swingTurn=false;  
+        ComputerClass.swingTurn=true;  
+      }
+      if(computerSwingTurn){
+        PlayerClass.swingTurn=true;  
+        ComputerClass.swingTurn=false;   
+      }
+      
       this.bouncedOnFloor=false;
       this.bouncedOnFrontWall=false;
       this.bouncedOnBackWall=false;
