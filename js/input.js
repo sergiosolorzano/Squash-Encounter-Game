@@ -18,7 +18,7 @@ function initInput() {
   document.addEventListener('click', function(evt){
     var mouseClickPos=updateMousePos(evt);
     selectBackWall(mouseClickPos.x,mouseClickPos.y);
-    PlayerClass.backWallClicked=true;
+    selectFrontWall(mouseClickPos.x,mouseClickPos.y);
   });
   PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_LEFT_SHIFT);
 }

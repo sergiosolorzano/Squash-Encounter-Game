@@ -103,7 +103,7 @@ function BallClass(){
     
     //swing takes place, target front or back wall
     if(this.bouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0 && swingTurn){          
-      console.log(PlayerClass.swingTurn)
+      //console.log(PlayerClass.swingTurn)
 
       if(playerSwingTurn){
         PlayerClass.swingTurn=false;  

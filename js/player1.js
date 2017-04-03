@@ -59,7 +59,9 @@ function PlayerClass(){
     this.particles.active = false;
     this.isSwinging=false;//used so player does not run if gif showing it's swinging the racket
     this.targetBackWall=NOBACKWALLSELECTED;
+    this.targetFrontWall=NOFRONTWALLSELECTED;
     this.backWallClicked = false;
+    this.frontWallClicked=false;
     this.playerStandingOnCourtQuadrant=LEFTCOURTQUADRANT;
   }
 
