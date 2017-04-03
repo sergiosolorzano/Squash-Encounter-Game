@@ -77,7 +77,11 @@ function ComputerClass(){
                 //this.swingTurn=false;//todo: remove when 
                 Sound.hit();
                 if(player1IsAtReachNow){
-                  PlayerClass.whichPic = p1_left_hit;
+                    if(this.x>PlayerClass.x){
+                      PlayerClass.whichPic = p2_left_hit;
+                      } else {
+                        PlayerClass.whichPic = p2_right_hit;
+                        }
                   playerFrameTimer=10
                   playerStepsPerAnimFrame=10
                 }
@@ -89,7 +93,11 @@ function ComputerClass(){
                 //this.swingTurn=false;
                 Sound.hit();
                 if(player1IsAtReachNow){
-                  PlayerClass.whichPic = p1_right_hit;
+                  if(this.x>PlayerClass.x){
+                      PlayerClass.whichPic = p1_left_hit;
+                      } else {
+                        PlayerClass.whichPic = p1_right_hit;
+                        }
                   playerHit=true;
                   playerFrameTimer=10
                   playerStepsPerAnimFrame=10
@@ -102,7 +110,11 @@ function ComputerClass(){
                 //this.swingTurn=false;
                 Sound.hit();
                 if(player1IsAtReachNow){
-                  PlayerClass.whichPic = p1_left_hit;
+                  if(this.x>PlayerClass.x){
+                      PlayerClass.whichPic = p1_left_hit;
+                      } else {
+                        PlayerClass.whichPic = p1_right_hit;
+                        }
                   playerHit=true;
                   playerFrameTimer=10
                   playerStepsPerAnimFrame=10
@@ -115,7 +127,11 @@ function ComputerClass(){
                 //this.swingTurn=false;
                 Sound.hit();
                 if(player1IsAtReachNow){
-                 PlayerClass.whichPic = p1_right_hit;
+                 if(this.x>PlayerClass.x){
+                      PlayerClass.whichPic = p1_left_hit;
+                      } else {
+                        PlayerClass.whichPic = p1_right_hit;
+                        }
                   playerHit=true;
                   playerFrameTimer=10
                   playerStepsPerAnimFrame=10

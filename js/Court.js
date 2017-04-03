@@ -405,14 +405,13 @@ function GradientShotToBackWall (playerX,playerY){
             targetXOnBackWall=(leftBottomX+playerX)/2;
             //console.log("leftwall");
         }
-        if(PlayerClass.targetBackWall==RIGHTBACKWALL || PlayerClass.targetBackWall==LEFTBACKWALL){
+        //radian calculation if player standing in the opposite quadrant of the backwall target
             distPlayerToTargetX=targetXOnBackWall-playerX;
             distPlayerToBackWallY=centerBottomY-playerY;
             atanResult=Math.atan2(distPlayerToBackWallY,distPlayerToTargetX);//radians
             degreeTarget=atanResult*180/Math.PI;
             ballAng=atanResult;
-        }
-
+        
         //what quadrant is player standing
         if(playerX>=centerX){
           PlayerClass.playerStandingOnCourtQuadrant=RIGHTCOURTQUADRANT;
@@ -421,7 +420,6 @@ function GradientShotToBackWall (playerX,playerY){
           PlayerClass.playerStandingOnCourtQuadrant=LEFTCOURTQUADRANT;
           //console.log("playerleft")
         }
-
       return {
         ballAng:ballAng,
         playerOnThisCourtQuad:PlayerClass.playerStandingOnCourtQuadrant,
@@ -464,35 +462,69 @@ function GradientShotToBackWall (playerX,playerY){
       leftBottomX=centerX-HITSQUAREBOTTOMW;
       leftBottomY=centerY+HITSQUAREBOTTOMZ;
 
-      //determine X point target and radiants to shoot to frontwall on swing
-      //what court quadrant is player standing:
+      //draw coordinates at front wall
+      var drawThisLocation = perspectiveLocation(centerX,centerY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualCenterX = drawThisLocation.x
+      var visualCenterY = drawThisLocation.y
+
+      var drawThisLocation = perspectiveLocation(centerTopX,centerTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualCenterTopY = drawThisLocation.y
+
+      var drawThisLocation = perspectiveLocation(rightTopX,rightTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualRightTopX = drawThisLocation.x
+
+      var drawThisLocation = perspectiveLocation(rightCenterX,rightCenterY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualRightCenterX = drawThisLocation.x
+
+      var drawThisLocation = perspectiveLocation(rightBottomX,rightBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(centerBottomX,centerBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftCenterX,leftCenterY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftTopX,leftTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+
+      //determine court quadrant is player standing, X point target on the wall and radiants to shoot to frontwall on swing
       var ballAng;
       var atanResult;
       var degreeTarget;
       var targetXOnFrontWall;
+      var targetYOnFrontWall;
       
-      /*const TOPRIGHTFRONTWALL=1;
-      const BOTTOMRIGHTFRONTWALL=2;
-      const BOTTOMLEFTFRONTWALL=3;
-      const TOPLEFTFRONTWALL=4;*/
-      
+      //radian calculation if player standing in the opposite quadrant of the backwall target
         if(PlayerClass.targetFrontWall==TOPRIGHTFRONTWALL){
             targetXOnFrontWall=(rightTopX+playerX)/2;
-            targetYOnFrontWall=(rightTopY+playerY)/2;
+            targetYOnFrontWall=centerTopY;
+            //console.log("toprightwall");
         }
         if(PlayerClass.targetFrontWall==TOPLEFTFRONTWALL){
             targetXOnFrontWall=(leftTopX+playerX)/2;
-            targetYOnFrontWall=(leftTopY+playerY)/2
-            //console.log("leftwall");
+            targetYOnFrontWall=centerTopY;
+            //console.log("topleftwall");
+        }
+        if(PlayerClass.targetFrontWall==BOTTOMRIGHTFRONTWALL){
+            targetXOnFrontWall=(rightBottomX+playerX)/2;
+            targetYOnFrontWall=centerY;
+            //console.log("bottomrightwall");
+        }
+        if(PlayerClass.targetFrontWall==BOTTOMLEFTFRONTWALL){
+            targetXOnFrontWall=(leftBottomX+playerX)/2;
+            targetYOnFrontWall=centerY;
+            //console.log("bottomleftwall");
         }
 
-        if(PlayerClass.targetFrontWall==TOPRIGHTFRONTWALL || PlayerClass.targetFrontWall==TOPLEFTFRONTWALL){
-            distPlayerToTargetX=targetXOnFrontWall-playerX;
-            distPlayerToFrontWallY=targetYOnFrontWall-playerY;
-            atanResult=Math.atan2(distPlayerToFrontWallY,distPlayerToTargetX);//radians
-            degreeTarget=atanResult*180/Math.PI;
-            ballAng=atanResult;
-        }
+        distPlayerToTargetX=targetXOnFrontWall-playerX;
+        distPlayerToFrontWallY=targetYOnFrontWall-playerY;
+        atanResult=Math.atan2(distPlayerToFrontWallY,distPlayerToTargetX);//radians
+        degreeTarget=atanResult*180/Math.PI;
+        ballAng=atanResult;
 
         //what quadrant is player standing
         if(playerX>=centerX){
@@ -560,17 +592,8 @@ function playerAtReach (playerPixelX, playerPixelY, opponentPixelX,opponentPixel
       }
     }
 
-
-
-
-
-
-
-
 //Drawing calculations
   //determine window range for racket hit: Draw only
-  
-
   
 //Possibly delete: function determines where the squash racket is so it can be shifted at swing
 //to make the swing transition visually less glitchy
@@ -651,7 +674,7 @@ function playerAtReach (playerPixelX, playerPixelY, opponentPixelX,opponentPixel
   }
 */
   //draws real life coordinates of front wall: Draw only
-  function frontWallHitWindowCoords (){
+  /*function frontWallHitWindowCoords (){
       const HITSQUARETOPW=71;
       const HITSQUAREBOTTOMW=34;
       const HITSQUARECENTERW=39;
@@ -716,4 +739,4 @@ function playerAtReach (playerPixelX, playerPixelY, opponentPixelX,opponentPixel
 
       var distanceCenterXToRightCenterX= visualRightCenterX- visualCenterX
       var distanceCenterYToCenterTopY= visualCenterTopY-visualCenterY
-  }//end function to build front wall coords
+  }//end function to build front wall coords*/

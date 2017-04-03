@@ -110,6 +110,8 @@ this.initDrawPlayer = function(){
     var computerIsAtReach=playerAtReach(this.x,this.y,ComputerClass.x,ComputerClass.y);
     var computerIsAtReachNow=computerIsAtReach.oppAtReach;
 
+    
+
     if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn){
         switch(quadrantHit){//maybe quadrantHit=0 in which case none called
               case TOPRIGHTQUADRANT:
@@ -118,10 +120,14 @@ this.initDrawPlayer = function(){
                 //this.swingTurn=false;
                 Sound.hit();
                 if(computerIsAtReachNow){
-                  ComputerClass.whichPic = p2_left_hit;
-                  computerHit=true;
-                  computerFrameTimer =10
-                  computerStepsPerAnimFrame=10
+                  if(this.x>ComputerClass.x){
+                    ComputerClass.whichPic = p2_left_hit;
+                  } else {
+                    ComputerClass.whichPic = p2_right_hit;
+                  }
+                computerHit=true;
+                computerFrameTimer =10
+                computerStepsPerAnimFrame=10
                 }
                 this.whichPic = p1_shot_top_right;
                 break;
@@ -131,7 +137,11 @@ this.initDrawPlayer = function(){
                 //this.swingTurn=false;
                 Sound.hit();
                 if(computerIsAtReachNow){
-                  ComputerClass.whichPic = p2_right_hit;
+                    if(this.x>ComputerClass.x){
+                    ComputerClass.whichPic = p2_left_hit;
+                  } else {
+                    ComputerClass.whichPic = p2_right_hit;
+                  }
                   computerHit=true;
                   computerFrameTimer =10
                   computerStepsPerAnimFrame=10
@@ -145,7 +155,11 @@ this.initDrawPlayer = function(){
                 //this.swingTurn=false;
                 Sound.hit();
                 if(computerIsAtReachNow){
-                  ComputerClass.whichPic = p2_left_hit;
+                    if(this.x>ComputerClass.x){
+                    ComputerClass.whichPic = p2_left_hit;
+                  } else {
+                    ComputerClass.whichPic = p2_right_hit;
+                  }
                   computerHit=true;
                   computerFrameTimer =10
                   computerStepsPerAnimFrame=10
@@ -159,7 +173,11 @@ this.initDrawPlayer = function(){
                 //this.swingTurn=false;
                 Sound.hit();
                 if(computerIsAtReachNow){
-                  ComputerClass.whichPic = p2_right_hit;
+                    if(this.x>ComputerClass.x){
+                    ComputerClass.whichPic = p2_left_hit;
+                  } else {
+                    ComputerClass.whichPic = p2_right_hit;
+                  }
                   computerHit=true;
                   computerFrameTimer =20
                   computerStepsPerAnimFrame=20
@@ -174,7 +192,7 @@ this.initDrawPlayer = function(){
     var nextX = this.x;
     var nextY = this.y;
     this.particles.active = false;
-    
+
     var isPlayerMoving = (this.keyHeld_Gas || this.keyHeld_Reverse || this.keyHeld_TurnLeft || this.keyHeld_TurnRight);
 
     this.hitGraphicSelection();
