@@ -97,8 +97,9 @@ function BallClass(){
         if(PlayerClass.backWallClicked){
           console.log("Aiming for back wall")
           PlayerClass.backWallClicked=false;
-          this.speedX=Math.cos(ballAng)*this.speedX;
-          this.speedY=Math.sin(ballAng)*this.speedY;
+          var ballSpeed = magnitude(this.speedX,this.speedY);
+          this.speedX=Math.cos(ballAng)*ballSpeed;
+          this.speedY=Math.sin(ballAng)*ballSpeed;
           if(prevY>this.y){
                   //this.speedY*=1;
                   this.zv=1.5;

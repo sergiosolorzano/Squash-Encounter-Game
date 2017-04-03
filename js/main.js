@@ -101,3 +101,7 @@ function drawAll() {
       //colorRect(0,0,64,97,"orange");//real life court
       //colorRect(BallClass.x,BallClass.y,3,3,"green");////real life ball   
 }
+
+function magnitude(x,y) {
+  return Math.sqrt(x*x+y*y);
+}
