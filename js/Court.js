@@ -90,7 +90,7 @@ function drawTargetFrontWall (nearX,farX,nearY,farY){
     }
 
 
-    //on mouseclick checks whether backwall is selected as target
+//on mouseclick checks whether backwall is selected as target
 function selectBackWall (mouseClickX,mouseClickY){
       var centerTopX=COURT_W/2;
       var centerTopY=COURT_L-BACKWALLCENTERZ;
@@ -174,6 +174,106 @@ function selectBackWall (mouseClickX,mouseClickY){
       //call function to draw the target wall
       drawTargetBackWall(nearX,farX,nearY,farY);
   }//end of function to target the back wall
+
+//on mouse target front wall
+function selectFrontWall (ballPixelX,ballPixelY){
+      const HITSQUARETOPW=71;
+      const HITSQUAREBOTTOMW=34;
+      const HITSQUARECENTERW=39;
+      const HITSQUARETOPZ=28;
+      const HITSQUAREBOTTOMZ=8;
+      const centerZ=14;
+
+      var centerX=COURT_W/2;
+      var centerY=0-centerZ;
+
+      centerTopX=centerX;
+      centerTopY=centerY-HITSQUARETOPZ;
+
+      centerBottomX=centerX;
+      centerBottomY=centerY+HITSQUAREBOTTOMZ;
+
+      rightCenterX=centerX+HITSQUARECENTERW;
+      rightCenterY=centerY;
+
+      rightTopX=centerX+HITSQUARETOPW;
+      rightTopY=centerY-HITSQUARETOPZ;
+
+      rightBottomX=centerX+HITSQUAREBOTTOMW;
+      rightBottomY=centerY+HITSQUAREBOTTOMZ;
+
+      leftCenterX=centerX-HITSQUARECENTERW;
+      leftCenterY=centerY;
+
+      leftTopX=centerX-HITSQUARETOPW;
+      leftTopY=centerY-HITSQUARETOPZ;
+
+      leftBottomX=centerX-HITSQUAREBOTTOMW;
+      leftBottomY=centerY+HITSQUAREBOTTOMZ;
+
+      var centerDrawn = perspectiveLocation(centerX,centerY,0);
+      var centerTopDrawn = perspectiveLocation(centerTopX,centerTopY,0);
+      var centerBottomDrawn = perspectiveLocation(centerBottomX,centerBottomY,0);
+      var rightCenterDrawn = perspectiveLocation(rightCenterX,rightCenterY,0);
+      var rightTopDrawn =perspectiveLocation(rightTopX,rightTopY,0);
+      var rightBottomDrawn = perspectiveLocation(rightBottomX,rightBottomY,0);
+      var leftCenterDrawn = perspectiveLocation(leftCenterX,leftCenterY,0);
+      var leftTopDrawn = perspectiveLocation(leftTopX,leftTopY,0);
+      var leftBottomDrawn=perspectiveLocation(leftBottomX,leftBottomY,0);
+
+      var farX;
+      var nearX;
+      var farY;
+      var nearY;
+
+      //console.log(mouseX,mouseY,centerDrawn.x,leftBottomDrawn.x,centerDrawn.y,leftBottomDrawn.y)
+      //determine target wall
+      if(mouseX>=centerDrawn.x && mouseX<=rightCenterDrawn.x && mouseY<=centerDrawn.y && mouseY>=centerTopDrawn.y){
+        PlayerClass.frontWallClicked=true;
+        PlayerClass.targetFrontWall=TOPRIGHTFRONTWALL;
+        farX=rightTopDrawn.x;
+        nearX=centerTopDrawn.x;
+        farY=centerTopDrawn.y;
+        nearY=centerDrawn.y;
+        //return [targetFrontWall, centerDrawn.x, centerDrawn.y, rightCenterDrawn.x, centerTopDrawn.y];
+      }
+
+      if(mouseX<centerDrawn.x && mouseX>=leftCenterDrawn.x && mouseY<centerDrawn.y && mouseY>=leftTopDrawn.y){
+        PlayerClass.frontWallClicked=true;
+        PlayerClass.targetFrontWall=TOPLEFTFRONTWALL;
+        farX=leftTopDrawn.x;
+        nearX=centerTopDrawn.x;
+        farY=centerTopDrawn.y;
+        nearY=centerDrawn.y;
+        //return [targetFrontWall,centerDrawn.x, centerDrawn.y, leftCenterDrawn.x,leftTopDrawn.y];
+      }
+
+      if(mouseX>centerDrawn.x && mouseX<=rightBottomDrawn.x && mouseY>centerDrawn.y && mouseY<=rightBottomDrawn.y){
+        PlayerClass.frontWallClicked=true;
+        PlayerClass.targetFrontWall=BOTTOMRIGHTFRONTWALL;
+        farX=rightBottomDrawn.x;
+        nearX=centerBottomDrawn.x;
+        farY=centerBottomDrawn.y;
+        nearY=centerDrawn.y;
+        //return [targetFrontWall,centerDrawn.x,centerDrawn.y,rightBottomDrawn.x,rightBottomDrawn.y];
+      }
+
+      if(mouseX<centerDrawn.x && mouseX >= leftBottomDrawn.x && mouseY>centerDrawn.y & mouseY<= leftBottomDrawn.y){
+        PlayerClass.frontWallClicked=true;
+        PlayerClass.targetFrontWall=BOTTOMLEFTFRONTWALL;
+        farX=leftBottomDrawn.x;
+        nearX=centerDrawn.x;
+        farY=centerBottomDrawn.y;
+        nearY=centerDrawn.y;
+        //return  [targetFrontWall,centerDrawn.x,centerDrawn.y,leftBottomDrawn.x,leftBottomDrawn.y]
+      }
+      if(PlayerClass.targetFrontWall!=TOPRIGHTQUADRANT && PlayerClass.targetFrontWall !=TOPLEFTQUADRANT && PlayerClass.targetFrontWall!=BOTTOMRIGHTQUADRANT && PlayerClass.targetFrontWall!= BOTTOMLEFTQUADRANT){
+        PlayerClass.targetFrontWall=NOFRONTWALLSELECTED;
+        //return targetFrontWall;
+      }
+      //call function to draw the target wall
+      drawTargetFrontWall(nearX,farX,nearY,farY);
+  }//end of function to target the front wall
 
 function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY, swingTurn){
       if(BallClass.z>PLAYER_MAX_HEIGHT_REACH){
@@ -295,12 +395,10 @@ function GradientShotToBackWall (playerX,playerY){
       var ballAng;
       var atanResult;
       var degreeTarget;
-
       var targetXOnBackWall;
       
-
         if(PlayerClass.targetBackWall==RIGHTBACKWALL){
-            targetXOnBackWall=(rightBottomX+playerX)/2;//add centerBottomX?
+            targetXOnBackWall=(rightBottomX+playerX)/2;
             //console.log("rightwall");
         }
         if(PlayerClass.targetBackWall==LEFTBACKWALL){
@@ -328,6 +426,86 @@ function GradientShotToBackWall (playerX,playerY){
         ballAng:ballAng,
         playerOnThisCourtQuad:PlayerClass.playerStandingOnCourtQuadrant,
         tgtBackWall:PlayerClass.targetBackWall
+      };
+  }//end of function
+
+  function GradientShotToFrontWall (playerX,playerY){
+      const HITSQUARETOPW=71;
+      const HITSQUAREBOTTOMW=34;
+      const HITSQUARECENTERW=39;
+      const HITSQUARETOPZ=28;
+      const HITSQUAREBOTTOMZ=8;
+      const centerZ=14;
+
+      var centerX=COURT_W/2;
+      var centerY=0-centerZ;
+
+      centerTopX=centerX;
+      centerTopY=centerY-HITSQUARETOPZ;
+
+      centerBottomX=centerX;
+      centerBottomY=centerY+HITSQUAREBOTTOMZ;
+
+      rightCenterX=centerX+HITSQUARECENTERW;
+      rightCenterY=centerY;
+
+      rightTopX=centerX+HITSQUARETOPW;
+      rightTopY=centerY-HITSQUARETOPZ;
+
+      rightBottomX=centerX+HITSQUAREBOTTOMW;
+      rightBottomY=centerY+HITSQUAREBOTTOMZ;
+
+      leftCenterX=centerX-HITSQUARECENTERW;
+      leftCenterY=centerY;
+
+      leftTopX=centerX-HITSQUARETOPW;
+      leftTopY=centerY-HITSQUARETOPZ;
+
+      leftBottomX=centerX-HITSQUAREBOTTOMW;
+      leftBottomY=centerY+HITSQUAREBOTTOMZ;
+
+      //determine X point target and radiants to shoot to frontwall on swing
+      //what court quadrant is player standing:
+      var ballAng;
+      var atanResult;
+      var degreeTarget;
+      var targetXOnFrontWall;
+      
+      /*const TOPRIGHTFRONTWALL=1;
+      const BOTTOMRIGHTFRONTWALL=2;
+      const BOTTOMLEFTFRONTWALL=3;
+      const TOPLEFTFRONTWALL=4;*/
+      
+        if(PlayerClass.targetFrontWall==TOPRIGHTFRONTWALL){
+            targetXOnFrontWall=(rightTopX+playerX)/2;
+            targetYOnFrontWall=(rightTopY+playerY)/2;
+        }
+        if(PlayerClass.targetFrontWall==TOPLEFTFRONTWALL){
+            targetXOnFrontWall=(leftTopX+playerX)/2;
+            targetYOnFrontWall=(leftTopY+playerY)/2
+            //console.log("leftwall");
+        }
+
+        if(PlayerClass.targetFrontWall==TOPRIGHTFRONTWALL || PlayerClass.targetFrontWall==TOPLEFTFRONTWALL){
+            distPlayerToTargetX=targetXOnFrontWall-playerX;
+            distPlayerToFrontWallY=targetYOnFrontWall-playerY;
+            atanResult=Math.atan2(distPlayerToFrontWallY,distPlayerToTargetX);//radians
+            degreeTarget=atanResult*180/Math.PI;
+            ballAng=atanResult;
+        }
+
+        //what quadrant is player standing
+        if(playerX>=centerX){
+          PlayerClass.playerStandingOnCourtQuadrant=RIGHTCOURTQUADRANT;
+          //console.log("playerright")
+        } else {
+          PlayerClass.playerStandingOnCourtQuadrant=LEFTCOURTQUADRANT;
+          //console.log("playerleft")
+        }
+      return {
+        ballAng:ballAng,
+        playerOnThisCourtQuad:PlayerClass.playerStandingOnCourtQuadrant,
+        tgtFrontWall:PlayerClass.targetFrontWall
       };
   }//end of function
 
@@ -382,102 +560,7 @@ function playerAtReach (playerPixelX, playerPixelY, opponentPixelX,opponentPixel
       }
     }
 
-//on mouse target front wall
-function selectFrontWall (ballPixelX,ballPixelY){
-      var targetFrontWall;
-      const HITSQUARETOPW=71;
-      const HITSQUAREBOTTOMW=34;
-      const HITSQUARECENTERW=39;
-      const HITSQUARETOPZ=28;
-      const HITSQUAREBOTTOMZ=8;
-      const centerZ=14;
 
-      var centerX=COURT_W/2;
-      var centerY=0-centerZ;
-
-      centerTopX=centerX;
-      centerTopY=centerY-HITSQUARETOPZ;
-
-      centerBottomX=centerX;
-      centerBottomY=centerY+HITSQUAREBOTTOMZ;
-
-      rightCenterX=centerX+HITSQUARECENTERW;
-      rightCenterY=centerY;
-
-      rightTopX=centerX+HITSQUARETOPW;
-      rightTopY=centerY-HITSQUARETOPZ;
-
-      rightBottomX=centerX+HITSQUAREBOTTOMW;
-      rightBottomY=centerY+HITSQUAREBOTTOMZ;
-
-      leftCenterX=centerX-HITSQUARECENTERW;
-      leftCenterY=centerY;
-
-      leftTopX=centerX-HITSQUARETOPW;
-      leftTopY=centerY-HITSQUARETOPZ;
-
-      leftBottomX=centerX-HITSQUAREBOTTOMW;
-      leftBottomY=centerY+HITSQUAREBOTTOMZ;
-
-      var centerDrawn = perspectiveLocation(centerX,centerY,0);
-      var centerTopDrawn = perspectiveLocation(centerTopX,centerTopY,0);
-      var centerBottomDrawn = perspectiveLocation(centerBottomX,centerBottomY,0);
-      var rightCenterDrawn = perspectiveLocation(rightCenterX,rightCenterY,0);
-      var rightTopDrawn =perspectiveLocation(rightTopX,rightTopY,0);
-      var rightBottomDrawn = perspectiveLocation(rightBottomX,rightBottomY,0);
-      var leftCenterDrawn = perspectiveLocation(leftCenterX,leftCenterY,0);
-      var leftTopDrawn = perspectiveLocation(leftTopX,leftTopY,0);
-      var leftBottomDrawn=perspectiveLocation(leftBottomX,leftBottomY,0);
-
-      var farX;
-      var nearX;
-      var farY;
-      var nearY;
-
-      //console.log(mouseX,mouseY,centerDrawn.x,leftBottomDrawn.x,centerDrawn.y,leftBottomDrawn.y)
-      //determine target wall
-      if(mouseX>=centerDrawn.x && mouseX<=rightCenterDrawn.x && mouseY<=centerDrawn.y && mouseY>=centerTopDrawn.y){
-        PlayerClass.targetFrontWall=TOPRIGHTFRONTWALL;
-        farX=rightTopDrawn.x;
-        nearX=centerTopDrawn.x;
-        farY=centerTopDrawn.y;
-        nearY=centerDrawn.y;
-        //return [targetFrontWall, centerDrawn.x, centerDrawn.y, rightCenterDrawn.x, centerTopDrawn.y];
-      }
-
-      if(mouseX<centerDrawn.x && mouseX>=leftCenterDrawn.x && mouseY<centerDrawn.y && mouseY>=leftTopDrawn.y){
-        PlayerClass.targetFrontWall=TOPLEFTFRONTWALL;
-        farX=leftTopDrawn.x;
-        nearX=centerTopDrawn.x;
-        farY=centerTopDrawn.y;
-        nearY=centerDrawn.y;
-        //return [targetFrontWall,centerDrawn.x, centerDrawn.y, leftCenterDrawn.x,leftTopDrawn.y];
-      }
-
-      if(mouseX>centerDrawn.x && mouseX<=rightBottomDrawn.x && mouseY>centerDrawn.y && mouseY<=rightBottomDrawn.y){
-        PlayerClass.targetFrontWall=BOTTOMRIGHTFRONTWALL;
-        farX=rightBottomDrawn.x;
-        nearX=centerBottomDrawn.x;
-        farY=centerBottomDrawn.y;
-        nearY=centerDrawn.y;
-        //return [targetFrontWall,centerDrawn.x,centerDrawn.y,rightBottomDrawn.x,rightBottomDrawn.y];
-      }
-
-      if(mouseX<centerDrawn.x && mouseX >= leftBottomDrawn.x && mouseY>centerDrawn.y & mouseY<= leftBottomDrawn.y){
-        PlayerClass.targetFrontWall=BOTTOMLEFTFRONTWALL;
-        farX=leftBottomDrawn.x;
-        nearX=centerDrawn.x;
-        farY=centerBottomDrawn.y;
-        nearY=centerDrawn.y;
-        //return  [targetFrontWall,centerDrawn.x,centerDrawn.y,leftBottomDrawn.x,leftBottomDrawn.y]
-      }
-      if(targetFrontWall!=TOPRIGHTQUADRANT && targetFrontWall !=TOPLEFTQUADRANT && targetFrontWall!=BOTTOMRIGHTQUADRANT && targetFrontWall!= BOTTOMLEFTQUADRANT){
-        PlayerClass.targetFrontWall=NOFRONTWALLSELECTED;
-        //return targetFrontWall;
-      }
-      //call function to draw the target wall
-      drawTargetFrontWall(nearX,farX,nearY,farY);
-  }//end of function to target the front wall
 
 
 
@@ -566,7 +649,7 @@ function selectFrontWall (ballPixelX,ballPixelY){
       var visualThisY = drawThisLocation.y
       //end of function to determine window of racket hit
   }
-
+*/
   //draws real life coordinates of front wall: Draw only
   function frontWallHitWindowCoords (){
       const HITSQUARETOPW=71;
@@ -633,4 +716,4 @@ function selectFrontWall (ballPixelX,ballPixelY){
 
       var distanceCenterXToRightCenterX= visualRightCenterX- visualCenterX
       var distanceCenterYToCenterTopY= visualCenterTopY-visualCenterY
-  }//end function to build front wall coords*/
+  }//end function to build front wall coords

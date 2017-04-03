@@ -76,8 +76,42 @@ function BallClass(){
       swingTurn=hereComputerCollision.canSwing;  
     }
 
-    
+    /*const TOPRIGHTFRONTWALL=1;
+      const BOTTOMRIGHTFRONTWALL=2;
+      const BOTTOMLEFTFRONTWALL=3;
+      const TOPLEFTFRONTWALL=4;*/
 
+    //radians to hit frontwall quadrant
+    var targetFrontWallVars=GradientShotToFrontWall(PlayerClass.x,PlayerClass.y);
+    var ballAng;
+    var playerStandHereQuad=targetFrontWallVars.playerOnThisCourtQuad;
+    var targetFrontWallQuadrant=targetFrontWallVars.tgtFrontWall;
+    
+    if(targetFrontWallQuadrant==TOPRIGHTFRONTWALL && playerStandHereQuad==RIGHTCOURTQUADRANT){
+      ballAng=3*Math.PI/2
+    }
+    if(targetFrontWallQuadrant==BOTTOMRIGHTFRONTWALL && playerStandHereQuad==RIGHTCOURTQUADRANT){
+      ballAng=3*Math.PI/2
+    }
+    if(targetFrontWallQuadrant==TOPLEFTFRONTWALL && playerStandHereQuad==LEFTCOURTQUADRANT){
+      ballAng=3*Math.PI/2
+    }
+    if(targetFrontWallQuadrant==BOTTOMLEFTFRONTWALL && playerStandHereQuad==LEFTCOURTQUADRANT){
+      ballAng=3*Math.PI/2
+    }
+    if (targetFrontWallQuadrant==TOPRIGHTFRONTWALL && playerStandHereQuad==LEFTCOURTQUADRANT){
+      ballAng=targetFrontWallVars.ballAng;
+    }
+    if (targetFrontWallQuadrant==BOTTOMRIGHTFRONTWALL && playerStandHereQuad==LEFTCOURTQUADRANT){
+      ballAng=targetFrontWallVars.ballAng;
+    }
+    if (targetFrontWallQuadrant==TOPLEFTFRONTWALL && playerStandHereQuad==RIGHTCOURTQUADRANT){
+      ballAng=targetFrontWallVars.ballAng;
+    }
+    if (targetFrontWallQuadrant==BOTTOMLEFTFRONTWALL && playerStandHereQuad==RIGHTCOURTQUADRANT){
+      ballAng=targetFrontWallVars.ballAng;
+    }
+    
     //radians to hit backwall quadrant
     var targetBackWallVars=GradientShotToBackWall(PlayerClass.x,PlayerClass.y);
     var ballAng;
@@ -100,6 +134,7 @@ function BallClass(){
       ballAng=targetBackWallVars.ballAng;
       //console.log("ballAimLeft playerisRight ball crossing"+ ballAng)
     }
+
     
     //swing takes place, target front or back wall
     if(this.bouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0 && swingTurn){          
@@ -117,12 +152,12 @@ function BallClass(){
       this.bouncedOnFloor=false;
       this.bouncedOnFrontWall=false;
       this.bouncedOnBackWall=false;
-      
+      console.log(PlayerClass.frontWallClicked)
       //Back Wall is a target swing
       var degreeTarget=ballAng*180/Math.PI;
       //console.log("ang",ballAng,"degrees",degreeTarget,"targetbackWall",targetBackWallQuadrant,"playerQuad",playerStandHereQuad)
         if(PlayerClass.backWallClicked){
-          //console.log("Aiming for back wall")
+          console.log("Aiming for back wall")
           PlayerClass.backWallClicked=false;
           var ballSpeed = magnitude(this.speedX,this.speedY);
           this.speedX=Math.cos(ballAng)*ballSpeed;
@@ -133,48 +168,16 @@ function BallClass(){
                   } else {
                     this.zv=1;  
                     }
-          //console.log(quadrantHit)
-          /*switch(quadrantHit){
-                case TOPRIGHTQUADRANT:
-                  if(prevY>this.y){
-                  this.speedY*=-1;
-                  this.zv=1.5;
-                  } else {
-                    this.zv=1;  
-                    }
-                  break;
-                case TOPLEFTQUADRANT:
-                  if(prevY>this.y){
-                  this.speedY*=-1;
-                  this.zv=1.5;
-                  } else {
-                    this.zv=1;  
-                    }
-                  break;
-                case BOTTOMRIGHTQUADRANT:
-                  if(prevY>this.y){
-                  this.speedY*=-1;
-                  this.zv=1.5;
-                  } else {
-                    this.zv=1;  
-                    }
-                  this.zv=1;
-                  break;
-                case BOTTOMLEFTQUADRANT:
-                  if(prevY>this.y){
-                  this.speedY*=-1;
-                  this.zv=1.5;
-                  } else {
-                    this.zv=1;  
-                    }
-                  break;
-                default: //shouldn't be reached
-                console.log("error, invalid quadrant squashball.js")
-                  break;  
-            }  */
-          } else {
+          } else if (PlayerClass.frontWallClicked){
+              console.log("Aiming for front wall")
+              PlayerClass.frontWallClicked=false;
+              var ballSpeed = magnitude(this.speedX,this.speedY);
+              this.speedX=Math.cos(ballAng)*ballSpeed;
+              this.speedY=Math.sin(ballAng)*ballSpeed;
+              this.zv=1;  
+              } else {
           //Back Wall is not a target swing
-              //console.log("not aiming for back wall")
+              //console.log("not aiming for front or back walls")
               switch(quadrantHit){
                     //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
                     case TOPRIGHTQUADRANT:
@@ -248,7 +251,7 @@ function BallClass(){
       this.bouncedOnFrontWall=true;
 	  Sound.wall();
     }
-    if(this.nextY>COURT_L){
+    if(this.nextY>COURT_L-2){//COURT_L reduced by two so the ball doesn't paint black on canvas outside the court
       this.speedY*=-1;
       this.bouncedOnBackWall=true;
 	  Sound.wall();

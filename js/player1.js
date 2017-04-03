@@ -67,10 +67,8 @@ function PlayerClass(){
 
 this.initDrawPlayer = function(){
     this.whichPic = p1_start;
-   
     var drawLocation = perspectiveLocation(this.x,this.y,0);
     var playerAnimationFrames = this.whichPic.width/PLAYER_W;
-
     
     if (initPlayerFrameTimer-- < 0) {
       initPlayerFrameTimer = initPlayerStepsPerAnimFrame;
@@ -80,16 +78,12 @@ this.initDrawPlayer = function(){
           playerFrame = 0;
           this.whichPic = p1_standing;
           this.isSwinging=false;
-          
       }
     drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
   }
 
   this.drawPlayer = function(){
-
     var drawLocation = perspectiveLocation(this.x,this.y,0);
-    //this.playerHitWindowCoords();//shows swing quadrants of player
-    //this.frontWallHitWindowCoords();//shows quadrants of the front wall
     if(playerEntryRunning==false){
     var playerAnimationFrames = this.whichPic.width/PLAYER_W;
 
@@ -180,7 +174,7 @@ this.initDrawPlayer = function(){
     var nextX = this.x;
     var nextY = this.y;
     this.particles.active = false;
-
+    
     var isPlayerMoving = (this.keyHeld_Gas || this.keyHeld_Reverse || this.keyHeld_TurnLeft || this.keyHeld_TurnRight);
 
     this.hitGraphicSelection();
@@ -191,7 +185,6 @@ this.initDrawPlayer = function(){
         this.particles.active = true;
         //console.log(this.sprintCooldown);
       }
-
       if(this.keyHeld_Sprint && isPlayerMoving){
         this.particles.active = true;
         if(this.sprintStamina > 0 && this.sprintCooldown == 0){
