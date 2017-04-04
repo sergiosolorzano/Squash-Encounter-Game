@@ -14,7 +14,7 @@ function SoundSystem() {
   	var sounds = [];	// an array of Howl() objects
 	var atlas = null;	// one big sound sprite
 
-	this.play = function(samplename,looping,vol) 
+	this.play = function(samplename,looping,vol)
 	{
 		if (mute) return;
 		if (looping==null) looping = false;
@@ -23,7 +23,7 @@ function SoundSystem() {
 		if (!sounds[samplename]) // downloads on demand once only
 		{
 			// src array is filenames to try in what order
-			// every new browser supports .webm, 
+			// every new browser supports .webm,
 			// older ones like mp3 or ogg but not both
 			sounds[samplename] = new Howl({
 				src: [
@@ -36,7 +36,7 @@ function SoundSystem() {
 		}
 		sounds[samplename].play();
 	}
-	
+
 	function init()
 	{
 		// squash encounter uses a sound atlas:
@@ -51,7 +51,7 @@ function SoundSystem() {
 		  pool:10, // how many concurrent sounds max
 		  volume:0.25, // quieter. (the range is 0 to 1)
 		  sprite: {
-			// start, length in ms 
+			// start, length in ms
 			hit1: [1200*0, 1200],
 			hit2: [1200*1, 1200],
 			hit3: [1200*2, 1200],
@@ -81,18 +81,17 @@ function SoundSystem() {
 		});
 
 	}
-	
+
 	// inclusive: eg 1,10 may include 1 or 10
 	function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
-	
+
 	// shortcuts for squash encounter. example:
 	//Sound.hit(); // randomly play a hit sound
 	this.hit = function() { atlas.play('hit'+randomInt(1,5)); }
 	this.wall = function() { atlas.play('wall'+randomInt(1,5)); }
 	this.bounce = function() { atlas.play('bounce'+randomInt(1,5)); }
 	this.shoe = function() { atlas.play('shoe'+randomInt(1,10)); }
-	
-	init();
-	
-}
 
+	init();
+
+}

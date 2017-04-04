@@ -8,7 +8,7 @@ var initPlayerFrameTimer = 5;//how quick it changes between frames; for players 
 const PLAYER_H=55;
 const PLAYER_W=55;
 var PLAYER_MOVE_SPEED=2;
-const SPRINT_MULTIPLER = 3.0;
+const SPRINT_MULTIPLER = 2.0;
 const PLAYER_MAX_HEIGHT_REACH=15;
 
 var initYPosition=COURT_L*0.4;
@@ -69,7 +69,7 @@ this.initDrawPlayer = function(){
     this.whichPic = p1_start;
     var drawLocation = perspectiveLocation(this.x,this.y,0);
     var playerAnimationFrames = this.whichPic.width/PLAYER_W;
-    
+
     if (initPlayerFrameTimer-- < 0) {
       initPlayerFrameTimer = initPlayerStepsPerAnimFrame;
       playerFrame++;
@@ -100,7 +100,7 @@ this.initDrawPlayer = function(){
           playerFrameTimer=2
           playerStepsPerAnimFrame=2
       }
-    drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);  
+    drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
     }
   }
 
@@ -110,7 +110,7 @@ this.initDrawPlayer = function(){
     var computerIsAtReach=playerAtReach(this.x,this.y,ComputerClass.x,ComputerClass.y);
     var computerIsAtReachNow=computerIsAtReach.oppAtReach;
 
-    
+
 
     if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn){
         switch(quadrantHit){//maybe quadrantHit=0 in which case none called
@@ -147,7 +147,7 @@ this.initDrawPlayer = function(){
                   computerStepsPerAnimFrame=10
                 }
                 this.whichPic = p1_shot_top_left;
-                
+
                 break;
               case BOTTOMRIGHTQUADRANT:
                 this.isSwinging=true;
@@ -165,7 +165,7 @@ this.initDrawPlayer = function(){
                   computerStepsPerAnimFrame=10
                 }
                 this.whichPic = p1_shot_bottom_right;
-                
+
                 break;
               case BOTTOMLEFTQUADRANT:
                 this.isSwinging=true;
@@ -187,7 +187,7 @@ this.initDrawPlayer = function(){
         }
       }
     }
-   
+
   this.movePlayer = function(){
     var nextX = this.x;
     var nextY = this.y;
@@ -201,7 +201,6 @@ this.initDrawPlayer = function(){
       if(this.sprintCooldown > 0){
         this.sprintCooldown--;
         this.particles.active = true;
-        //console.log(this.sprintCooldown);
       }
       if(this.keyHeld_Sprint && isPlayerMoving){
         this.particles.active = true;
@@ -211,13 +210,12 @@ this.initDrawPlayer = function(){
         }
         else if (this.sprintStamina == 0){
           this.sprintMultiplier = 1;
-          this.isExhausted = true;
-          this.sprintCooldown = 50;
+          this.sprintCooldown = 80;
         }
       } else {
         this.sprintMultiplier = 1;
-        if(this.sprintStamina < 100){
-          this.sprintStamina++;
+        if(this.sprintStamina < 20){
+          this.sprintStamina+=0.25;
         }
       }
         //TODO might need to reset this.sprintMultiplier
@@ -257,6 +255,3 @@ this.initDrawPlayer = function(){
     this.particles.yOffset = pLoc.y;
   }
 }
-
-
- 

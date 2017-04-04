@@ -14,9 +14,11 @@ drawNow=false;
 
 function drawStaminaBar(){
 	//draw bar background
-	colorRect(canvas.width-100,0, 100, 20, 'LightGray');
+	colorRect(0,canvas.height-20, 100, 20, 'LightGray');
 	//draw current stamina
-	colorRect(canvas.width-100,0, PlayerClass.sprintStamina, 20, 'red');
+	colorRect(0,canvas.height-20, PlayerClass.sprintStamina * 5, 20, 'red');
+	//draw label
+	colorText('STAMINA', 100,canvas.height-30, 'white');
 }
 
 function rightToServe(){
@@ -24,18 +26,18 @@ function rightToServe(){
 	const SERVE_H=365;
   var endAnimation;
   var drawLocation = perspectiveLocation(COURT_W/2,COURT_L*0.2,0);
-  
+
   if(numFullSpins>0){
-  var spinAnimationFrames = serve_spin.width/SERVE_W;    
+  var spinAnimationFrames = serve_spin.width/SERVE_W;
   } else {
     drawNow=true;
     if(Math.random>0.5){
-    spinAnimationFrames=0  
+    spinAnimationFrames=0
   } else {
     spinAnimationFrames=5
   }
 }
-  
+
   if (spinFrameTimer-- < 0 && drawNow==false) {
       spinFrameTimer = spinStepsPerAnimFrame;
       spinFrame++;
@@ -48,7 +50,7 @@ function rightToServe(){
   if(drawNow){
     rightToServeOutcome();
   } else {
-  var titleText = "Drawing Right To Serve, please hold";  
+  var titleText = "Drawing Right To Serve, please hold";
   canvasContext.fillStyle = "grey";
   canvasContext.textAlign = "center";
   canvasContext.font = "bold 15px verdana";
@@ -58,7 +60,7 @@ function rightToServe(){
 }
 
 function rightToServeOutcome(){
-  var drawLocationPlayer = perspectiveLocation(COURT_W*0.3,COURT_L*0.8,0); 
+  var drawLocationPlayer = perspectiveLocation(COURT_W*0.3,COURT_L*0.8,0);
   var subText = "Press Enter to continue";
   canvasContext.fillStyle = "black";
   canvasContext.textAlign = "center";
@@ -68,15 +70,13 @@ function rightToServeOutcome(){
 
   if(spinAnimationFrames==5){
     drawAtBaseSheetSprite(p1_standing,0, drawLocationPlayer.x, drawLocationPlayer.y,PLAYER_W,PLAYER_H);
-    var titleText = "Blue Player Has  Right To Serve !";  
+    var titleText = "Blue Player Has  Right To Serve !";
     canvasContext.fillStyle = "blue";
     } else {
-      var titleText = "Red Player Has Right To Serve !";  
+      var titleText = "Red Player Has Right To Serve !";
       canvasContext.fillStyle = "red";
   }
-  
+
   canvasContext.font = "bold 20px verdana";
   canvasContext.fillText((titleText), canvas.width / 2, 485);
-} 
- 
-
+}
