@@ -9,14 +9,13 @@ var Sound = new SoundSystem(); // global
 
 function SoundSystem() {
 
-	var mute = true;	// if true ignore all play()
+	var mute = false;	// if true ignore all play()
 	var music = null;	// one looping Howl() object
   	var sounds = [];	// an array of Howl() objects
 	var atlas = null;	// one big sound sprite
 
 	this.play = function(samplename,looping,vol)
 	{
-		if (mute) return;
 		if (looping==null) looping = false;
 		if (vol==null) vol = 1;
 
@@ -25,6 +24,7 @@ function SoundSystem() {
 			// src array is filenames to try in what order
 			// every new browser supports .webm,
 			// older ones like mp3 or ogg but not both
+			console.log("Downloading a new sound: " + samplename);
 			sounds[samplename] = new Howl({
 				src: [
 					'audio/'+samplename+'.mp3',
@@ -34,7 +34,8 @@ function SoundSystem() {
 				volume: vol
 			});
 		}
-		sounds[samplename].play();
+		if (!mute) // we still download even if muted
+			sounds[samplename].play();
 	}
 
 	function init()
@@ -48,7 +49,7 @@ function SoundSystem() {
 			'audio/squash-sound-atlas.ogg',
 			'audio/squash-sound-atlas.mp3',
 			'audio/squash-sound-atlas.webm'],
-		  pool:10, // how many concurrent sounds max
+		  pool:16, // how many concurrent sounds max
 		  volume:0.25, // quieter. (the range is 0 to 1)
 		  sprite: {
 			// start, length in ms
@@ -80,6 +81,18 @@ function SoundSystem() {
 		  }
 		});
 
+	}
+
+	// returns true if a sample is currently playing
+	this.isPlaying = function(samplename) {
+		var result = false;
+
+		if (sounds[samplename])
+			result = sounds[samplename].playing();
+		else
+			console.log("unknown sound: " + samplename);
+
+		return result;
 	}
 
 	// inclusive: eg 1,10 may include 1 or 10

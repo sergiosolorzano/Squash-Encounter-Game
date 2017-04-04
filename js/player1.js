@@ -11,6 +11,8 @@ var PLAYER_MOVE_SPEED=2;
 const SPRINT_MULTIPLER = 2.0;
 const PLAYER_MAX_HEIGHT_REACH=15;
 
+const SPRINT_STAMINA_WHEN_TIRED = 15; // when to trigger sprint_breath sound effect
+
 var initYPosition=COURT_L*0.4;
 
 var opponentAtReach=false;
@@ -242,8 +244,13 @@ this.initDrawPlayer = function(){
         nextX+= PLAYER_MOVE_SPEED * this.sprintMultiplier;
         this.whichPic = p1_running;
       }
-    if(this.sprintStamina > 30){
-          //Sound.play("sprint_breath",false,1);
+    if(this.sprintStamina < SPRINT_STAMINA_WHEN_TIRED){
+          // we do not have max stamina! we are tired! need more oxygen! =)
+          // console.log("TIRED! My sprintStamin is " + this.sprintStamina); // debug spam
+          if (!Sound.isPlaying("sprint_breath")){
+			  //console.log("Need more oxygen! Breathing!");
+			  Sound.play("sprint_breath",false,0.1);
+		  }
         }
     }
   }
