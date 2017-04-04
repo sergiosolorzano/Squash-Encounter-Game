@@ -221,21 +221,26 @@ this.initDrawPlayer = function(){
         //TODO might need to reset this.sprintMultiplier
 
     if(this.isSwinging==false && playerHit==false){
+      
       if(this.keyHeld_Gas){
-                  nextY -= PLAYER_MOVE_SPEED * this.sprintMultiplier;
-                  this.whichPic = p1_running;
+        nextY -= PLAYER_MOVE_SPEED * this.sprintMultiplier;
+          if(this.keyHeld_Sprint && this.sprintStamina>0){
+            this.whichPic = p1_sprint;
+            } else {
+            this.whichPic = p1_running;
+          }
       }
       if(this.keyHeld_Reverse){
-                  nextY += PLAYER_MOVE_SPEED * this.sprintMultiplier;
-                  this.whichPic = p1_running;
+        nextY += PLAYER_MOVE_SPEED * this.sprintMultiplier;
+        this.whichPic = p1_running;
       }
       if(this.keyHeld_TurnLeft){
-                  nextX -= PLAYER_MOVE_SPEED * this.sprintMultiplier;
-                  this.whichPic = p1_running;
+        nextX -= PLAYER_MOVE_SPEED * this.sprintMultiplier;
+        this.whichPic = p1_running;
       }
       if(this.keyHeld_TurnRight){
-                  nextX+= PLAYER_MOVE_SPEED * this.sprintMultiplier;
-                  this.whichPic = p1_running;
+        nextX+= PLAYER_MOVE_SPEED * this.sprintMultiplier;
+        this.whichPic = p1_running;
       }
     if(this.sprintStamina > 30){
           //Sound.play("sprint_breath",false,1);

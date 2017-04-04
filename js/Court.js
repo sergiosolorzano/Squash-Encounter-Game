@@ -592,6 +592,60 @@ function playerAtReach (playerPixelX, playerPixelY, opponentPixelX,opponentPixel
       }
     }
 
+function drawCourtQuadrants (){
+      var centerX=COURT_W/2;
+      var centerY=COURT_L*0.38;
+
+      centerTopX=centerX;
+      centerTopY=centerY-WALKTOPSQUAREY;
+
+      centerBottomX=centerX;
+      centerBottomY=centerY+WALKBOTTOMSQUAREY;
+
+      rightCenterX=centerX+WALKCENTERSQUAREW;
+      rightCenterY=centerY;
+
+      rightTopX=centerX+WALKTOPSQUAREW;
+      rightTopY=centerY-WALKTOPSQUAREY;
+
+      rightBottomX=centerX+WALKBOTTOMSQUAREW;
+      rightBottomY=centerY+WALKBOTTOMSQUAREY;
+
+      leftCenterX=centerX-WALKCENTERSQUAREW;
+      leftCenterY=centerY;
+
+      leftTopX=centerX-WALKTOPSQUAREW;
+      leftTopY=centerY-WALKTOPSQUAREY;
+
+      leftBottomX=centerX-WALKBOTTOMSQUAREW;
+      leftBottomY=centerY+WALKBOTTOMSQUAREY;
+
+      //draw coordinates of court quadrants on the screen
+      var drawThisLocation = perspectiveLocation(centerX,centerY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualCenterX = drawThisLocation.x
+      var visualCenterY = drawThisLocation.y
+      var drawThisLocation = perspectiveLocation(centerTopX,centerTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualCenterTopY = drawThisLocation.y
+      var drawThisLocation = perspectiveLocation(rightTopX,rightTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualRightTopX = drawThisLocation.x
+      var drawThisLocation = perspectiveLocation(rightCenterX,rightCenterY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var visualRightCenterX = drawThisLocation.x
+      var drawThisLocation = perspectiveLocation(rightBottomX,rightBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(centerBottomX,centerBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftCenterX,leftCenterY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftTopX,leftTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+      var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+    }
+
 //Drawing calculations
   //determine window range for racket hit: Draw only
   
@@ -671,72 +725,4 @@ function playerAtReach (playerPixelX, playerPixelY, opponentPixelX,opponentPixel
       var visualThisX = drawThisLocation.x
       var visualThisY = drawThisLocation.y
       //end of function to determine window of racket hit
-  }
-*/
-  //draws real life coordinates of front wall: Draw only
-  /*function frontWallHitWindowCoords (){
-      const HITSQUARETOPW=71;
-      const HITSQUAREBOTTOMW=34;
-      const HITSQUARECENTERW=39;
-      const HITSQUARETOPZ=28;
-      const HITSQUAREBOTTOMZ=8;
-      const centerZ=14;
-
-      var centerX=COURT_W/2;
-      var centerY=0-centerZ;
-
-      centerTopX=centerX;
-      centerTopY=centerY-HITSQUARETOPZ;
-
-      centerBottomX=centerX;
-      centerBottomY=centerY+HITSQUAREBOTTOMZ;
-
-      rightCenterX=centerX+HITSQUARECENTERW;
-      rightCenterY=centerY;
-
-      rightTopX=centerX+HITSQUARETOPW;
-      rightTopY=centerY-HITSQUARETOPZ;
-
-      rightBottomX=centerX+HITSQUAREBOTTOMW;
-      rightBottomY=centerY+HITSQUAREBOTTOMZ;
-
-      leftCenterX=centerX-HITSQUARECENTERW;
-      leftCenterY=centerY;
-
-      leftTopX=centerX-HITSQUARETOPW;
-      leftTopY=centerY-HITSQUARETOPZ;
-
-      leftBottomX=centerX-HITSQUAREBOTTOMW;
-      leftBottomY=centerY+HITSQUAREBOTTOMZ;
-
-      var drawThisLocation = perspectiveLocation(centerX,centerY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var visualCenterX = drawThisLocation.x
-      var visualCenterY = drawThisLocation.y
-
-      var drawThisLocation = perspectiveLocation(centerTopX,centerTopY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var visualCenterTopY = drawThisLocation.y
-
-      var drawThisLocation = perspectiveLocation(rightTopX,rightTopY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var visualRightTopX = drawThisLocation.x
-
-      var drawThisLocation = perspectiveLocation(rightCenterX,rightCenterY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var visualRightCenterX = drawThisLocation.x
-
-      var drawThisLocation = perspectiveLocation(rightBottomX,rightBottomY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var drawThisLocation = perspectiveLocation(centerBottomX,centerBottomY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var drawThisLocation = perspectiveLocation(leftCenterX,leftCenterY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var drawThisLocation = perspectiveLocation(leftTopX,leftTopY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-      var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,0);
-      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-
-      var distanceCenterXToRightCenterX= visualRightCenterX- visualCenterX
-      var distanceCenterYToCenterTopY= visualCenterTopY-visualCenterY
-  }//end function to build front wall coords*/
+  }*/

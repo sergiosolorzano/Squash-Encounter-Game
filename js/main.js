@@ -86,7 +86,7 @@ function drawAll() {
       BallClass.drawInAir();
       ParticleSystem.draw();
       GradientShotToFrontWall(PlayerClass.x,PlayerClass.y)
-      //frontWallHitWindowCoords();
+      drawCourtQuadrants();
     
       if(playerEntryRunning){
         PlayerClass.initDrawPlayer();
