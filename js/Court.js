@@ -1,3 +1,6 @@
+T_ONCOURT_W=COURT_W*0.54
+T_ONCOURT_L=COURT_L*0.3
+
 //player swing-quadrants
 const NOQUADRANTHIT = 0;
 const TOPRIGHTQUADRANT=1;

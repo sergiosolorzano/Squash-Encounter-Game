@@ -26,11 +26,12 @@ function BallClass(){
     this.z=0;
     this.zv=1;//1.5
     this.heightOscillate=0.0;
-    this.speedX = 1;
-    this.speedY = 2;
+    this.speedX = -1;
+    this.speedY = -2;
     this.bouncedOnFrontWall=true;
     this.bouncedOnBackWall=true;
-    this.bouncedOnFloor=true;
+    this.bouncedOnFloor=1;//player can only swing on ball if it has hit the ground once
+    this.ballBouncedOnFloor = true;////captures ball bounced 0 or 1 times so player can only swing on ball if it has hit the ground once
     this.canBeHit=true;
   }
     
@@ -135,8 +136,16 @@ function BallClass(){
       //console.log("ballAimLeft playerisRight ball crossing"+ ballAng)
     }
 
+    //check ball only bounced once or none on floor before swing
+    if(this.bouncedOnFloor==1 || this.bouncedOnFloor==0){
+      this.ballBouncedOnFloor = true;
+    } else {
+      this.ballBouncedOnFloor=false;
+    }
     //swing takes place, target front or back wall
-    if(this.bouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0 && swingTurn){          
+
+    //console.log(this.bouncedOnFloor)
+    if(this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0 && swingTurn){          
       if(playerSwingTurn){
         PlayerClass.swingTurn=false;  
         ComputerClass.swingTurn=true;  
@@ -145,7 +154,7 @@ function BallClass(){
         PlayerClass.swingTurn=true;  
         ComputerClass.swingTurn=false;   
       }
-      this.bouncedOnFloor=false;
+      this.bouncedOnFloor=0;
       this.bouncedOnFrontWall=false;
       this.bouncedOnBackWall=false;
       //console.log(PlayerClass.frontWallClicked)
@@ -231,11 +240,10 @@ function BallClass(){
       this.zv*=-1;
 	  Sound.bounce();
     }
-
     if(this.z <= 0) {
       this.zv*=-0.7;
       this.z = 0;
-      this.bouncedOnFloor=true;
+      this.bouncedOnFloor+=1;
 	  Sound.bounce();
     }
     

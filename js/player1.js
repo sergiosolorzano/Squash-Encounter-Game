@@ -109,17 +109,21 @@ this.initDrawPlayer = function(){
     this.hitGraphicSelection=function(){
     var hereCollision = ballAtReach(this.x,this.y,BallClass.x,BallClass.y,this.swingTurn);
     var quadrantHit = hereCollision.quadrant;
-    var computerIsAtReach=playerAtReach(this.x,this.y,ComputerClass.x,ComputerClass.y);
-    var computerIsAtReachNow=computerIsAtReach.oppAtReach;
+    var computerIsAtReach=playerAtReach(this.x,this.y,ComputerClass.x,ComputerClass.y);//racket accident
+    var computerIsAtReachNow=computerIsAtReach.oppAtReach;//racket accident
+    
+    //check ball only bounced once or none on floor before swing
+    if(BallClass.bouncedOnFloor==1 || BallClass.bouncedOnFloor==0){
+      ballBouncedOnFloor = true;
+    } else {
+      ballBouncedOnFloor=false;
+    }
 
-
-
-    if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn){
+    if(ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn){
+        //console.log("swingturn:",this.swingTurn,"ballbounced:",ballBouncedOnFloor)
         switch(quadrantHit){//maybe quadrantHit=0 in which case none called
               case TOPRIGHTQUADRANT:
                 this.isSwinging=true;
-                //ComputerClass.swingTurn=true;
-                //this.swingTurn=false;
                 Sound.hit();
                 if(computerIsAtReachNow){
                   if(this.x>ComputerClass.x){
@@ -135,8 +139,6 @@ this.initDrawPlayer = function(){
                 break;
               case TOPLEFTQUADRANT:
                 this.isSwinging=true;
-                //ComputerClass.swingTurn=true;
-                //this.swingTurn=false;
                 Sound.hit();
                 if(computerIsAtReachNow){
                     if(this.x>ComputerClass.x){
@@ -153,8 +155,6 @@ this.initDrawPlayer = function(){
                 break;
               case BOTTOMRIGHTQUADRANT:
                 this.isSwinging=true;
-                //ComputerClass.swingTurn=true;
-                //this.swingTurn=false;
                 Sound.hit();
                 if(computerIsAtReachNow){
                     if(this.x>ComputerClass.x){
@@ -171,8 +171,6 @@ this.initDrawPlayer = function(){
                 break;
               case BOTTOMLEFTQUADRANT:
                 this.isSwinging=true;
-                //ComputerClass.swingTurn=true;
-                //this.swingTurn=false;
                 Sound.hit();
                 if(computerIsAtReachNow){
                     if(this.x>ComputerClass.x){

@@ -4,6 +4,7 @@ var computerFrame=0;
 
 var initComputerStepsPerAnimFrame = 5;//for players entry only
 var initComputerFrameTimer = 5;//how quick it changes between frames; for players entry only
+var COMPUTER_MOVE_SPEED=2;
 
 
 function ComputerClass(){
@@ -18,6 +19,9 @@ function ComputerClass(){
     this.y=initYPosition;
     this.isSwinging=false;//used so player does not run if gif showing it's swinging the racket
     this.swingTurn=false;
+    this.atanResultAchieved==false;
+    this.speedX=COMPUTER_MOVE_SPEED;
+    this.speedY=COMPUTER_MOVE_SPEED;
   }
 
   this.initDrawPlayer = function(){
@@ -60,7 +64,33 @@ function ComputerClass(){
 
   this.movePlayer = function(){  
     this.hitGraphicSelection();
-    //if computerHit=false can move
+    var nextX=this.x;
+    var nextY=this.y;
+    var computerSpeed;
+    var distPlayerToTX;
+    var distPlayerToTY;
+    
+    //run to T
+    
+
+    if(this.swingTurn==false){
+      distPlayerToTX=T_ONCOURT_W-this.x;
+      distPlayerToTY=T_ONCOURT_L-this.y;
+      atanResult=Math.atan2(distPlayerToTY,distPlayerToTX);//radians
+
+      computerSpeed = magnitude(this.speedX,this.speedY);
+      this.speedX=Math.cos(atanResult)*computerSpeed;
+      this.speedY=Math.sin(atanResult)*computerSpeed;
+    } else {
+      this.speedX=0;
+      this.speedY=0;
+    }
+      nextX+= this.speedX;
+      nextY+= this.speedY;
+    //console.log(this.x,T_ONCOURT_W,this.y,T_ONCOURT_L)    
+    //console.log(distPlayerToTX,distPlayerToTY)
+  this.x=nextX;
+  this.y=nextY;
   }
 
   this.hitGraphicSelection=function(){
@@ -68,13 +98,18 @@ function ComputerClass(){
     var quadrantHit = hereCollision.quadrant;
     var player1IsAtReach=playerAtReach(this.x,this.y,PlayerClass.x,PlayerClass.y);
     var player1IsAtReachNow=player1IsAtReach.oppAtReach;
+    
+    //check ball only bounced once or none on floor before swing
+    if(BallClass.bouncedOnFloor==1 || BallClass.bouncedOnFloor==0){
+      ballBouncedOnFloor = true;
+    }  else {
+      ballBouncedOnFloor=false;
+    }
 
-    if(BallClass.bouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn){
+    if(ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn){
         switch(quadrantHit){
               case TOPRIGHTQUADRANT:
                 this.isSwinging=true;
-                //PlayerClass.swingTurn=true;
-                //this.swingTurn=false;//todo: remove when 
                 Sound.hit();
                 if(player1IsAtReachNow){
                     if(this.x>PlayerClass.x){
@@ -89,8 +124,6 @@ function ComputerClass(){
                 break;
               case TOPLEFTQUADRANT:
                 this.isSwinging=true;
-                //PlayerClass.swingTurn=true;
-                //this.swingTurn=false;
                 Sound.hit();
                 if(player1IsAtReachNow){
                   if(this.x>PlayerClass.x){
@@ -106,8 +139,6 @@ function ComputerClass(){
                 break;
               case BOTTOMRIGHTQUADRANT:
                 this.isSwinging=true;
-                //PlayerClass.swingTurn=true;
-                //this.swingTurn=false;
                 Sound.hit();
                 if(player1IsAtReachNow){
                   if(this.x>PlayerClass.x){
@@ -123,8 +154,6 @@ function ComputerClass(){
                 break;
               case BOTTOMLEFTQUADRANT:
                 this.isSwinging=true;
-                //PlayerClass.swingTurn=true;
-                //this.swingTurn=false;
                 Sound.hit();
                 if(player1IsAtReachNow){
                  if(this.x>PlayerClass.x){
