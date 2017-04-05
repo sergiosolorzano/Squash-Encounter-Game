@@ -15,11 +15,12 @@ function ComputerClass(){
   }
 
   this.Reset = function(){
+    this.prevX=0;
+    this.prevY=0;
     this.x=COURT_W*0.8;
     this.y=initYPosition;
     this.isSwinging=false;//used so player does not run if gif showing it's swinging the racket
     this.swingTurn=false;
-    this.atanResultAchieved==false;
     this.speedX=COMPUTER_MOVE_SPEED;
     this.speedY=COMPUTER_MOVE_SPEED;
   }
@@ -71,8 +72,6 @@ function ComputerClass(){
     var distPlayerToTY;
     
     //run to T
-    
-
     if(this.swingTurn==false){
       distPlayerToTX=T_ONCOURT_W-this.x;
       distPlayerToTY=T_ONCOURT_L-this.y;
@@ -91,6 +90,29 @@ function ComputerClass(){
     //console.log(distPlayerToTX,distPlayerToTY)
   this.x=nextX;
   this.y=nextY;
+  }
+
+  this.ballAngAtBounce = function(){
+    //calculate angle of ball trajectory as it bounces off the wall
+    
+    ballPrevX=BallClass.x-BallClass.speedX;
+    ballPrevY=BallClass.y-BallClass.speedY;
+
+    distBallPrevXThisX=BallClass.x-ballPrevX;
+    distBallPrevYThisY=BallClass.x-ballPrevY;
+
+    //normalize vectors
+    var length = magnitude(this.speedX,this.speedY);
+    distBallPrevXThisX/=length;
+    distBallPrevYThisY/=length;
+
+    atanResult=Math.atan2(distBallPrevYThisY,distBallPrevXThisX);//radians    
+    degrees=atanResult*180/Math.PI;
+    console.log("radians: ",atanResult,"degrees: ",degrees);
+
+    adjacent=ComputerClass.y-BallClass.y;
+    opposite=atanResult*adjacent;
+    console.log("x to go to is : ",opposite)
   }
 
   this.hitGraphicSelection=function(){
@@ -188,3 +210,4 @@ function ComputerClass(){
       }*/
     }
 }
+

@@ -251,19 +251,23 @@ function BallClass(){
     this.nextY=this.y+this.speedY;
 
     if(this.nextX<0)  {
+      ComputerClass.ballAngAtBounce();
       this.speedX*=-1;
     }
     if(this.nextX>COURT_W){
+      ComputerClass.ballAngAtBounce();
       this.speedX*=-1;
 	  Sound.wall();
     }
 
-    if(this.nextY<0)  {
+    if(this.nextY<=0)  {
+      ComputerClass.ballAngAtBounce();
       this.speedY*=-1;
       this.bouncedOnFrontWall=true;
 	  Sound.wall();
     }
     if(this.nextY>COURT_L-2){//COURT_L reduced by two so the ball doesn't paint black on canvas outside the court
+      ComputerClass.ballAngAtBounce();
       this.speedY*=-1;
       this.bouncedOnBackWall=true;
 	  Sound.wall();
