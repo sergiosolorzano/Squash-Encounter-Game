@@ -99,7 +99,7 @@ function ComputerClass(){
     ballPrevY=BallClass.y-BallClass.speedY;
 
     distBallPrevXThisX=BallClass.x-ballPrevX;
-    distBallPrevYThisY=BallClass.x-ballPrevY;
+    distBallPrevYThisY=BallClass.y-ballPrevY;
 
     //normalize vectors
     var length = magnitude(this.speedX,this.speedY);
