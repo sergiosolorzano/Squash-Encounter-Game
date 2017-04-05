@@ -1,0 +1,39 @@
+Initialize engine version: 5.5.2f1 (3829d7f588f3)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
+    Vendor:   NVIDIA
+    VRAM:     4008 MB
+    Driver:   21.21.13.7892
+Begin MonoManager ReloadAssembly
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.235 seconds
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\Bench\Build\Build1_Data\Managed\System.dll (this message is harmless)
+desktop: 2560x1440 59Hz; virtual: 3840x1440 at 0,0
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.842361 ms
+Setting up 3 worker threads for Enlighten.
+  Thread -> id: a4c -> priority: 1 
+  Thread -> id: 3500 -> priority: 1 
+  Thread -> id: 3fb4 -> priority: 1 
+Unloading 7 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 6.129028 ms
+
+Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 246.
+Total: 0.184846 ms (FindLiveObjects: 0.035817 ms CreateObjectMapping: 0.007995 ms MarkObjects: 0.130799 ms  DeleteObjects: 0.009274 ms)
+

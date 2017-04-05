@@ -74,14 +74,16 @@ function clearScreen() {
 function drawAll() {
     //console.log(playerEntryRunning)
 
+    
     drawBitmapCenteredWithRotation(squashcourt, canvas.width/2, canvas.height/2, 0);
+
     drawStaminaBar();
     drawScoreCounter();
 
     if(serveBet){
     rightToServe();  
     } else {
-
+      
       BallClass.drawShadow();
       BallClass.drawInAir();
       ParticleSystem.draw();

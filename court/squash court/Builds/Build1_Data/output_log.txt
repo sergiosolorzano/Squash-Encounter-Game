@@ -5,35 +5,35 @@ Direct3D:
     Renderer: NVIDIA GeForce GTX 970 (ID=0x13c2)
     Vendor:   NVIDIA
     VRAM:     4008 MB
-    Driver:   21.21.13.7878
+    Driver:   21.21.13.7892
 Begin MonoManager ReloadAssembly
-Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
-Loading M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
-Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
-Loading M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.244 seconds
-Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Squash Game\court\squash court\Builds\Build1_Data\Managed\System.dll (this message is harmless)
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\UnityEngine.PlaymodeTestsRunner.dll into Unity Child Domain
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+- Completed reload, in  0.027 seconds
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: M:\Desktop Backup\AR-VR\Gamkedo\Github\squash-encounter\court\squash court\Builds\Build1_Data\Managed\System.dll (this message is harmless)
 desktop: 2560x1440 59Hz; virtual: 3840x1440 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
 <RI> Initialized touch support.
-UnloadTime: 1.822546 ms
+UnloadTime: 1.596137 ms
 Setting up 3 worker threads for Enlighten.
-  Thread -> id: 382c -> priority: 1 
-  Thread -> id: 39bc -> priority: 1 
-  Thread -> id: 648 -> priority: 1 
+  Thread -> id: 3410 -> priority: 1 
+  Thread -> id: 37ac -> priority: 1 
+  Thread -> id: 27e0 -> priority: 1 
 Unloading 5 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 14.793042 ms
+UnloadTime: 283.428162 ms
 
 Unloading 9 unused Assets to reduce memory usage. Loaded Objects now: 337.
-Total: 0.321400 ms (FindLiveObjects: 0.061721 ms CreateObjectMapping: 0.023025 ms MarkObjects: 0.219703 ms  DeleteObjects: 0.016309 ms)
+Total: 26.611464 ms (FindLiveObjects: 0.028462 ms CreateObjectMapping: 0.029102 ms MarkObjects: 26.535030 ms  DeleteObjects: 0.018228 ms)
 
