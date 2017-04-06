@@ -61,8 +61,15 @@ function ComputerClass(){
           computerStepsPerAnimFrame=2
       }
     drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
+    //draw debug ball
+    if(debugBall)
+      colorCircle(debugBall.x, debugBall.y, 3, "white")
+    
+    if(debugTarget)
+      colorCircle(debugTarget.x, debugTarget.y, 3, "green")
   }
-
+  var debugBall;
+  var debugTarget;
   this.movePlayer = function(){  
     this.hitGraphicSelection();
     var nextX=this.x;
@@ -80,16 +87,38 @@ function ComputerClass(){
       computerSpeed = magnitude(this.speedX,this.speedY);
       this.speedX=Math.cos(atanResult)*computerSpeed;
       this.speedY=Math.sin(atanResult)*computerSpeed;
+    } else if(BallClass.speedY > 0){
+      //i need to take trig </3
+      var m = (BallClass.y - (BallClass.y +BallClass.speedY)) / (BallClass.x - (BallClass.x +BallClass.speedX)); //slope
+      //var b = BallClass.y - (-1 * m) * BallClass.x //y intercept
+      var b = ((BallClass.x +BallClass.speedX)*BallClass.y-BallClass.x*(BallClass.y +BallClass.speedY))/((BallClass.x +BallClass.speedX)-BallClass.x)
+      //var y = m(this.x) + b
+      var x = (this.y/m) - (b/m) //solve for x
+      var direction = this.x - x
+      if(this.x - x > 0){
+        direction = -COMPUTER_MOVE_SPEED
+      } else {
+        direction = COMPUTER_MOVE_SPEED
+      }
+
+      this.speedX = direction
+      if(this.y - BallClass.y < 0){
+        this.speedY=0;
+        this.speedX=0
+      }
+      debugBall = perspectiveLocation(BallClass.x +BallClass.speedX, BallClass.y +BallClass.speedY, BallClass.z)
+      debugTarget = perspectiveLocation(x, this.y, 10)
+      
     } else {
-      this.speedX=0;
-      this.speedY=0;
+      this.speedX = 0
+      this.speedY = 0
     }
       nextX+= this.speedX;
       nextY+= this.speedY;
     //console.log(this.x,T_ONCOURT_W,this.y,T_ONCOURT_L)    
     //console.log(distPlayerToTX,distPlayerToTY)
-  this.x=nextX;
-  this.y=nextY;
+    this.x=nextX;
+    this.y=nextY;
   }
 
   this.ballAngAtBounce = function(){
