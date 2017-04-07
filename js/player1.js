@@ -86,7 +86,7 @@ this.initDrawPlayer = function(){
 
   this.drawPlayer = function(){
     var drawLocation = perspectiveLocation(this.x,this.y,0);
-    if(playerEntryRunning==false){
+    if(playerEntry==false){
     var playerAnimationFrames = this.whichPic.width/PLAYER_W;
 
     if (playerFrameTimer-- < 0) {
@@ -119,7 +119,7 @@ this.initDrawPlayer = function(){
       ballBouncedOnFloor=false;
     }
 
-    if(ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn){
+    if(ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn && BallClass.tinHit==false && BallClass.ballHitFloorBeforeWall==false){
         //console.log("swingturn:",this.swingTurn,"ballbounced:",ballBouncedOnFloor)
         switch(quadrantHit){//maybe quadrantHit=0 in which case none called
               case TOPRIGHTQUADRANT:
@@ -151,7 +151,6 @@ this.initDrawPlayer = function(){
                   computerStepsPerAnimFrame=10
                 }
                 this.whichPic = p1_shot_top_left;
-
                 break;
               case BOTTOMRIGHTQUADRANT:
                 this.isSwinging=true;
@@ -167,7 +166,6 @@ this.initDrawPlayer = function(){
                   computerStepsPerAnimFrame=10
                 }
                 this.whichPic = p1_shot_bottom_right;
-
                 break;
               case BOTTOMLEFTQUADRANT:
                 this.isSwinging=true;
@@ -194,7 +192,6 @@ this.initDrawPlayer = function(){
     this.particles.active = false;
 
     var isPlayerMoving = (this.keyHeld_Gas || this.keyHeld_Reverse || this.keyHeld_TurnLeft || this.keyHeld_TurnRight);
-
     this.hitGraphicSelection();
     if(this.isSwinging==false && playerHit==false){
 

@@ -4,7 +4,7 @@ var serveBet=true;
 var BallClass = new BallClass();
 var PlayerClass = new PlayerClass();
 var ComputerClass = new ComputerClass();
-var playerEntryRunning;
+var playerEntry;
 
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
@@ -51,7 +51,7 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function loadLevel() {
-  playerEntryRunning=true;
+  playerEntry=true;
   BallClass.Init();
 	PlayerClass.Init();
   ComputerClass.Init();
@@ -60,7 +60,7 @@ function loadLevel() {
 function moveAll() {
   if(serveBet){
   return;  
-  } else if (playerEntryRunning==false){
+  } else if (playerEntry==false){
         BallClass.moveBall();
         PlayerClass.movePlayer();
         ComputerClass.movePlayer();
@@ -72,11 +72,9 @@ function clearScreen() {
 }
 
 function drawAll() {
-    //console.log(playerEntryRunning)
-
-    
+    //console.log(playerEntry)
+    clearScreen();    
     drawBitmapCenteredWithRotation(squashcourt, canvas.width/2, canvas.height/2, 0);
-
     drawStaminaBar();
     drawScoreCounter();
 
@@ -88,12 +86,11 @@ function drawAll() {
       BallClass.drawInAir();
       ParticleSystem.draw();
       GradientShotToFrontWall(PlayerClass.x,PlayerClass.y)
-      drawCourtQuadrants();
     
-      if(playerEntryRunning){
+      if(playerEntry){
         PlayerClass.initDrawPlayer();
         ComputerClass.initDrawPlayer();
-      } else if (playerEntryRunning==false){
+      } else if (playerEntry==false){
         PlayerClass.drawPlayer();
         ComputerClass.drawPlayer();  
         }

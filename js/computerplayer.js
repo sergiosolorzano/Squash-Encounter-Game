@@ -37,7 +37,7 @@ function ComputerClass(){
     }
     if (computerFrame >= computerAnimationFrames) {
           computerFrame = 0;
-          playerEntryRunning=false;
+          playerEntry=false;
           this.whichPic = p2_standing;
           this.isSwinging=false;
       }
@@ -180,7 +180,7 @@ function ComputerClass(){
       ballBouncedOnFloor=false;
     }
 
-    if(ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn){
+    if(ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn && BallClass.tinHit==false && BallClass.ballHitFloorBeforeWall==false){
         switch(quadrantHit){
               case TOPRIGHTQUADRANT:
                 this.isSwinging=true;

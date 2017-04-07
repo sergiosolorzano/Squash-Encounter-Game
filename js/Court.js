@@ -51,6 +51,10 @@ var farBottomRightY=200;
 //quadrant where player is standing
 const RIGHTCOURTQUADRANT=1;
 const LEFTCOURTQUADRANT=2;
+const RIGHTTOPCOURTQUADRANT=1;
+const RIGHTBOTTOMCOURTQUADRANT=2;
+const LEFTTOPCOURTQUADRANT=4;
+const LEFTBOTTOMCOURTQUADRANT=3;
 
 //front wall quadrants
 const NOFRONTWALLSELECTED=0;
@@ -530,6 +534,7 @@ function GradientShotToBackWall (playerX,playerY){
         ballAng=atanResult;
 
         //what quadrant is player standing
+        
         if(playerX>=centerX){
           PlayerClass.playerStandingOnCourtQuadrant=RIGHTCOURTQUADRANT;
           //console.log("playerright")
@@ -647,6 +652,21 @@ function drawCourtQuadrants (){
       colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
       var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,0);
       colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
+
+      if(PlayerClass.x>=centerX && PlayerClass.x<=rightCenterX && PlayerClass.y<=centerY && PlayerClass.y>=centerTopY){
+        PlayerClass.playerStandingOnCourtQuadrant=RIGHTTOPCOURTQUADRANT;
+      }
+      if(PlayerClass.x<centerX && PlayerClass.x>=leftCenterX && PlayerClass.y<centerY && PlayerClass.y>=leftTopY){
+        PlayerClass.playerStandingOnCourtQuadrant=LEFTTOPCOURTQUADRANT;
+      }
+      if(PlayerClass.x>centerX && PlayerClass.x<=rightBottomX && PlayerClass.y>centerY && PlayerClass.y<=rightBottomY){
+        PlayerClass.playerStandingOnCourtQuadrant=RIGHTBOTTOMCOURTQUADRANT;
+      }
+
+      if(PlayerClass.x<centerX && PlayerClass.x >= leftBottomX && PlayerClass.y>centerY & PlayerClass.y<= leftBottomY){
+        PlayerClass.playerStandingOnCourtQuadrant=LEFTBOTTOMCOURTQUADRANT;
+      }
+      //console.log(PlayerClass.playerStandingOnCourtQuadrant)
     }
 
 //Drawing calculations
