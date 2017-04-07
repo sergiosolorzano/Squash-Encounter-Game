@@ -29,22 +29,22 @@ function PlayerClass(){
   this.keyHeld_Reverse = false;
   this.keyHeld_TurnLeft = false;
   this.keyHeld_TurnRight = false;
-  this.keyHeld_Shoot = false;
+  this.keyHeld_Kill = false;
   this.keyHeld_Sprint = false;
 
   this.controlKeyUp;
   this.controlKeyRight;
   this.controlKeyDown;
   this.controlKeyLeft;
-  this.controlKeyShoot;
+  this.controlKeyKill;
   this.controlKeySprint;
 
-  this.initInput = function (upKey, rightKey, downKey, leftKey,shootKey, sprintKey){
+  this.initInput = function (upKey, rightKey, downKey, leftKey,killKey, sprintKey){
   this.controlKeyUp = upKey;
   this.controlKeyRight = rightKey;
   this.controlKeyDown= downKey;
   this.controlKeyLeft = leftKey;
-  this.controlKeyShoot = shootKey;
+  this.controlKeyKill = killKey;
   this.controlKeySprint = sprintKey;
   }
 
@@ -119,7 +119,35 @@ this.initDrawPlayer = function(){
       ballBouncedOnFloor=false;
     }
 
-    if(ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn && BallClass.tinHit==false && BallClass.ballHitFloorBeforeWall==false){
+    //kill shot
+    if(ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn && BallClass.tinHit==false && BallClass.ballHitFloorBeforeWall==false && this.keyHeld_Kill){
+      if(quadrantHit==TOPRIGHTQUADRANT || quadrantHit==TOPLEFTQUADRANT || quadrantHit==BOTTOMRIGHTQUADRANT || quadrantHit==BOTTOMLEFTQUADRANT ){
+        this.isSwinging=true;
+        Sound.hit();
+        if(computerIsAtReachNow){
+          if(this.x>ComputerClass.x){
+          ComputerClass.whichPic = p2_left_hit;
+          } else {
+          ComputerClass.whichPic = p2_right_hit;
+          }
+          computerHit=true;
+          computerFrameTimer =10;
+          computerStepsPerAnimFrame=10;
+        }
+        if(BallClass.x>this.x){
+          this.whichPic = p1_kill_shot_right;  
+          playerFrameTimer =1;
+          playerStepsPerAnimFrame=1;
+          } else {
+            this.whichPic = p1_kill_shot_left;  
+            playerFrameTimer =1;
+            playerStepsPerAnimFrame=1;
+          }
+      }
+    }
+
+    //normal automatic shot
+    if(ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn && BallClass.tinHit==false && BallClass.ballHitFloorBeforeWall==false && this.keyHeld_Kill==false){
         //console.log("swingturn:",this.swingTurn,"ballbounced:",ballBouncedOnFloor)
         switch(quadrantHit){//maybe quadrantHit=0 in which case none called
               case TOPRIGHTQUADRANT:
@@ -244,7 +272,7 @@ this.initDrawPlayer = function(){
           // console.log("TIRED! My sprintStamin is " + this.sprintStamina); // debug spam
           if (!Sound.isPlaying("sprint_breath")){
 			  //console.log("Need more oxygen! Breathing!");
-			  Sound.play("sprint_breath",false,0.1);
+			  Sound.play("sprint_breath",false,0.2);
 		  }
         }
     }

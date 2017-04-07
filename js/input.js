@@ -60,8 +60,8 @@ if(keyEvent.keyCode == whichPlayer.controlKeyLeft) {
   if(keyEvent.keyCode == whichPlayer.controlKeyDown) {
     whichPlayer.keyHeld_Reverse = setTo;
   }
-  if(keyEvent.keyCode == whichPlayer.controlKeyShoot) {
-    whichPlayer.keyHeld_Shoot = setTo;
+  if(keyEvent.keyCode == whichPlayer.controlKeyKill) {
+    whichPlayer.keyHeld_Kill = setTo;
   }
   if(keyEvent.keyCode == whichPlayer.controlKeySprint) {
     whichPlayer.keyHeld_Sprint = setTo;

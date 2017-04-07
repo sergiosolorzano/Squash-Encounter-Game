@@ -5,8 +5,8 @@ var p1_standing = document.createElement("img");
 var p1_running = document.createElement("img");
 var p1_shot_bottom_left = document.createElement("img");
 var p1_shot_bottom_right = document.createElement("img");
-var p1_sprint_shot_down_right = document.createElement("img");
-var p1_sprint_shot_down_left = document.createElement("img");
+var p1_kill_shot_right = document.createElement("img");
+var p1_kill_shot_left = document.createElement("img");
 var p1_shot_top_right = document.createElement("img");
 var p1_shot_top_left = document.createElement("img");
 
@@ -66,8 +66,8 @@ function loadImages(){
 	{varName: p1_shot_bottom_right, theFile: "shortsprite_p1_shot_bottom_right2.png"},
 	{varName: p1_standing, theFile: "p1_standing.png"},
 	{varName: p1_running, theFile: "p1_running.png"},
-	{varName: p1_sprint_shot_down_right, theFile: "sprite_p1_sprint_shot_down_right_v2.png"},
-	{varName: p1_sprint_shot_down_left, theFile: "sprite_p1_sprint_shot_down_left_v2.png"},
+	{varName: p1_kill_shot_right, theFile: "sprite_p1_kill_shot_right.png"},
+	{varName: p1_kill_shot_left, theFile: "sprite_p1_kill_shot_left.png"},
 	{varName: p1_shot_top_right, theFile: "shortsprite_p1_shot_top_right.png"},
 	{varName: p1_shot_top_left, theFile: "shortsprite_p1_shot_top_left.png"},
 	
