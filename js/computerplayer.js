@@ -62,11 +62,11 @@ function ComputerClass(){
       }
     drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
     //draw debug ball
-    if(debugBall)
-      colorCircle(debugBall.x, debugBall.y, 3, "white")
+    // if(debugBall)
+    //   colorCircle(debugBall.x, debugBall.y, 3, "white")
     
-    if(debugTarget)
-      colorCircle(debugTarget.x, debugTarget.y, 3, "green")
+    // if(debugTarget)
+    //   colorCircle(debugTarget.x, debugTarget.y, 3, "green")
   }
   var debugBall;
   var debugTarget;

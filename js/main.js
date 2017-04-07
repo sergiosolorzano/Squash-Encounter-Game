@@ -92,8 +92,9 @@ function drawAll() {
         ComputerClass.initDrawPlayer();
       } else if (playerEntry==false){
         PlayerClass.drawPlayer();
-        ComputerClass.drawPlayer();  
-        }
+        ComputerClass.drawPlayer();
+        Rules.check();
+      }
     }    
       //PlayerClass.drawTargetFrontWall();
       //PlayerClass.selectBackWall();//shows backwal coords on screen
