@@ -259,7 +259,7 @@ this.initDrawPlayer = function(){
     if(nextY>=0 && nextY<=COURT_L-8.2)  {//COURT_H reduced by two so the racket doesn't paint black on canvas outside the court
       this.y=nextY;
     }
-    console.log("playerX : ",this.x)
+    //console.log("playerX : ",this.x)
     var pLoc = perspectiveLocation(this.x,this.y,0);
     this.particles.xOffset = pLoc.x;
     this.particles.yOffset = pLoc.y;

@@ -28,15 +28,15 @@ function BallClass(){
     this.heightOscillate=0.0;
     this.speedX = -1;
     this.speedY = -2;
+    this.tinHit=false;
     this.bouncedOnFrontWall=true;
     this.bouncedOnBackWall=true;
-    this.bouncedOnFloor=1;//player can only swing on ball if it has hit the ground once
+    this.bouncedOnFloor=0;//player can only swing on ball if it has hit the ground once
     this.ballBouncedOnFloor = true;////captures ball bounced 0 or 1 times so player can only swing on ball if it has hit the ground once
     this.canBeHit=true;
   }
     
   this.drawInAir = function () {
-    
     var draw=perspectiveLocation(this.x,this.y,this.z)
     var whichPic = ballPic;
     var ballAnimationFrames = whichPic.width/BALL_W;
@@ -142,10 +142,16 @@ function BallClass(){
     } else {
       this.ballBouncedOnFloor=false;
     }
+    
+    //check if the ball hit the tin
+    this.ballHitTin();
+
     //swing takes place, target front or back wall
 
+    //console.log("BouncedOnFloor:",this.bouncedOnFloor,"bouncedOnFrontWall:",this.bouncedOnFrontWall,"quadrantHit:",quadrantHit,"swingTurn:",swingTurn)
     //console.log(this.bouncedOnFloor)
-    if(this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0 && swingTurn){          
+    if(this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit!=0 && swingTurn && this.tinHit==false){          
+      
       if(playerSwingTurn){
         PlayerClass.swingTurn=false;  
         ComputerClass.swingTurn=true;  
@@ -157,7 +163,7 @@ function BallClass(){
       this.bouncedOnFloor=0;
       this.bouncedOnFrontWall=false;
       this.bouncedOnBackWall=false;
-      //console.log(PlayerClass.frontWallClicked)
+      
       //Back Wall is a target swing
       var degreeTarget=ballAng*180/Math.PI;
 
@@ -170,9 +176,9 @@ function BallClass(){
         this.speedY=Math.sin(ballAng)*ballSpeed;
         if(prevY>this.y){
           //this.speedY*=1;
-          this.zv+=1.5;
+          this.zv+=1;
           } else {
-            this.zv+=1;  
+            this.zv+=2;  
             }
         //Front Wall Swing
         } else if (PlayerClass.frontWallClicked){
@@ -191,6 +197,10 @@ function BallClass(){
           } else {
         //No Wall is a target
             //console.log("not aiming for front or back walls")
+            //this.z=10;
+            //this.zv=0;
+            //console.log(this.z)
+
             switch(quadrantHit){
                   //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
                   case TOPRIGHTQUADRANT:
@@ -274,5 +284,17 @@ function BallClass(){
     }
     this.x += this.speedX;
     this.y += this.speedY;
+    
+    //console.log(this.y)
+  }
+
+  this.ballHitTin = function(){
+   var tinLowerLimit=2;
+   var tinUpperLimit=5;
+    
+    if (this.y<=tinLowerLimit && this.z<tinUpperLimit){
+      this.tinHit=true;
+      console.log(this.tinHit);
+    }
   }
 }//end BallClass

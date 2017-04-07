@@ -160,11 +160,11 @@ function ComputerClass(){
 
     atanResult=Math.atan2(distBallPrevYThisY,distBallPrevXThisX);//radians    
     degrees=atanResult*180/Math.PI;
-    console.log("radians: ",atanResult,"degrees: ",degrees);
+    //console.log("radians: ",atanResult,"degrees: ",degrees);
 
     adjacent=ComputerClass.y-BallClass.y;
     opposite=atanResult*adjacent;
-    console.log("x to go to is : ",opposite)
+    //console.log("x to go to is : ",opposite)
   }
 
   this.hitGraphicSelection=function(){
