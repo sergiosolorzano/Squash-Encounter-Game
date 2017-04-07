@@ -80,38 +80,43 @@ function ComputerClass(){
     
     //run to T
     if(this.swingTurn==false){
-      distPlayerToTX=T_ONCOURT_W-this.x;
-      distPlayerToTY=T_ONCOURT_L-this.y;
-      atanResult=Math.atan2(distPlayerToTY,distPlayerToTX);//radians
-
-      computerSpeed = magnitude(this.speedX,this.speedY);
-      this.speedX=Math.cos(atanResult)*computerSpeed;
-      this.speedY=Math.sin(atanResult)*computerSpeed;
+      this.runToT();
     } else if(BallClass.speedY > 0){
       //i need to take trig </3
-      var m = (BallClass.y - (BallClass.y +BallClass.speedY)) / (BallClass.x - (BallClass.x +BallClass.speedX)); //slope
-      //var b = BallClass.y - (-1 * m) * BallClass.x //y intercept
-      var b = ((BallClass.x +BallClass.speedX)*BallClass.y-BallClass.x*(BallClass.y +BallClass.speedY))/((BallClass.x +BallClass.speedX)-BallClass.x)
-      //var y = m(this.x) + b
+      var x2 = BallClass.x +BallClass.speedX;
+      var y2 = BallClass.y +BallClass.speedY;
+      var m = (BallClass.y - y2) / (BallClass.x - x2); //slope
+
+      var b = (x2*BallClass.y-BallClass.x*y2)/(x2-BallClass.x) //y-intercept
+      //var y = m(this.x) + b //solve for y
       var x = (this.y/m) - (b/m) //solve for x
       var direction = this.x - x
-      if(this.x - x > 0){
+
+      if(this.x - x > 0){        
         direction = -COMPUTER_MOVE_SPEED
       } else {
         direction = COMPUTER_MOVE_SPEED
       }
-
       this.speedX = direction
-      if(this.y - BallClass.y < 0){
+      if(Math.abs(this.x - x) < COMPUTER_MOVE_SPEED){
         this.speedY=0;
-        this.speedX=0
+        this.speedX=0;
       }
+
+      if(this.y - BallClass.y < 0 ){
+        this.speedY=0;
+        this.speedX=0;
+        this.runToT();
+      }
+
       debugBall = perspectiveLocation(BallClass.x +BallClass.speedX, BallClass.y +BallClass.speedY, BallClass.z)
       debugTarget = perspectiveLocation(x, this.y, 10)
       
     } else {
       this.speedX = 0
       this.speedY = 0
+      this.runToT();
+      
     }
       nextX+= this.speedX;
       nextY+= this.speedY;
@@ -119,6 +124,24 @@ function ComputerClass(){
     //console.log(distPlayerToTX,distPlayerToTY)
     this.x=nextX;
     this.y=nextY;
+  }
+  this.runToT = function(){
+    distPlayerToTX=T_ONCOURT_W-this.x;
+    distPlayerToTY=T_ONCOURT_L-this.y;
+    atanResult=Math.atan2(distPlayerToTY,distPlayerToTX);//radians
+
+    computerSpeed = magnitude(this.speedX,this.speedY) | 1;
+    if(Math.abs(distPlayerToTX) > COMPUTER_MOVE_SPEED){
+      this.speedX=Math.cos(atanResult)*computerSpeed;
+    } else {
+      this.speedX = 0
+    }
+
+    if(Math.abs(distPlayerToTY) > COMPUTER_MOVE_SPEED){
+      this.speedY=Math.sin(atanResult)*computerSpeed;
+    } else {
+      this.speedY = 0
+    }
   }
 
   this.ballAngAtBounce = function(){
