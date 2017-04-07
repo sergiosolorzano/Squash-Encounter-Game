@@ -19,6 +19,8 @@ function ComputerClass(){
     this.prevY=0;
     this.x=COURT_W*0.8;
     this.y=initYPosition;
+    this.AIGoalX=T_ONCOURT_W;
+    this.AIGoalY=T_ONCOURT_L;
     this.isSwinging=false;//used so player does not run if gif showing it's swinging the racket
     this.swingTurn=false;
     this.speedX=COMPUTER_MOVE_SPEED;
@@ -37,7 +39,7 @@ function ComputerClass(){
     }
     if (computerFrame >= computerAnimationFrames) {
           computerFrame = 0;
-          playerEntry=false;
+          playerEntryRunning=false;
           this.whichPic = p2_standing;
           this.isSwinging=false;
       }
@@ -61,15 +63,16 @@ function ComputerClass(){
           computerStepsPerAnimFrame=2
       }
     drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y,PLAYER_W,PLAYER_H);
-    //draw debug ball
-    // if(debugBall)
-    //   colorCircle(debugBall.x, debugBall.y, 3, "white")
+    /*//draw debug ball
+    if(debugBall)
+      colorCircle(debugBall.x, debugBall.y, 3, "white")
     
-    // if(debugTarget)
-    //   colorCircle(debugTarget.x, debugTarget.y, 3, "green")
+    if(debugTarget)
+      colorCircle(debugTarget.x, debugTarget.y, 3, "green")*/
   }
   var debugBall;
   var debugTarget;
+
   this.movePlayer = function(){  
     this.hitGraphicSelection();
     var nextX=this.x;
@@ -79,92 +82,42 @@ function ComputerClass(){
     var distPlayerToTY;
     
     //run to T
-    if(this.swingTurn==false){
-      this.runToT();
-    } else if(BallClass.speedY > 0){
-      //i need to take trig </3
-      var x2 = BallClass.x +BallClass.speedX;
-      var y2 = BallClass.y +BallClass.speedY;
-      var m = (BallClass.y - y2) / (BallClass.x - x2); //slope
+      distPlayerToTX=this.AIGoalX-this.x;
+      distPlayerToTY=this.AIGoalY-this.y;
+      atanResult=Math.atan2(distPlayerToTY,distPlayerToTX);//radians
 
-      var b = (x2*BallClass.y-BallClass.x*y2)/(x2-BallClass.x) //y-intercept
-      //var y = m(this.x) + b //solve for y
-      var x = (this.y/m) - (b/m) //solve for x
-      var direction = this.x - x
-
-      if(this.x - x > 0){        
-        direction = -COMPUTER_MOVE_SPEED
-      } else {
-        direction = COMPUTER_MOVE_SPEED
-      }
-      this.speedX = direction
-      if(Math.abs(this.x - x) < COMPUTER_MOVE_SPEED){
-        this.speedY=0;
-        this.speedX=0;
-      }
-
-      if(this.y - BallClass.y < 0 ){
-        this.speedY=0;
-        this.speedX=0;
-        this.runToT();
-      }
-
-      debugBall = perspectiveLocation(BallClass.x +BallClass.speedX, BallClass.y +BallClass.speedY, BallClass.z)
-      debugTarget = perspectiveLocation(x, this.y, 10)
-      
-    } else {
-      this.speedX = 0
-      this.speedY = 0
-      this.runToT();
-      
-    }
+      computerSpeed = magnitude(this.speedX,this.speedY);
+      this.speedX=Math.cos(atanResult)*computerSpeed;
+      this.speedY=Math.sin(atanResult)*computerSpeed;
+     
       nextX+= this.speedX;
       nextY+= this.speedY;
-    //console.log(this.x,T_ONCOURT_W,this.y,T_ONCOURT_L)    
-    //console.log(distPlayerToTX,distPlayerToTY)
+    
     this.x=nextX;
     this.y=nextY;
   }
-  this.runToT = function(){
-    distPlayerToTX=T_ONCOURT_W-this.x;
-    distPlayerToTY=T_ONCOURT_L-this.y;
-    atanResult=Math.atan2(distPlayerToTY,distPlayerToTX);//radians
-
-    computerSpeed = magnitude(this.speedX,this.speedY) | 1;
-    if(Math.abs(distPlayerToTX) > COMPUTER_MOVE_SPEED){
-      this.speedX=Math.cos(atanResult)*computerSpeed;
-    } else {
-      this.speedX = 0
-    }
-
-    if(Math.abs(distPlayerToTY) > COMPUTER_MOVE_SPEED){
-      this.speedY=Math.sin(atanResult)*computerSpeed;
-    } else {
-      this.speedY = 0
-    }
-  }
 
   this.ballAngAtBounce = function(){
-    //calculate angle of ball trajectory as it bounces off the wall
+    var depth;
+    ballMotionAngle=Math.atan2(BallClass.speedY,BallClass.speedX);//radians    
+    degrees=ballMotionAngle*180/Math.PI;
+    //console.log("ball in motion in radians: ",ballMotionAngle,"ball in motion in degrees: ",degrees);  
+
+    depth=ComputerClass.y-BallClass.y;
+    //console.log(depth,ComputerClass.y,BallClass.y);
+    lateralRun=Math.tan(ballMotionAngle)*depth+BallClass.x;
     
-    ballPrevX=BallClass.x-BallClass.speedX;
-    ballPrevY=BallClass.y-BallClass.speedY;
-
-    distBallPrevXThisX=BallClass.x-ballPrevX;
-    distBallPrevYThisY=BallClass.y-ballPrevY;
-
-    //normalize vectors
-    var length = magnitude(this.speedX,this.speedY);
-    distBallPrevXThisX/=length;
-    distBallPrevYThisY/=length;
-
-    atanResult=Math.atan2(distBallPrevYThisY,distBallPrevXThisX);//radians    
-    degrees=atanResult*180/Math.PI;
-    //console.log("radians: ",atanResult,"degrees: ",degrees);
-
-    adjacent=ComputerClass.y-BallClass.y;
-    opposite=atanResult*adjacent;
-    //console.log("x to go to is : ",opposite)
+    if(this.swingTurn){
+      if(lateralRun<0){
+        this.AIGoalX=0;  
+      } else if (lateralRun>COURT_W){
+        this.AIGoalX=COURT_W
+        } else if (lateralRun>=0 && lateralRun<=COURT_W) {
+          this.AIGoalX=lateralRun;    
+          }
+      } else {
+        this.AIGoalX=T_ONCOURT_W;  
+        }
   }
 
   this.hitGraphicSelection=function(){
@@ -180,7 +133,7 @@ function ComputerClass(){
       ballBouncedOnFloor=false;
     }
 
-    if(ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn && BallClass.tinHit==false && BallClass.ballHitFloorBeforeWall==false){
+    if(ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit!=0 && this.swingTurn){
         switch(quadrantHit){
               case TOPRIGHTQUADRANT:
                 this.isSwinging=true;
@@ -262,4 +215,3 @@ function ComputerClass(){
       }*/
     }
 }
-
