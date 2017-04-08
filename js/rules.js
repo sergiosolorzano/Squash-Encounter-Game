@@ -7,7 +7,7 @@ var Rules = function Score(){
 			BallClass.Reset();
 			PlayerClass.Reset();
 			ComputerClass.Reset();
-			playerEntryRunning = true;
+			playerEntry = true;
 		} else {
 			//
 		}
