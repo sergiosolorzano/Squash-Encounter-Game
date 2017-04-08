@@ -10,6 +10,7 @@ var spinFrameTimer = 2;
 var numFullSpins = 2;
 var spinAnimationFrames;
 var endAnimation = false;
+var moreFrames = false;
 
 drawNow = false;
 
@@ -29,18 +30,24 @@ function rightToServe() {
 
     if (numFullSpins > 0) {
         spinAnimationFrames = serve_spin.width / SERVE_W;
-    } else {
-        drawNow = true;
+    } else if (!moreFrames) {
         if (Math.random() >= 0.5) {
             spinAnimationFrames = 0;
+			drawNow = true;
         } else {
             spinAnimationFrames = 5;
+			moreFrames = true;
         }
     }
 
     if (spinFrameTimer-- < 0 && drawNow == false) {
         spinFrameTimer = spinStepsPerAnimFrame;
         spinFrame++;
+		
+		if(moreFrames && spinFrame == 5) {
+			moreFrames = false;
+			drawNow = true;
+		}
     }
     if (!drawNow) {
         if (spinFrame >= spinAnimationFrames) {
