@@ -130,7 +130,7 @@ function ComputerClass(){
     distPlayerToTY=T_ONCOURT_L-this.y;
     atanResult=Math.atan2(distPlayerToTY,distPlayerToTX);//radians
 
-    computerSpeed = magnitude(this.speedX,this.speedY) | 1;
+    computerSpeed = magnitude(this.speedX,this.speedY) || 1;
     if(Math.abs(distPlayerToTX) > COMPUTER_MOVE_SPEED){
       this.speedX=Math.cos(atanResult)*computerSpeed;
     } else {

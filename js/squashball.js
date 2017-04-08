@@ -143,6 +143,7 @@ function BallClass(){
     if(this.bouncedOnFloor==1 && this.bouncedOnFrontWall==false){
       this.ballHitFloorBeforeWall=true;  
       console.log("ball hit the floor before hitting the front wall, end of point")
+      //TODO: reset? 
     } else {
       this.ballHitFloorBeforeWall=false;  
     }
