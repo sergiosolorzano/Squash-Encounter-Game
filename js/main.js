@@ -6,6 +6,8 @@ var PlayerClass = new PlayerClass();
 var ComputerClass = new ComputerClass();
 var playerEntry;
 
+var menuLoop;
+var framesPerSecond = 30;
 window.onload = function() {
 	canvas = document.getElementById('gameCanvas');
 	canvasContext = canvas.getContext('2d');
@@ -41,13 +43,13 @@ window.onload = function() {
   }
 
 function imageLoadingDoneSoStartGame() {
-  var framesPerSecond = 30;
-  setInterval(function() {
-      moveAll();
-      drawAll();
-    }, 1000/framesPerSecond);
-  loadLevel();
+  
+  menuActive = true;
   initInput();
+  menuLoop =  setInterval(function(){
+    drawMenu();        
+  }, 1000/framesPerSecond);
+  
 }
 
 function loadLevel() {
@@ -70,6 +72,7 @@ function moveAll() {
 function clearScreen() {
 	colorRect(0,0, canvas.width,canvas.height, 'black');
 }
+
 
 function drawAll() {
     //console.log(playerEntry)

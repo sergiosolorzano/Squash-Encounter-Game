@@ -77,11 +77,22 @@ if(keyEvent.keyCode == whichPlayer.controlKeyLeft) {
 
 function keyPressed(evt) {
   //console.log("Key pressed: "+evt.keyCode);
-  keySet(evt, PlayerClass, true);
-  evt.preventDefault();
+  if(menuActive){
+    menuInput(evt, true);
+    evt.preventDefault();
+  }else{
+    keySet(evt, PlayerClass, true);
+    evt.preventDefault();
+  }
 }
 
 function keyReleased(evt) {
   // console.log("Key pressed: "+evt.keyCode);
-  keySet(evt, PlayerClass,false);
+  if(menuActive){
+    
+  }else{
+    keySet(evt, PlayerClass,false);
+    evt.preventDefault();
+  }
+  
 }
