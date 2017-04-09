@@ -193,9 +193,9 @@ function ComputerClass() {
                     Sound.hit();
                     if (player1IsAtReachNow) {
                         if (this.x > PlayerClass.x) {
-                            PlayerClass.whichPic = p2_left_hit;
+                            PlayerClass.whichPic = p1_left_hit;
                         } else {
-                            PlayerClass.whichPic = p2_right_hit;
+                            PlayerClass.whichPic = p1_right_hit;
                         }
                         playerFrameTimer = 10
                         playerStepsPerAnimFrame = 10
