@@ -140,13 +140,7 @@ function BallClass() {
         }
 
         //check if ball hit the floor before hitting the front wall at swing
-        if (this.bouncedOnFloor == 1 && this.bouncedOnFrontWall == false) {
-            this.ballHitFloorBeforeWall = true;
-            console.log("ball hit the floor before hitting the front wall, end of point")
-            //TODO: reset? 
-        } else {
-            this.ballHitFloorBeforeWall = false;
-        }
+        Rules.checkFirstBounce()
 
         //check if the ball hit the tin
         Rules.checkTin();

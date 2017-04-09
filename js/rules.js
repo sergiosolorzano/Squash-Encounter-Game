@@ -11,7 +11,7 @@ var Rules = function Score(){
 		}
 		
 	}
-	
+
   	self.checkTin = function(){
 	   var tinLowerLimit=2;
 	   var tinUpperLimit=5;
@@ -25,6 +25,19 @@ var Rules = function Score(){
 	      self.givePoint();
 	      Game.RallyReset();
 	    }
+	}
+
+	//ball must hit wall before it hits the floor
+	self.checkFirstBounce = function(){
+		if (BallClass.bouncedOnFloor == 1 && BallClass.bouncedOnFrontWall == false) {
+            BallClass.ballHitFloorBeforeWall = true;
+            console.log("ball hit the floor before hitting the front wall, end of point")
+
+            self.givePoint();
+	      	Game.RallyReset();            
+        } else {
+            BallClass.ballHitFloorBeforeWall = false;
+        }
 	}
 
 	self.givePoint = function givePoint(){
