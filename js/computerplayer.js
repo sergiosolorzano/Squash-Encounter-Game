@@ -23,6 +23,7 @@ function ComputerClass() {
         this.swingTurn = (ServeClass.servingPlayer === ServeClass.RED ? false : true);
         this.speedX = COMPUTER_MOVE_SPEED;
         this.speedY = COMPUTER_MOVE_SPEED;
+        this.isHit = false;
     }
 
     this.initDrawPlayer = function () {
@@ -54,7 +55,8 @@ function ComputerClass() {
         }
         if (computerFrame >= computerAnimationFrames) {
             computerFrame = 0;
-            //computerHit=false;
+            
+            this.isHit = false;
             this.whichPic = p2_standing;
             this.isSwinging = false;
             computerFrameTimer = 2
@@ -72,6 +74,10 @@ function ComputerClass() {
     var debugTarget;
     this.movePlayer = function () {
         this.hitGraphicSelection();
+        if(this.isHit){
+          return;
+        }
+
         var nextX = this.x;
         var nextY = this.y;
         var computerSpeed;

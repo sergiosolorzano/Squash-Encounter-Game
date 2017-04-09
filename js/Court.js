@@ -72,7 +72,7 @@ const WALKBOTTOMSQUAREY=58;
 
 //player or computer whacked by opponent racket
 var playerHit=false;
-var computerHit=false;
+
 
 function drawTargetBackWall (nearX,farX,nearY,farY){
       var visualAdjustmentX=40;//adjustment so the selected wall rectangle does not draw into canvas

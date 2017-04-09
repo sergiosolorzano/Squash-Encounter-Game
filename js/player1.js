@@ -130,7 +130,7 @@ function PlayerClass() {
                     } else {
                         ComputerClass.whichPic = p2_right_hit;
                     }
-                    computerHit = true;
+                    ComputerClass.isHit = true;
                     computerFrameTimer = 10;
                     computerStepsPerAnimFrame = 10;
                 }
@@ -159,7 +159,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        computerHit = true;
+                        ComputerClass.isHit = true;
                         computerFrameTimer = 10
                         computerStepsPerAnimFrame = 10
                     }
@@ -174,7 +174,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        computerHit = true;
+                        ComputerClass.isHit = true;
                         computerFrameTimer = 10
                         computerStepsPerAnimFrame = 10
                     }
@@ -189,7 +189,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        computerHit = true;
+                        ComputerClass.isHit = true;
                         computerFrameTimer = 10
                         computerStepsPerAnimFrame = 10
                     }
@@ -204,7 +204,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        computerHit = true;
+                        ComputerClass.isHit = true;
                         computerFrameTimer = 20
                         computerStepsPerAnimFrame = 20
                     }
