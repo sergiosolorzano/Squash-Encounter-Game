@@ -149,7 +149,7 @@ function BallClass(){
     }
     
     //check if the ball hit the tin
-    this.ballHitTin();
+    Rules.checkTin();
 
     //swing takes place, target front or back wall
 
@@ -369,13 +369,4 @@ function BallClass(){
     //console.log(this.y)
   }
 
-  this.ballHitTin = function(){
-   var tinLowerLimit=2;
-   var tinUpperLimit=5;
-    
-    if (this.y<=tinLowerLimit && this.z<tinUpperLimit){
-      this.tinHit=true;
-      console.log(this.tinHit);
-    }
-  }
 }//end BallClass
