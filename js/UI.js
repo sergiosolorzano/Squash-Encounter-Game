@@ -4,15 +4,14 @@ function drawUI(){
 	console.log(PlayerClass.sprintStamina);
 }
 */
-var spinFrame = 0;
-var spinStepsPerAnimFrame = 2;
-var spinFrameTimer = 2;
-var numFullSpins = 2;
-var spinAnimationFrames;
-var endAnimation = false;
-var moreFrames = false;
-
-drawNow = false;
+var spinFrame = 0,
+    spinStepsPerAnimFrame = 2,
+    spinFrameTimer = 2,
+    numFullSpins = 2,
+    spinAnimationFrames = null,
+    endAnimation = false,
+    moreFrames = false,
+    drawNow = false;
 
 function drawStaminaBar() {
     //draw bar background
@@ -24,37 +23,38 @@ function drawStaminaBar() {
 }
 
 function rightToServe() {
-    const SERVE_W = 330;
-    const SERVE_H = 365;
-    var drawLocation = perspectiveLocation(COURT_W / 2, COURT_L * 0.2, 0);
+    const SERVE_W = 330,
+        SERVE_H = 365;
+    var drawLocation = perspectiveLocation(COURT_W / 2, COURT_L * 0.2, 0),
+        titleText = null;
 
     if (numFullSpins > 0) {
         spinAnimationFrames = serve_spin.width / SERVE_W;
     } else if (!moreFrames) {
         if (Math.random() >= 0.5) {
             spinAnimationFrames = 0;
-			drawNow = true;
+            drawNow = true;
         } else {
             spinAnimationFrames = 5;
-			moreFrames = true;
+            moreFrames = true;
         }
     }
 
     if (spinFrameTimer-- < 0 && drawNow == false) {
         spinFrameTimer = spinStepsPerAnimFrame;
         spinFrame++;
-		
-		if(moreFrames && spinFrame == 5) {
-			moreFrames = false;
-			drawNow = true;
-		}
+
+        if (moreFrames && spinFrame == 5) {
+            moreFrames = false;
+            drawNow = true;
+        }
     }
     if (!drawNow) {
         if (spinFrame >= spinAnimationFrames) {
             spinFrame = 0;
             numFullSpins--;
         }
-        var titleText = "Drawing Right To Serve, please hold";
+        titleText = "Drawing Right To Serve, please hold";
         canvasContext.fillStyle = "grey";
         canvasContext.textAlign = "center";
         canvasContext.font = "bold 15px verdana";
@@ -71,21 +71,29 @@ function rightToServe() {
 }
 
 function rightToServeOutcome() {
-    var drawLocationPlayer = perspectiveLocation(COURT_W * 0.3, COURT_L * 0.8, 0);
-    var subText = "Press Enter to continue";
+    var drawLocationPlayer = perspectiveLocation(COURT_W * 0.3, COURT_L * 0.8, 0),
+        subText = "Press Enter to continue",
+        titleText = null;
+
     canvasContext.fillStyle = "black";
     canvasContext.textAlign = "center";
     canvasContext.font = "bold 15px verdana";
     canvasContext.fillText((subText), canvas.width / 2, 515);
 
-
     if (spinFrame == 5) {
         drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer.x, drawLocationPlayer.y, PLAYER_W, PLAYER_H);
-        var titleText = "Blue Player Has  Right To Serve !";
+        titleText = "Blue Player Has  Right To Serve !";
         canvasContext.fillStyle = "blue";
+        ServeClass.servingPlayer = ServeClass.BLUE;
+        ComputerClass.swingTurn = true;
+        PlayerClass.swingTurn = false;
+        BallClass.x = COURT_W * 0.18;
     } else {
-        var titleText = "Red Player Has Right To Serve !";
+        titleText = "Red Player Has Right To Serve !";
         canvasContext.fillStyle = "red";
+        ServeClass.servingPlayer = ServeClass.RED;
+        ComputerClass.swingTurn = false;
+        PlayerClass.swingTurn = true;
     }
 
     canvasContext.font = "bold 20px verdana";
