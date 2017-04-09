@@ -13,14 +13,14 @@ function drawScoreCounter(){
 	drawBitmapCenteredWithRotation(scorecounterbackground, 100, 40,0);
 
 	var AIScore = WhatEverPeopleCallSignsThatDisplayScoresInSports.transformScoreToImages(Rules.score.AI);
-	drawBitmapCenteredWithRotation(AIScore[0], 151, 40,0);
-	drawBitmapCenteredWithRotation(AIScore[1], 120, 40,0);
-	
+	drawBitmapCenteredWithRotation(AIScore[0], 120, 40,0);
+	drawBitmapCenteredWithRotation(AIScore[1], 151, 40,0);
+
 	
 	
 	var playerScore = WhatEverPeopleCallSignsThatDisplayScoresInSports.transformScoreToImages(Rules.score.player);
-	drawBitmapCenteredWithRotation(playerScore[0], 75, 40,0);
-	drawBitmapCenteredWithRotation(playerScore[1], 44, 40,0);
+	drawBitmapCenteredWithRotation(playerScore[0], 44, 40,0);
+	drawBitmapCenteredWithRotation(playerScore[1], 75, 40,0);
 	
 
 }
@@ -53,7 +53,7 @@ WhatEverPeopleCallSignsThatDisplayScoresInSports = function(){
 			img.push(allImages[0])
 		}
 		if(img.length == 1){
-			img.push(allImages[0])
+			img.unshift(allImages[0])
 		}
 
 		return img
