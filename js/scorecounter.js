@@ -16,13 +16,9 @@ function drawScoreCounter(){
 	drawBitmapCenteredWithRotation(AIScore[0], 120, 40,0);
 	drawBitmapCenteredWithRotation(AIScore[1], 151, 40,0);
 
-	
-	
 	var playerScore = WhatEverPeopleCallSignsThatDisplayScoresInSports.transformScoreToImages(Rules.score.player);
 	drawBitmapCenteredWithRotation(playerScore[0], 44, 40,0);
 	drawBitmapCenteredWithRotation(playerScore[1], 75, 40,0);
-	
-
 }
 
 //I'm tired, everythings is gonna get verbose af

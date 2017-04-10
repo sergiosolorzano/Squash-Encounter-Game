@@ -20,7 +20,7 @@ var Rules = function Score(){
 	      BallClass.tinHit=true;
 
 	      //TODO: menu stuff
-	      console.log("HIT TIN")
+	      //console.log("HIT TIN")
 
 	      self.givePoint();
 	      Game.RallyReset();
@@ -31,7 +31,7 @@ var Rules = function Score(){
 	self.checkFirstBounce = function(){
 		if (BallClass.bouncedOnFloor == 1 && BallClass.bouncedOnFrontWall == false) {
             BallClass.ballHitFloorBeforeWall = true;
-            console.log("ball hit the floor before hitting the front wall, end of point")
+            //console.log("ball hit the floor before hitting the front wall, end of point")
 
             self.givePoint();
 	      	Game.RallyReset();            
@@ -46,7 +46,7 @@ var Rules = function Score(){
 		} else {
 			self.score.player += 1;
 		}
-		console.log(self.score);
+		//console.log(self.score);
 	}
 
 	self.Reset = function Reset(){

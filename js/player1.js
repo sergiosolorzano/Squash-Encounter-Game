@@ -107,6 +107,7 @@ function PlayerClass() {
     }
 
     this.hitGraphicSelection = function () {
+        //console.log("person player:",this.swingTurn)
         var hereCollision = ballAtReach(this.x, this.y, BallClass.x, BallClass.y, this.swingTurn);
         var quadrantHit = hereCollision.quadrant;
         var computerIsAtReach = playerAtReach(this.x, this.y, ComputerClass.x, ComputerClass.y);//racket accident

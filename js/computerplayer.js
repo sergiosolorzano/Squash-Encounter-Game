@@ -87,8 +87,9 @@ function ComputerClass() {
         //run to T
         if (this.swingTurn == false) {
             this.runToT();
-        } else if (BallClass.speedY > 0) {
+        } else if (BallClass.speedY > 0 || BallClass.speedY<0) {
             //i need to take trig </3
+            
             var x2 = BallClass.x + BallClass.speedX;
             var y2 = BallClass.y + BallClass.speedY;
             var m = (BallClass.y - y2) / (BallClass.x - x2); //slope
@@ -100,8 +101,10 @@ function ComputerClass() {
 
             if (this.x - x > 0) {
                 direction = -COMPUTER_MOVE_SPEED
+                this.speedY=0;
             } else {
                 direction = COMPUTER_MOVE_SPEED
+                this.speedY=0;
             }
             this.speedX = direction
             if (Math.abs(this.x - x) < COMPUTER_MOVE_SPEED) {
@@ -109,11 +112,11 @@ function ComputerClass() {
                 this.speedX = 0;
             }
 
-            if (this.y - BallClass.y < 0) {
+            /*if (this.y - BallClass.y < 0) {
                 this.speedY = 0;
                 this.speedX = 0;
                 this.runToT();
-            }
+            }*/
 
             debugBall = perspectiveLocation(BallClass.x + BallClass.speedX, BallClass.y + BallClass.speedY, BallClass.z)
             debugTarget = perspectiveLocation(x, this.y, 10)
@@ -128,6 +131,7 @@ function ComputerClass() {
         nextY += this.speedY;
         //console.log(this.x,T_ONCOURT_W,this.y,T_ONCOURT_L)    
         //console.log(distPlayerToTX,distPlayerToTY)
+        
         this.x = nextX;
         this.y = nextY;
     }
