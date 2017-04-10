@@ -1,25 +1,32 @@
 var selectedMenuIndex = 0;
-var menuArray = ["Play", "Squash Rules", "Controls", "Credits"];
+var menuArray = ["Play", "Scoring System", "Controls", "Credits"];
 
 var creditsListArray = ["Sergio - Design, Gameplay, Code","Christer - Design, Gameplay, Code","TBD"];
 var curr_menuScreen = "Main"; //Rules, Credits
 var menuActive = false;
 
 function drawText(text, height){
-    canvasContext.fillStyle = "grey";
+    canvasContext.fillStyle = "blue";
     canvasContext.textAlign = "center";
-    canvasContext.font = "bold 15px verdana";
+    canvasContext.font = "bold 18px verdana";
+    //canvasContext.fillText(text, canvas.width / 2, 490);
+    canvasContext.fillText(text, canvas.width / 2, height);
+}
+
+function drawScoringText(text, height){
+    canvasContext.fillStyle = "blue";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "18px verdana";
     //canvasContext.fillText(text, canvas.width / 2, 490);
     canvasContext.fillText(text, canvas.width / 2, height);
 }
 
 function drawTextCustom(text, x, y){
-    canvasContext.fillStyle = "grey";
+    canvasContext.fillStyle = "blue";
     canvasContext.textAlign = "center";
-    canvasContext.font = "bold 15px verdana";    
+    canvasContext.font = "bold 18px verdana";    
     canvasContext.fillText(text, x, y);
 }
-
 
 function startGame(){
     menuActive = false;
@@ -38,7 +45,7 @@ function drawMenu(){
         case "Credits":
         drawCredits();
         break;
-        case "Squash Rules":
+        case "Scoring System":
         drawRules();
         break;
         case "Controls":
@@ -49,15 +56,23 @@ function drawMenu(){
         break;
     }
     if(curr_menuScreen === "Main"){
-        drawTextCustom("Confirm: Space", canvas.width /10*6.7, canvas.height/10*8.7);
+        drawTextCustom("Confirm: Space", canvas.width /10*6.5, canvas.height/10*8.7);
     }else{
-        drawTextCustom("Exit: Shift", canvas.width /10*3, canvas.height/10*8.7);
+        drawTextCustom("Exit: Shift", canvas.width /10*3.25, canvas.height/10*8.7);
     }
 
 }
 
 function drawControls(){
-    drawText("Controls");
+    drawText("Game Controls:", 125);
+    drawScoringText("Forwards: W", 215);
+    drawScoringText("Backwards: S", 235);
+    drawScoringText("Right: D", 255);
+    drawScoringText("Left: A", 275);
+    drawScoringText("Sprint: Right SHIFT", 295);
+    drawScoringText("Kill Shot: SPACE bar", 315);
+
+    drawScoringText("Target Walls: Left mouse CLICK", 345);
 }
 
 function drawCredits(){
@@ -67,18 +82,31 @@ function drawCredits(){
 }
 
 function drawRules(){
-    drawText("Squash Rules", 125);
-    drawText("TBD", 250);
+        drawText("Hand Out Scoring System:", 125);
+        drawScoringText("If the server wins a", 215);
+        drawScoringText("rally they receive a", 235);
+        drawScoringText("point, while if the returner", 255);
+        drawScoringText("wins a rally, only the service", 275);
+        drawScoringText("changes, i.e. (the ball goes", 295);
+        drawScoringText(" hand-out), and no point", 315);
+        drawScoringText("is given.", 335);
+        drawScoringText("The first player to reach 9 points", 405);
+        drawScoringText("wins the game. However, if the score", 425);
+        drawScoringText("reaches 8–8 the player that reaches ", 445);
+        drawScoringText("10 points first wins.", 465);
 }
 
 function drawMainMenu(){
     
     drawText("Play", 400);
-    drawText("Squash Rules", 425);
+    drawText("Scoring System", 425);
     drawText("Controls", 450);
     drawText("Credits", 475);
+    canvasContext.drawImage(p1_standing,
+    canvas.width / 5.8 *2, 350 + selectedMenuIndex * 25,
+    50, 50);
     canvasContext.drawImage(p2_standing,
-    canvas.width / 5 *2, 350 + selectedMenuIndex * 25,
+    canvas.width / 3.3 *2, 350 + selectedMenuIndex * 25,
     50, 50);
 }
 
@@ -112,10 +140,10 @@ function menuInput(keyEvent, pressed){
                 curr_menuScreen = menuArray[selectedMenuIndex];
                 break;
             }
-            console.log('Curr :'+curr_menuScreen);
+            //console.log('Curr :'+curr_menuScreen);
         }
     }else if(keyEvent.keyCode === KEY_LEFT_SHIFT){
-        console.log('Shift pressed');
+        //console.log('Shift pressed');
         if(curr_menuScreen != 'Main'){
             curr_menuScreen = 'Main';
         }
