@@ -279,10 +279,8 @@ function PlayerClass() {
             }
         }
         //check so player doesn't go outside the court
-        if (nextX >= 0 && nextX <= COURT_W - 2) {//COURT_W reduced by two so the racket doesn't paint black on canvas outside the court
             this.x = nextX;
         }
-        if (nextY >= 0 && nextY <= COURT_L - 8.2) {//COURT_H reduced by two so the racket doesn't paint black on canvas outside the court
             this.y = nextY;
         }
         //console.log("playerX : ",this.x)

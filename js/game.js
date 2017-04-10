@@ -6,7 +6,6 @@ var Game = function Game() {
         BallClass.Reset();
         PlayerClass.Reset();
         ComputerClass.Reset();
-        playerEntry = true;
     }
 
     return ctrl;
