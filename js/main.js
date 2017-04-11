@@ -20,7 +20,6 @@ window.onload = function () {
     scaledContext = scaledCanvas.getContext('2d');
     scaledContext.fillStyle = "black";
     loadImages();
-    //
     ParticleSystem.init(scaledCanvas, 1000 / 30, false);
     ResizeGame();
 }
@@ -85,6 +84,7 @@ function loadLevel() {
     BallClass.Init();
     PlayerClass.Init();
     ComputerClass.Init();
+    createParticles();
 }
 
 function moveAll() {
@@ -94,6 +94,7 @@ function moveAll() {
         BallClass.moveBall();
         PlayerClass.movePlayer();
         ComputerClass.movePlayer();
+        moveAllParticles();
     }
 }
 
@@ -125,6 +126,7 @@ function drawAll() {
         } else if (playerEntry == false) {
             PlayerClass.drawPlayer();
             ComputerClass.drawPlayer();
+            drawAllParticles();
             Rules.check();
         }
     }
