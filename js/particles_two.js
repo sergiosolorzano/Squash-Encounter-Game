@@ -1,69 +1,72 @@
 //ball subtle puff on wall bounce
-
 var particleList=[];
-var PARTICLESNUM=400;
-
-var remX=300, remY=100;
-var remW=390, remH=230;
+var PARTICLESNUM=5;
+var CYCLEANCHOR=4;//MINCYCLE + 1*CYCLEANCHOR = max cyclesLeft
+var MINCYCLE=1;
+var MINPARTICLESIZE=3;
+var GRAVITY_PER_CYCLE=0.1;
 
 
 function createParticles(){
-	for(var i=0;i<PARTICLESNUM;i++){
-		var particlesClass = new ParticlesTwoClass();
-		particlesClass.x=Math.random()*canvas.width;
-		particlesClass.y=Math.random()*canvas.height;
-		particlesClass.cyclesLeft=30+Math.random()*300;
-		particleList.push(particlesClass);
-		//console.log(particleList.length)
-		//tempParticle.x=
-		//tempParticle.y=;
+		for(var i=0;i<PARTICLESNUM;i++){
+			var particlesClass = new ParticlesTwoClass();
+			//particlesClass.x=0.5*canvas.width;
+			//particlesClass.y=0.5*canvas.height;
+			particlesClass.cyclesLeft=MINCYCLE+Math.random()*CYCLEANCHOR;
+			particleList.push(particlesClass);
+				if(Math.random()<0.5){
+					particlesClass.myColor="#9C9BA0";
+				} else {
+					particlesClass.myColor="#888A8A"
+				}
+		}
 	}
-}
+
 
 function moveAllParticles(){
-	for(var i=0;i<particleList.length;i++){
-		particleList[i].move();
-	}
-	for(var i=particleList.length-1;i>=0;i--){
-		if(particleList[i].readyToRemove){
-			particleList.splice(i,1);			
+	
+		for(var i=0;i<particleList.length;i++){
+			particleList[i].move();
+		}
+		for(var i=particleList.length-1;i>=0;i--){
+			if(particleList[i].readyToRemove){
+				particleList.splice(i,1);			
+			}
 		}
 	}
-}
+
 
 function drawAllParticles(){
-	//colorRect(remX,remY,remW,remH,'red');//to delete
-	for(var i=0;i<particleList.length;i++){
-		particleList[i].draw();
+
+		for(var i=0;i<particleList.length;i++){
+			particleList[i].draw();
+		}
 	}
 
-}
-
-function removeParticles(){
-		for(var i=0;i<particleList.length;i++){
-			if(particleList[i].x>remX && particleList[i].x< remX+remW && particleList[i].y>remY && particleList[i].y<remY+remH){
-				particleList[i].readyToRemove=true;
-			}
-		//var removeIdx=Math.floor(Math.random*particleList.length);
-		}
-}
+/*function removeParticles(){
+	for(var i=0;i<particleList.length;i++){
+		particleList[i].readyToRemove=true;
+	}
+}*/
 
 function ParticlesTwoClass (){
-this.x;
-this.y;
+var draw = perspectiveLocation(BallClass.x, BallClass.y, BallClass.z)
+this.x=draw.x;
+this.y=draw.y;
+this.z=draw.z;
+this.myColor;
 this.cyclesLeft;
-this.velX=5-Math.random()*10;
-this.velY=5-Math.random()*10;
+this.velX=2-Math.random()*4;
+this.velY=2-Math.random()*4;
 
 this.readyToRemove=false;
 
 	this.move=function(){
 		this.cyclesLeft--;
-
 		if(this.cyclesLeft <0){
 			this.readyToRemove=true;
 		}
-
+		this.velY+=GRAVITY_PER_CYCLE;
 		this.x+=this.velX;
 		this.y+=this.velY;
 
@@ -77,12 +80,14 @@ this.readyToRemove=false;
 			this.velY*=-1;
 		}
 		if(this.y>canvas.height){
-			this.velY*=-1;
+			//dampen the effect at bounce on the ground. Then set this.velY below to this.velY*=-0.3;
+			this.y-=this.velY;
+			this.velY*=-0.3;
 		}
 	}
 
 	this.draw=function(){
-		//console.log(this.size)
-		colorCircle(this.x,this.y,20*this.cyclesLeft/330,'cyan');
+		colorCircle(this.x,this.y-this.z,MINPARTICLESIZE*this.cyclesLeft/(MINCYCLE+CYCLEANCHOR),this.myColor);
+		
 	}
 }

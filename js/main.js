@@ -84,7 +84,6 @@ function loadLevel() {
     BallClass.Init();
     PlayerClass.Init();
     ComputerClass.Init();
-    createParticles();
 }
 
 function moveAll() {
@@ -94,7 +93,7 @@ function moveAll() {
         BallClass.moveBall();
         PlayerClass.movePlayer();
         ComputerClass.movePlayer();
-        //moveAllParticles();
+        moveAllParticles();
     }
 }
 
@@ -119,14 +118,13 @@ function drawAll() {
         ParticleSystem.draw();
         GradientShotToFrontWall(PlayerClass.x, PlayerClass.y)
 
-
         if (playerEntry) {
             PlayerClass.initDrawPlayer();
             ComputerClass.initDrawPlayer();
         } else if (playerEntry == false) {
             PlayerClass.drawPlayer();
             ComputerClass.drawPlayer();
-            //drawAllParticles();
+            drawAllParticles();
             Rules.check();
         }
     }
