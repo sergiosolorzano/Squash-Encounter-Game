@@ -19,6 +19,8 @@ var opponentAtReach = false;
 var playerHit = false;
 var computerHit = false;
 
+
+
 function PlayerClass() {
     this.sprintMultiplier = 1;
     this.sprintStamina = 20;
@@ -219,7 +221,7 @@ function PlayerClass() {
         var nextX = this.x;
         var nextY = this.y;
         this.particles.active = false;
-
+        
         var isPlayerMoving = (this.keyHeld_Gas || this.keyHeld_Reverse || this.keyHeld_TurnLeft || this.keyHeld_TurnRight);
         this.hitGraphicSelection();
         if (this.isSwinging == false && playerHit == false) {

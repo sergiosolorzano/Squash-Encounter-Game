@@ -6,6 +6,7 @@ var PlayerClass = new PlayerClass();
 var ComputerClass = new ComputerClass();
 var playerEntry;
 
+
 var menuLoop;
 var framesPerSecond = 30;
 window.onload = function () {
@@ -57,6 +58,7 @@ function loadLevel() {
     BallClass.Init();
     PlayerClass.Init();
     ComputerClass.Init();
+    //createParticles();
 }
 
 function moveAll() {
@@ -66,6 +68,7 @@ function moveAll() {
         BallClass.moveBall();
         PlayerClass.movePlayer();
         ComputerClass.movePlayer();
+        //moveAllParticles();
     }
 }
 
@@ -88,6 +91,7 @@ function drawAll() {
         BallClass.drawShadow();
         BallClass.drawInAir();
         ParticleSystem.draw();
+        //drawAllParticles();
         GradientShotToFrontWall(PlayerClass.x, PlayerClass.y)
         
 

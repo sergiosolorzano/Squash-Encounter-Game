@@ -338,13 +338,13 @@ function BallClass() {
         if (this.nextX < 0) {
             ComputerClass.ballAngAtBounce();
             this.speedX *= -1;
-            console.log("Computer Swing turn: ", ComputerClass.swingTurn)
+            //console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
         if (this.nextX > COURT_W) {
             ComputerClass.ballAngAtBounce();
             this.speedX *= -1;
             Sound.wall();
-            console.log("Computer Swing turn: ", ComputerClass.swingTurn)
+            //console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
 
         if (this.nextY <= 0) {
@@ -352,14 +352,14 @@ function BallClass() {
             this.speedY *= -1;
             this.bouncedOnFrontWall = true;
             Sound.wall();
-            console.log("Computer Swing turn: ", ComputerClass.swingTurn)
+        //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
         if (this.nextY > COURT_L - 2) {//COURT_L reduced by two so the ball doesn't paint black on canvas outside the court
             ComputerClass.ballAngAtBounce();
             this.speedY *= -1;
             this.bouncedOnBackWall = true;
             Sound.wall();
-            console.log("Computer Swing turn: ", ComputerClass.swingTurn)
+          //  console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
         this.x += this.speedX;
         this.y += this.speedY;
