@@ -127,6 +127,7 @@ function PlayerClass() {
             if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
                 this.isSwinging = true;
                 Sound.hit();
+                removeParticles();//TO DELETE
                 if (computerIsAtReachNow) {
                     if (this.x > ComputerClass.x) {
                         ComputerClass.whichPic = p2_left_hit;
