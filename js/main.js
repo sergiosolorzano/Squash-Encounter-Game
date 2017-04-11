@@ -6,9 +6,11 @@ var PlayerClass = new PlayerClass();
 var ComputerClass = new ComputerClass();
 var playerEntry;
 
-
 var menuLoop;
 var framesPerSecond = 30;
+
+window.addEventListener("resize", ResizeGame, false);
+
 window.onload = function () {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
@@ -20,7 +22,32 @@ window.onload = function () {
     loadImages();
     //
     ParticleSystem.init(scaledCanvas, 1000 / 30, false);
+    ResizeGame();
 }
+
+function ResizeGame() {
+    var width = window.innerWidth,
+        height = window.innerHeight,
+        newVal = 100,
+        ratio = width / height;
+
+    if (ratio > 4 / 3) {
+        newVal = (height * 4 / 3) / width * 100;
+        canvas.style.width =  newVal + "vw";
+        canvas.style.height = "100vh";
+        canvas.style.left = (100 - newVal) / 2 + "%";
+    }
+    else if (ratio < 4 / 3) {
+        canvas.style.width = "100vw";
+        newVal = (width * 3 / 4) / height * 100;
+        canvas.style.height = newVal + "vh";
+    }
+    else {
+        canvas.style.width = "100vw";
+        canvas.style.height = "100vh";
+    }
+}
+
 //perspective location for player and ball
 function perspectiveLocation(pixelX, pixelY, pixelZ) {
     var visualLocation = { x: 0, y: 0, z: 0 };
@@ -58,7 +85,6 @@ function loadLevel() {
     BallClass.Init();
     PlayerClass.Init();
     ComputerClass.Init();
-    //createParticles();
 }
 
 function moveAll() {
@@ -68,7 +94,6 @@ function moveAll() {
         BallClass.moveBall();
         PlayerClass.movePlayer();
         ComputerClass.movePlayer();
-        //moveAllParticles();
     }
 }
 
@@ -91,9 +116,8 @@ function drawAll() {
         BallClass.drawShadow();
         BallClass.drawInAir();
         ParticleSystem.draw();
-        //drawAllParticles();
         GradientShotToFrontWall(PlayerClass.x, PlayerClass.y)
-        
+
 
         if (playerEntry) {
             PlayerClass.initDrawPlayer();

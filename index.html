@@ -3,8 +3,17 @@
 <head>
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="utf-8" http-equiv="encoding">
+
     <style>
+        body {
+            background-color: #000000;
+        }
         canvas {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            height: 100vh;
+            width: 100vw;
             image-rendering: optimizeSpeed; /* Older versions of FF          */
             image-rendering: -moz-crisp-edges; /* FF 6.0+                       */
             image-rendering: -webkit-optimize-contrast; /* Safari                        */
@@ -14,6 +23,7 @@
         }
     </style>
 </head>
+
 <body>
     <canvas id="gameCanvas" width="800" height="600"></canvas>
     <p id="levelOutput"></p>
@@ -23,7 +33,6 @@
     <script src="js/graphicscommon.js"></script>
     <script src="js/imageloading.js"></script>
     <script src="js/particlesystem.js"></script>
-    <script src="js/particles_two.js"></script>
     <script src="js/squashball.js"></script>
     <script src="js/player1.js"></script>
     <script src="js/rules.js"></script>
