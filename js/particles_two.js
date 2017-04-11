@@ -1,12 +1,13 @@
 //ball subtle puff on wall bounce
 
-var particlesClass = new ParticlesTwoClass();
+
 var particleList=[];
 
 function createParticles(){
 	for(var i=0;i<50;i++){
+		var particlesClass = new ParticlesTwoClass();
+		particlesClass.particleRandomStartLocation();
 		particleList.push(particlesClass);
-		particleList[i].particleRandomStartLocation();
 		//console.log(particleList.length)
 		//tempParticle.x=
 		//tempParticle.y=;

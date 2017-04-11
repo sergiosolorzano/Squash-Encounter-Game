@@ -94,7 +94,7 @@ function moveAll() {
         BallClass.moveBall();
         PlayerClass.movePlayer();
         ComputerClass.movePlayer();
-        moveAllParticles();
+        //moveAllParticles();
     }
 }
 
@@ -126,7 +126,7 @@ function drawAll() {
         } else if (playerEntry == false) {
             PlayerClass.drawPlayer();
             ComputerClass.drawPlayer();
-            drawAllParticles();
+            //drawAllParticles();
             Rules.check();
         }
     }
