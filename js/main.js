@@ -9,7 +9,7 @@ var playerEntry;
 var menuLoop;
 var framesPerSecond = 30;
 
-window.addEventListener("resize", ResizeGame, false);
+// ### Scaling Code WIP ### window.addEventListener("resize", ResizeGame, false);
 
 window.onload = function () {
     canvas = document.getElementById('gameCanvas');
@@ -21,7 +21,7 @@ window.onload = function () {
     scaledContext.fillStyle = "black";
     loadImages();
     ParticleSystem.init(scaledCanvas, 1000 / 30, false);
-    ResizeGame();
+    // ### Scaling Code WIP ### ResizeGame();
 }
 
 function ResizeGame() {
