@@ -26,7 +26,7 @@ function BallClass() {
         this.z = 0;
         this.zv = 1;//1.5
         this.heightOscillate = 0.0;
-        this.speedX = 1;
+        this.speedX = -1;
         this.speedY = -2;
         this.tinHit = false;
         this.ballHitFloorBeforeWall = false;
@@ -35,6 +35,7 @@ function BallClass() {
         this.bouncedOnFloor = 0;//player can only swing on ball if it has hit the ground once
         this.ballBouncedOnFloor = true;////captures ball bounced 0 or 1 times so player can only swing on ball if it has hit the ground once
         this.canBeHit = true;
+        this.numFramesTouchGround;
     }
 
     this.drawInAir = function () {
@@ -334,32 +335,55 @@ function BallClass() {
 
         this.nextX = this.x + this.speedX;
         this.nextY = this.y + this.speedY;
-
+        //console.log(this.z,this.zv)
         if (this.nextX < 0) {
-            ComputerClass.ballAngAtBounce();
             this.speedX *= -1;
+            if(this.zv>0){
+            this.zv *= -0.03;    
+            }
             createParticles();
             //console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
         if (this.nextX > COURT_W) {
-            ComputerClass.ballAngAtBounce();
             this.speedX *= -1;
+            if(this.zv>0){
+            this.zv *= -0.03;    
+            }
             createParticles();
             Sound.wall();
             //console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
 
         if (this.nextY <= 0) {
-            ComputerClass.ballAngAtBounce();
             this.speedY *= -1;
+            if(this.zv>0){
+            this.zv *= -0.03;    
+            }
             this.bouncedOnFrontWall = true;
             createParticles();
             Sound.wall();
+            //delta z to calcluate #frames to touch ground or z=0
+            //this.z at n =this.z+this.zv*n+(n*(n+1)/2*ballsink), where (n*(n+1)/2*ballsink derives from the triangular number sequence. 
+            //This generates a quadratic equation of the form n^2-n*(2*this.zv+1)-2*this.z
+            a = 1;//quadratic a value
+            b = -2*this.zv-1;//quadratic b value
+            c = -2*this.z //quadratic c value
+            root=Math.pow(b,2)-4*a*c;
+            root1=(-b+Math.sqrt(root))/(2*a);
+            root2=(-b-Math.sqrt(root))/(2*a);
+            if(root1>0){
+            this.numFramesTouchGround=root1;   
+            } else {
+            this.numFramesTouchGround=root2;
+            }
+            //console.log(this.z,this.zv,root1,root2)
         //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
         if (this.nextY > COURT_L - 2) {//COURT_L reduced by two so the ball doesn't paint black on canvas outside the court
-            ComputerClass.ballAngAtBounce();
             this.speedY *= -1;
+            if(this.zv>0){
+            this.zv *= -0.03;    
+            }
             this.bouncedOnBackWall = true;
             createParticles();
             Sound.wall();
@@ -370,5 +394,4 @@ function BallClass() {
 
         //console.log(this.y)
     }
-
 }//end BallClass
