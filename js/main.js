@@ -9,8 +9,6 @@ var playerEntry;
 var menuLoop;
 var framesPerSecond = 30;
 
-// ### Scaling Code WIP ### window.addEventListener("resize", ResizeGame, false);
-
 window.onload = function () {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
@@ -21,30 +19,6 @@ window.onload = function () {
     scaledContext.fillStyle = "black";
     loadImages();
     ParticleSystem.init(scaledCanvas, 1000 / 30, false);
-    // ### Scaling Code WIP ### ResizeGame();
-}
-
-function ResizeGame() {
-    var width = window.innerWidth,
-        height = window.innerHeight,
-        newVal = 100,
-        ratio = width / height;
-
-    if (ratio > 4 / 3) {
-        newVal = (height * 4 / 3) / width * 100;
-        canvas.style.width =  newVal + "vw";
-        canvas.style.height = "100vh";
-        canvas.style.left = (100 - newVal) / 2 + "%";
-    }
-    else if (ratio < 4 / 3) {
-        canvas.style.width = "100vw";
-        newVal = (width * 3 / 4) / height * 100;
-        canvas.style.height = newVal + "vh";
-    }
-    else {
-        canvas.style.width = "100vw";
-        canvas.style.height = "100vh";
-    }
 }
 
 //perspective location for player and ball

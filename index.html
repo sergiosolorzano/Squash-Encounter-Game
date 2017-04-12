@@ -6,14 +6,20 @@
 
     <style>
         body {
-            // ### Scaling Code WIP ### background-color: #000000;
+            background-color: #000000;
         }
+
+        #gameArea {
+            width: 800px;
+            height: 600px;
+            margin: 0px auto;
+            position: relative;
+        }
+
         canvas {
-            position: absolute;
             top: 0px;
             left: 0px;
-            // ### Scaling Code WIP ### height: 100vh;
-            // ### Scaling Code WIP ### width: 100vw;
+            position: absolute;
             image-rendering: optimizeSpeed; /* Older versions of FF          */
             image-rendering: -moz-crisp-edges; /* FF 6.0+                       */
             image-rendering: -webkit-optimize-contrast; /* Safari                        */
@@ -25,9 +31,12 @@
 </head>
 
 <body>
-    <canvas id="gameCanvas" width="800" height="600"></canvas>
-    <p id="levelOutput"></p>
+    <section id="gameArea">
+        <canvas id="gameCanvas" width="800" height="600"></canvas>
+        <p id="levelOutput"></p>
+    </section>
 
+    <script src="js/screenfull.js"></script>
     <script src="js/howler.core.min.js"></script>
     <script src="js/soundsystem.js"></script>
     <script src="js/graphicscommon.js"></script>
