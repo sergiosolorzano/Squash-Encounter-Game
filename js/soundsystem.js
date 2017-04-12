@@ -14,10 +14,16 @@ function SoundSystem() {
   	var sounds = [];	// an array of Howl() objects
 	var atlas = null;	// one big sound sprite
 
-	this.play = function(samplename,looping,vol)
+    // playback function
+	this.play = function(samplename,looping,vol,rate,pan)
 	{
+        // null variable conditions
 		if (looping==null) looping = false;
-		if (vol==null) vol = 1;
+		if (vol == null) vol = 1;
+		if (rate == null) rate = 1;
+		if (pan == null) pan = 0;
+
+		console.log("pan: " + pan);
 
 		if (!sounds[samplename]) // downloads on demand once only
 		{
@@ -31,7 +37,9 @@ function SoundSystem() {
 					'audio/'+samplename+'.ogg',
 					'audio/'+samplename+'.webm'],
 				loop: looping,
-				volume: vol
+				volume: vol,
+				rate: rate,
+				pan: pan
 			});
 		}
 		if (!mute) // we still download even if muted
@@ -100,9 +108,9 @@ function SoundSystem() {
 
 	// shortcuts for squash encounter. example:
 	//Sound.hit(); // randomly play a hit sound
-	this.hit = function() { atlas.play('hit'+randomInt(1,5)); }
-	this.wall = function() { atlas.play('wall'+randomInt(1,5)); }
-	this.bounce = function() { atlas.play('bounce'+randomInt(1,5)); }
+	this.hit = function() { atlas.play('hit'+randomInt(1,5), false, 1, 1, -1); }
+	this.wall = function() { atlas.play('wall'+randomInt(1,5), false, 1, 1, -1); }
+	this.bounce = function() { atlas.play('bounce'+randomInt(1,5), false, 1, 1, -1); }
 	this.shoe = function() { atlas.play('shoe'+randomInt(1,10)); }
 
 	init();
