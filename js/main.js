@@ -63,7 +63,7 @@ function loadLevel() {
 function moveAll() {
     if (serveBet) {
         return;
-    } else if (playerEntry == false) {
+    } else if (playerEntry == false && (ServeHandler.matchStart && ServeHandler.inPlay)) {
         BallClass.moveBall();
         PlayerClass.movePlayer();
         ComputerClass.movePlayer();
@@ -86,7 +86,6 @@ function drawAll() {
     if (serveBet) {
         rightToServe();
     } else {
-
         BallClass.drawShadow();
         BallClass.drawInAir();
         ParticleSystem.draw();
@@ -98,6 +97,7 @@ function drawAll() {
         } else if (playerEntry == false) {
             PlayerClass.drawPlayer();
             ComputerClass.drawPlayer();
+            ServeHandler.DrawCountDown();
             drawAllParticles();
             Rules.check();
         }
