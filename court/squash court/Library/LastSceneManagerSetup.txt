@@ -1,4 +1,0 @@
-sceneSetups:
-- path: Assets/squash_court_textured.unity
-  isLoaded: 1
-  isActive: 1

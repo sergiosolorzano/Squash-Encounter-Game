@@ -1,5 +1,0 @@
-sceneSetups:
-- path: M:/Desktop Backup/AR-VR/Gamkedo/Github/squash-encounter/court/squash court/Assets/Squash
-    court.unity
-  isLoaded: 1
-  isActive: 1
