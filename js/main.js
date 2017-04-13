@@ -63,10 +63,13 @@ function loadLevel() {
 function moveAll() {
     if (serveBet) {
         return;
-    } else if (playerEntry == false && (ServeHandler.matchStart && ServeHandler.inPlay)) {
-        BallClass.moveBall();
+    }
+    else if (playerEntry == false) {
+        if (ServeHandler.matchStart && ServeHandler.inPlay) {
+            BallClass.moveBall();
+            ComputerClass.movePlayer();
+        }
         PlayerClass.movePlayer();
-        ComputerClass.movePlayer();
         moveAllParticles();
     }
 }
