@@ -26,7 +26,7 @@ function BallClass() {
     }
 
     this.Reset = function () {
-        this.x = (ServeClass.servingPlayer === ServeClass.BLUE ? COURT_W * 0.18 : COURT_W * 0.95);
+        this.x = (ServeHandler.servingPlayer === ServeHandler.BLUE ? COURT_W * 0.18 : COURT_W * 0.95);
         this.y = COURT_L * 0.4;
         this.z = 0;
         this.zv = 1;//1.5

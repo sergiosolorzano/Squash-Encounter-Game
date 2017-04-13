@@ -13,4 +13,4 @@ function ServeClass() {
     }
 }
 
-var ServeClass = new ServeClass();
+var ServeHandler = new ServeClass();

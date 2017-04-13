@@ -20,7 +20,7 @@ function ComputerClass() {
         this.x = COURT_W * 0.84;
         this.y = initYPosition;
         this.isSwinging = false;//used so player does not run if gif showing it's swinging the racket
-        this.swingTurn = (ServeClass.servingPlayer === ServeClass.RED ? false : true);
+        this.swingTurn = (ServeHandler.servingPlayer === ServeHandler.RED ? false : true);
         this.speedX = COMPUTER_MOVE_SPEED;
         this.speedY = COMPUTER_MOVE_SPEED;
         this.isHit = false;
@@ -86,8 +86,8 @@ function ComputerClass() {
                 var ballMotionAngle=Math.atan2(BallClass.speedY,BallClass.speedX);//radians 
                 degrees=ballMotionAngle*180/Math.PI;
                 ballSpeedUnitVector = magnitude(BallClass.speedX,BallClass.speedY);
-                ballSpeedX=Math.cos(atanResult)*ballSpeedUnitVector;  
-                ballSpeedY=Math.sin(atanResult)*ballSpeedUnitVector;
+                ballSpeedX=Math.cos(ballMotionAngle)*ballSpeedUnitVector;  
+                ballSpeedY=Math.sin(ballMotionAngle)*ballSpeedUnitVector;
                 touchGroundX=BallClass.x+ballSpeedX*BallClass.numFramesTouchGround;
                 touchGroundY=BallClass.y+ballSpeedY*BallClass.numFramesTouchGround;
                 //console.log(touchGroundX,COURT_W,touchGroundY,COURT_L)

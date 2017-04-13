@@ -59,7 +59,7 @@ function PlayerClass() {
         this.y = initYPosition;
         ParticleSystem.remove(this.particles);
         this.particles = ParticleSystem.add(-14, 4, {}, "sweat");
-        this.swingTurn = (ServeClass.servingPlayer === ServeClass.BLUE ? false : true);
+        this.swingTurn = (ServeHandler.servingPlayer === ServeHandler.BLUE ? false : true);
         this.particles.active = false;
         this.isSwinging = false;//used so player does not run if gif showing it's swinging the racket
         this.targetBackWall = NOBACKWALLSELECTED;

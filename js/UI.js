@@ -84,14 +84,14 @@ function rightToServeOutcome() {
         drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer.x, drawLocationPlayer.y, PLAYER_W, PLAYER_H);
         titleText = "Blue Player Has  Right To Serve !";
         canvasContext.fillStyle = "blue";
-        ServeClass.servingPlayer = ServeClass.BLUE;
+        ServeHandler.servingPlayer = ServeHandler.BLUE;
         ComputerClass.swingTurn = true;
         PlayerClass.swingTurn = false;
         BallClass.x = COURT_W * 0.18;
     } else {
         titleText = "Red Player Has Right To Serve !";
         canvasContext.fillStyle = "red";
-        ServeClass.servingPlayer = ServeClass.RED;
+        ServeHandler.servingPlayer = ServeHandler.RED;
         ComputerClass.swingTurn = false;
         PlayerClass.swingTurn = true;
     }
