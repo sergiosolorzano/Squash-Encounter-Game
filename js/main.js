@@ -1,4 +1,5 @@
-var canvas, canvasContext, scaledContext;
+var canvas, canvasContext,             // draw to this canvas
+    drawCanvas, drawContext;        // NOT to this canvas
 
 var serveBet = true;
 var BallClass = new BallClass();
@@ -13,12 +14,11 @@ window.onload = function () {
     canvas = document.getElementById('gameCanvas');
     canvasContext = canvas.getContext('2d');
     colorRect(0, 0, canvas.width, canvas.height, 'black');
+    canvasContext.fillStyle = "black";
+    initDrawCanvas();
 
-    scaledCanvas = document.getElementById('gameCanvas');
-    scaledContext = scaledCanvas.getContext('2d');
-    scaledContext.fillStyle = "black";
     loadImages();
-    ParticleSystem.init(scaledCanvas, 1000 / 30, false);
+    ParticleSystem.init(canvas, 1000 / 30, false);
 }
 
 //perspective location for player and ball
@@ -107,7 +107,8 @@ function drawAll() {
     //drawUI();
     //colorText(Math.floor(mouseX)+","+Math.floor(mouseY), mouseX,mouseY,'blue');
     //colorRect(0,0,64,97,"orange");//real life court
-    //colorRect(BallClass.x,BallClass.y,3,3,"green");////real life ball   
+    //colorRect(BallClass.x,BallClass.y,3,3,"green");////real life ball
+    redrawCanvas();
 }
 
 function magnitude(x, y) {

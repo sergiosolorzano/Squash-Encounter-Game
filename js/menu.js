@@ -57,11 +57,10 @@ function drawMenu() {
     }
     if (curr_menuScreen === "Main") {
         drawTextCustom("Confirm: Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
-        drawTextCustom("Fullscreen: F11", canvas.width / 10 * 3.575, canvas.height / 10 * 8.7);
     } else {
         drawTextCustom("Exit: Shift", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }
-
+    redrawCanvas();
 }
 
 function drawControls() {

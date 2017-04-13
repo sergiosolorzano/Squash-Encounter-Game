@@ -3,7 +3,6 @@ const KEY_S = 83;
 const KEY_A = 65;
 const KEY_D = 68;
 
-const KEY_F11 = 122;
 const KEY_SPACE = 32;
 const KEY_LEFT_SHIFT = 16;
 const KEY_ENTER = 13;
@@ -21,15 +20,18 @@ function initInput() {
         selectBackWall(mouseClickPos.x, mouseClickPos.y);
         selectFrontWall(mouseClickPos.x, mouseClickPos.y);
     });
-    PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_LEFT_SHIFT, KEY_F11);
+    PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_LEFT_SHIFT);
 }
 
 function updateMousePos(evt) {
     var rect = canvas.getBoundingClientRect();
     var root = document.documentElement;
+    var posX = evt.clientX - rect.left - root.scrollLeft,
+        posY = evt.clientY - rect.top - root.scrollTop,
+        posXY = scaleCoordinates(posX, posY);
 
-    mouseX = evt.clientX - rect.left - root.scrollLeft;
-    mouseY = evt.clientY - rect.top - root.scrollTop;
+    mouseX = posXY.x;
+    mouseY = posXY.y;
     return {
         x: mouseX,
         y: mouseY
@@ -66,9 +68,6 @@ function keySet(keyEvent, whichPlayer, setTo) {
     }
     if (keyEvent.keyCode == whichPlayer.controlKeySprint) {
         whichPlayer.keyHeld_Sprint = setTo;
-    }
-    if (keyEvent.keyCode === KEY_F11) {
-        screenfull.request(canvas);
     }
     if (setTo) { //only detecting when key goes down not held keys
         if (keyEvent.keyCode == KEY_ENTER) {//TODO Remove cheat: cheat to avoid waiting for the draw to play, to remove cheat add && drawNow in if condition

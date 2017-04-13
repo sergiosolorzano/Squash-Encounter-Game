@@ -82,7 +82,8 @@ function drawTargetBackWall (nearX,farX,nearY,farY){
       }
       var targetWallDrawnWidth = farX-nearX-visualAdjustmentX;
       var targetWalltDrawnHeight = farY-nearY+visualAdjustmentY;
-      colorRect(nearX,nearY,targetWallDrawnWidth,targetWalltDrawnHeight,"blue");
+      colorRect(nearX, nearY, targetWallDrawnWidth, targetWalltDrawnHeight, "blue");
+      redrawCanvas();
     }
 
 function drawTargetFrontWall (nearX,farX,nearY,farY){
@@ -93,7 +94,8 @@ function drawTargetFrontWall (nearX,farX,nearY,farY){
       }
       var targetWallDrawnWidth = farX-nearX-visualAdjustmentX;
       var targetWalltDrawnHeight = farY-nearY+visualAdjustmentY;
-      colorRect(nearX,nearY,targetWallDrawnWidth,targetWalltDrawnHeight,"blue");
+      colorRect(nearX, nearY, targetWallDrawnWidth, targetWalltDrawnHeight, "blue");
+      redrawCanvas();
     }
 
 
