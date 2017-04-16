@@ -148,7 +148,4 @@ function menuInput(keyEvent, pressed) {
             curr_menuScreen = 'Main';
         }
     }
-    else if (keyEvent.keyCode === KEY_F11) {
-        screenfull.request(canvas);
-    }
 }
