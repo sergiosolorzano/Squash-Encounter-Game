@@ -65,8 +65,10 @@ function ComputerClass() {
             computerStepsPerAnimFrame = 2
         }
         drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y, PLAYER_W, PLAYER_H);
+        if(debugTarget)
+            colorCircle(debugTarget.x, debugTarget.y - debugTarget.z, 3, "green")
     }
-
+    var debugTarget;
     this.movePlayer = function () {
         var nextX = this.x;
         var nextY = this.y;
@@ -84,14 +86,16 @@ function ComputerClass() {
         if (this.swingTurn == false) {
             this.runToT();
         } else if (BallClass.bouncedOnFrontWall) {
+            /*
+            //TODO: fix this code
             //calculate where ball will touch ground
             var ballMotionAngle = Math.atan2(BallClass.speedY, BallClass.speedX);//radians 
             degrees = ballMotionAngle * 180 / Math.PI;
             ballSpeedUnitVector = magnitude(BallClass.speedX, BallClass.speedY);
             ballSpeedX = Math.cos(ballMotionAngle) * ballSpeedUnitVector;
             ballSpeedY = Math.sin(ballMotionAngle) * ballSpeedUnitVector;
-            touchGroundX = BallClass.x + ballSpeedX * BallClass.numFramesTouchGround;
-            touchGroundY = BallClass.y + ballSpeedY * BallClass.numFramesTouchGround;
+            touchGroundX = BallClass.x + (BallClass.speedX * BallClass.numFramesTouchGround);
+            touchGroundY = BallClass.y + (BallClass.speedY * BallClass.numFramesTouchGround);
             //console.log(touchGroundX,COURT_W,touchGroundY,COURT_L)
 
             //move computer player to expected ball-touch ground point
@@ -105,8 +109,48 @@ function ComputerClass() {
 
             this.speedX = Math.cos(atanResult) * computerPlayerSpeed;
             this.speedY = Math.sin(atanResult) * computerPlayerSpeed;
+            */
+
+
+            //i need to take trig </3
+            var x = BallClass.y;
+            var x2 = BallClass.y + BallClass.speedY;
+            var y = BallClass.z
+            var y2 = BallClass.z + BallClass.zv;
+            var m = (y - y2) / (x - x2); //slope
+
+            var zIntercept = (x2*y-x*y2)/(x2-x)
+             //debugTarget = perspectiveLocation(BallClass.x + BallClass.speedX, zIntercept * 2, 0);//BallClass.z - BallClass.zv)
+
+
+            //i need to take trig </3
+            x2 = BallClass.x + BallClass.speedX;
+            y2 = BallClass.y + BallClass.speedY;
+            m = (BallClass.y - y2) / (BallClass.x - x2); //slope
+
+            b = (x2*BallClass.y-BallClass.x*y2)/(x2-BallClass.x) //y-intercept
+              //var y = m(this.x) + b //solve for y
+            var x = (zIntercept*2/m) - (b/m) //solve for x
+
+            debugTarget = perspectiveLocation(x, zIntercept * 2, 0)
+            
+            if(this.x - x > 0){        
+                this.speedX = -COMPUTER_MOVE_SPEED
+            } else {
+                this.speedX = COMPUTER_MOVE_SPEED
+            }
+
+            if(this.y - zIntercept * 2 > 0){        
+                this.speedY = -COMPUTER_MOVE_SPEED
+            } else {
+                this.speedY = COMPUTER_MOVE_SPEED
+            }
+
+              
+              //y = (this.y/m) - (b/m) //solve for y
 
             //console.log("where should go:",this.speedX)
+            
         }
 
         nextX += this.speedX;
