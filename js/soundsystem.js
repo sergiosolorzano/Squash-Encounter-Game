@@ -23,7 +23,7 @@ function SoundSystem() {
 		if (rate == null) rate = 1;
 		if (pan == null) pan = 0;
 
-		console.log("pan: " + pan);
+		//console.log("pan: " + pan);
 
 		if (!sounds[samplename]) // downloads on demand once only
 		{

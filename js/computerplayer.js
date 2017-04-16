@@ -86,16 +86,16 @@ function ComputerClass() {
         if (this.swingTurn == false) {
             this.runToT();
         } else if (BallClass.bouncedOnFrontWall) {
-            /*
-            //TODO: fix this code
+            
             //calculate where ball will touch ground
             var ballMotionAngle = Math.atan2(BallClass.speedY, BallClass.speedX);//radians 
+            console.log(atanResult)
             degrees = ballMotionAngle * 180 / Math.PI;
             ballSpeedUnitVector = magnitude(BallClass.speedX, BallClass.speedY);
-            ballSpeedX = Math.cos(ballMotionAngle) * ballSpeedUnitVector;
-            ballSpeedY = Math.sin(ballMotionAngle) * ballSpeedUnitVector;
-            touchGroundX = BallClass.x + (BallClass.speedX * BallClass.numFramesTouchGround);
-            touchGroundY = BallClass.y + (BallClass.speedY * BallClass.numFramesTouchGround);
+            ballSpeedX = Math.cos(atanResult) * ballSpeedUnitVector;
+            ballSpeedY = Math.sin(atanResult) * ballSpeedUnitVector;
+            touchGroundX = BallClass.x + (ballSpeedX * BallClass.numFramesTouchGround);
+            touchGroundY = BallClass.y + (ballSpeedY * BallClass.numFramesTouchGround);
             //console.log(touchGroundX,COURT_W,touchGroundY,COURT_L)
 
             //move computer player to expected ball-touch ground point
@@ -109,10 +109,10 @@ function ComputerClass() {
 
             this.speedX = Math.cos(atanResult) * computerPlayerSpeed;
             this.speedY = Math.sin(atanResult) * computerPlayerSpeed;
-            */
+            
 
 
-            //i need to take trig </3
+            /*i need to take trig </3
             var x = BallClass.y;
             var x2 = BallClass.y + BallClass.speedY;
             var y = BallClass.z
@@ -149,7 +149,7 @@ function ComputerClass() {
               
               //y = (this.y/m) - (b/m) //solve for y
 
-            //console.log("where should go:",this.speedX)
+            //console.log("where should go:",this.speedX)*/
             
         }
 
