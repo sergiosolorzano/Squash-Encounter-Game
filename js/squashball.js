@@ -412,9 +412,9 @@ function BallClass() {
             //delta z to calcluate #frames to touch ground or z=0
             //this.z at n =this.z+this.zv*n+(n*(n+1)/2*ballsink), where (n*(n+1)/2*ballsink derives from the triangular number sequence.
             //This generates a quadratic equation of the form n^2-n*(2*this.zv+1)-2*this.z
-            a = 1;//quadratic a value
-            b = -2*this.zv-1;//quadratic b value
-            c = -2*this.z //quadratic c value
+            a = -ballSinkRate;//quadratic a value
+            b = this.zv;//quadratic b value
+            c = this.z; //quadratic c value
             root=Math.pow(b,2)-4*a*c;
             root1=(-b+Math.sqrt(root))/(2*a);
             root2=(-b-Math.sqrt(root))/(2*a);
@@ -422,6 +422,15 @@ function BallClass() {
             this.numFramesTouchGround=root1;
             } else {
             this.numFramesTouchGround=root2;
+            }
+            this.landingX = this.x + this.speedX * this.numFramesTouchGround;
+            this.landingY = this.y + this.speedY * this.numFramesTouchGround;
+            // account for wall bounces
+            if(this.landingX < 0) {
+                this.landingX = -this.landingX;
+            }
+            if(this.landingX > COURT_W) {
+                this.landingX = 2*COURT_W-this.landingX;
             }
             //console.log(this.z,this.zv,root1,root2)
         //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)

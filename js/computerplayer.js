@@ -4,7 +4,7 @@ var computerFrame = 0;
 
 var initComputerStepsPerAnimFrame = 5;//for players entry only
 var initComputerFrameTimer = 5;//how quick it changes between frames; for players entry only
-var COMPUTER_MOVE_SPEED = 2;
+var COMPUTER_MOVE_SPEED = 2.8;
 
 
 function ComputerClass() {
@@ -21,8 +21,8 @@ function ComputerClass() {
         this.y = initYPosition;
         this.isSwinging = false;//used so player does not run if gif showing it's swinging the racket
         this.swingTurn = (ServeHandler.servingPlayer === ServeHandler.RED ? false : true);
-        this.speedX = COMPUTER_MOVE_SPEED;
-        this.speedY = COMPUTER_MOVE_SPEED;
+        this.speedX = 0;
+        this.speedY = 0;
         this.isHit = false;
     }
 
@@ -73,44 +73,35 @@ function ComputerClass() {
         var nextX = this.x;
         var nextY = this.y;
         var computerSpeed;
-        var distPlayerToTX;
-        var distPlayerToTY;
+        var playerGotoX;
+        var playerGotoY;
 
         this.hitGraphicSelection();
         if (this.isHit) {
             return;
         }
 
-        //run to T
-        //console.log(this.swingTurn)
-        if (this.swingTurn == false) {
-            this.runToT();
-        } else if (BallClass.bouncedOnFrontWall) {
-            
-            //calculate where ball will touch ground
-            var ballMotionAngle = Math.atan2(BallClass.speedY, BallClass.speedX);//radians 
-            console.log(atanResult)
-            degrees = ballMotionAngle * 180 / Math.PI;
-            ballSpeedUnitVector = magnitude(BallClass.speedX, BallClass.speedY);
-            ballSpeedX = Math.cos(atanResult) * ballSpeedUnitVector;
-            ballSpeedY = Math.sin(atanResult) * ballSpeedUnitVector;
-            touchGroundX = BallClass.x + (ballSpeedX * BallClass.numFramesTouchGround);
-            touchGroundY = BallClass.y + (ballSpeedY * BallClass.numFramesTouchGround);
-            //console.log(touchGroundX,COURT_W,touchGroundY,COURT_L)
-            debugTarget = perspectiveLocation(touchGroundX, touchGroundY, 0)
+        if (this.swingTurn && BallClass.bouncedOnFrontWall) {
+            playerGotoX = BallClass.landingX;
+            playerGotoY = BallClass.landingY;
+        } else { // run to T
+            playerGotoX = T_ONCOURT_W;
+            playerGotoY = T_ONCOURT_L;
+        }
 
-            //move computer player to expected ball-touch ground point
-            distPlayerToTX = touchGroundX - this.x;
-            distPlayerToTY = touchGroundY - this.y;
-            atanResult = Math.atan2(distPlayerToTY, distPlayerToTX);//radians
-            degrees = ballMotionAngle * 180 / Math.PI;
-            //console.log(atanResult,degrees)
-            //console.log(BallClass.speedX,BallClass.speedY)
-            computerPlayerSpeed = magnitude(COMPUTER_MOVE_SPEED, COMPUTER_MOVE_SPEED);
+        debugTarget = perspectiveLocation(playerGotoX, playerGotoY, 0)
 
-            this.speedX = Math.cos(atanResult) * computerPlayerSpeed;
-            this.speedY = Math.sin(atanResult) * computerPlayerSpeed;            
-            
+        var distToGoX = playerGotoX-this.x;
+        var distToGoY = playerGotoY-this.y;
+        var atanResult = Math.atan2(distToGoY, distToGoX);//radians
+        var distToGoal = magnitude(distToGoX, distToGoY);
+
+        if (distToGoal <= COMPUTER_MOVE_SPEED) {
+            this.speedX = 0;
+            this.speedY = 0;
+        } else {
+            this.speedX = Math.cos(atanResult) * COMPUTER_MOVE_SPEED;
+            this.speedY = Math.sin(atanResult) * COMPUTER_MOVE_SPEED;
         }
 
         nextX += this.speedX;
@@ -119,26 +110,6 @@ function ComputerClass() {
 
         this.x = nextX;
         this.y = nextY;
-    }
-    this.runToT = function () {
-        ballMotionAngle = Math.atan2(BallClass.speedY, BallClass.speedX);//radians    
-        degrees = ballMotionAngle * 180 / Math.PI;
-
-        distPlayerToTX = T_ONCOURT_W - this.x;
-        distPlayerToTY = T_ONCOURT_L - this.y;
-
-        atanResult = Math.atan2(distPlayerToTY, distPlayerToTX);//radians
-        computerSpeed = magnitude(this.speedX, this.speedY);
-        if (Math.abs(distPlayerToTX) <= COMPUTER_MOVE_SPEED) {
-            this.speedX = 0;
-        } else {
-            this.speedX = Math.cos(atanResult) * computerSpeed;
-        }
-        if (Math.abs(distPlayerToTY) <= COMPUTER_MOVE_SPEED) {
-            this.speedY = 0;
-        } else {
-            this.speedY = Math.sin(atanResult) * computerSpeed;
-        }
     }
 
     this.hitGraphicSelection = function () {
