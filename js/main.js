@@ -68,9 +68,9 @@ function moveAll() {
         if (ServeHandler.matchStart && ServeHandler.inPlay) {
             BallClass.moveBall();
             ComputerClass.movePlayer();
+            PlayerClass.movePlayer();
+            moveAllParticles();
         }
-        PlayerClass.movePlayer();
-        moveAllParticles();
     }
 }
 

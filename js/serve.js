@@ -7,20 +7,20 @@ function ServeClass() {
     this.BLUE = 1;
 
     this.servingPlayer = this.RED;
+    this.nextServingPlayer = this.RED;
     this.matchStart = false;
     this.inPlay = false;
     this.timer = null;
     this.time = 0;
 
     this.SwitchServe = function () {
-        this.servingPlayer *= -1;
+        this.servingPlayer = this.nextServingPlayer;
         this.time = 0;
-        this.WhoServes();
+        this.RedServes();
     }
 
-    this.WhoServes = function () {
+    this.RedServes = function () {
         var self = this;
-
         if (this.servingPlayer === this.RED) {
             this.time = 5;
             this.timer = window.setInterval(function () { self.RedCountDown(); }, 1000);

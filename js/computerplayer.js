@@ -17,7 +17,7 @@ function ComputerClass() {
     this.Reset = function () {
         this.prevX = 0;
         this.prevY = 0;
-        this.x = COURT_W * 0.84;
+        this.x = COURT_W * 0.86;
         this.y = initYPosition;
         this.isSwinging = false;//used so player does not run if gif showing it's swinging the racket
         this.swingTurn = (ServeHandler.servingPlayer === ServeHandler.RED ? false : true);
@@ -40,7 +40,7 @@ function ComputerClass() {
             computerFrame = 0;
             playerEntry = false;
             ServeHandler.matchStart = true;
-            ServeHandler.WhoServes();
+            ServeHandler.RedServes();
             this.whichPic = p2_standing;
             this.isSwinging = false;
         }
