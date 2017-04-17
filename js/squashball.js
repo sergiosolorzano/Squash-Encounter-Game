@@ -35,10 +35,10 @@ function BallClass() {
         this.speedY = -2;
         this.tinHit = false;
         this.ballHitFloorBeforeWall = false;
-        this.bouncedOnFrontWall = true;
-        this.bouncedOnBackWall = true;
+        this.bouncedOnFrontWall = false;
+        this.bouncedOnBackWall = false;
         this.bouncedOnFloor = 0;//player can only swing on ball if it has hit the ground once
-        this.ballBouncedOnFloor = true;////captures ball bounced 0 or 1 times so player can only swing on ball if it has hit the ground once
+        this.ballBouncedOnFloor = false;////captures ball bounced 0 or 1 times so player can only swing on ball if it has hit the ground once
         this.canBeHit = true;
         this.numFramesTouchGround;
         // keeps track of the previous x,y,z coordinates drawn
