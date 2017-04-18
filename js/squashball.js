@@ -22,11 +22,11 @@ var prevQuadrantWasAHit = false;
 function BallClass() {
 
     this.Init = function () {
+        this.x = ServeHandler.WhereBall();
         this.Reset();
     }
 
     this.Reset = function () {
-        this.x = (ServeHandler.servingPlayer === ServeHandler.BLUE ? COURT_W * 0.18 : COURT_W * 0.95);
         this.y = COURT_L * 0.4;
         this.z = 0;
         this.zv = 1;//1.5
@@ -74,13 +74,13 @@ function BallClass() {
             When order doesn't matter, or I have simple control of
             I favor the former option used below.
         */
-        for ( var i = this.ballDrawHistory.length - 1; i >= 0; --i) {
+        for (var i = this.ballDrawHistory.length - 1; i >= 0; --i) {
 
-          var trailNode = this.ballDrawHistory[i],
-          //setting alpha value based on current iterator %age of max trail length;
-              alpha = 1 - (i + 1) / ballTrailMaxLength;
+            var trailNode = this.ballDrawHistory[i],
+            //setting alpha value based on current iterator %age of max trail length;
+                alpha = 1 - (i + 1) / ballTrailMaxLength;
 
-          drawAtBaseSheetSprite(whichPic, ballFrame, trailNode.x, trailNode.y - trailNode.z, BALL_W, BALL_H, alpha);
+            drawAtBaseSheetSprite(whichPic, ballFrame, trailNode.x, trailNode.y - trailNode.z, BALL_W, BALL_H, alpha);
         }
 
         /*
@@ -91,9 +91,9 @@ function BallClass() {
           array.pop is used to remove the last value from the array
           when its length graws to be that of the specified trailMax.
         */
-        this.ballDrawHistory.unshift({x: draw.x, y: draw.y, z: draw.z});
-        if ( this.ballDrawHistory.length == ballTrailMaxLength) {
-          this.ballDrawHistory.pop();
+        this.ballDrawHistory.unshift({ x: draw.x, y: draw.y, z: draw.z });
+        if (this.ballDrawHistory.length == ballTrailMaxLength) {
+            this.ballDrawHistory.pop();
         }
 
         drawAtBaseSheetSprite(whichPic, ballFrame, draw.x, draw.y - draw.z, BALL_W, BALL_H);
@@ -384,8 +384,8 @@ function BallClass() {
         //console.log(this.z,this.zv)
         if (this.nextX < 0) {
             this.speedX *= -1;
-            if(this.zv>0){
-            this.zv *= -0.03;
+            if (this.zv > 0) {
+                this.zv *= -0.03;
             }
 
             createParticles();
@@ -393,8 +393,8 @@ function BallClass() {
         }
         if (this.nextX > COURT_W) {
             this.speedX *= -1;
-            if(this.zv>0){
-            this.zv *= -0.03;
+            if (this.zv > 0) {
+                this.zv *= -0.03;
             }
             createParticles();
             Sound.wall();
@@ -403,8 +403,8 @@ function BallClass() {
 
         if (this.nextY <= 0) {
             this.speedY *= -1;
-            if(this.zv>0){
-            this.zv *= -0.03;
+            if (this.zv > 0) {
+                this.zv *= -0.03;
             }
             this.bouncedOnFrontWall = true;
             createParticles();
@@ -415,35 +415,35 @@ function BallClass() {
             a = -ballSinkRate;//quadratic a value
             b = this.zv;//quadratic b value
             c = this.z; //quadratic c value
-            root=Math.pow(b,2)-4*a*c;
-            root1=(-b+Math.sqrt(root))/(2*a);
-            root2=(-b-Math.sqrt(root))/(2*a);
-            if(root1>0){
-            this.numFramesTouchGround=root1;
+            root = Math.pow(b, 2) - 4 * a * c;
+            root1 = (-b + Math.sqrt(root)) / (2 * a);
+            root2 = (-b - Math.sqrt(root)) / (2 * a);
+            if (root1 > 0) {
+                this.numFramesTouchGround = root1;
             } else {
-            this.numFramesTouchGround=root2;
+                this.numFramesTouchGround = root2;
             }
             this.landingX = this.x + this.speedX * this.numFramesTouchGround;
             this.landingY = this.y + this.speedY * this.numFramesTouchGround;
             // account for wall bounces
-            if(this.landingX < 0) {
+            if (this.landingX < 0) {
                 this.landingX = -this.landingX;
             }
-            if(this.landingX > COURT_W) {
-                this.landingX = 2*COURT_W-this.landingX;
+            if (this.landingX > COURT_W) {
+                this.landingX = 2 * COURT_W - this.landingX;
             }
             //console.log(this.z,this.zv,root1,root2)
-        //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
+            //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
         if (this.nextY > COURT_L - 2) {//COURT_L reduced by two so the ball doesn't paint black on canvas outside the court
             this.speedY *= -1;
-            if(this.zv>0){
-            this.zv *= -0.03;
+            if (this.zv > 0) {
+                this.zv *= -0.03;
             }
             this.bouncedOnBackWall = true;
             createParticles();
             Sound.wall();
-          //  console.log("Computer Swing turn: ", ComputerClass.swingTurn)
+            //  console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
         this.x += this.speedX;
         this.y += this.speedY;

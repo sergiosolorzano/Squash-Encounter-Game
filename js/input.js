@@ -44,7 +44,6 @@ function updateMousePos(evt) {
 }
 
 function keySet(keyEvent, whichPlayer, setTo) {
-
     // FIXME: for better simulation we may need to track
     // previous player direction and velocity and only
     // play shoe squeaks when you turn 180 degrees
@@ -69,6 +68,7 @@ function keySet(keyEvent, whichPlayer, setTo) {
     if (keyEvent.keyCode == whichPlayer.controlKeySprint) {
         whichPlayer.keyHeld_Sprint = setTo;
     }
+
     if (setTo) { //only detecting when key goes down not held keys
         if (keyEvent.keyCode == KEY_ENTER) {//TODO Remove cheat: cheat to avoid waiting for the draw to play, to remove cheat add && drawNow in if condition
             if (serveBet) {
@@ -86,7 +86,23 @@ function keyPressed(evt) {
     if (menuActive) {
         menuInput(evt, true);
         evt.preventDefault();
-    } else {
+    }
+    else if (ServeHandler.bluePicks) {
+        switch (evt.keyCode) {
+            case KEY_A:
+                ServeHandler.flipPos = 1;
+                break;
+            case KEY_D:
+                ServeHandler.flipPos = -1;
+                break;
+            case KEY_ENTER:
+                ServeHandler.bluePicks = false;
+                keySet(evt, PlayerClass, true);
+                evt.preventDefault();
+                break;
+        }
+    }
+    else {
         keySet(evt, PlayerClass, true);
         evt.preventDefault();
     }

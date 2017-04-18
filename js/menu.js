@@ -142,7 +142,8 @@ function menuInput(keyEvent, pressed) {
             }
             //console.log('Curr :'+curr_menuScreen);
         }
-    } else if (keyEvent.keyCode === KEY_LEFT_SHIFT) {
+    }
+    else if (keyEvent.keyCode === KEY_LEFT_SHIFT) {
         //console.log('Shift pressed');
         if (curr_menuScreen != 'Main') {
             curr_menuScreen = 'Main';

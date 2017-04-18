@@ -3,7 +3,7 @@ var Game = function Game() {
 
     ctrl.RallyReset = function RallyReset() {
         ServeHandler.inPlay = false;
-        ServeHandler.SwitchServe();
+        ServeHandler.WhoServes();
         BallClass.Reset();
         PlayerClass.Reset();
         ComputerClass.Reset();

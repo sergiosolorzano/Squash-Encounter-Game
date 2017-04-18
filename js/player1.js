@@ -51,11 +51,11 @@ function PlayerClass() {
     }
 
     this.Init = function () {
+        this.x = (ServeHandler.flipPos < 0? ServeHandler.RIGHT_SQUARE: ServeHandler.LEFT_SQUARE);
         this.Reset();
     }
 
     this.Reset = function () {
-        this.x = COURT_W * 0.07;
         this.y = initYPosition;
         ParticleSystem.remove(this.particles);
         this.particles = ParticleSystem.add(-14, 4, {}, "sweat");
@@ -221,7 +221,7 @@ function PlayerClass() {
         var nextX = this.x;
         var nextY = this.y;
         this.particles.active = false;
-        
+
         var isPlayerMoving = (this.keyHeld_Gas || this.keyHeld_Reverse || this.keyHeld_TurnLeft || this.keyHeld_TurnRight);
         this.hitGraphicSelection();
         if (this.isSwinging == false && playerHit == false) {

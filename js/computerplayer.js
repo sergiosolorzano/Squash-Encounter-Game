@@ -10,6 +10,7 @@ var COMPUTER_MOVE_SPEED = 2.8;
 function ComputerClass() {
 
     this.Init = function () {
+        this.x = (ServeHandler.flipPos < 0 ? ServeHandler.LEFT_SQUARE : ServeHandler.RIGHT_SQUARE);
         this.Reset();
         //this.initDrawPlayer();
     }
@@ -17,7 +18,6 @@ function ComputerClass() {
     this.Reset = function () {
         this.prevX = 0;
         this.prevY = 0;
-        this.x = COURT_W * 0.86;
         this.y = initYPosition;
         this.isSwinging = false;//used so player does not run if gif showing it's swinging the racket
         this.swingTurn = (ServeHandler.servingPlayer === ServeHandler.RED ? false : true);
@@ -65,7 +65,7 @@ function ComputerClass() {
             computerStepsPerAnimFrame = 2
         }
         drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y, PLAYER_W, PLAYER_H);
-        if(debugTarget)
+        if (debugTarget)
             colorCircle(debugTarget.x, debugTarget.y - debugTarget.z, 3, "green")
     }
     var debugTarget;
@@ -91,8 +91,8 @@ function ComputerClass() {
 
         debugTarget = perspectiveLocation(playerGotoX, playerGotoY, 0)
 
-        var distToGoX = playerGotoX-this.x;
-        var distToGoY = playerGotoY-this.y;
+        var distToGoX = playerGotoX - this.x;
+        var distToGoY = playerGotoY - this.y;
         var atanResult = Math.atan2(distToGoY, distToGoX);//radians
         var distToGoal = magnitude(distToGoX, distToGoY);
 

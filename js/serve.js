@@ -5,7 +5,15 @@ ServeClass Constructor
 function ServeClass() {
     this.RED = -1;
     this.BLUE = 1;
+    this.LEFT_SQUARE = COURT_W * 0.07;
+    this.RIGHT_SQUARE = COURT_W * 0.86;
+    this.LEFT_SQUASHBALL = COURT_W * 0.18;
+    this.RIGHT_SQUASHBALL = COURT_W * 0.95;
 
+    this.bluePos = this.LEFT_SQUARE;
+    this.redPos = this.RIGHT_SQUARE;
+    this.flipPos = 1;
+    this.bluePicks = false;
     this.servingPlayer = this.RED;
     this.nextServingPlayer = this.RED;
     this.matchStart = false;
@@ -13,10 +21,37 @@ function ServeClass() {
     this.timer = null;
     this.time = 0;
 
-    this.SwitchServe = function () {
-        this.servingPlayer = this.nextServingPlayer;
+    this.WhoServes = function () {
+        if (this.matchStart) {
+            if (this.servingPlayer === this.nextServingPlayer) this.flipPos *= -1;
+            this.servingPlayer = this.nextServingPlayer;
+        }
+
+        if (this.flipPos > 0) {
+            PlayerClass.x = this.LEFT_SQUARE;
+            ComputerClass.x = this.RIGHT_SQUARE;
+            if (this.servingPlayer === this.BLUE) BallClass.x = this.LEFT_SQUASHBALL;
+            else BallClass.x = this.RIGHT_SQUASHBALL;
+        }
+        else {
+            PlayerClass.x = this.RIGHT_SQUARE;
+            ComputerClass.x = this.LEFT_SQUARE;
+            if (this.servingPlayer === this.BLUE) BallClass.x = this.RIGHT_SQUASHBALL;
+            else BallClass.x = this.LEFT_SQUASHBALL;
+        }
         this.time = 0;
         this.RedServes();
+    }
+
+    this.WhereBall = function () {
+        if (this.flipPos > 0) {
+            if (this.servingPlayer === this.RED) return this.RIGHT_SQUASHBALL;
+            else return this.LEFT_SQUASHBALL;
+        }
+        else {
+            if (this.servingPlayer === this.RED) return this.LEFT_SQUASHBALL;
+            else return this.RIGHT_SQUASHBALL;
+        }
     }
 
     this.RedServes = function () {

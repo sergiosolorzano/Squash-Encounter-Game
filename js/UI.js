@@ -11,7 +11,8 @@ var spinFrame = 0,
     spinAnimationFrames = null,
     endAnimation = false,
     moreFrames = false,
-    drawNow = false;
+    drawNow = false,
+    uiTimer;
 
 function drawStaminaBar() {
     //draw bar background
@@ -67,27 +68,43 @@ function rightToServe() {
         }
         rightToServeOutcome();
     }
-    drawAtBaseSheetSprite(serve_spin, spinFrame, drawLocation.x, drawLocation.y, SERVE_W, SERVE_H);
+    if (!ServeHandler.bluePicks) drawAtBaseSheetSprite(serve_spin, spinFrame, drawLocation.x, drawLocation.y, SERVE_W, SERVE_H);
 }
 
 function rightToServeOutcome() {
-    var drawLocationPlayer = perspectiveLocation(COURT_W * 0.3, COURT_L * 0.8, 0),
-        subText = "Press Enter to continue",
+    var drawLocationPlayer = (ServeHandler.flipPos > 0 ? perspectiveLocation(COURT_W * 0.3, COURT_L * 0.65, 0) : perspectiveLocation(COURT_W * 0.8, COURT_L * 0.65, 0)),
+        subText = "Press Enter to Continue",
+        chooseLeft = "",
+        chooseRight = "",
+        setChoice = "",
         titleText = null;
 
-    canvasContext.fillStyle = "black";
-    canvasContext.textAlign = "center";
-    canvasContext.font = "bold 15px verdana";
-    canvasContext.fillText((subText), canvas.width / 2, 515);
+    if (ServeHandler.bluePicks) {
+        window.clearTimeout(timer);
+        if (mouseY > canvas.height / 2) {
+            var halfCourt = canvas.width / 2;
+            if (mouseX > halfCourt && mouseX < halfCourt + halfCourt / 2) ServeHandler.flipPos = -1;
+            else if (mouseX < halfCourt && mouseX > halfCourt - halfCourt / 2) ServeHandler.flipPos = 1;
+        }
 
-    if (spinFrame == 5) {
         drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer.x, drawLocationPlayer.y, PLAYER_W, PLAYER_H);
-        titleText = "Blue Player Has  Right To Serve !";
+        titleText = "Choose Your Starting Side:";
+        subText = "";
+        chooseLeft = "A for Left";
+        chooseRight = "D for Right"
+        setChoice = "Press Enter to Continue"
+        canvasContext.fillStyle = "blue";
+        ServeHandler.WhoServes();
+    }
+    else if (spinFrame == 5) {
+        drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer.x, drawLocationPlayer.y, PLAYER_W, PLAYER_H);
+        titleText = "Blue Player Has Right To Serve !";
         canvasContext.fillStyle = "blue";
         ServeHandler.servingPlayer = ServeHandler.BLUE;
         ComputerClass.swingTurn = true;
         PlayerClass.swingTurn = false;
-        BallClass.x = COURT_W * 0.18;
+        subText = "";
+        timer = window.setTimeout(function () { ServeHandler.bluePicks = true; }, 1200);
     } else {
         titleText = "Red Player Has Right To Serve !";
         canvasContext.fillStyle = "red";
@@ -98,4 +115,13 @@ function rightToServeOutcome() {
 
     canvasContext.font = "bold 20px verdana";
     canvasContext.fillText((titleText), canvas.width / 2, 485);
+
+    canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "center";
+    canvasContext.fillText(setChoice, canvas.width / 2, canvas.height / 2);
+
+    canvasContext.font = "bold 15px verdana";
+    canvasContext.fillText((subText), canvas.width / 2, 515);
+    canvasContext.fillText(chooseLeft, canvas.width * 2 / 5, 515);
+    canvasContext.fillText(chooseRight, canvas.width * 3 / 5, 515);
 }
