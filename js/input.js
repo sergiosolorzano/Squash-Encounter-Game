@@ -19,6 +19,13 @@ function initInput() {
         var mouseClickPos = updateMousePos(evt);
         selectBackWall(mouseClickPos.x, mouseClickPos.y);
         selectFrontWall(mouseClickPos.x, mouseClickPos.y);
+        if (ServeHandler.bluePicks) {
+            if (mouseY > canvas.height / 2) {
+                var halfCourt = canvas.width / 2;
+                if (mouseX > halfCourt && mouseX < halfCourt + halfCourt / 2) ServeHandler.flipPos = -1;
+                else if (mouseX < halfCourt && mouseX > halfCourt - halfCourt / 2) ServeHandler.flipPos = 1;
+            }
+        }
     });
     PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_LEFT_SHIFT);
 }

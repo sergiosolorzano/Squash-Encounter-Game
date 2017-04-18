@@ -81,12 +81,6 @@ function rightToServeOutcome() {
 
     if (ServeHandler.bluePicks) {
         window.clearTimeout(timer);
-        if (mouseY > canvas.height / 2) {
-            var halfCourt = canvas.width / 2;
-            if (mouseX > halfCourt && mouseX < halfCourt + halfCourt / 2) ServeHandler.flipPos = -1;
-            else if (mouseX < halfCourt && mouseX > halfCourt - halfCourt / 2) ServeHandler.flipPos = 1;
-        }
-
         drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer.x, drawLocationPlayer.y, PLAYER_W, PLAYER_H);
         titleText = "Choose Your Starting Side:";
         subText = "";
