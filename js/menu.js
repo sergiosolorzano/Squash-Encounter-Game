@@ -69,8 +69,8 @@ function drawControls() {
     drawScoringText("Backwards: S", 235);
     drawScoringText("Right: D", 255);
     drawScoringText("Left: A", 275);
-    drawScoringText("Sprint: Right SHIFT", 295);
-    drawScoringText("Kill Shot: SPACE bar", 315);
+    drawScoringText("Sprint: Space Bar", 295);
+    drawScoringText("Kill Shot: Q", 315);
 
     drawScoringText("Target Walls: Left mouse CLICK", 345);
 }

@@ -60,7 +60,6 @@ function BallClass() {
                 ballFrame = 0;
             }
         }
-
         /*
           intent:
             loop through BallClass.ballDrawHistory to draw previously
@@ -134,6 +133,7 @@ function BallClass() {
         var ballAng;
         var playerStandHereQuad = targetFrontWallVars.playerOnThisCourtQuad;
         var targetFrontWallQuadrant = targetFrontWallVars.tgtFrontWall;
+        //console.log(targetFrontWallQuadrant)
 
         if (targetFrontWallQuadrant == TOPRIGHTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
             ballAng = 3 * Math.PI / 2
