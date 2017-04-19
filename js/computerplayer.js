@@ -23,7 +23,7 @@ function ComputerClass() {
         this.swingTurn = (ServeHandler.servingPlayer === ServeHandler.RED ? false : true);
         this.speedX = 0;
         this.speedY = 0;
-        this.isHit = false;
+        //this.isHit = false;
     }
 
     this.initDrawPlayer = function () {
@@ -58,11 +58,11 @@ function ComputerClass() {
         if (computerFrame >= computerAnimationFrames) {
             computerFrame = 0;
 
-            this.isHit = false;
+            //this.isHit = false;
             this.whichPic = p2_standing;
             this.isSwinging = false;
-            computerFrameTimer = 2
-            computerStepsPerAnimFrame = 2
+            computerFrameTimer = 2;
+            computerStepsPerAnimFrame = 2;
         }
         drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y, PLAYER_W, PLAYER_H);
         if (debugTarget)
@@ -76,10 +76,10 @@ function ComputerClass() {
         var playerGotoX;
         var playerGotoY;
 
-        this.hitGraphicSelection();
-        if (this.isHit) {
-            return;
-        }
+        //this.hitGraphicSelection();
+        //if (this.isHit) {
+        //    return;
+        //}
 
         if (this.swingTurn && BallClass.bouncedOnFrontWall) {
             playerGotoX = BallClass.landingX;
@@ -126,6 +126,7 @@ function ComputerClass() {
         }
 
         if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false) {
+            
             switch (quadrantHit) {
                 case TOPRIGHTQUADRANT:
                     this.isSwinging = true;

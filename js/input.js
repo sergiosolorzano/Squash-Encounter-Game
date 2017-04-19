@@ -6,6 +6,7 @@ const KEY_D = 68;
 const KEY_SPACE = 32;
 const KEY_LEFT_SHIFT = 16;
 const KEY_ENTER = 13;
+const KEY_Q=81;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -27,7 +28,7 @@ function initInput() {
             }
         }
     });
-    PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_ENTER);
+    PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_Q);
 }
 
 function updateMousePos(evt) {

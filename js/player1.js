@@ -19,8 +19,6 @@ var opponentAtReach = false;
 var playerHit = false;
 var computerHit = false;
 
-
-
 function PlayerClass() {
     this.sprintMultiplier = 1;
     this.sprintStamina = 20;
@@ -127,25 +125,28 @@ function PlayerClass() {
             if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
                 this.isSwinging = true;
                 Sound.hit();
+                killShotActive=true;
+                //console.log(killShotActive)
                 if (computerIsAtReachNow) {
+                    
                     if (this.x > ComputerClass.x) {
                         ComputerClass.whichPic = p2_left_hit;
                     } else {
                         ComputerClass.whichPic = p2_right_hit;
                     }
-                    ComputerClass.isHit = true;
+                    //ComputerClass.isHit = true;
                     computerFrameTimer = 10;
                     computerStepsPerAnimFrame = 10;
                 }
-                if (BallClass.x > this.x) {
-                    this.whichPic = p1_kill_shot_right;
-                    playerFrameTimer = 1;
-                    playerStepsPerAnimFrame = 1;
-                } else {
-                    this.whichPic = p1_kill_shot_left;
-                    playerFrameTimer = 1;
-                    playerStepsPerAnimFrame = 1;
-                }
+                    if (BallClass.x > this.x) {
+                        this.whichPic = p1_kill_shot_right;
+                        playerFrameTimer = 1;
+                        playerStepsPerAnimFrame = 1;
+                    } else {
+                        this.whichPic = p1_kill_shot_left;
+                        playerFrameTimer = 1;
+                        playerStepsPerAnimFrame = 1;
+                    }
             }
         }
 
@@ -162,7 +163,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        ComputerClass.isHit = true;
+                        //ComputerClass.isHit = true;
                         computerFrameTimer = 10
                         computerStepsPerAnimFrame = 10
                     }
@@ -177,7 +178,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        ComputerClass.isHit = true;
+                        //ComputerClass.isHit = true;
                         computerFrameTimer = 10
                         computerStepsPerAnimFrame = 10
                     }
@@ -192,7 +193,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        ComputerClass.isHit = true;
+                        //ComputerClass.isHit = true;
                         computerFrameTimer = 10
                         computerStepsPerAnimFrame = 10
                     }
@@ -207,7 +208,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        ComputerClass.isHit = true;
+                        //ComputerClass.isHit = true;
                         computerFrameTimer = 20
                         computerStepsPerAnimFrame = 20
                     }

@@ -19,6 +19,9 @@ var ballSinkRate = 0.03;
 var lenghtCourt = 440;
 var prevQuadrantWasAHit = false;
 
+var killShotActive=false;//when true ball speed increases
+var killShotSpeedMultiple=3;
+
 function BallClass() {
 
     this.Init = function () {
@@ -198,15 +201,12 @@ function BallClass() {
         //console.log("BouncedOnFloor:",this.bouncedOnFloor,"bouncedOnFrontWall:",this.bouncedOnFrontWall,"quadrantHit:",quadrantHit,"swingTurn:",swingTurn)
         //console.log(this.bouncedOnFloor)
         if (this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit != 0 && swingTurn && this.tinHit == false && this.ballHitFloorBeforeWall == false) {
+            
+            if(killShotActive && ComputerClass.swingTurn){
+                BallClass.speedY = BallClass.speedY/killShotSpeedMultiple;
+                killShotActive=false;
+            }
 
-            if (playerSwingTurn) {
-                PlayerClass.swingTurn = false;
-                ComputerClass.swingTurn = true;
-            }
-            if (computerSwingTurn) {
-                PlayerClass.swingTurn = true;
-                ComputerClass.swingTurn = false;
-            }
             this.bouncedOnFloor = 0;
             this.bouncedOnFrontWall = false;
             this.bouncedOnBackWall = false;
@@ -310,8 +310,14 @@ function BallClass() {
                     //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
                     case TOPRIGHTQUADRANT:
                         if (prevY < this.y) {
-                            this.speedY *= -1;
-                            this.zv += 1;
+                            //console.log(killShotActive)
+                            if(killShotActive && PlayerClass.swingTurn){
+                                this.speedY *= -1*killShotSpeedMultiple;
+                                this.zv += 1;
+                            } else {
+                                this.speedY *= -1;
+                                this.zv += 1;    
+                            }
                         } else {
                             this.zv += 1;
                         }
@@ -322,8 +328,13 @@ function BallClass() {
                         break;
                     case TOPLEFTQUADRANT:
                         if (prevY < this.y) {
-                            this.speedY *= -1;
-                            this.zv += 1;
+                            if(killShotActive && PlayerClass.swingTurn){
+                                this.speedY *= -1*killShotSpeedMultiple;
+                                this.zv += 1;
+                            } else {
+                                this.speedY *= -1;
+                                this.zv += 1;
+                            }
                         } else {
                             this.zv += 1;
                         }
@@ -362,6 +373,15 @@ function BallClass() {
                 }
                 //console.log(quadrantHit,this.z,this.zv)
             }
+
+            if (playerSwingTurn) {
+                PlayerClass.swingTurn = false;
+                ComputerClass.swingTurn = true;
+            }
+            if (computerSwingTurn) {
+                PlayerClass.swingTurn = true;
+                ComputerClass.swingTurn = false;
+            }
         }
 
         //wall bouncing mechanics:
@@ -376,6 +396,11 @@ function BallClass() {
         if (this.z <= 0) {
             this.zv *= -0.7;
             this.z = 0;
+            //console.log("touch floor","speedY",this.speedY)
+            if(killShotActive){
+            this.speedY = this.speedY/killShotSpeedMultiple;
+            killShotActive=false;
+            }
             this.bouncedOnFloor += 1;
             Sound.bounce();
         }
@@ -396,7 +421,7 @@ function BallClass() {
             this.speedX *= -1;
             if (this.zv > 0) {
                 this.zv *= -0.03;
-            }
+        }
             createParticles();
             Sound.wall();
             //console.log("Computer Swing turn: ", ComputerClass.swingTurn)
@@ -441,13 +466,20 @@ function BallClass() {
             if (this.zv > 0) {
                 this.zv *= -0.03;
             }
+            //console.log("touch back wall","speedY",this.speedY)
+            if(killShotActive){
+            this.speedY = this.speedY/killShotSpeedMultiple;
+            killShotActive=false;
+            }
             this.bouncedOnBackWall = true;
             createParticles();
             Sound.wall();
             //  console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
+        console.log(this.speedY,"killShotActive: ",killShotActive)
         this.x += this.speedX;
         this.y += this.speedY;
+
         //console.log(this.y)
     }
 
