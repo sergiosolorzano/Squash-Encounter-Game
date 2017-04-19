@@ -41,13 +41,13 @@ function PlayerClass() {
     this.controlKeyKill;
     this.controlKeySprint;
 
-    this.initInput = function (upKey, rightKey, downKey, leftKey, killKey, sprintKey) {
+    this.initInput = function (upKey, rightKey, downKey, leftKey, sprintKey, killKey) {
         this.controlKeyUp = upKey;
         this.controlKeyRight = rightKey;
         this.controlKeyDown = downKey;
         this.controlKeyLeft = leftKey;
-        this.controlKeyKill = killKey;
         this.controlKeySprint = sprintKey;
+        this.controlKeyKill = killKey;
     }
 
     this.Init = function () {

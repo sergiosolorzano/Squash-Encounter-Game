@@ -27,7 +27,7 @@ function initInput() {
             }
         }
     });
-    PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_LEFT_SHIFT);
+    PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_ENTER);
 }
 
 function updateMousePos(evt) {
