@@ -414,7 +414,7 @@ function BallClass() {
             //console.log(this.z,this.zv,root1,root2)
             //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
-        if (this.nextY > COURT_L - 2) {//COURT_L reduced by two so the ball doesn't paint black on canvas outside the court
+        if (this.nextY > COURT_L - 9) {//COURT_L reduced by two so the ball doesn't go outside court. Can't change COURT_L as all front/back wall and court quadrants are measured according to original
             this.speedY *= -1;
             if (this.zv > 0) {
                 this.zv *= -0.03;
@@ -429,7 +429,7 @@ function BallClass() {
             Sound.wall();
             //  console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
-        console.log(this.speedY,"killShotActive: ",killShotActive)
+        //console.log(this.speedY,"killShotActive: ",killShotActive)
         this.x += this.speedX;
         this.y += this.speedY;    
     }

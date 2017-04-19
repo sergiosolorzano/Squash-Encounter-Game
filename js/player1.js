@@ -285,7 +285,7 @@ function PlayerClass() {
         if (nextX >= 0 && nextX <= COURT_W) {
             this.x = nextX;
         }
-        if (nextY >= 0 && nextY <= COURT_L) {
+        if (nextY >= 0 && nextY <= COURT_L-9) {//COURT_L reduced by two so the ball doesn't go outside court. Can't change COURT_L as all front/back wall and court quadrants are measured according to original
             this.y = nextY;
         }
         //console.log("playerX : ",this.x)

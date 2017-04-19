@@ -75,6 +75,7 @@ function ComputerClass() {
         var computerSpeed;
         var playerGotoX;
         var playerGotoY;
+        var computerRunning=false;
 
         this.hitGraphicSelection();
         if (this.isHit) {
@@ -106,15 +107,19 @@ function ComputerClass() {
 
         nextX += this.speedX;
         nextY += this.speedY;
-        //console.log("where it goes:",this.speedX)
 
-        //this.x = nextX;
-        //this.y = nextY;
+        computerRunning=(nextX!=this.x);
+        
+        if(computerRunning){
+        this.whichPic = p2_running;    
+        }
+
         if (nextX >= 0 && nextX <= COURT_W) {
             this.x = nextX;
         }
-        if (nextY >= 0 && nextY <= COURT_L) {
+        if (nextY >= 0 && nextY <= COURT_L-9) {//COURT_L reduced by two so the ball doesn't go outside court. Can't change COURT_L as all front/back wall and court quadrants are measured according to original
             this.y = nextY;
+            //console.log(this.y)
         }
     }
 
