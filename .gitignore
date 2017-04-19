@@ -35,3 +35,4 @@ $RECYCLE.BIN/
 Desktop.ini
 
 *.pdb
+.eslintrc.json

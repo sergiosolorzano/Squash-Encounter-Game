@@ -41,6 +41,7 @@ var Rules = function Score() {
     }
 
     self.givePoint = function givePoint() {
+        Sound.play("crowd-cheer", false, 0.1);
         if (PlayerClass.swingTurn) {
             self.score.AI += 1;
             ServeHandler.nextServingPlayer = ServeHandler.RED;

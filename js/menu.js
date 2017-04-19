@@ -111,7 +111,7 @@ function drawMainMenu() {
 }
 
 function menuInput(keyEvent, pressed) {
-    Sound.play("crowd-cheer", false, 0.2);
+    Sound.wall();
     if (keyEvent.keyCode === KEY_W) {
         selectedMenuIndex -= 1;
         Sound.bounce();
