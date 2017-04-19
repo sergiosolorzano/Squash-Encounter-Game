@@ -32,7 +32,7 @@ function initInput() {
 }
 
 function updateMousePos(evt) {
-    var rect = canvas.getBoundingClientRect();
+    var rect = drawCanvas.getBoundingClientRect();
     var root = document.documentElement;
     var posX = evt.clientX - rect.left - root.scrollLeft,
         posY = evt.clientY - rect.top - root.scrollTop,
