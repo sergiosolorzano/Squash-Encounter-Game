@@ -23,7 +23,7 @@ function ComputerClass() {
         this.swingTurn = (ServeHandler.servingPlayer === ServeHandler.RED ? false : true);
         this.speedX = 0;
         this.speedY = 0;
-        //this.isHit = false;
+        this.isHit = false;
     }
 
     this.initDrawPlayer = function () {
@@ -58,7 +58,7 @@ function ComputerClass() {
         if (computerFrame >= computerAnimationFrames) {
             computerFrame = 0;
 
-            //this.isHit = false;
+            this.isHit = false;
             this.whichPic = p2_standing;
             this.isSwinging = false;
             computerFrameTimer = 2;
@@ -76,10 +76,10 @@ function ComputerClass() {
         var playerGotoX;
         var playerGotoY;
 
-        //this.hitGraphicSelection();
-        //if (this.isHit) {
-        //    return;
-        //}
+        this.hitGraphicSelection();
+        if (this.isHit) {
+            return;
+        }
 
         if (this.swingTurn && BallClass.bouncedOnFrontWall) {
             playerGotoX = BallClass.landingX;
@@ -108,8 +108,14 @@ function ComputerClass() {
         nextY += this.speedY;
         //console.log("where it goes:",this.speedX)
 
-        this.x = nextX;
-        this.y = nextY;
+        //this.x = nextX;
+        //this.y = nextY;
+        if (nextX >= 0 && nextX <= COURT_W) {
+            this.x = nextX;
+        }
+        if (nextY >= 0 && nextY <= COURT_L) {
+            this.y = nextY;
+        }
     }
 
     this.hitGraphicSelection = function () {
@@ -126,7 +132,7 @@ function ComputerClass() {
         }
 
         if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false) {
-            
+
             switch (quadrantHit) {
                 case TOPRIGHTQUADRANT:
                     this.isSwinging = true;

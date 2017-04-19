@@ -202,15 +202,17 @@ function BallClass() {
         //console.log(this.bouncedOnFloor)
         if (this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit != 0 && swingTurn && this.tinHit == false && this.ballHitFloorBeforeWall == false) {
             
+            this.bouncedOnFloor = 0;
+            this.bouncedOnFrontWall = false;
+            this.bouncedOnBackWall = false;
+            if(PlayerClass.keyHeld_Kill && PlayerClass.swingTurn){
+                killShotActive=true;
+            }
+
             if(killShotActive && ComputerClass.swingTurn){
                 BallClass.speedY = BallClass.speedY/killShotSpeedMultiple;
                 killShotActive=false;
             }
-
-            this.bouncedOnFloor = 0;
-            this.bouncedOnFrontWall = false;
-            this.bouncedOnBackWall = false;
-
             //Back Wall is a target swing
             var degreeTarget = ballAng * 180 / Math.PI;
 
@@ -230,7 +232,6 @@ function BallClass() {
                 if (this.zv < 1.2) {
                     this.zv = 1.2
                 }
-                //console.log(quadrantHit, this.z, this.zv)
 
                 //Front Wall Swing
             } else if (PlayerClass.frontWallClicked) {
@@ -302,78 +303,31 @@ function BallClass() {
             } else {
                 //No Wall is a target
                 //console.log("not aiming for front or back walls")
-                //this.z=10;
-                //this.zv=0;
-                //console.log(this.z)
-                switch (quadrantHit) {
-
-                    //todo: determine if the speedXY change leads to a different quadrant and if it does, ignore the shot there.
-                    case TOPRIGHTQUADRANT:
-                        if (prevY < this.y) {
-                            //console.log(killShotActive)
-                            if(killShotActive && PlayerClass.swingTurn){
-                                this.speedY *= -1*killShotSpeedMultiple;
-                                this.zv += 1;
-                            } else {
-                                this.speedY *= -1;
-                                this.zv += 1;    
-                            }
-                        } else {
+                if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
+                    if (prevY < this.y) {
+                        if(killShotActive && PlayerClass.swingTurn){
+                            this.speedY *= -1*killShotSpeedMultiple;
                             this.zv += 1;
-                        }
-                        //safety catch to avoid the ball running too low
-                        if (this.zv < 0.75) {
-                            this.zv = 0.75
-                        }
-                        break;
-                    case TOPLEFTQUADRANT:
-                        if (prevY < this.y) {
-                            if(killShotActive && PlayerClass.swingTurn){
-                                this.speedY *= -1*killShotSpeedMultiple;
-                                this.zv += 1;
-                            } else {
-                                this.speedY *= -1;
-                                this.zv += 1;
-                            }
                         } else {
-                            this.zv += 1;
-                        }
-                        //safety catch to avoid the ball running too low
-                        if (this.zv < 0.75) {
-                            this.zv = 0.75
-                        }
-                        break;
-                    case BOTTOMRIGHTQUADRANT:
-                        if (prevY < this.y) {
                             this.speedY *= -1;
+                            this.zv += 1;    
+                        }
+                    } else {
+                        if(killShotActive && PlayerClass.swingTurn){
+                            this.speedY *= 1*killShotSpeedMultiple;
                             this.zv += 1;
                         } else {
-                            this.zv += 1;
-                        }
-                        //safety catch to avoid the ball running too low
-                        if (this.zv < 0.75) {
-                            this.zv = 0.75
-                        }
-                        break;
-                    case BOTTOMLEFTQUADRANT:
-                        if (prevY < this.y) {
-                            this.speedY *= -1;
-                            this.zv += 1;
-                        } else {
-                            this.zv += 1;
-                        }
-                        //safety catch to avoid the ball running too low
-                        if (this.zv < 0.75) {
-                            this.zv = 0.75
-                        }
-                        break;
-                    default: //shouldn't be reached
-                        console.log("error, invalid quadrant squashball.js")
-                        break;
+                        this.zv += 1;
+                            }
+                        }   
                 }
-                //console.log(quadrantHit,this.z,this.zv)
-            }
+            }//end last else
 
+            //safety catch to avoid the ball running too low
+            if (this.zv < 0.75) {
+                this.zv = 0.75
+            }
+               
             if (playerSwingTurn) {
                 PlayerClass.swingTurn = false;
                 ComputerClass.swingTurn = true;
@@ -382,8 +336,8 @@ function BallClass() {
                 PlayerClass.swingTurn = true;
                 ComputerClass.swingTurn = false;
             }
-        }
-
+        }//end if ball bounced on the floor, was swing turn etc
+ 
         //wall bouncing mechanics:
         this.zv += -ballSinkRate;
         this.z += this.zv;
@@ -413,7 +367,6 @@ function BallClass() {
             if (this.zv > 0) {
                 this.zv *= -0.03;
             }
-
             createParticles();
             //console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
@@ -478,9 +431,7 @@ function BallClass() {
         }
         console.log(this.speedY,"killShotActive: ",killShotActive)
         this.x += this.speedX;
-        this.y += this.speedY;
-
-        //console.log(this.y)
+        this.y += this.speedY;    
     }
 
 }//end BallClass

@@ -125,7 +125,7 @@ function PlayerClass() {
             if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
                 this.isSwinging = true;
                 Sound.hit();
-                killShotActive=true;
+                //killShotActive=true;
                 //console.log(killShotActive)
                 if (computerIsAtReachNow) {
                     
@@ -134,7 +134,7 @@ function PlayerClass() {
                     } else {
                         ComputerClass.whichPic = p2_right_hit;
                     }
-                    //ComputerClass.isHit = true;
+                    ComputerClass.isHit = true;
                     computerFrameTimer = 10;
                     computerStepsPerAnimFrame = 10;
                 }
@@ -163,7 +163,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        //ComputerClass.isHit = true;
+                        ComputerClass.isHit = true;
                         computerFrameTimer = 10
                         computerStepsPerAnimFrame = 10
                     }
@@ -178,7 +178,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        //ComputerClass.isHit = true;
+                        ComputerClass.isHit = true;
                         computerFrameTimer = 10
                         computerStepsPerAnimFrame = 10
                     }
@@ -193,7 +193,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        //ComputerClass.isHit = true;
+                        ComputerClass.isHit = true;
                         computerFrameTimer = 10
                         computerStepsPerAnimFrame = 10
                     }
@@ -208,7 +208,7 @@ function PlayerClass() {
                         } else {
                             ComputerClass.whichPic = p2_right_hit;
                         }
-                        //ComputerClass.isHit = true;
+                        ComputerClass.isHit = true;
                         computerFrameTimer = 20
                         computerStepsPerAnimFrame = 20
                     }
