@@ -79,6 +79,7 @@ function BallClass() {
             var trailNode = this.ballDrawHistory[i],
             //setting alpha value based on current iterator %age of max trail length;
                 alpha = 1 - (i + 1) / ballTrailMaxLength;
+                alpha=Math.min(alpha,0.1)//hard coding opaque to 0.1
 
             drawAtBaseSheetSprite(whichPic, ballFrame, trailNode.x, trailNode.y - trailNode.z, BALL_W, BALL_H, alpha);
         }

@@ -1,7 +1,7 @@
 function drawAtBaseSheetSprite(graphic, idx, atX, atY, picW, picH, globalAlpha) {
     canvasContext.save();
     canvasContext.translate(atX, atY);
-    if (globalAlpha === "undefined") globalAlpha = 1;
+    if (globalAlpha === "undefined") globalAlpha = 0.1;
     /*
       context.globalAlpha takes a value from 0 - 1, e.g. .5
       the default is set above to 1, which results in rendering completely opaque

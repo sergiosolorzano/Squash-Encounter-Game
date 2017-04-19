@@ -1,6 +1,6 @@
 //ball subtle puff on wall bounce
 var particleList=[];
-var PARTICLESNUM=5;
+var PARTICLESNUM=35;
 var CYCLEANCHOR=4;//MINCYCLE + 1*CYCLEANCHOR = max cyclesLeft
 var MINCYCLE=1;
 var MINPARTICLESIZE=3;
