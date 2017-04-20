@@ -1,6 +1,6 @@
 var Rules = function Score() {
     var self = {}
-    self.check = function () {
+    self.check = function() {
         //if ball has bounced twice, reset
         //TODO: figure out if a point needs to be rewarded here.
         if (BallClass.bouncedOnFloor > 1) {
@@ -10,9 +10,11 @@ var Rules = function Score() {
             //
         }
 
+        self.checkRound();
+
     }
 
-    self.checkTin = function () {
+    self.checkTin = function() {
         var tinLowerLimit = 2;
         var tinUpperLimit = 5;
 
@@ -27,8 +29,38 @@ var Rules = function Score() {
         }
     }
 
+    self.checkRound = function checkRound() {
+        //Players must have scored at least 9 to win
+        if (self.score.player < 9 && self.score.AI < 9) {
+            return;
+        }
+
+        //difference between scores must be at lease 1 point
+        if (Math.abs(self.score.player - self.score.AI) < 1) {
+            return;
+        }
+        //difference between scores must be at least 2 points, If both have at least 8 points
+        if(self.score.player > 7  && self.score.AI > 7 && Math.abs(self.score.player - self.score.AI) < 2){
+        	return;
+        }
+
+        if (self.player > self.score.AI) {
+            //player won
+        } else {
+            //AI won
+        }
+
+
+        //end round
+        //TODO: WIN SCREEN
+        self.Reset();
+        returnToMenu();
+
+
+    }
+
     //ball must hit wall before it hits the floor
-    self.checkFirstBounce = function () {
+    self.checkFirstBounce = function() {
         if (BallClass.bouncedOnFloor == 1 && BallClass.bouncedOnFrontWall == false) {
             BallClass.ballHitFloorBeforeWall = true;
             //console.log("ball hit the floor before hitting the front wall, end of point")

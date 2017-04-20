@@ -27,15 +27,24 @@ function drawTextCustom(text, x, y) {
     canvasContext.font = "bold 18px verdana";
     canvasContext.fillText(text, x, y);
 }
-
+var gameLoop;
 function startGame() {
     menuActive = false;
     clearInterval(menuLoop);
-    setInterval(function () {
+    gameLoop = setInterval(function () {
         moveAll();
         drawAll();
     }, 1000 / framesPerSecond);
     loadLevel();
+}
+function returnToMenu(){
+    menuActive = true;
+    playerEntry = false;
+    initInput();
+    clearInterval(gameLoop);
+    menuLoop = setInterval(function () {
+        drawMenu();
+    }, 1000 / framesPerSecond);
 }
 
 function drawMenu() {
