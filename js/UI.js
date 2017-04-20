@@ -16,11 +16,11 @@ var spinFrame = 0,
 
 function drawStaminaBar() {
     //draw bar background
-    colorRect(0, canvas.height - 20, 100, 20, 'LightGray');
+    colorRect(633, canvas.height - 560, 100, 20, 'LightGray');
     //draw current stamina
-    colorRect(0, canvas.height - 20, PlayerClass.sprintStamina * 5, 20, 'red');
+    colorRect(633, canvas.height - 560, PlayerClass.sprintStamina * 5, 20, 'red');
     //draw label
-    colorText('STAMINA', 100, canvas.height - 30, 'white');
+    colorText('STAMINA', 700, canvas.height - 570, 'white');
 }
 
 function rightToServe() {

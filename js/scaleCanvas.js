@@ -4,7 +4,7 @@
 function initDrawCanvas() {
     drawCanvas = document.getElementById('drawCanvas');
     drawContext = drawCanvas.getContext('2d');
-
+    
     window.addEventListener('resize', resizeWindow);
     aspectRatio = canvas.width / canvas.height;
     setTimeout(resizeWindow, 1);

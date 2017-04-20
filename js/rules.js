@@ -1,3 +1,5 @@
+
+
 var Rules = function Score() {
     var self = {}
     self.check = function() {
@@ -73,6 +75,7 @@ var Rules = function Score() {
     }
 
     self.givePoint = function givePoint() {
+        cheerOn=true;
         Sound.play("crowd-cheer", false, 0.1);
         if (PlayerClass.swingTurn) {
             self.score.AI += 1;

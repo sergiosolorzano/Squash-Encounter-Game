@@ -99,7 +99,6 @@ function SoundSystem() {
 			result = sounds[samplename].playing();
 		else
 			console.log("unknown sound: " + samplename);
-
 		return result;
 	}
 

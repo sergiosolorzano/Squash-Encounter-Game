@@ -1,4 +1,5 @@
-var squashcourt = document.createElement("img");
+var squashcourt_withcheer = document.createElement("img");
+var squashcourt_nocheer = document.createElement("img");
 var ballPic = document.createElement("img");
 var ballShadow = document.createElement("img");
 var p1_standing = document.createElement("img");
@@ -59,7 +60,8 @@ function beginLoadingImage(imgVar, fileName){
 
 function loadImages(){
 	var imageList = [
-	{varName: squashcourt, theFile: "squashcourt4.png"},
+	{varName: squashcourt_withcheer, theFile: "squashcourt_with_cheer.png"},
+	{varName: squashcourt_nocheer, theFile: "squashcourt_no_cheer.png"},
 	{varName: ballPic, theFile: "ball_sprite_6x6.png"},
 	{varName: ballShadow, theFile: "ball_shadow.png"},
 	{varName: p1_shot_bottom_left, theFile: "shortsprite_p1_shot_bottom_left.png"},

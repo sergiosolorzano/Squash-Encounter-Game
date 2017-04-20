@@ -49,7 +49,7 @@ function returnToMenu(){
 
 function drawMenu() {
     clearScreen();
-    drawBitmapCenteredWithRotation(squashcourt, canvas.width / 2, canvas.height / 2, 0);
+    drawBitmapCenteredWithRotation(squashcourt_nocheer, canvas.width / 2, canvas.height / 2, 0);
     switch (curr_menuScreen) {
         case "Credits":
             drawCredits();
