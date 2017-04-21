@@ -5,10 +5,10 @@ ServeClass Constructor
 function ServeClass() {
     this.RED = -1;
     this.BLUE = 1;
-    this.LEFT_SQUARE = COURT_W * 0.12;
-    this.RIGHT_SQUARE = COURT_W * 0.93;
-    this.LEFT_SQUASHBALL = COURT_W * 0.12;
-    this.RIGHT_SQUASHBALL = COURT_W * 0.92;
+    this.LEFT_SQUARE = COURT_W * 0.07;
+    this.RIGHT_SQUARE = COURT_W * 0.86;
+    this.LEFT_SQUASHBALL = COURT_W * 0.18;
+    this.RIGHT_SQUASHBALL = COURT_W * 0.95;
 
     this.bluePos = this.LEFT_SQUARE;
     this.redPos = this.RIGHT_SQUARE;
@@ -73,7 +73,6 @@ function ServeClass() {
             this.time = 0;
             window.clearInterval(self.timer);
         }
-        BallClass.isVisible = true;
         this.inPlay = true;
     }
 

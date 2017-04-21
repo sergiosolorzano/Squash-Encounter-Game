@@ -1,9 +1,9 @@
 var canvas, canvasContext,             // draw to this canvas
     drawCanvas, drawContext;        // NOT to this canvas
-var canvasFrame = 0;
+var canvasFrame=0;
 var canvasStepsPerAnimFrame = 5;//
 var canvasFrameTimer = 5;//how quick it changes between frames;
-var cheerOn = false;//determines whether the crowd sprite should cheer
+var cheerOn=false;//determines whether the crowd sprite should cheer
 
 
 var serveBet = true;
@@ -20,10 +20,10 @@ window.onload = function () {
     canvasContext = canvas.getContext('2d');
     colorRect(0, 0, canvas.width, canvas.height, 'black');
     canvasContext.fillStyle = "black";
-
+    
     initDrawCanvas();
     loadImages();
-
+    
     ParticleSystem.init(canvas, 1000 / 30, false);
 }
 
@@ -50,7 +50,7 @@ function perspectiveLocation(pixelX, pixelY, pixelZ) {
 }
 
 function imageLoadingDoneSoStartGame() {
-
+    
     menuActive = true;
     initInput();
     menuLoop = setInterval(function () {
@@ -88,20 +88,20 @@ function drawAll() {
     clearScreen();
     var canvasAnimationFrames = 1600 / 800;
 
-    if (cheerOn) {
+        if(cheerOn){
         if (canvasFrameTimer-- < 0) {
             canvasFrameTimer = canvasStepsPerAnimFrame;
             canvasFrame++;
         }
         if (canvasFrame >= canvasAnimationFrames) {
             canvasFrame = 0;
-            cheerOn = false;
+            cheerOn=false;
         }
         drawAtBaseSheetSprite(squashcourt_withcheer, canvasFrame, canvas.width / 2, canvas.height / 2, 800, 600);
     } else {
         drawAtBaseSheetSprite(squashcourt_nocheer, 0, canvas.width / 2, canvas.height / 2, 800, 600);
     }
-
+    
     //drawBitmapCenteredWithRotation(squashcourt, canvas.width / 2, canvas.height / 2, 0);
     drawStaminaBar();
     drawScoreCounter();
@@ -109,10 +109,8 @@ function drawAll() {
     if (serveBet) {
         rightToServe();
     } else {
-        if (BallClass.isVisible) {
-            BallClass.drawShadow();
-            BallClass.drawInAir();
-        }
+        BallClass.drawShadow();
+        BallClass.drawInAir();
         ParticleSystem.draw();
         GradientShotToFrontWall(PlayerClass.x, PlayerClass.y)
 
