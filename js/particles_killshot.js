@@ -1,4 +1,4 @@
-//ball subtle puff on wall bounce
+//ball subtle fire puff on kill shot swing
 var particleKillList=[];
 var PARTICLESKILLNUM=350;
 var CYCLEKILLANCHOR=4;//MINKILLCYCLE + 1*CYCLEKILLANCHOR = max cyclesKillLeft
