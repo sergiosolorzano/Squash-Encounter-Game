@@ -101,8 +101,8 @@ function drawRules() {
     drawScoringText("is given.", 335);
     drawScoringText("The first player to reach 9 points", 405);
     drawScoringText("wins the game. However, if the score", 425);
-    drawScoringText("reaches 8–8 the player that reaches ", 445);
-    drawScoringText("10 points first wins.", 465);
+    drawScoringText("reaches 8–8 the winner needs two", 445);
+    drawScoringText("points advantage to win (e.g. 10-8).", 465);
 }
 
 function drawMainMenu() {
