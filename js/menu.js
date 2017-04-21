@@ -1,9 +1,13 @@
 var selectedMenuIndex = 0;
-var menuArray = ["Play", "Scoring System", "Controls", "Credits"];
+var mainMenuArray =["Play", "Scoring System", "Controls", "Credits"];
+var difficultyMenu = ["Level 1", "Level 2", "Level 3"];
+var menuArray= mainMenuArray;
 
 var creditsListArray = ["Sergio - Design, Gameplay, Code", "Christer - Design, Gameplay, Code", "TBD"];
 var curr_menuScreen = "Main"; //Rules, Credits
 var menuActive = false;
+
+var AI_Difficulty = 0;
 
 function drawText(text, height) {
     canvasContext.fillStyle = "blue";
@@ -60,16 +64,34 @@ function drawMenu() {
         case "Controls":
             drawControls();
             break;
+        case "Play":
+            drawDifficultySelection();
+            break;
         default:
             drawMainMenu();
             break;
     }
     if (curr_menuScreen === "Main") {
         drawTextCustom("Confirm: Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
+    }else if (curr_menuScreen === "Play"){
+        drawTextCustom("Confirm: Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
+        drawTextCustom("Exit: Shift", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     } else {
         drawTextCustom("Exit: Shift", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }
     redrawCanvas();
+}
+
+function drawDifficultySelection(){
+    drawText("Level 1", 400);
+    drawText("Level 2", 425);
+    drawText("Level 3", 450);
+    canvasContext.drawImage(p1_standing,
+    canvas.width / 5.8 * 2, 350 + selectedMenuIndex * 25,
+    50, 50);
+    canvasContext.drawImage(p2_standing,
+    canvas.width / 3.3 * 2, 350 + selectedMenuIndex * 25,
+    50, 50);
 }
 
 function drawControls() {
@@ -139,13 +161,30 @@ function menuInput(keyEvent, pressed) {
         }
 
     } else if (keyEvent.keyCode === KEY_SPACE) {
-        if (curr_menuScreen != "Main") {
+        if (curr_menuScreen != "Main" && curr_menuScreen!="Play") {
             //ignore if not on main menu
             return;
         } else {
+            console.log('selected:'+menuArray[selectedMenuIndex]);
             switch (menuArray[selectedMenuIndex]) {
                 case 'Play':
+                    curr_menuScreen = 'Play';
+                    menuArray = difficultyMenu;
+                    selectedMenuIndex = 0;
+                    break;
+                case 'Level 1':
                     Sound.wall();
+                    AI_Difficulty = 0;
+                    startGame();
+                    break;
+                case 'Level 2':
+                    Sound.wall();
+                    AI_Difficulty = 1;
+                    startGame();
+                    break;
+                case 'Level 3':
+                    Sound.wall();
+                    AI_Difficulty = 2;
                     startGame();
                     break;
                 default:
@@ -158,7 +197,11 @@ function menuInput(keyEvent, pressed) {
     else if (keyEvent.keyCode === KEY_LEFT_SHIFT) {
         //console.log('Shift pressed');
         if (curr_menuScreen != 'Main') {
+            if(curr_menuScreen === 'Play'){
+                selectedMenuIndex = 0;
+            }  
             curr_menuScreen = 'Main';
+            menuArray = mainMenuArray;          
         }
     }
 }
