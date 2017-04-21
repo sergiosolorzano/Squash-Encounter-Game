@@ -80,8 +80,11 @@ function drawControls() {
     drawScoringText("Left: A", 275);
     drawScoringText("Sprint: Space Bar", 295);
     drawScoringText("Kill Shot: Q", 315);
+    drawScoringText("Serve: Enter", 345);
 
-    drawScoringText("Target Walls: Left mouse CLICK", 345);
+    drawScoringText("Target Wall Quadrants: Left mouse CLICK", 400);
+    drawScoringText("Front Wall: Top / Bottom Right / Left", 420);
+    drawScoringText("Back Wall: Right / Left ", 440);
 }
 
 function drawCredits() {
