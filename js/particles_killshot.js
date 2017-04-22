@@ -1,23 +1,42 @@
 //ball subtle fire puff on kill shot swing
 var particleKillList=[];
-var PARTICLESKILLNUM=350;
-var CYCLEKILLANCHOR=4;//MINKILLCYCLE + 1*CYCLEKILLANCHOR = max cyclesKillLeft
+/*//RECT
+var PARTICLESKILLNUM=60;
+var CYCLEKILLANCHOR=5;//MINKILLCYCLE + 1*CYCLEKILLANCHOR = max cyclesKillLeft
 var MINKILLCYCLE=1;
-var MINKILLPARTICLESIZE=3;
-var GRAVITY_KILL_PER_CYCLE=0.1;
+var MINKILLPARTICLESIZE=2;
+var GRAVITY_KILL_PER_CYCLE=0.1;*/
 
+//circles
+var PARTICLESKILLNUM=60;
+var CYCLEKILLANCHOR;//MINKILLCYCLE + 1*CYCLEKILLANCHOR = max cyclesKillLeft
+var MINKILLCYCLE;
+var MINKILLPARTICLESIZE=2;
+var GRAVITY_KILL_PER_CYCLE=0.1;
 
 function createParticleskill(){
 		for(var i=0;i<PARTICLESKILLNUM;i++){
 			var particlesKillClass = new ParticlesKillClass();
-			//particlesKillClass.x=0.5*canvas.width;
-			//particlesKillClass.y=0.5*canvas.height;
 			particlesKillClass.cyclesKillLeft=MINKILLCYCLE+Math.random()*CYCLEKILLANCHOR;
 			particleKillList.push(particlesKillClass);
-				if(Math.random()<0.5){
-					particlesKillClass.myColor="#ED1313";
-				} else {
-					particlesKillClass.myColor="#E4E418"
+
+				if(particlesTimer==1 || particlesTimer==2 && BallClass.killParticlesActive){
+					MINKILLCYCLE=3;
+					CYCLEKILLANCHOR=6;
+					if(Math.random()<0.5){
+						particlesKillClass.myColor="#ED1313";//red ED1313
+					} else {
+						particlesKillClass.myColor="#E4E418"; //yellow E4E418
+					}
+				}
+				else {
+					MINKILLCYCLE=1;
+					CYCLEKILLANCHOR=4;
+					if(Math.random()<0.5){
+						particlesKillClass.myColor="#ED1313";//grey 7a7a7a
+					} else {
+						particlesKillClass.myColor="#E4E418" // grey D3D3D3
+					}
 				}
 		}
 	}
@@ -54,6 +73,7 @@ var draw = perspectiveLocation(BallClass.x, BallClass.y, BallClass.z)
 this.x=draw.x;
 this.y=draw.y;
 this.z=draw.z;
+this.cyclesLeft;
 this.myColor;
 this.cyclesKillLeft;
 this.velX=2-Math.random()*4;
@@ -88,6 +108,9 @@ this.readyToRemove=false;
 
 	this.draw=function(){
 		colorCircle(this.x,this.y-this.z,MINKILLPARTICLESIZE*this.cyclesKillLeft/(MINKILLCYCLE+CYCLEKILLANCHOR),this.myColor);
-		
+		/*const RECTWIDTH=-(4+MINKILLPARTICLESIZE*this.cyclesKillLeft/(MINKILLCYCLE+CYCLEKILLANCHOR));
+		const RECTHEIGHT=MINKILLPARTICLESIZE*this.cyclesKillLeft/(MINKILLCYCLE+CYCLEKILLANCHOR);
+		console.log(BallClass.ballDirection)
+		colorRect(this.x,this.y-this.z,RECTWIDTH,RECTHEIGHT,this.myColor,BallClass.ballDirection);*/
 	}
 }

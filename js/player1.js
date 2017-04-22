@@ -125,8 +125,6 @@ function PlayerClass() {
             if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
                 this.isSwinging = true;
                 Sound.hit();
-                //killShotActive=true;
-                //console.log(killShotActive)
                 if (computerIsAtReachNow) {
                     
                     if (this.x > ComputerClass.x) {

@@ -76,6 +76,7 @@ function moveAll() {
             ComputerClass.movePlayer();
             PlayerClass.movePlayer();
             moveAllParticles();
+            moveAllKillParticles();
         }
     }
 }
@@ -124,6 +125,7 @@ function drawAll() {
             ComputerClass.drawPlayer();
             ServeHandler.DrawCountDown();
             drawAllParticles();
+            drawAllKillParticles();
             Rules.check();
         }
     }
