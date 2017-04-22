@@ -55,6 +55,16 @@ function BallClass() {
         this.ballDirection;
         this.x2;
         this.y2;
+        this.serveVelocityZ = 1;
+        this.maxServeZ = 10;
+    }
+
+    this.moveBallForServe = function () {
+        this.z += this.serveVelocityZ;
+        if (this.z >= this.maxServeZ) {
+            this.serveVelocityZ = -1;
+            ServeHandler.ServeBall();
+        }
     }
 
     this.drawInAir = function () {

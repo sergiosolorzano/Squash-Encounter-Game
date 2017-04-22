@@ -70,13 +70,14 @@ function moveAll() {
     if (serveBet) {
         return;
     }
+    else if (ServeHandler.inServe) BallClass.moveBallForServe();
     else if (playerEntry == false) {
         if (ServeHandler.matchStart && ServeHandler.inPlay) {
             BallClass.moveBall();
             ComputerClass.movePlayer();
             PlayerClass.movePlayer();
-            moveAllParticles();
-            moveAllKillParticles();
+            //moveAllParticles();
+            //moveAllKillParticles();
         }
     }
 }
@@ -124,8 +125,8 @@ function drawAll() {
             PlayerClass.drawPlayer();
             ComputerClass.drawPlayer();
             ServeHandler.DrawCountDown();
-            drawAllParticles();
-            drawAllKillParticles();
+            //drawAllParticles();
+            //drawAllKillParticles();
             Rules.check();
         }
     }

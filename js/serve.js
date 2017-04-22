@@ -18,10 +18,12 @@ function ServeClass() {
     this.nextServingPlayer = this.RED;
     this.matchStart = false;
     this.inPlay = false;
+    this.inServe = false;
     this.timer = null;
     this.time = 0;
 
     this.WhoServes = function () {
+        this.inPlay = false;
         if (this.matchStart) {
             if (this.servingPlayer === this.nextServingPlayer) this.flipPos *= -1;
             this.servingPlayer = this.nextServingPlayer;
@@ -54,6 +56,11 @@ function ServeClass() {
         }
     }
 
+    this.ServeBall = function () {
+        this.inServe = false;
+        this.inPlay = true;
+    }
+
     this.RedServes = function () {
         var self = this;
         if (this.servingPlayer === this.RED) {
@@ -74,7 +81,7 @@ function ServeClass() {
             window.clearInterval(self.timer);
         }
         BallClass.isVisible = true;
-        this.inPlay = true;
+        this.inServe = true;
     }
 
     this.DrawCountDown = function () {
