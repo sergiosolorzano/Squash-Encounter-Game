@@ -9,7 +9,7 @@ var Sound = new SoundSystem(); // global
 
 function SoundSystem() {
 
-	var mute = false;	// if true ignore all play()
+	var mute = true;	// if true ignore all play()
 	var music = null;	// one looping Howl() object
   	var sounds = [];	// an array of Howl() objects
 	var atlas = null;	// one big sound sprite
@@ -88,8 +88,8 @@ function SoundSystem() {
 			shoe10: [1200*24, 1200]
 		  }
 		});
-
 	}
+
 
 	// returns true if a sample is currently playing
 	this.isPlaying = function(samplename) {

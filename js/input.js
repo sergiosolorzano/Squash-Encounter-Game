@@ -1,7 +1,10 @@
+var isMuted = false;
+
 const KEY_W = 87;
 const KEY_S = 83;
 const KEY_A = 65;
 const KEY_D = 68;
+const KEY_M = 77;
 
 const KEY_SPACE = 32;
 const KEY_LEFT_SHIFT = 16;
@@ -18,6 +21,9 @@ function initInput() {
     document.addEventListener('keyup', keyReleased);
     document.addEventListener('click', function (evt) {
         var mouseClickPos = updateMousePos(evt);
+
+        muteToggleCheck(mouseClickPos.x, mouseClickPos.y);
+
         selectBackWall(mouseClickPos.x, mouseClickPos.y);
         selectFrontWall(mouseClickPos.x, mouseClickPos.y);
         if (ServeHandler.bluePicks) {
@@ -114,6 +120,11 @@ function keyPressed(evt) {
     else {
         keySet(evt, PlayerClass, true);
         evt.preventDefault();
+    }
+    if(evt.keyCode == KEY_M){
+      isMuted = !isMuted;
+      Howler.mute(isMuted);
+      evt.preventDefault();
     }
 }
 

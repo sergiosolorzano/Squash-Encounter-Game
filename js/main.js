@@ -108,11 +108,12 @@ function drawAll() {
             }
         }
         drawAtBaseSheetSprite(squashcourt_withcheer, canvasFrame, canvas.width / 2, canvas.height / 2, 800, 600);
-        
+
     } else {
         drawAtBaseSheetSprite(squashcourt_nocheer, 0, canvas.width / 2, canvas.height / 2, 800, 600);
     }
 
+    drawMuteState();
     drawStaminaBar();
     drawScoreCounter();
 

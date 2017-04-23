@@ -4,6 +4,12 @@ function drawUI(){
 	console.log(PlayerClass.sprintStamina);
 }
 */
+
+var muteButtonX = 700;
+var muteButtonY = 480;
+var muteButtonWidth = 50;
+var muteButtonHeight = 50;
+
 var spinFrame = 0,
     spinStepsPerAnimFrame = 2,
     spinFrameTimer = 2,
@@ -13,6 +19,25 @@ var spinFrame = 0,
     moreFrames = false,
     drawNow = false,
     uiTimer;
+
+function muteToggleCheck(x, y){
+  if(x > muteButtonX && //if right of left side
+    x < muteButtonX + muteButtonWidth && //if left of right side
+    y > muteButtonY && //if below top
+    y < muteButtonY + muteButtonHeight ){ //if above bottom
+    isMuted = !isMuted;
+  }
+}
+
+function drawMuteState (){
+  var muteState = 'U';
+  if(isMuted){
+    muteState = 'M';
+  } else{
+    muteState = 'U';
+  }
+  colorText(muteState, muteButtonX, muteButtonY, 'white');
+}
 
 function drawStaminaBar() {
     //draw bar border
@@ -137,6 +162,6 @@ function drawMessageBoard(){
                 case TINHIT:
                     whichPic=tinhit;
                     break;
-                }   
+                }
     drawAtBaseSheetSprite(whichPic, 0, canvas.width/2, canvas.height-42, messageBoardW, messageBoardH);
 }
