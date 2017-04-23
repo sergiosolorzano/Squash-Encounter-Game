@@ -20,7 +20,7 @@ function ServeClass() {
     this.inPlay = false;
     this.timer = null;
     this.time = 0;
-
+    
     this.WhoServes = function () {
         if (this.matchStart) {
             if (this.servingPlayer === this.nextServingPlayer) this.flipPos *= -1;

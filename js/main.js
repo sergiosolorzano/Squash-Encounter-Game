@@ -14,6 +14,7 @@ var playerEntry;
 
 var menuLoop;
 var framesPerSecond = 30;
+var timerOnCheer=0;
 
 window.onload = function () {
     canvas = document.getElementById('gameCanvas');
@@ -87,24 +88,33 @@ function clearScreen() {
 
 function drawAll() {
     clearScreen();
-    var canvasAnimationFrames = 1600 / 800;
+    const CHEER_LOOP=20;
 
+    var canvasAnimationFrames = squashcourt_withcheer.width / 800;
+    console.log(timerOnCheer)
     if (cheerOn) {
         if (canvasFrameTimer-- < 0) {
             canvasFrameTimer = canvasStepsPerAnimFrame;
             canvasFrame++;
         }
         if (canvasFrame >= canvasAnimationFrames) {
-            canvasFrame = 0;
-            cheerOn = false;
+            if(timerOnCheer<CHEER_LOOP){
+                canvasFrame = 0;
+                timerOnCheer++;
+            } else {
+                canvasFrame = 0;
+                timerOnCheer=0;
+                cheerOn = false;
+            }
         }
         drawAtBaseSheetSprite(squashcourt_withcheer, canvasFrame, canvas.width / 2, canvas.height / 2, 800, 600);
+        
     } else {
         drawAtBaseSheetSprite(squashcourt_nocheer, 0, canvas.width / 2, canvas.height / 2, 800, 600);
     }
 
-    //drawBitmapCenteredWithRotation(squashcourt, canvas.width / 2, canvas.height / 2, 0);
     drawStaminaBar();
+    //drawMessageBoard();
     drawScoreCounter();
 
     if (serveBet) {

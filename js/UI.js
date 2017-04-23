@@ -122,3 +122,16 @@ function rightToServeOutcome() {
     canvasContext.fillText(chooseLeft, canvas.width * 2 / 5, 515);
     canvasContext.fillText(chooseRight, canvas.width * 3 / 5, 515);
 }
+
+/*function drawMessageBoard(){
+    var messageBoardW=345;
+    var messageBoardH=45
+    switch (message) {
+                case FLOORBOUNCE:
+                    whichPic=floorbounce;
+                    break;
+                }
+
+    
+    drawAtBaseSheetSprite(whichPic, 0, canvas.width/2, canvas.height-10, messageBoardW, messageBoardH);
+}*/

@@ -1,3 +1,5 @@
+var message;
+var FLOORBOUNCE=0;
 
 
 var Rules = function Score() {
@@ -8,6 +10,7 @@ var Rules = function Score() {
         if (BallClass.bouncedOnFloor > 1) {
             self.givePoint();
             Game.RallyReset();
+            message=0;
         } else {
             //
         }
@@ -75,7 +78,10 @@ var Rules = function Score() {
     }
 
     self.givePoint = function givePoint() {
+        //crowd animation cheer
         cheerOn=true;
+        timerOnCheer=0;
+        
         Sound.play("crowd-cheer", false, 0.1);
         if (PlayerClass.swingTurn) {
             self.score.AI += 1;
