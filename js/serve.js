@@ -77,8 +77,14 @@ function ServeClass() {
     this.StartPlay = function () {
         var self = this;
         if (this.servingPlayer === this.RED) {
+            ComputerClass.whichPic = p2_serve;
+            ComputerClass.frameTimer = 3;
             this.time = 0;
             window.clearInterval(self.timer);
+        }
+        else {
+            PlayerClass.whichPic = p1_serve;
+            PlayerClass.frameTimer = 3;
         }
         BallClass.isVisible = true;
         this.inServe = true;

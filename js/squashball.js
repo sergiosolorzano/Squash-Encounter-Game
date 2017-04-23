@@ -22,8 +22,8 @@ var prevQuadrantWasAHit = false;
 //kill shot particles
 var killShotActive = false;//when true ball speed increases
 var killShotSpeedMultiple = 3;
-var particlesTimer=0;
-var particlesEndTimer=5;
+var particlesTimer = 0;
+var particlesEndTimer = 5;
 
 function BallClass() {
 
@@ -51,20 +51,20 @@ function BallClass() {
         // keeps track of the previous x,y,z coordinates drawn
         this.ballDrawHistory = [];
         //kill particles vars
-        this.killParticlesActive=false;
+        this.killParticlesActive = false;
         this.ballDirection;
         this.x2;
         this.y2;
-        this.serveVelocityZ = 1;
-        this.maxServeZ = 10;
+        this.serveVelocityZ = 1.5;
+        this.maxServeZ = 15;
     }
 
     this.moveBallForServe = function () {
         this.z += this.serveVelocityZ;
         if (this.z >= this.maxServeZ) {
-            this.serveVelocityZ = -1;
-            ServeHandler.ServeBall();
+            this.serveVelocityZ = -1.5;
         }
+        else if (this.serveVelocityZ < 0 && this.z < 6) ServeHandler.ServeBall();
     }
 
     this.drawInAir = function () {
@@ -226,10 +226,10 @@ function BallClass() {
             this.bouncedOnBackWall = false;
             if (PlayerClass.keyHeld_Kill && PlayerClass.swingTurn) {
                 killShotActive = true;
-                if(quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT){
-                    this.killParticlesActive=true;
-                    particlesTimer=0;
-                    particlesEndTimer=5;
+                if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
+                    this.killParticlesActive = true;
+                    particlesTimer = 0;
+                    particlesEndTimer = 5;
                 }
             }
 
@@ -364,9 +364,9 @@ function BallClass() {
 
 
         //kill particles on ball at kill shot
-        this.ballDirection=Math.atan2(this.speedY,this.speedX);
+        this.ballDirection = Math.atan2(this.speedY, this.speedX);
         var degreesParticles = this.ballDirection * 180 / Math.PI;
-        
+
         /*var ballSpeedParticles = magnitude(this.speedX, this.speedY);
         this.speedParticlesX = Math.cos(this.ballDirection) * ballSpeedParticles;
         this.speedParticlesY = Math.sin(this.ballDirection) * ballSpeedParticles;*/
@@ -377,13 +377,13 @@ function BallClass() {
         this.y2=Math.sin(thrust1ang)+Math.cos(thrust1ang);
         console.log(this.x,this.x2)*/
 
-            if(this.killParticlesActive){
-                if (particlesTimer++ < particlesEndTimer) {
+        if (this.killParticlesActive) {
+            if (particlesTimer++ < particlesEndTimer) {
                 createParticleskill();
-                } else {
-                    this.killParticlesActive=false;
-                }
+            } else {
+                this.killParticlesActive = false;
             }
+        }
 
         //wall bouncing mechanics:
         this.zv += -ballSinkRate;
@@ -458,7 +458,7 @@ function BallClass() {
             if (this.landingX > COURT_W) {
                 this.landingX = 2 * COURT_W - this.landingX;
             }
-             if (this.landingY > COURT_L) {
+            if (this.landingY > COURT_L) {
                 this.landingY = 2 * COURT_L - this.landingY;
             }
             //console.log(this.z,this.zv,root1,root2)
