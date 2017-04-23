@@ -18,10 +18,18 @@ function ServeClass() {
     this.nextServingPlayer = this.RED;
     this.matchStart = false;
     this.inPlay = false;
+    this.inServe = false;
     this.timer = null;
     this.time = 0;
-    
+
+    this.Reset = function() {
+        this.matchStart = false;
+        this.inPlay = false;
+        this.inServe = false;
+    }
+
     this.WhoServes = function () {
+        this.inPlay = false;
         if (this.matchStart) {
             if (this.servingPlayer === this.nextServingPlayer) this.flipPos *= -1;
             this.servingPlayer = this.nextServingPlayer;
@@ -54,6 +62,11 @@ function ServeClass() {
         }
     }
 
+    this.ServeBall = function () {
+        this.inServe = false;
+        this.inPlay = true;
+    }
+
     this.RedServes = function () {
         var self = this;
         if (this.servingPlayer === this.RED) {
@@ -69,13 +82,23 @@ function ServeClass() {
 
     this.StartPlay = function () {
         var self = this;
-        if (this.servingPlayer === this.RED) {
-            this.time = 0;
-            window.clearInterval(self.timer);
+        if (!this.inPlay) {
+            if (this.servingPlayer === this.RED) {
+                ComputerClass.whichPic = p2_serve;
+                ComputerClass.computerFrameTimer = 5;
+                ComputerClass.computerStepsPerAnimFrame = 5;
+                this.time = 0;
+                window.clearInterval(self.timer);
+            }
+            else {
+                PlayerClass.whichPic = p1_serve;
+                PlayerClass.PlayerFrameTimer = 5;
+                ComputerClass.computerStepsPerAnimFrame = 5;
+            }
+            BallClass.isVisible = true;
+            this.inServe = true;
+            message = 0;
         }
-        BallClass.isVisible = true;
-        this.inPlay = true;
-        message=0;
     }
 
     this.DrawCountDown = function () {

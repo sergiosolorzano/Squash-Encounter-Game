@@ -71,6 +71,7 @@ function moveAll() {
     if (serveBet) {
         return;
     }
+    else if (ServeHandler.inServe) BallClass.moveBallForServe();
     else if (playerEntry == false) {
         if (ServeHandler.matchStart && ServeHandler.inPlay) {
             BallClass.moveBall();

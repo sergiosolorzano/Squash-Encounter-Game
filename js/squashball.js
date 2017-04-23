@@ -55,6 +55,16 @@ function BallClass() {
         //kill particles vars
         this.killParticlesActive=false;
         this.ballDirection;
+        this.serveVelocityZ = 1.5;
+        this.maxServeZ = 15;
+    }
+
+    this.moveBallForServe = function () {
+        this.z += this.serveVelocityZ;
+        if (this.z >= this.maxServeZ) {
+            this.serveVelocityZ = -1.5;
+        }
+        else if (this.serveVelocityZ < 0 && this.z < 6) ServeHandler.ServeBall();
     }
 
     this.drawInAir = function () {

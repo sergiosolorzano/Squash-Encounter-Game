@@ -44,6 +44,7 @@ function startGame() {
 function returnToMenu(){
     menuActive = true;
     playerEntry = false;
+    ServeHandler.Reset();
     initInput();
     clearInterval(gameLoop);
     menuLoop = setInterval(function () {
