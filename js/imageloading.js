@@ -45,6 +45,8 @@ var p1_sprint = document.createElement("img");
 
 //message board
 var floorbounce = document.createElement("img");
+var messageboard = document.createElement("img");
+var tinhit = document.createElement("img");
 
 //var front_bench = document.createElement("img");
 
@@ -111,7 +113,9 @@ function loadImages(){
 	{varName: p2_right_hit, theFile: "p2_right_hit.png"},
 	{varName: p2_left_hit, theFile: "p2_left_hit.png"},
 	{varName: p1_sprint, theFile: "p1_sprint.png"},
-	{varName: floorbounce, theFile: "floorbounce.png"}
+	{varName: floorbounce, theFile: "floorbounce.png"},
+	{varName: tinhit, theFile: "tinhit.png"},
+	{varName: messageboard, theFile: "messageboard.png"}
 	
 
 	];

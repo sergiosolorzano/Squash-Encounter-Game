@@ -75,6 +75,7 @@ function ServeClass() {
         }
         BallClass.isVisible = true;
         this.inPlay = true;
+        message=0;
     }
 
     this.DrawCountDown = function () {

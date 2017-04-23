@@ -1,5 +1,7 @@
-var message;
-var FLOORBOUNCE=0;
+var message=0;//boar message for rules
+var MESSAGEBOARD=0;
+var FLOORBOUNCE=1;
+var TINHIT=2;
 
 
 var Rules = function Score() {
@@ -10,7 +12,7 @@ var Rules = function Score() {
         if (BallClass.bouncedOnFloor > 1) {
             self.givePoint();
             Game.RallyReset();
-            message=0;
+            message=1;
         } else {
             //
         }
@@ -27,10 +29,12 @@ var Rules = function Score() {
             BallClass.tinHit = true;
 
             //TODO: menu stuff
-            //console.log("HIT TIN")
+            console.log("HIT TIN")
 
             self.givePoint();
             Game.RallyReset();
+            message=2;    
+            
         }
     }
 

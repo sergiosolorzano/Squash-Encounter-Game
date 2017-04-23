@@ -123,15 +123,20 @@ function rightToServeOutcome() {
     canvasContext.fillText(chooseRight, canvas.width * 3 / 5, 515);
 }
 
-/*function drawMessageBoard(){
+function drawMessageBoard(){
     var messageBoardW=345;
-    var messageBoardH=45
+    var messageBoardH=45;
+    console.log(message)
     switch (message) {
+                case MESSAGEBOARD:
+                    whichPic=messageboard;
+                    break;
                 case FLOORBOUNCE:
                     whichPic=floorbounce;
                     break;
-                }
-
-    
-    drawAtBaseSheetSprite(whichPic, 0, canvas.width/2, canvas.height-10, messageBoardW, messageBoardH);
-}*/
+                case TINHIT:
+                    whichPic=tinhit;
+                    break;
+                }   
+    drawAtBaseSheetSprite(whichPic, 0, canvas.width/2, canvas.height-42, messageBoardW, messageBoardH);
+}

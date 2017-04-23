@@ -114,7 +114,6 @@ function drawAll() {
     }
 
     drawStaminaBar();
-    //drawMessageBoard();
     drawScoreCounter();
 
     if (serveBet) {
@@ -137,6 +136,7 @@ function drawAll() {
             drawAllParticles();
             drawAllKillParticles();
             Rules.check();
+            drawMessageBoard();
         }
     }
     //PlayerClass.drawTargetFrontWall();

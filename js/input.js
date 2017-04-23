@@ -81,6 +81,7 @@ function keySet(keyEvent, whichPlayer, setTo) {
         if (keyEvent.keyCode == KEY_ENTER) {//TODO Remove cheat: cheat to avoid waiting for the draw to play, to remove cheat add && drawNow in if condition
             if (serveBet) {
                 serveBet = false;
+                message=0;
             }
                 //TODO Delete the "else if" code and uncomment the "if" version once you delete the ENTER cheat
                 // if (ServeHandler.matchStart) ServeHandler.StartPlay();

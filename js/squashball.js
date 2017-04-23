@@ -55,8 +55,6 @@ function BallClass() {
         //kill particles vars
         this.killParticlesActive=false;
         this.ballDirection;
-        this.x2;
-        this.y2;
     }
 
     this.drawInAir = function () {
