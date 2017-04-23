@@ -39,7 +39,9 @@ function BallClass() {
         this.zv = 1;//1.5
         this.heightOscillate = 0.0;
         this.speedX = (this.x > COURT_W * 0.5 ? -1 : 1);
+        this.startSpeedY=-2;
         this.speedY = -2;
+        this.backWallOnPlay=false;
         this.tinHit = false;
         this.ballHitFloorBeforeWall = false;
         this.bouncedOnFrontWall = false;
@@ -137,6 +139,61 @@ function BallClass() {
             swingTurn = hereComputerCollision.canSwing;
         }
 
+        //check ball only bounced once or none on floor before swing
+        if (this.bouncedOnFloor == 1 || this.bouncedOnFloor == 0) {
+            this.ballBouncedOnFloor = true;
+        } else {
+            this.ballBouncedOnFloor = false;
+        }
+
+        //check if ball hit the floor before hitting the front wall at swing
+        Rules.checkFirstBounce()
+
+        //check if the ball hit the tin
+        Rules.checkTin();
+
+        //swing takes place, target front or back wall
+
+        //console.log("BouncedOnFloor:",this.bouncedOnFloor,"bouncedOnFrontWall:",this.bouncedOnFrontWall,"quadrantHit:",quadrantHit,"swingTurn:",swingTurn)
+        //console.log(this.bouncedOnFloor)
+        if (this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit != 0 && swingTurn && this.tinHit == false && this.ballHitFloorBeforeWall == false) {
+
+            this.bouncedOnFloor = 0;
+            this.bouncedOnFrontWall = false;
+            this.bouncedOnBackWall = false;
+            this.backWallOnPlay=false;
+            if (PlayerClass.keyHeld_Kill && PlayerClass.swingTurn) {
+                killShotActive = true;
+                if(quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT){
+                    this.killParticlesActive=true;
+                    particlesTimer=0;
+                    particlesEndTimer=5;
+                }
+            }
+
+            //kill shot speed changes
+            if (killShotActive && PlayerClass.swingTurn) {
+                if (prevY < this.y) {
+                    this.speedY *= -1 * killShotSpeedMultiple;
+                } else {
+                    this.speedY *= 1 * killShotSpeedMultiple;
+                }
+            }
+
+            if (killShotActive && ComputerClass.swingTurn) {
+                this.speedY = this.speedY / killShotSpeedMultiple;
+                killShotActive = false;
+            }
+
+            //non-kill shot speed changes
+            if (killShotActive==false){
+                if (prevY < this.y) {
+                    this.speedY *= -1;
+                } else {
+                    this.speedY *= 1;
+                }
+            }
+
         //radians to hit frontwall quadrant
         var targetFrontWallVars = GradientShotToFrontWall(PlayerClass.x, PlayerClass.y);
         var ballAng;
@@ -192,41 +249,6 @@ function BallClass() {
             //console.log("ballAimLeft playerisRight ball crossing"+ ballAng)
         }
 
-        //check ball only bounced once or none on floor before swing
-        if (this.bouncedOnFloor == 1 || this.bouncedOnFloor == 0) {
-            this.ballBouncedOnFloor = true;
-        } else {
-            this.ballBouncedOnFloor = false;
-        }
-
-        //check if ball hit the floor before hitting the front wall at swing
-        Rules.checkFirstBounce()
-
-        //check if the ball hit the tin
-        Rules.checkTin();
-
-        //swing takes place, target front or back wall
-
-        //console.log("BouncedOnFloor:",this.bouncedOnFloor,"bouncedOnFrontWall:",this.bouncedOnFrontWall,"quadrantHit:",quadrantHit,"swingTurn:",swingTurn)
-        //console.log(this.bouncedOnFloor)
-        if (this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit != 0 && swingTurn && this.tinHit == false && this.ballHitFloorBeforeWall == false) {
-
-            this.bouncedOnFloor = 0;
-            this.bouncedOnFrontWall = false;
-            this.bouncedOnBackWall = false;
-            if (PlayerClass.keyHeld_Kill && PlayerClass.swingTurn) {
-                killShotActive = true;
-                if(quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT){
-                    this.killParticlesActive=true;
-                    particlesTimer=0;
-                    particlesEndTimer=5;
-                }
-            }
-
-            if (killShotActive && ComputerClass.swingTurn) {
-                BallClass.speedY = BallClass.speedY / killShotSpeedMultiple;
-                killShotActive = false;
-            }
             //Back Wall is a target swing
             var degreeTarget = ballAng * 180 / Math.PI;
 
@@ -234,17 +256,18 @@ function BallClass() {
             if (PlayerClass.backWallClicked) {
                 //console.log("Aiming for back wall")
                 PlayerClass.backWallClicked = false;
+                this.backWallOnPlay=true;
                 var ballSpeed = magnitude(this.speedX, this.speedY);
                 this.speedX = Math.cos(ballAng) * ballSpeed;
                 this.speedY = Math.sin(ballAng) * ballSpeed;
                 if (prevY > this.y) {
                     //this.speedY*=1;
-                    this.zv += 1;
+                    this.zv += 2;
                 } else {
-                    this.zv += 1;
+                    this.zv += 2;
                 }
-                if (this.zv < 1.2) {
-                    this.zv = 1.2
+                if (this.zv < 2) {
+                    this.zv = 2
                 }
 
                 //Front Wall Swing
@@ -319,20 +342,9 @@ function BallClass() {
                 //console.log("not aiming for front or back walls")
                 if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
                     if (prevY < this.y) {
-                        if (killShotActive && PlayerClass.swingTurn) {
-                            this.speedY *= -1 * killShotSpeedMultiple;
                             this.zv += 1;
-                        } else {
-                            this.speedY *= -1;
-                            this.zv += 1;
-                        }
                     } else {
-                        if (killShotActive && PlayerClass.swingTurn) {
-                            this.speedY *= 1 * killShotSpeedMultiple;
                             this.zv += 1;
-                        } else {
-                            this.zv += 1;
-                        }
                     }
                 }
             }//end last else
@@ -356,17 +368,7 @@ function BallClass() {
         //kill particles on ball at kill shot
         this.ballDirection=Math.atan2(this.speedY,this.speedX);
         var degreesParticles = this.ballDirection * 180 / Math.PI;
-        
-        /*var ballSpeedParticles = magnitude(this.speedX, this.speedY);
-        this.speedParticlesX = Math.cos(this.ballDirection) * ballSpeedParticles;
-        this.speedParticlesY = Math.sin(this.ballDirection) * ballSpeedParticles;*/
-
-        //thurst positions
-        /*var thrust1ang=this.ballDirection
-        this.x2=Math.cos(thrust1ang)-Math.sin(thrust1ang);
-        this.y2=Math.sin(thrust1ang)+Math.cos(thrust1ang);
-        console.log(this.x,this.x2)*/
-
+       
             if(this.killParticlesActive){
                 if (particlesTimer++ < particlesEndTimer) {
                 createParticleskill();
@@ -460,7 +462,7 @@ function BallClass() {
                 this.zv *= -0.03;
             }
             //console.log("touch back wall","speedY",this.speedY)
-            if (killShotActive) {
+            if (killShotActive && this.backWallOnPlay==false) {
                 this.speedY = this.speedY / killShotSpeedMultiple;
                 killShotActive = false;
             }
@@ -470,6 +472,18 @@ function BallClass() {
             //  console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
         //console.log(this.speedY,"killShotActive: ",killShotActive)
+        
+        //when walls are targeted speedXY are adjuted by magnitude and speedY may not be maintained on-going. This ensure speedY does not go below this.startSpeedY
+        if(Math.abs(this.speedY)<Math.abs(this.startSpeedY)){
+            if(this.speedY<0){
+                this.speedY=this.startSpeedY
+            } else {
+                this.speedY=-this.startSpeedY
+           }
+        }
+        //console.log(this.speedY)
+        //console.log(ComputerClass.swingTurn)
+
         this.x += this.speedX;
         this.y += this.speedY;
     }
