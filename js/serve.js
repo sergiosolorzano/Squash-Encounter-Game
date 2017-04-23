@@ -93,7 +93,7 @@ function ServeClass() {
             else {
                 PlayerClass.whichPic = p1_serve;
                 PlayerClass.PlayerFrameTimer = 5;
-                ComputerClass.computerStepsPerAnimFrame = 5;
+                PlayerClass.playerStepsPerAnimFrame = 5;
             }
             BallClass.isVisible = true;
             this.inServe = true;
