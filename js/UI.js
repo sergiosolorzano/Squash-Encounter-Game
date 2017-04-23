@@ -15,10 +15,13 @@ var spinFrame = 0,
     uiTimer;
 
 function drawStaminaBar() {
+    //draw bar border
+    colorRect(631, canvas.height - 562, 104, 24, 'White');
     //draw bar background
     colorRect(633, canvas.height - 560, 100, 20, 'LightGray');
     //draw current stamina
-    colorRect(633, canvas.height - 560, PlayerClass.sprintStamina * 5, 20, 'red');
+    //OLD colorRect(633, canvas.height - 560, PlayerClass.sprintStamina * 5, 20, 'red');
+    colorRect(633, canvas.height - 560, 30, 20, 'red');
     //draw label
     colorText('STAMINA', 700, canvas.height - 570, 'white');
 }
