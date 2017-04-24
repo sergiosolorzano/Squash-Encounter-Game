@@ -29,23 +29,23 @@ function PlayerClass() {
     this.keyHeld_Reverse = false;
     this.keyHeld_TurnLeft = false;
     this.keyHeld_TurnRight = false;
-    this.keyHeld_Kill = false;
-    this.keyHeld_Sprint = false;
+    //this.keyHeld_Kill = false;
+    this.keyHeld_SprintAndKill = false;
 
     this.controlKeyUp;
     this.controlKeyRight;
     this.controlKeyDown;
     this.controlKeyLeft;
-    this.controlKeyKill;
-    this.controlKeySprint;
+    //this.controlKeyKill;
+    this.controlKeySprintAndKill;
 
-    this.initInput = function (upKey, rightKey, downKey, leftKey, sprintKey, killKey) {
+    this.initInput = function (upKey, rightKey, downKey, leftKey, sprintAndKillKey) {
         this.controlKeyUp = upKey;
         this.controlKeyRight = rightKey;
         this.controlKeyDown = downKey;
         this.controlKeyLeft = leftKey;
-        this.controlKeySprint = sprintKey;
-        this.controlKeyKill = killKey;
+        this.controlKeySprintAndKill = sprintAndKillKey;
+        //this.controlKeyKill = killKey;
     }
 
     this.Init = function () {
@@ -121,7 +121,7 @@ function PlayerClass() {
         }
 
         //kill shot
-        if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.keyHeld_Kill) {
+        if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.keyHeld_SprintAndKill) {
             if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
                 this.isSwinging = true;
                 Sound.hit();
@@ -149,7 +149,7 @@ function PlayerClass() {
         }
 
         //normal automatic shot
-        if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.keyHeld_Kill == false) {
+        if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.keyHeld_SprintAndKill == false) {
             //console.log("swingturn:",this.swingTurn,"ballbounced:",ballBouncedOnFloor)
             switch (quadrantHit) {//maybe quadrantHit=0 in which case none called
                 case TOPRIGHTQUADRANT:
@@ -229,11 +229,12 @@ function PlayerClass() {
                 this.sprintCooldown--;
                 this.particles.active = true;
             }
-            if (this.keyHeld_Sprint && isPlayerMoving) {
+            if (this.keyHeld_SprintAndKill && isPlayerMoving) {
                 this.particles.active = true;
                 if (this.sprintStamina > 0 && this.sprintCooldown == 0) {
                     this.sprintMultiplier = SPRINT_MULTIPLER;
                     this.sprintStamina--;
+                    console.log(this.sprintStamina)
                 }
                 else if (this.sprintStamina == 0) {
                     this.sprintMultiplier = 1;
@@ -251,7 +252,7 @@ function PlayerClass() {
 
                 if (this.keyHeld_Gas) {
                     nextY -= PLAYER_MOVE_SPEED * this.sprintMultiplier;
-                    if (this.keyHeld_Sprint && this.sprintStamina > 0) {
+                    if (this.keyHeld_SprintAndKill && this.sprintStamina > 0) {
                         this.whichPic = p1_sprint;
                     } else {
                         this.whichPic = p1_running;

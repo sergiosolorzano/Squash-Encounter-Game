@@ -92,7 +92,7 @@ function drawAll() {
     const CHEER_LOOP=20;
 
     var canvasAnimationFrames = squashcourt_withcheer.width / 800;
-    console.log(timerOnCheer)
+    //console.log(timerOnCheer)
     if (cheerOn) {
         if (canvasFrameTimer-- < 0) {
             canvasFrameTimer = canvasStepsPerAnimFrame;

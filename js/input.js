@@ -9,7 +9,7 @@ const KEY_M = 77;
 const KEY_SPACE = 32;
 const KEY_LEFT_SHIFT = 16;
 const KEY_ENTER = 13;
-const KEY_Q = 81;
+//const KEY_Q = 81;
 
 var mouseX = 0;
 var mouseY = 0;
@@ -34,7 +34,7 @@ function initInput() {
             }
         }
     });
-    PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_Q);
+    PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE);
 }
 
 function updateMousePos(evt) {
@@ -76,11 +76,11 @@ function keySet(keyEvent, whichPlayer, setTo) {
     if (keyEvent.keyCode == whichPlayer.controlKeyDown) {
         whichPlayer.keyHeld_Reverse = setTo;
     }
-    if (keyEvent.keyCode == whichPlayer.controlKeyKill) {
-        whichPlayer.keyHeld_Kill = setTo;
-    }
-    if (keyEvent.keyCode == whichPlayer.controlKeySprint) {
-        whichPlayer.keyHeld_Sprint = setTo;
+    //if (keyEvent.keyCode == whichPlayer.controlKeyKill) {
+    //    whichPlayer.keyHeld_Kill = setTo;
+   //}
+    if (keyEvent.keyCode == whichPlayer.controlKeySprintAndKill) {
+        whichPlayer.keyHeld_SprintAndKill = setTo;
     }
 
     if (setTo) { //only detecting when key goes down not held keys

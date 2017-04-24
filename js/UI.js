@@ -151,7 +151,7 @@ function rightToServeOutcome() {
 function drawMessageBoard(){
     var messageBoardW=345;
     var messageBoardH=45;
-    console.log(message)
+    //console.log(message)
     switch (message) {
                 case MESSAGEBOARD:
                     whichPic=messageboard;

@@ -170,7 +170,7 @@ function BallClass() {
             this.bouncedOnFrontWall = false;
             this.bouncedOnBackWall = false;
             this.backWallOnPlay=false;
-            if (PlayerClass.keyHeld_Kill && PlayerClass.swingTurn) {
+            if (PlayerClass.keyHeld_SprintAndKill && PlayerClass.swingTurn) {
                 killShotActive = true;
                 if(quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT){
                     this.killParticlesActive=true;
