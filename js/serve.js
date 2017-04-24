@@ -66,7 +66,6 @@ function ServeClass() {
     this.ServeBall = function () {
         this.inServe = false;
         this.inPlay = true;
-        BallClass.served = true;
     }
 
     this.RedServes = function () {
