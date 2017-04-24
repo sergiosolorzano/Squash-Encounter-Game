@@ -14,7 +14,7 @@ var playerEntry;
 
 var menuLoop;
 var framesPerSecond = 30;
-var timerOnCheer=0;
+var timerOnCheer = 0;
 
 window.onload = function () {
     canvas = document.getElementById('gameCanvas');
@@ -89,7 +89,7 @@ function clearScreen() {
 
 function drawAll() {
     clearScreen();
-    const CHEER_LOOP=20;
+    const CHEER_LOOP = 20;
 
     var canvasAnimationFrames = squashcourt_withcheer.width / 800;
     //console.log(timerOnCheer)
@@ -99,12 +99,12 @@ function drawAll() {
             canvasFrame++;
         }
         if (canvasFrame >= canvasAnimationFrames) {
-            if(timerOnCheer<CHEER_LOOP){
+            if (timerOnCheer < CHEER_LOOP) {
                 canvasFrame = 0;
                 timerOnCheer++;
             } else {
                 canvasFrame = 0;
-                timerOnCheer=0;
+                timerOnCheer = 0;
                 cheerOn = false;
             }
         }

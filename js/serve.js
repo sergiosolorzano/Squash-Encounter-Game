@@ -19,10 +19,11 @@ function ServeClass() {
     this.matchStart = false;
     this.inPlay = false;
     this.inServe = false;
-    this.timer = null;
+    this.countTimer = null;
+    this.animTimer = null;
     this.time = 0;
 
-    this.Reset = function() {
+    this.Reset = function () {
         this.matchStart = false;
         this.inPlay = false;
         this.inServe = false;
@@ -71,34 +72,90 @@ function ServeClass() {
         var self = this;
         if (this.servingPlayer === this.RED) {
             this.time = 5;
-            this.timer = window.setInterval(function () { self.RedCountDown(); }, 1000);
+            this.countTimer = window.setInterval(function () { self.RedCountDown(); }, 1000);
         }
     }
 
     this.RedCountDown = function () {
         this.time--;
-        if (this.time < 1) this.StartPlay();
+        if (this.time < 1) this.StartAnim();
+    }
+
+    this.StartAnim = function () {
+        if (!this.inPlay) {
+            var self = this;
+            if (this.servingPlayer === this.RED) {
+                ComputerClass.whichPic = p2_serve;
+                ComputerClass.computerFrameTimer = 10
+                ComputerClass.computerStepsPerAnimFrame = 10;
+            }
+            else {
+                PlayerClass.whichPic = p1_serve;
+                PlayerClass.playerFrameTimer = 10;
+                PlayerClass.playerStepsPerAnimFrame = 10;
+            }
+            self.StartPlay();
+        }
     }
 
     this.StartPlay = function () {
         var self = this;
-        if (!this.inPlay) {
-            if (this.servingPlayer === this.RED) {
-                ComputerClass.whichPic = p2_serve;
-                ComputerClass.computerFrameTimer = 5;
-                ComputerClass.computerStepsPerAnimFrame = 5;
-                this.time = 0;
-                window.clearInterval(self.timer);
+        window.clearTimeout(self.animTimer);
+        if (this.servingPlayer === this.RED) {
+            this.time = 0;
+            window.clearInterval(self.countTimer);
+            var ranNumber = Math.random();
+            if (ranNumber < 0.33) {
+                if (this.flipPos > 0) {
+                    BallClass.speedX = -1.1;
+                    BallClass.speedY = -1.5;
+                    BallClass.zv = 0.95;
+                }
+                else {
+                    BallClass.speedX = 1.1;
+                    BallClass.speedY = -1.5;
+                    BallClass.zv = 0.95;
+                }
+            }
+            else if (ranNumber < 0.66) {
+                BallClass.zv = 1.25;
+                BallClass.speedY = -2;
             }
             else {
-                PlayerClass.whichPic = p1_serve;
-                PlayerClass.PlayerFrameTimer = 5;
-                PlayerClass.playerStepsPerAnimFrame = 5;
+                BallClass.zv = 1.3;
             }
-            BallClass.isVisible = true;
-            this.inServe = true;
-            message = 0;
         }
+        else {
+            switch (PlayerClass.targetFrontWall) {
+                case TOPLEFTFRONTWALL:
+                    if (this.flipPos < 0) {
+                        BallClass.speedX = -1.1;
+                        BallClass.speedY = -1.5;
+                        BallClass.zv = 0.95;
+                    }
+                    else {
+                        BallClass.zv = 1.15;
+                        BallClass.speedY = -2;
+                    }
+                    break;
+                case TOPRIGHTFRONTWALL:
+                    if (this.flipPos > 0) {
+                        BallClass.speedX = 1.1;
+                        BallClass.speedY = -1.5;
+                        BallClass.zv = 0.95;
+                    }
+                    else {
+                        BallClass.zv = 1.15;
+                        BallClass.speedY = -2;
+                    }
+                    break;
+                default:
+                    BallClass.zv = 1.3;
+            }
+        }
+        BallClass.isVisible = true;
+        this.inServe = true;
+        message = 0;
     }
 
     this.DrawCountDown = function () {

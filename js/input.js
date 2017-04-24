@@ -90,8 +90,8 @@ function keySet(keyEvent, whichPlayer, setTo) {
                 message = 0;
             }
                 //TODO Delete the "else if" code and uncomment the "if" version once you delete the ENTER cheat
-                // if (ServeHandler.matchStart) ServeHandler.StartPlay();
-            else if ((!playerEntry) && ServeHandler.matchStart) ServeHandler.StartPlay();
+                // if (ServeHandler.matchStart) ServeHandler.StartAnim();
+            else if ((!playerEntry) && ServeHandler.matchStart) ServeHandler.StartAnim();
         }
     }
 }
