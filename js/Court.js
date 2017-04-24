@@ -101,6 +101,7 @@ function drawTargetFrontWall (nearX,farX,nearY,farY){
 
 //on mouseclick checks whether backwall is selected as target
 function selectBackWall (mouseClickX,mouseClickY){
+	if(ServeHandler.inPlay) {
       var centerTopX=COURT_W/2;
       var centerTopY=COURT_L-BACKWALLCENTERZ;
 
@@ -182,10 +183,12 @@ function selectBackWall (mouseClickX,mouseClickY){
       }
       //call function to draw the target wall
       drawTargetBackWall(nearX,farX,nearY,farY);
+	}
   }//end of function to target the back wall
 
 //on mouse target front wall
 function selectFrontWall (ballPixelX,ballPixelY){
+	if(ServeHandler.inPlay) {
       const HITSQUARETOPW=71;
       const HITSQUAREBOTTOMW=34;
       const HITSQUARECENTERW=39;
@@ -282,6 +285,7 @@ function selectFrontWall (ballPixelX,ballPixelY){
       }
       //call function to draw the target wall
       drawTargetFrontWall(nearX,farX,nearY,farY);
+	}
   }//end of function to target the front wall
 
 function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY, swingTurn){
