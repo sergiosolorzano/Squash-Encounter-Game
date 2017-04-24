@@ -452,15 +452,22 @@ function BallClass() {
             this.landingX = this.x + this.speedX * this.numFramesTouchGround;
             this.landingY = this.y + this.speedY * this.numFramesTouchGround;
             // account for wall bounces
-            if (this.landingX < 0) {
-                this.landingX = -this.landingX;
-            }
-            if (this.landingX > COURT_W) {
-                this.landingX = 2 * COURT_W - this.landingX;
-            }
-             if (this.landingY > COURT_L) {
-                this.landingY = 2 * COURT_L - this.landingY;
-            }
+            var ballLandingInCourt;
+            do {
+                ballLandingInCourt=true;
+                if (this.landingX < 0) {
+                    this.landingX = -this.landingX;
+                    ballLandingInCourt=false;
+                }
+                if (this.landingX > COURT_W) {
+                    this.landingX = 2 * COURT_W - this.landingX;
+                    ballLandingInCourt=false;
+                }
+                 if (this.landingY > COURT_L) {
+                    this.landingY = 2 * COURT_L - this.landingY;
+                    ballLandingInCourt=false;
+                }    
+            } while (ballLandingInCourt==false);
             //console.log(this.z,this.zv,root1,root2)
             //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
