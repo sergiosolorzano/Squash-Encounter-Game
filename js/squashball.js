@@ -55,6 +55,7 @@ function BallClass() {
         //kill particles vars
         this.killParticlesActive=false;
         this.ballDirection;
+	this.isServed = false;
         this.serveVelocityZ = 1.5;
         this.maxServeZ = 15;
     }
@@ -338,12 +339,17 @@ function BallClass() {
                 }
 
                 //Front wall top quadrants targeted
-                if (targetFrontWallQuadrant == TOPLEFTFRONTWALL || targetFrontWallQuadrant == TOPRIGHTFRONTWALL) {
-                    this.zv += 0.5;
-                    if (this.zv < 0.5 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
-                        this.zv = 0.5
-                    }
-                }
+		if(this.isServed) {
+			this.zv += 5;
+		}
+		else {
+                	if (targetFrontWallQuadrant == TOPLEFTFRONTWALL || targetFrontWallQuadrant == TOPRIGHTFRONTWALL) {
+                    		this.zv += 0.5;
+                    		if (this.zv < 0.5 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
+                        		this.zv = 0.5
+                    		}
+                	}
+		}
 
             } else {
                 //No Wall is a target
@@ -429,7 +435,13 @@ function BallClass() {
 
         if (this.nextY <= 0) {
             this.speedY *= -1;
-            if (this.zv > 0) {
+		if(this.isServed) {
+			this.isServed = false;
+			this.zv *= -1.5;
+			this.speedX *= 0.65;
+			this.speedY *= 1.5;
+		}
+            else if (this.zv > 0) {
                 this.zv *= -0.03;
             }
             this.bouncedOnFrontWall = true;

@@ -101,7 +101,7 @@ function drawTargetFrontWall (nearX,farX,nearY,farY){
 
 //on mouseclick checks whether backwall is selected as target
 function selectBackWall (mouseClickX,mouseClickY){
-	if(ServeHandler.inPlay) {
+	if(ServeHandler.servingPlayer === ServeHandler.RED || ServeHandler.inPlay) {
       var centerTopX=COURT_W/2;
       var centerTopY=COURT_L-BACKWALLCENTERZ;
 
@@ -188,7 +188,6 @@ function selectBackWall (mouseClickX,mouseClickY){
 
 //on mouse target front wall
 function selectFrontWall (ballPixelX,ballPixelY){
-	if(ServeHandler.inPlay) {
       const HITSQUARETOPW=71;
       const HITSQUAREBOTTOMW=34;
       const HITSQUARECENTERW=39;
@@ -260,32 +259,33 @@ function selectFrontWall (ballPixelX,ballPixelY){
         //return [targetFrontWall,centerDrawn.x, centerDrawn.y, leftCenterDrawn.x,leftTopDrawn.y];
       }
 
-      if(mouseX>centerDrawn.x && mouseX<=rightBottomDrawn.x && mouseY>centerDrawn.y && mouseY<=rightBottomDrawn.y){
-        PlayerClass.frontWallClicked=true;
-        PlayerClass.targetFrontWall=BOTTOMRIGHTFRONTWALL;
-        farX=rightBottomDrawn.x;
-        nearX=centerBottomDrawn.x;
-        farY=centerBottomDrawn.y;
-        nearY=centerDrawn.y;
-        //return [targetFrontWall,centerDrawn.x,centerDrawn.y,rightBottomDrawn.x,rightBottomDrawn.y];
-      }
+	if(ServeHandler.servingPlayer === ServeHandler.RED || ServeHandler.inPlay) {
+      		if(mouseX>centerDrawn.x && mouseX<=rightBottomDrawn.x && mouseY>centerDrawn.y && mouseY<=rightBottomDrawn.y){
+        		PlayerClass.frontWallClicked=true;
+        		PlayerClass.targetFrontWall=BOTTOMRIGHTFRONTWALL;
+        		farX=rightBottomDrawn.x;
+        		nearX=centerBottomDrawn.x;
+        		farY=centerBottomDrawn.y;
+        		nearY=centerDrawn.y;
+        		//return [targetFrontWall,centerDrawn.x,centerDrawn.y,rightBottomDrawn.x,rightBottomDrawn.y];
+      		}
 
-      if(mouseX<centerDrawn.x && mouseX >= leftBottomDrawn.x && mouseY>centerDrawn.y & mouseY<= leftBottomDrawn.y){
-        PlayerClass.frontWallClicked=true;
-        PlayerClass.targetFrontWall=BOTTOMLEFTFRONTWALL;
-        farX=leftBottomDrawn.x;
-        nearX=centerDrawn.x;
-        farY=centerBottomDrawn.y;
-        nearY=centerDrawn.y;
-        //return  [targetFrontWall,centerDrawn.x,centerDrawn.y,leftBottomDrawn.x,leftBottomDrawn.y]
-      }
+      		if(mouseX<centerDrawn.x && mouseX >= leftBottomDrawn.x && mouseY>centerDrawn.y & mouseY<= leftBottomDrawn.y){
+        		PlayerClass.frontWallClicked=true;
+        		PlayerClass.targetFrontWall=BOTTOMLEFTFRONTWALL;
+        		farX=leftBottomDrawn.x;
+        		nearX=centerDrawn.x;
+        		farY=centerBottomDrawn.y;
+        		nearY=centerDrawn.y;
+        		//return  [targetFrontWall,centerDrawn.x,centerDrawn.y,leftBottomDrawn.x,leftBottomDrawn.y]
+      		}
+	}
       if(PlayerClass.targetFrontWall!=TOPRIGHTQUADRANT && PlayerClass.targetFrontWall !=TOPLEFTQUADRANT && PlayerClass.targetFrontWall!=BOTTOMRIGHTQUADRANT && PlayerClass.targetFrontWall!= BOTTOMLEFTQUADRANT){
         PlayerClass.targetFrontWall=NOFRONTWALLSELECTED;
         //return targetFrontWall;
       }
       //call function to draw the target wall
       drawTargetFrontWall(nearX,farX,nearY,farY);
-	}
   }//end of function to target the front wall
 
 function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY, swingTurn){

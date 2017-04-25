@@ -1,4 +1,4 @@
-﻿/*************************************************
+/*************************************************
 ServeClass Constructor
 *************************************************/
 
@@ -65,6 +65,7 @@ function ServeClass() {
 
     this.ServeBall = function () {
         this.inServe = false;
+	BallClass.isServed = true;
         this.inPlay = true;
     }
 
@@ -102,9 +103,32 @@ function ServeClass() {
         var self = this;
         window.clearTimeout(self.animTimer);
         if (this.servingPlayer === this.RED) {
+		var ranNumber = Math.random();
+		if(ranNumber < 0.33) {
+			BallClass.speedX = -1.68 * this.flipPos;
+			BallClass.zv = 1.5;
+		}
+		else if(ranNumber < 0.66) {
+			BallClass.zv = 1.5;
+		}
+		else BallClass.speedX = -1.1 * this.flipPos;
             this.time = 0;
             window.clearInterval(self.countTimer);
         }
+	else {
+		switch(PlayerClass.targetFrontWall) {
+			case TOPRIGHTFRONTWALL:
+				if(this.flipPos > 0) BallClass.speedX = 1.68;
+				BallClass.zv = 1.5;
+				break;
+			case TOPLEFTFRONTWALL:
+				if(this.flipPos < 0) BallClass.speedX = -1.68;
+				BallClass.zv = 1.5;
+				break;
+			default:
+				BallClass.speedX = 1.1 * this.flipPos;
+		}
+	}
         BallClass.isVisible = true;
         this.inServe = true;
         message = 0;
