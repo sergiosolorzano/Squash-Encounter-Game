@@ -47,8 +47,6 @@ var floorbounce = document.createElement("img");
 var messageboard = document.createElement("img");
 var tinhit = document.createElement("img");
 
-//target borders
-var blue_tgt_topleft = document.createElement("img");
 
 //var front_bench = document.createElement("img");
 
@@ -116,8 +114,8 @@ function loadImages(){
 	{varName: p1_sprint, theFile: "p1_sprint.png"},
 	{varName: floorbounce, theFile: "floorbounce.png"},
 	{varName: tinhit, theFile: "tinhit.png"},
-	{varName: messageboard, theFile: "messageboard.png"},
-	{varName: blue_tgt_topleft, theFile: "blue_tgt_topleft.png"},
+	{varName: messageboard, theFile: "messageboard.png"}
+	
 
 	
 
