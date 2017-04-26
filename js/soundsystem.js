@@ -9,7 +9,7 @@ var Sound = new SoundSystem(); // global
 
 function SoundSystem() {
 
-	var mute = true;	// if true ignore all play()
+	var mute = false;	// if true ignore all play()
 	var music = null;	// one looping Howl() object
   	var sounds = [];	// an array of Howl() objects
 	var atlas = null;	// one big sound sprite
