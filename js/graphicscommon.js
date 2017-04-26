@@ -28,7 +28,8 @@ function colorRect(topLeftX,topLeftY, boxWidth,boxHeight, fillColor, withAng) {
   canvasContext.fillStyle = fillColor;
   canvasContext.translate(topLeftX,topLeftY); // added, sets position 'after' rotation
   canvasContext.rotate(withAng);
-  canvasContext.fillRect(0, 0, boxWidth,boxHeight);
+  //canvasContext.fillRect(0, 0, boxWidth,boxHeight);
+  canvasContext.fillRect(-boxWidth/2,-boxHeight/2, boxWidth,boxHeight);
   canvasContext.restore();
 }
 

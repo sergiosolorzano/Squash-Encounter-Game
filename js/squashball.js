@@ -483,7 +483,7 @@ function BallClass() {
             //console.log(this.z,this.zv,root1,root2)
             //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
-        if (this.nextY > COURT_L - 9) {//COURT_L reduced by two so the ball doesn't go outside court. Can't change COURT_L as all front/back wall and court quadrants are measured according to original
+        if (this.nextY > COURT_L) {//COURT_L reduced by two so the ball doesn't go outside court. Can't change COURT_L as all front/back wall and court quadrants are measured according to original
             this.speedY *= -1;
             if (this.zv > 0) {
                 this.zv *= -0.03;

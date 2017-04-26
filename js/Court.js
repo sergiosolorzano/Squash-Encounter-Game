@@ -300,7 +300,7 @@ function drawTargets(){
             targetFrameTimer1 = stepsPerAnimation;
           } 
         }
-        console.log(targetFrameTimer1, targetFrameTimer2)
+        //console.log(targetFrameTimer1, targetFrameTimer2)
   
   if(PlayerClass.frontWallClicked && PlayerClass.targetFrontWall==TOPLEFTFRONTWALL){
     colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
@@ -336,6 +336,7 @@ function drawTargets(){
   }
 
 if(PlayerClass.frontWallClicked && PlayerClass.targetFrontWall==BOTTOMLEFTFRONTWALL){
+  console.log(targetWidth,targetHeight)
   colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
   colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
   colorRect(farTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
