@@ -132,15 +132,7 @@ function drawAll() {
             PlayerClass.initDrawPlayer();
             ComputerClass.initDrawPlayer();
         } else if (playerEntry == false) {
-            console.log(nearTargetBackWallX, nearTargetBackWallY, targetBackWallDrawnWidth, targetBackWalltDrawnHeight)
-            if(PlayerClass.backWallClicked){
-            colorRect(nearTargetBackWallX, nearTargetBackWallY, targetBackWallDrawnWidth, targetBackWalltDrawnHeight, "blue");
-            }
-            console.log(nearTargetFrontWallX, nearTargetFrontWallY, targetFrontWallDrawnWidth, targetFrontWalltDrawnHeight)
-            if(PlayerClass.frontWallClicked){
-            colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetFrontWallDrawnWidth, targetFrontWalltDrawnHeight, "blue");
-            }
-
+            drawTargets();
             //if(PlayerClass.frontWallClicked){
             //colorRect(nearTargetWallX, nearTargetWallY, targetWallDrawnWidth, targetWalltDrawnHeight, "blue");
             //}

@@ -2,6 +2,8 @@ T_ONCOURT_W=COURT_W*0.54
 T_ONCOURT_L=COURT_L*0.3
 var nearTargetBackWallX=0;
 var nearTargetBackWallY=0;
+var farTargetBackWallX=0;
+var farTargetBackWallY=0;
 var targetBackWallDrawnWidth = 0;
 var targetBackWalltDrawnHeight = 0;
 var nearTargetFrontWallX=0;
@@ -82,6 +84,11 @@ const WALKBOTTOMSQUAREY=58;
 //player or computer whacked by opponent racket
 var playerHit=false;
 
+//draw target variables
+var stepsPerAnimation=20
+var targetFrameTimer1 = 20;//how quick it changes between colours;
+var targetFrameTimer2 = 20;//how quick it changes between colours;
+
 //on mouseclick checks whether backwall is selected as target
 function selectBackWall (mouseClickX,mouseClickY){
 	if(ServeHandler.servingPlayer === ServeHandler.RED || ServeHandler.inPlay) {
@@ -142,6 +149,7 @@ function selectBackWall (mouseClickX,mouseClickY){
       var leftTopDrawn = perspectiveLocation(leftTopX,leftTopY,0);
       var leftBottomDrawn=perspectiveLocation(leftBottomX,leftBottomY,0);
 
+      //perspective coordinates
       var farX;
       var nearX;
       var farY;
@@ -166,16 +174,19 @@ function selectBackWall (mouseClickX,mouseClickY){
       }
 	}
   //set coordinates to draw
-      
-      var visualAdjustmentX=40;//adjustment so the selected wall rectangle does not draw into canvas
-      const visualAdjustmentY=5;//adjustment so selected wall covers to side wall line
+      var visualAdjustmentX=35;//adjustment so the selected wall rectangle does not draw into canvas
+      const visualAdjustmentY=0;//adjustment so selected wall covers to side wall line
       if(PlayerClass.targetBackWall==LEFTBACKWALL){
         visualAdjustmentX*=-1;
       }
-      targetBackWallDrawnWidth = farX-nearX-visualAdjustmentX;
-      targetBackWalltDrawnHeight = farY-nearY+visualAdjustmentY;
+      //targetBackWallDrawnWidth = farX-nearX-visualAdjustmentX;
+      targetBackWallDrawnWidth = (farX-nearX-visualAdjustmentX)/10;
+      //targetBackWalltDrawnHeight = farY-nearY+visualAdjustmentY;
+      targetBackWalltDrawnHeight = 4;
       nearTargetBackWallX=nearX;
       nearTargetBackWallY=nearY;
+      farTargetBackWallX=farX-visualAdjustmentX;
+      farTargetBackWallY=farY-visualAdjustmentY;
       redrawCanvas();
   }//end of function to target the back wall
 
@@ -290,6 +301,43 @@ function selectFrontWall (ballPixelX,ballPixelY){
       nearTargetFrontWallY=nearY;
       
   }//end of function to target the front wall
+
+function drawTargets(){
+  //if(PlayerClass.backWallClicked){
+  //  colorRect(nearTargetBackWallX, nearTargetBackWallY, targetBackWallDrawnWidth, targetBackWalltDrawnHeight, "blue");
+  //}
+           // console.log(nearTargetFrontWallX, nearTargetFrontWallY, targetFrontWallDrawnWidth, targetFrontWalltDrawnHeight)
+  if(PlayerClass.frontWallClicked){
+    colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetFrontWallDrawnWidth, targetFrontWalltDrawnHeight, "blue");
+  }
+
+//console.log(targetAnimationFrames)
+if (PlayerClass.backWallClicked) {
+        if(targetFrameTimer1>0){
+        targetColor="#0000A0"; 
+        targetFrameTimer2=stepsPerAnimation; 
+        }
+        if (targetFrameTimer1-- < 0) {
+          targetColor="#000000"
+          if (targetFrameTimer2-- < 0) {
+            targetFrameTimer1 = stepsPerAnimation;
+          } 
+        }
+       
+        colorRect(nearTargetBackWallX, nearTargetBackWallY, targetBackWallDrawnWidth, targetBackWalltDrawnHeight, targetColor);
+        colorRect(nearTargetBackWallX, farTargetBackWallY, targetBackWallDrawnWidth, targetBackWalltDrawnHeight, targetColor);
+        colorRect(farTargetBackWallX, farTargetBackWallY, -targetBackWallDrawnWidth, targetBackWalltDrawnHeight, targetColor);
+        colorRect(farTargetBackWallX, nearTargetBackWallY, -targetBackWallDrawnWidth, targetBackWalltDrawnHeight, targetColor);
+
+        colorRect(nearTargetBackWallX, nearTargetBackWallY, targetBackWalltDrawnHeight, -targetBackWallDrawnWidth, targetColor);
+        colorRect(nearTargetBackWallX, farTargetBackWallY, targetBackWalltDrawnHeight, targetBackWallDrawnWidth, targetColor);
+        colorRect(farTargetBackWallX, farTargetBackWallY, targetBackWalltDrawnHeight, targetBackWallDrawnWidth, targetColor);
+        colorRect(farTargetBackWallX, nearTargetBackWallY, targetBackWalltDrawnHeight, -targetBackWallDrawnWidth, targetColor);
+
+
+        //drawAtBaseSheetSprite(blue_tgt_topleft, targetFrame, nearTargetBackWallX, nearTargetBackWallY, PLAYER_W, PLAYER_W);
+    } 
+}
 
 function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY, swingTurn){
       if(BallClass.z>PLAYER_MAX_HEIGHT_REACH){

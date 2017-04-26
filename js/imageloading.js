@@ -20,8 +20,7 @@ var p2_shot_top_right = document.createElement("img");
 var p2_shot_top_left = document.createElement("img");
 var p2_serve = document.createElement("img");
 
-var scorecounter1 = document.createElement("img");
-var scorecounter2 = document.createElement("img");
+
 var scorecounterbackground = document.createElement("img");
 var zero = document.createElement("img");
 var one = document.createElement("img");
@@ -47,6 +46,9 @@ var p1_sprint = document.createElement("img");
 var floorbounce = document.createElement("img");
 var messageboard = document.createElement("img");
 var tinhit = document.createElement("img");
+
+//target borders
+var blue_tgt_topleft = document.createElement("img");
 
 //var front_bench = document.createElement("img");
 
@@ -89,8 +91,7 @@ function loadImages(){
 	{varName: p2_shot_top_left, theFile: "shortsprite_p2_shot_top_left.png"},
     {varName: p2_serve, theFile: "p2_serve.png" },
 
-	{varName: scorecounter1, theFile: "scorecounter1a.png"},
-	{varName: scorecounter2, theFile: "scorecounter2a.png"},
+	
 	{varName: scorecounterbackground, theFile: "scorecounterbackground.png"},
 	{varName: zero, theFile: "zero.png"},
 	{varName: one, theFile: "one.png"},
@@ -115,7 +116,9 @@ function loadImages(){
 	{varName: p1_sprint, theFile: "p1_sprint.png"},
 	{varName: floorbounce, theFile: "floorbounce.png"},
 	{varName: tinhit, theFile: "tinhit.png"},
-	{varName: messageboard, theFile: "messageboard.png"}
+	{varName: messageboard, theFile: "messageboard.png"},
+	{varName: blue_tgt_topleft, theFile: "blue_tgt_topleft.png"},
+
 	
 
 	];
