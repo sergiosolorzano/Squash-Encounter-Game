@@ -6,7 +6,6 @@ var initComputerStepsPerAnimFrame = 5;//for players entry only
 var initComputerFrameTimer = 5;//how quick it changes between frames; for players entry only
 var COMPUTER_MOVE_SPEED = 2.8;
 
-
 function ComputerClass() {
 
     this.Init = function () {

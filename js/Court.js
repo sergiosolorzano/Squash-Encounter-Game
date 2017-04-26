@@ -234,7 +234,6 @@ function selectFrontWall (ballPixelX,ballPixelY){
       var farY;
       var nearY;
 
-      //console.log(mouseX,mouseY,centerDrawn.x,leftBottomDrawn.x,centerDrawn.y,leftBottomDrawn.y)
       //determine target wall
       if(mouseX>=centerDrawn.x && mouseX<=rightCenterDrawn.x && mouseY<=centerDrawn.y && mouseY>=centerTopDrawn.y){
         PlayerClass.frontWallClicked=true;
@@ -243,7 +242,6 @@ function selectFrontWall (ballPixelX,ballPixelY){
         nearX=centerTopDrawn.x;
         farY=centerTopDrawn.y;
         nearY=centerDrawn.y;
-        //return [targetFrontWall, centerDrawn.x, centerDrawn.y, rightCenterDrawn.x, centerTopDrawn.y];
       }
 
       if(mouseX<centerDrawn.x && mouseX>=leftCenterDrawn.x && mouseY<centerDrawn.y && mouseY>=leftTopDrawn.y){
@@ -253,7 +251,6 @@ function selectFrontWall (ballPixelX,ballPixelY){
         nearX=centerTopDrawn.x;
         farY=centerTopDrawn.y;
         nearY=centerDrawn.y;
-        //return [targetFrontWall,centerDrawn.x, centerDrawn.y, leftCenterDrawn.x,leftTopDrawn.y];
       }
 
 	if(ServeHandler.servingPlayer === ServeHandler.RED || ServeHandler.inPlay) {
@@ -264,7 +261,6 @@ function selectFrontWall (ballPixelX,ballPixelY){
         		nearX=centerBottomDrawn.x;
         		farY=centerBottomDrawn.y;
         		nearY=centerDrawn.y;
-        		//return [targetFrontWall,centerDrawn.x,centerDrawn.y,rightBottomDrawn.x,rightBottomDrawn.y];
       		}
 
       		if(mouseX<centerDrawn.x && mouseX >= leftBottomDrawn.x && mouseY>centerDrawn.y & mouseY<= leftBottomDrawn.y){
@@ -274,12 +270,10 @@ function selectFrontWall (ballPixelX,ballPixelY){
         		nearX=centerDrawn.x;
         		farY=centerBottomDrawn.y;
         		nearY=centerDrawn.y;
-        		//return  [targetFrontWall,centerDrawn.x,centerDrawn.y,leftBottomDrawn.x,leftBottomDrawn.y]
       		}
 	}
       if(PlayerClass.targetFrontWall!=TOPRIGHTQUADRANT && PlayerClass.targetFrontWall !=TOPLEFTQUADRANT && PlayerClass.targetFrontWall!=BOTTOMRIGHTQUADRANT && PlayerClass.targetFrontWall!= BOTTOMLEFTQUADRANT){
         PlayerClass.targetFrontWall=NOFRONTWALLSELECTED;
-        //return targetFrontWall;
       }
       //set coordinates to draw
       nearTargetFrontWallX=nearX;

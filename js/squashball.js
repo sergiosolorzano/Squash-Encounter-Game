@@ -262,7 +262,7 @@ function BallClass() {
             var degreeTarget = ballAng * 180 / Math.PI;
 
             //Back Wall Swing
-            if (PlayerClass.backWallClicked) {
+            if (PlayerClass.backWallClicked && PlayerClass.isSwinging) {
                 //console.log("Aiming for back wall")
                 PlayerClass.backWallClicked = false;
                 this.backWallOnPlay=true;
@@ -280,7 +280,7 @@ function BallClass() {
                 }
 
                 //Front Wall Swing
-            } else if (PlayerClass.frontWallClicked) {
+            } else if (PlayerClass.frontWallClicked && PlayerClass.isSwinging) {
                 //console.log("Aiming for front wall")
                 PlayerClass.frontWallClicked = false;
                 var ballSpeed = magnitude(this.speedX, this.speedY);
