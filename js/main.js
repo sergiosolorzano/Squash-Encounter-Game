@@ -133,9 +133,6 @@ function drawAll() {
             ComputerClass.initDrawPlayer();
         } else if (playerEntry == false) {
             drawTargets();
-            //if(PlayerClass.frontWallClicked){
-            //colorRect(nearTargetWallX, nearTargetWallY, targetWallDrawnWidth, targetWalltDrawnHeight, "blue");
-            //}
             PlayerClass.drawPlayer();
             ComputerClass.drawPlayer();
             ServeHandler.DrawCountDown();
@@ -145,12 +142,6 @@ function drawAll() {
             drawMessageBoard();
         }
     }
-    //PlayerClass.drawTargetFrontWall();
-    //PlayerClass.selectBackWall();//shows backwal coords on screen
-    //drawUI();
-    //colorText(Math.floor(mouseX)+","+Math.floor(mouseY), mouseX,mouseY,'blue');
-    //colorRect(0,0,64,97,"orange");//real life court
-    //colorRect(BallClass.x,BallClass.y,3,3,"green");////real life ball
     redrawCanvas();
 }
 

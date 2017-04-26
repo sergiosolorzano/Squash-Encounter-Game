@@ -4,13 +4,12 @@ var nearTargetBackWallX=0;
 var nearTargetBackWallY=0;
 var farTargetBackWallX=0;
 var farTargetBackWallY=0;
-var targetBackWallDrawnWidth = 0;
-var targetBackWalltDrawnHeight = 0;
+var targetWidth=10;
+var targetHeight=3;
 var nearTargetFrontWallX=0;
 var nearTargetFrontWallY=0;
-var targetFrontWallDrawnWidth = 0;
-var targetFrontWalltDrawnHeight = 0;
-
+var farTargetFrontWallX=0;
+var farTargetFrontWallY=0;
 
 //player swing-quadrants
 const NOQUADRANTHIT = 0;
@@ -110,7 +109,7 @@ function selectBackWall (mouseClickX,mouseClickY){
       leftBottomX=centerTopX-HITSQUAREBOTTOMW;
       leftBottomY=centerTopY+HITSQUAREBOTTOMZ;
 
-      //draw coordinates for backwall
+      /*//draw coordinates for backwall
       var drawThisLocation = perspectiveLocation(centerTopX,centerTopY,0);
       colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
       var visualCenterTopX = drawThisLocation.x
@@ -139,7 +138,7 @@ function selectBackWall (mouseClickX,mouseClickY){
       var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,0);
       colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
       var visualLeftBottomX = drawThisLocation.x;
-      var visualLeftBottomY = drawThisLocation.y;
+      var visualLeftBottomY = drawThisLocation.y;*/
 
       //mouse selection for back wall
       var centerTopDrawn = perspectiveLocation(centerTopX,centerTopY,0);
@@ -176,13 +175,7 @@ function selectBackWall (mouseClickX,mouseClickY){
   //set coordinates to draw
       var visualAdjustmentX=35;//adjustment so the selected wall rectangle does not draw into canvas
       const visualAdjustmentY=0;//adjustment so selected wall covers to side wall line
-      if(PlayerClass.targetBackWall==LEFTBACKWALL){
-        visualAdjustmentX*=-1;
-      }
-      //targetBackWallDrawnWidth = farX-nearX-visualAdjustmentX;
-      targetBackWallDrawnWidth = (farX-nearX-visualAdjustmentX)/10;
-      //targetBackWalltDrawnHeight = farY-nearY+visualAdjustmentY;
-      targetBackWalltDrawnHeight = 4;
+      
       nearTargetBackWallX=nearX;
       nearTargetBackWallY=nearY;
       farTargetBackWallX=farX-visualAdjustmentX;
@@ -283,36 +276,20 @@ function selectFrontWall (ballPixelX,ballPixelY){
         		nearY=centerDrawn.y;
         		//return  [targetFrontWall,centerDrawn.x,centerDrawn.y,leftBottomDrawn.x,leftBottomDrawn.y]
       		}
-          
 	}
       if(PlayerClass.targetFrontWall!=TOPRIGHTQUADRANT && PlayerClass.targetFrontWall !=TOPLEFTQUADRANT && PlayerClass.targetFrontWall!=BOTTOMRIGHTQUADRANT && PlayerClass.targetFrontWall!= BOTTOMLEFTQUADRANT){
         PlayerClass.targetFrontWall=NOFRONTWALLSELECTED;
         //return targetFrontWall;
       }
       //set coordinates to draw
-      var visualAdjustmentX=0;//adjustment so the selected wall rectangle does not draw into canvas
-      const visualAdjustmentY=0;//adjustment so selected wall covers to side wall line
-      if(PlayerClass.targetBackWall==LEFTBACKWALL){
-        visualAdjustmentX*=-1;
-      }
-      targetFrontWallDrawnWidth = farX-nearX-visualAdjustmentX;
-      targetFrontWalltDrawnHeight = farY-nearY+visualAdjustmentY;
       nearTargetFrontWallX=nearX;
       nearTargetFrontWallY=nearY;
-      
+      farTargetFrontWallX=farX;
+      farTargetFrontWallY=farY;
   }//end of function to target the front wall
 
 function drawTargets(){
-  //if(PlayerClass.backWallClicked){
-  //  colorRect(nearTargetBackWallX, nearTargetBackWallY, targetBackWallDrawnWidth, targetBackWalltDrawnHeight, "blue");
-  //}
-           // console.log(nearTargetFrontWallX, nearTargetFrontWallY, targetFrontWallDrawnWidth, targetFrontWalltDrawnHeight)
-  if(PlayerClass.frontWallClicked){
-    colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetFrontWallDrawnWidth, targetFrontWalltDrawnHeight, "blue");
-  }
-
-//console.log(targetAnimationFrames)
-if (PlayerClass.backWallClicked) {
+      if (PlayerClass.backWallClicked || PlayerClass.frontWallClicked) {
         if(targetFrameTimer1>0){
         targetColor="#0000A0"; 
         targetFrameTimer2=stepsPerAnimation; 
@@ -323,19 +300,75 @@ if (PlayerClass.backWallClicked) {
             targetFrameTimer1 = stepsPerAnimation;
           } 
         }
+        console.log(targetFrameTimer1, targetFrameTimer2)
+  
+  if(PlayerClass.frontWallClicked && PlayerClass.targetFrontWall==TOPLEFTFRONTWALL){
+    colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
+    colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+    colorRect(farTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor);
+    colorRect(farTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+    colorRect(farTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
+    colorRect(farTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+    colorRect(nearTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
+    colorRect(nearTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+  }
+
+  if(PlayerClass.frontWallClicked && PlayerClass.targetFrontWall==BOTTOMRIGHTFRONTWALL){
+    colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
+    colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+    colorRect(farTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
+    colorRect(farTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+    colorRect(farTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
+    colorRect(farTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+    colorRect(nearTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
+    colorRect(nearTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+   }
+
+   if(PlayerClass.frontWallClicked && PlayerClass.targetFrontWall==TOPRIGHTFRONTWALL){
+    colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
+    colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+    colorRect(farTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
+    colorRect(farTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+    colorRect(farTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
+    colorRect(farTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+    colorRect(nearTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
+    colorRect(nearTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+  }
+
+if(PlayerClass.frontWallClicked && PlayerClass.targetFrontWall==BOTTOMLEFTFRONTWALL){
+  colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
+  colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+  colorRect(farTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
+  colorRect(farTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+  colorRect(farTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
+  colorRect(farTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+  colorRect(nearTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
+  colorRect(nearTargetFrontWallX, farTargetFrontWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+  }
        
-        colorRect(nearTargetBackWallX, nearTargetBackWallY, targetBackWallDrawnWidth, targetBackWalltDrawnHeight, targetColor);
-        colorRect(nearTargetBackWallX, farTargetBackWallY, targetBackWallDrawnWidth, targetBackWalltDrawnHeight, targetColor);
-        colorRect(farTargetBackWallX, farTargetBackWallY, -targetBackWallDrawnWidth, targetBackWalltDrawnHeight, targetColor);
-        colorRect(farTargetBackWallX, nearTargetBackWallY, -targetBackWallDrawnWidth, targetBackWalltDrawnHeight, targetColor);
+  if(PlayerClass.backWallClicked && PlayerClass.targetBackWall==RIGHTBACKWALL){
+  colorRect(nearTargetBackWallX, nearTargetBackWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
+  colorRect(nearTargetBackWallX, nearTargetBackWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+  colorRect(farTargetBackWallX, nearTargetBackWallY, targetWidth, targetHeight, targetColor,Math.PI);
+  colorRect(farTargetBackWallX, nearTargetBackWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+  colorRect(farTargetBackWallX, farTargetBackWallY, targetWidth, targetHeight, targetColor,Math.PI);
+  colorRect(farTargetBackWallX, farTargetBackWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+  colorRect(nearTargetBackWallX, farTargetBackWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
+  colorRect(nearTargetBackWallX, farTargetBackWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+  }
 
-        colorRect(nearTargetBackWallX, nearTargetBackWallY, targetBackWalltDrawnHeight, -targetBackWallDrawnWidth, targetColor);
-        colorRect(nearTargetBackWallX, farTargetBackWallY, targetBackWalltDrawnHeight, targetBackWallDrawnWidth, targetColor);
-        colorRect(farTargetBackWallX, farTargetBackWallY, targetBackWalltDrawnHeight, targetBackWallDrawnWidth, targetColor);
-        colorRect(farTargetBackWallX, nearTargetBackWallY, targetBackWalltDrawnHeight, -targetBackWallDrawnWidth, targetColor);
-
-
-        //drawAtBaseSheetSprite(blue_tgt_topleft, targetFrame, nearTargetBackWallX, nearTargetBackWallY, PLAYER_W, PLAYER_W);
+const ADJUSTX=70
+  if(PlayerClass.backWallClicked && PlayerClass.targetBackWall==LEFTBACKWALL){
+  colorRect(nearTargetBackWallX, nearTargetBackWallY, targetWidth, targetHeight, targetColor,Math.PI);
+  colorRect(nearTargetBackWallX, nearTargetBackWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+  colorRect(farTargetBackWallX+ADJUSTX, nearTargetBackWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
+  colorRect(farTargetBackWallX+ADJUSTX, nearTargetBackWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
+  colorRect(farTargetBackWallX+ADJUSTX, farTargetBackWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
+  colorRect(farTargetBackWallX+ADJUSTX, farTargetBackWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+  colorRect(nearTargetBackWallX, farTargetBackWallY, targetWidth, targetHeight, targetColor,Math.PI);
+  colorRect(nearTargetBackWallX, farTargetBackWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
+  }
+  //drawAtBaseSheetSprite(blue_tgt_topleft, targetFrame, nearTargetBackWallX, nearTargetBackWallY, PLAYER_W, PLAYER_W);
     } 
 }
 
@@ -526,7 +559,7 @@ function GradientShotToBackWall (playerX,playerY){
       leftBottomX=centerX-HITSQUAREBOTTOMW;
       leftBottomY=centerY+HITSQUAREBOTTOMZ;
 
-      //draw coordinates at front wall
+      /*//draw coordinates at front wall
       var drawThisLocation = perspectiveLocation(centerX,centerY,0);
       colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
       var visualCenterX = drawThisLocation.x
@@ -554,7 +587,7 @@ function GradientShotToBackWall (playerX,playerY){
       colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
       var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,0);
       colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"blue");
-
+*/
       //determine court quadrant is player standing, X point target on the wall and radiants to shoot to frontwall on swing
       var ballAng;
       var atanResult;
