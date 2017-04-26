@@ -165,6 +165,7 @@ function BallClass() {
 
         //console.log("BouncedOnFloor:",this.bouncedOnFloor,"bouncedOnFrontWall:",this.bouncedOnFrontWall,"quadrantHit:",quadrantHit,"swingTurn:",swingTurn)
         //console.log(this.bouncedOnFloor)
+        console.log("squashball.js ",quadrantHit)
         if (this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit != 0 && swingTurn && this.tinHit == false && this.ballHitFloorBeforeWall == false) {
 
             this.bouncedOnFloor = 0;
@@ -354,6 +355,7 @@ function BallClass() {
             } else {
                 //No Wall is a target
                 //console.log("not aiming for front or back walls")
+                //console.log("no walls selected",quadrantHit)
                 if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
                     if (prevY < this.y) {
                             this.zv += 1;

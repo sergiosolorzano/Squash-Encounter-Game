@@ -224,6 +224,11 @@ function PlayerClass() {
 
         var isPlayerMoving = (this.keyHeld_Gas || this.keyHeld_Reverse || this.keyHeld_TurnLeft || this.keyHeld_TurnRight);
         this.hitGraphicSelection();
+        
+        var hereCollision = ballAtReach(this.x, this.y, BallClass.x, BallClass.y, this.swingTurn);
+        var quadrantHit = hereCollision.quadrant;
+        
+        console.log(this.isSwinging,playerHit,quadrantHit)
         if (this.isSwinging == false && playerHit == false) {
 
             if (this.sprintCooldown > 0) {
@@ -248,8 +253,6 @@ function PlayerClass() {
                 }
             }
             //TODO might need to reset this.sprintMultiplier
-
-            if (this.isSwinging == false && playerHit == false) {
 
                 if (this.keyHeld_Gas) {
                     nextY -= PLAYER_MOVE_SPEED * this.sprintMultiplier;
@@ -279,7 +282,6 @@ function PlayerClass() {
                         Sound.play("sprint_breath", false, 0.2);
                     }
                 }
-            }
         }
         //check so player doesn't go outside the court
         if (nextX >= 0 && nextX <= COURT_W) {
