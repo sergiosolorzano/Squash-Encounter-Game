@@ -85,6 +85,7 @@ function PlayerClass() {
     }
 
     this.drawPlayer = function () {
+        
         var drawLocation = perspectiveLocation(this.x, this.y, 0);
         if (playerEntry == false) {
             var playerAnimationFrames = this.whichPic.width / PLAYER_W;

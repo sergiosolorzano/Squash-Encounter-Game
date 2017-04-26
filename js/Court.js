@@ -1,5 +1,14 @@
 T_ONCOURT_W=COURT_W*0.54
 T_ONCOURT_L=COURT_L*0.3
+var nearTargetBackWallX=0;
+var nearTargetBackWallY=0;
+var targetBackWallDrawnWidth = 0;
+var targetBackWalltDrawnHeight = 0;
+var nearTargetFrontWallX=0;
+var nearTargetFrontWallY=0;
+var targetFrontWallDrawnWidth = 0;
+var targetFrontWalltDrawnHeight = 0;
+
 
 //player swing-quadrants
 const NOQUADRANTHIT = 0;
@@ -72,32 +81,6 @@ const WALKBOTTOMSQUAREY=58;
 
 //player or computer whacked by opponent racket
 var playerHit=false;
-
-
-function drawTargetBackWall (nearX,farX,nearY,farY){
-      var visualAdjustmentX=40;//adjustment so the selected wall rectangle does not draw into canvas
-      const visualAdjustmentY=5;//adjustment so selected wall covers to side wall line
-      if(PlayerClass.targetBackWall==LEFTBACKWALL){
-        visualAdjustmentX*=-1;
-      }
-      var targetWallDrawnWidth = farX-nearX-visualAdjustmentX;
-      var targetWalltDrawnHeight = farY-nearY+visualAdjustmentY;
-      colorRect(nearX, nearY, targetWallDrawnWidth, targetWalltDrawnHeight, "blue");
-      redrawCanvas();
-    }
-
-function drawTargetFrontWall (nearX,farX,nearY,farY){
-      var visualAdjustmentX=0;//adjustment so the selected wall rectangle does not draw into canvas
-      const visualAdjustmentY=0;//adjustment so selected wall covers to side wall line
-      if(PlayerClass.targetBackWall==LEFTBACKWALL){
-        visualAdjustmentX*=-1;
-      }
-      var targetWallDrawnWidth = farX-nearX-visualAdjustmentX;
-      var targetWalltDrawnHeight = farY-nearY+visualAdjustmentY;
-      colorRect(nearX, nearY, targetWallDrawnWidth, targetWalltDrawnHeight, "blue");
-      redrawCanvas();
-    }
-
 
 //on mouseclick checks whether backwall is selected as target
 function selectBackWall (mouseClickX,mouseClickY){
@@ -181,9 +164,19 @@ function selectBackWall (mouseClickX,mouseClickY){
           farY=leftBottomDrawn.y;
           nearY=centerTopDrawn.y;
       }
-      //call function to draw the target wall
-      drawTargetBackWall(nearX,farX,nearY,farY);
 	}
+  //set coordinates to draw
+      
+      var visualAdjustmentX=40;//adjustment so the selected wall rectangle does not draw into canvas
+      const visualAdjustmentY=5;//adjustment so selected wall covers to side wall line
+      if(PlayerClass.targetBackWall==LEFTBACKWALL){
+        visualAdjustmentX*=-1;
+      }
+      targetBackWallDrawnWidth = farX-nearX-visualAdjustmentX;
+      targetBackWalltDrawnHeight = farY-nearY+visualAdjustmentY;
+      nearTargetBackWallX=nearX;
+      nearTargetBackWallY=nearY;
+      redrawCanvas();
   }//end of function to target the back wall
 
 //on mouse target front wall
@@ -279,13 +272,23 @@ function selectFrontWall (ballPixelX,ballPixelY){
         		nearY=centerDrawn.y;
         		//return  [targetFrontWall,centerDrawn.x,centerDrawn.y,leftBottomDrawn.x,leftBottomDrawn.y]
       		}
+          
 	}
       if(PlayerClass.targetFrontWall!=TOPRIGHTQUADRANT && PlayerClass.targetFrontWall !=TOPLEFTQUADRANT && PlayerClass.targetFrontWall!=BOTTOMRIGHTQUADRANT && PlayerClass.targetFrontWall!= BOTTOMLEFTQUADRANT){
         PlayerClass.targetFrontWall=NOFRONTWALLSELECTED;
         //return targetFrontWall;
       }
-      //call function to draw the target wall
-      drawTargetFrontWall(nearX,farX,nearY,farY);
+      //set coordinates to draw
+      var visualAdjustmentX=0;//adjustment so the selected wall rectangle does not draw into canvas
+      const visualAdjustmentY=0;//adjustment so selected wall covers to side wall line
+      if(PlayerClass.targetBackWall==LEFTBACKWALL){
+        visualAdjustmentX*=-1;
+      }
+      targetFrontWallDrawnWidth = farX-nearX-visualAdjustmentX;
+      targetFrontWalltDrawnHeight = farY-nearY+visualAdjustmentY;
+      nearTargetFrontWallX=nearX;
+      nearTargetFrontWallY=nearY;
+      
   }//end of function to target the front wall
 
 function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY, swingTurn){
