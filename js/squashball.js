@@ -54,8 +54,7 @@ function BallClass() {
         this.ballDrawHistory = [];
         //kill particles vars
         this.killParticlesActive=false;
-        this.ballDirection;
-	this.isServed = false;
+        this.isServed = false;
         this.serveVelocityZ = 1.5;
         this.maxServeZ = 15;
     }
@@ -149,7 +148,7 @@ function BallClass() {
         }
 
         //check ball only bounced once or none on floor before swing
-        if (this.bouncedOnFloor == 1 || this.bouncedOnFloor == 0) {
+        if (this.bouncedOnFloor<=1) {
             this.ballBouncedOnFloor = true;
         } else {
             this.ballBouncedOnFloor = false;
@@ -343,17 +342,19 @@ function BallClass() {
                     this.zv = 0.5
                 }
 
-                //Front wall top quadrants targeted
-		if(this.isServed) {
-			this.zv += 5;
-		}
+        //Front wall top quadrants targeted
+		//I could not see this used in the game
+        /*if(this.isServed) {
+		console.log("used here")
+        	this.zv += 5;
+		}*/
 		else {
-                	if (targetFrontWallQuadrant == TOPLEFTFRONTWALL || targetFrontWallQuadrant == TOPRIGHTFRONTWALL) {
-                    		this.zv += 0.5;
-                    		if (this.zv < 0.5 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
-                        		this.zv = 0.5
-                    		}
-                	}
+        	if (targetFrontWallQuadrant == TOPLEFTFRONTWALL || targetFrontWallQuadrant == TOPRIGHTFRONTWALL) {
+            		this.zv += 0.5;
+            		if (this.zv < 0.5 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
+                		this.zv = 0.5
+            		}
+        	}
 		}
 
             } else {
@@ -386,9 +387,6 @@ function BallClass() {
 
 
         //kill particles on ball at kill shot
-        this.ballDirection=Math.atan2(this.speedY,this.speedX);
-        var degreesParticles = this.ballDirection * 180 / Math.PI;
-       
             if(this.killParticlesActive){
                 if (particlesTimer++ < particlesEndTimer) {
                 createParticleskill();
@@ -441,7 +439,7 @@ function BallClass() {
 
         if (this.nextY <= 0) {
             this.speedY *= -1;
-		if(this.isServed) {
+        if(this.isServed) {
 			this.isServed = false;
 			this.zv *= -1.5;
 			//this.speedX *= 0.65; can we change speed in one place, at reset

@@ -9,12 +9,12 @@ var Rules = function Score() {
     self.check = function() {
         //if ball has bounced twice, reset
         //TODO: figure out if a point needs to be rewarded here.
+        console.log(BallClass.bouncedOnFloor)
         if (BallClass.bouncedOnFloor > 1) {
+            console.log("Ball bounced twice on Floor",BallClass.bouncedOnFloor)
             self.givePoint();
             Game.RallyReset();
             message=1;
-        } else {
-            //
         }
 
         self.checkRound();
@@ -72,7 +72,7 @@ var Rules = function Score() {
     self.checkFirstBounce = function() {
         if (BallClass.bouncedOnFloor == 1 && BallClass.bouncedOnFrontWall == false) {
             BallClass.ballHitFloorBeforeWall = true;
-            //console.log("ball hit the floor before hitting the front wall, end of point")
+            console.log("ball hit the floor before hitting the front wall, end of point")
 
             self.givePoint();
             Game.RallyReset();

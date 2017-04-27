@@ -330,7 +330,6 @@ function drawTargets(){
   }
 
 if(PlayerClass.frontWallClicked && PlayerClass.targetFrontWall==BOTTOMLEFTFRONTWALL){
-  console.log(targetWidth,targetHeight)
   colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
   colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI/2);
   colorRect(farTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
@@ -751,7 +750,7 @@ function drawCourtQuadrants (){
       if(PlayerClass.x<centerX && PlayerClass.x >= leftBottomX && PlayerClass.y>centerY & PlayerClass.y<= leftBottomY){
         PlayerClass.playerStandingOnCourtQuadrant=LEFTBOTTOMCOURTQUADRANT;
       }
-      //console.log(PlayerClass.playerStandingOnCourtQuadrant)
+      console.log("PlayerStanding ",PlayerClass.playerStandingOnCourtQuadrant)
     }
 
 //Drawing calculations

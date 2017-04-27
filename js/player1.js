@@ -213,7 +213,7 @@ function PlayerClass() {
                     this.whichPic = p1_shot_bottom_left;
                     break;
             }
-        console.log(this.whichPic,quadrantHit)
+        //console.log(this.whichPic,quadrantHit)
         }
     }
 
@@ -238,7 +238,7 @@ function PlayerClass() {
                 if (this.sprintStamina > 0 && this.sprintCooldown == 0) {
                     this.sprintMultiplier = SPRINT_MULTIPLER;
                     this.sprintStamina--;
-                    console.log(this.sprintStamina)
+                    //console.log(this.sprintStamina)
                 }
                 else if (this.sprintStamina == 0) {
                     this.sprintMultiplier = 1;

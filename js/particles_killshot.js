@@ -108,9 +108,5 @@ this.readyToRemove=false;
 
 	this.draw=function(){
 		colorCircle(this.x,this.y-this.z,MINKILLPARTICLESIZE*this.cyclesKillLeft/(MINKILLCYCLE+CYCLEKILLANCHOR),this.myColor);
-		/*const RECTWIDTH=-(4+MINKILLPARTICLESIZE*this.cyclesKillLeft/(MINKILLCYCLE+CYCLEKILLANCHOR));
-		const RECTHEIGHT=MINKILLPARTICLESIZE*this.cyclesKillLeft/(MINKILLCYCLE+CYCLEKILLANCHOR);
-		console.log(BallClass.ballDirection)
-		colorRect(this.x,this.y-this.z,RECTWIDTH,RECTHEIGHT,this.myColor,BallClass.ballDirection);*/
 	}
 }
