@@ -750,7 +750,59 @@ function drawCourtQuadrants (){
       if(PlayerClass.x<centerX && PlayerClass.x >= leftBottomX && PlayerClass.y>centerY & PlayerClass.y<= leftBottomY){
         PlayerClass.playerStandingOnCourtQuadrant=LEFTBOTTOMCOURTQUADRANT;
       }
-      console.log("PlayerStanding ",PlayerClass.playerStandingOnCourtQuadrant)
+      //console.log("PlayerStanding ",PlayerClass.playerStandingOnCourtQuadrant)
+    }
+
+    function checkUpperRedLine(){
+      const WALKTOPSQUAREW=35;
+      const WALKBOTTOMSQUAREW=35;
+      const WALKCENTERSQUAREW=35;
+      const WALKTOPSQUAREY=39;
+      const WALKBOTTOMSQUAREY=58;
+
+      var centerX=COURT_W/2;
+      var centerY=COURT_L*0.38;
+
+      var leftCenterX=centerX-WALKCENTERSQUAREW;
+      var leftCenterY=centerY;
+      var leftCenterZ=42
+
+      var leftTopX=centerX-WALKTOPSQUAREW;
+      var leftTopY=centerY-WALKTOPSQUAREY;
+      var leftTopZ=42
+
+      var leftBottomX=centerX-WALKBOTTOMSQUAREW;
+      var leftBottomY=centerY+WALKBOTTOMSQUAREY;
+      var leftBottomZ=30
+
+      var drawThisLocation = perspectiveLocation(leftCenterX,leftCenterY,leftCenterZ);
+      colorRect(drawThisLocation.x,drawThisLocation.y-drawThisLocation.z,8,8,"magenta");
+      var drawThisLocation = perspectiveLocation(leftTopX,leftTopY,leftTopZ);
+      colorRect(drawThisLocation.x,drawThisLocation.y-drawThisLocation.z,8,8,"magenta");
+      var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,leftBottomZ);
+      colorRect(drawThisLocation.x,drawThisLocation.y-drawThisLocation.z,8,8,"magenta");
+
+      var rightCenterX=centerX+WALKCENTERSQUAREW;
+      var rightCenterY=centerY;
+      var rightCenterZ=42
+
+      var rightTopX=centerX+WALKTOPSQUAREW;
+      var rightTopY=centerY-WALKTOPSQUAREY;
+      var rightTopZ=42
+
+      var rightBottomX=centerX+WALKBOTTOMSQUAREW;
+      var rightBottomY=centerY+WALKBOTTOMSQUAREY;
+      var rightBottomZ=30
+
+      //draw coordinates of side wall red lines      
+      var drawThisLocation = perspectiveLocation(rightTopX,rightTopY,rightTopZ);
+      colorRect(drawThisLocation.x,drawThisLocation.y-drawThisLocation.z,8,8,"magenta");
+      var visualRightTopX = drawThisLocation.x
+      var drawThisLocation = perspectiveLocation(rightCenterX,rightCenterY,rightCenterZ);
+      colorRect(drawThisLocation.x,drawThisLocation.y-drawThisLocation.z,8,8,"magenta");
+      var visualRightCenterX = drawThisLocation.x
+      var drawThisLocation = perspectiveLocation(rightBottomX,rightBottomY,rightBottomZ);
+      colorRect(drawThisLocation.x,drawThisLocation.y-drawThisLocation.z,8,8,"magenta");
     }
 
 //Drawing calculations

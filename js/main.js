@@ -140,6 +140,7 @@ function drawAll() {
             drawAllKillParticles();
             Rules.check();
             drawMessageBoard();
+            //drawLines();
         }
     }
     redrawCanvas();

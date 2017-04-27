@@ -3,13 +3,12 @@ var MESSAGEBOARD=0;
 var FLOORBOUNCE=1;
 var TINHIT=2;
 
-
 var Rules = function Score() {
     var self = {}
     self.check = function() {
         //if ball has bounced twice, reset
         //TODO: figure out if a point needs to be rewarded here.
-        console.log(BallClass.bouncedOnFloor)
+        //console.log(BallClass.bouncedOnFloor)
         if (BallClass.bouncedOnFloor > 1) {
             console.log("Ball bounced twice on Floor",BallClass.bouncedOnFloor)
             self.givePoint();
@@ -37,6 +36,19 @@ var Rules = function Score() {
             
         }
     }
+
+    self.checkTopRedLineLimits = function() {
+            
+            if (BallClass.topRedLineLimitBreached) {
+                console.log("Ball Over the Top Red Line")
+
+                self.givePoint();
+                Game.RallyReset();
+                message=2;    
+                
+            }
+        }
+
 
     self.checkRound = function checkRound() {
         //Players must have scored at least 9 to win
