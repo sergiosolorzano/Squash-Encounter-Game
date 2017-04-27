@@ -97,8 +97,8 @@ function PlayerClass() {
             if (playerFrame >= playerAnimationFrames) {
                 playerFrame = 0;
                 playerHit = false;
-                this.whichPic = p1_standing;
                 this.isSwinging = false;
+                this.whichPic = p1_standing;
                 opponentAtReach = false;
                 playerFrameTimer = 2
                 playerStepsPerAnimFrame = 2
@@ -151,10 +151,12 @@ function PlayerClass() {
 
         //normal automatic shot
         if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.keyHeld_SprintAndKill == false) {
+        this.isSwinging = true;
+        playerFrameTimer = 2;
             //console.log("swingturn:",this.swingTurn,"ballbounced:",ballBouncedOnFloor)
+            
             switch (quadrantHit) {//maybe quadrantHit=0 in which case none called
                 case TOPRIGHTQUADRANT:
-                    this.isSwinging = true;
                     Sound.hit();
                     if (computerIsAtReachNow) {
                         if (this.x > ComputerClass.x) {
@@ -169,7 +171,6 @@ function PlayerClass() {
                     this.whichPic = p1_shot_top_right;
                     break;
                 case TOPLEFTQUADRANT:
-                    this.isSwinging = true;
                     Sound.hit();
                     if (computerIsAtReachNow) {
                         if (this.x > ComputerClass.x) {
@@ -184,7 +185,6 @@ function PlayerClass() {
                     this.whichPic = p1_shot_top_left;
                     break;
                 case BOTTOMRIGHTQUADRANT:
-                    this.isSwinging = true;
                     Sound.hit();
                     if (computerIsAtReachNow) {
                         if (this.x > ComputerClass.x) {
@@ -199,7 +199,6 @@ function PlayerClass() {
                     this.whichPic = p1_shot_bottom_right;
                     break;
                 case BOTTOMLEFTQUADRANT:
-                    this.isSwinging = true;
                     Sound.hit();
                     if (computerIsAtReachNow) {
                         if (this.x > ComputerClass.x) {
@@ -214,6 +213,7 @@ function PlayerClass() {
                     this.whichPic = p1_shot_bottom_left;
                     break;
             }
+        console.log(this.whichPic,quadrantHit)
         }
     }
 
@@ -223,12 +223,10 @@ function PlayerClass() {
         this.particles.active = false;
 
         var isPlayerMoving = (this.keyHeld_Gas || this.keyHeld_Reverse || this.keyHeld_TurnLeft || this.keyHeld_TurnRight);
-        this.hitGraphicSelection();
-        
         var hereCollision = ballAtReach(this.x, this.y, BallClass.x, BallClass.y, this.swingTurn);
         var quadrantHit = hereCollision.quadrant;
         
-        console.log(this.isSwinging,playerHit,quadrantHit)
+        //console.log(this.isSwinging,playerHit,quadrantHit)
         if (this.isSwinging == false && playerHit == false) {
 
             if (this.sprintCooldown > 0) {

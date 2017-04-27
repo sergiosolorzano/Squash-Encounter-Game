@@ -76,7 +76,6 @@ function ComputerClass() {
         var playerGotoY;
         var computerRunning=false;
 
-        this.hitGraphicSelection();
         if (this.isHit) {
             return;
         }
@@ -136,10 +135,9 @@ function ComputerClass() {
         }
 
         if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false) {
-
+            this.isSwinging = true;
             switch (quadrantHit) {
                 case TOPRIGHTQUADRANT:
-                    this.isSwinging = true;
                     Sound.hit();
                     if (player1IsAtReachNow) {
                         if (this.x > PlayerClass.x) {
@@ -153,7 +151,6 @@ function ComputerClass() {
                     this.whichPic = p2_shot_top_right;
                     break;
                 case TOPLEFTQUADRANT:
-                    this.isSwinging = true;
                     Sound.hit();
                     if (player1IsAtReachNow) {
                         if (this.x > PlayerClass.x) {
@@ -168,7 +165,6 @@ function ComputerClass() {
                     this.whichPic = p2_shot_top_left;
                     break;
                 case BOTTOMRIGHTQUADRANT:
-                    this.isSwinging = true;
                     Sound.hit();
                     if (player1IsAtReachNow) {
                         if (this.x > PlayerClass.x) {
@@ -183,7 +179,6 @@ function ComputerClass() {
                     this.whichPic = p2_shot_bottom_right;
                     break;
                 case BOTTOMLEFTQUADRANT:
-                    this.isSwinging = true;
                     Sound.hit();
                     if (player1IsAtReachNow) {
                         if (this.x > PlayerClass.x) {

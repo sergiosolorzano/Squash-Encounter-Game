@@ -155,6 +155,10 @@ function BallClass() {
             this.ballBouncedOnFloor = false;
         }
 
+        //run NCP and computer swing animations
+        PlayerClass.hitGraphicSelection();
+        ComputerClass.hitGraphicSelection();
+
         //check if ball hit the floor before hitting the front wall at swing
         Rules.checkFirstBounce()
 
@@ -165,7 +169,7 @@ function BallClass() {
 
         //console.log("BouncedOnFloor:",this.bouncedOnFloor,"bouncedOnFrontWall:",this.bouncedOnFrontWall,"quadrantHit:",quadrantHit,"swingTurn:",swingTurn)
         //console.log(this.bouncedOnFloor)
-        console.log("squashball.js ",quadrantHit)
+        //console.log("squashball.js ",quadrantHit)
         if (this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit != 0 && swingTurn && this.tinHit == false && this.ballHitFloorBeforeWall == false) {
 
             this.bouncedOnFloor = 0;
@@ -440,8 +444,8 @@ function BallClass() {
 		if(this.isServed) {
 			this.isServed = false;
 			this.zv *= -1.5;
-			this.speedX *= 0.65;
-			this.speedY *= 1.5;
+			//this.speedX *= 0.65; can we change speed in one place, at reset
+			//this.speedY *= 1.5; can we change speed in one place, at reset
 		}
             else if (this.zv > 0) {
                 this.zv *= -0.03;

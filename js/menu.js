@@ -166,7 +166,7 @@ function menuInput(keyEvent, pressed) {
             //ignore if not on main menu
             return;
         } else {
-            console.log('selected:'+menuArray[selectedMenuIndex]);
+            //console.log('selected:'+menuArray[selectedMenuIndex]);
             switch (menuArray[selectedMenuIndex]) {
                 case 'Play':
                     curr_menuScreen = 'Play';
