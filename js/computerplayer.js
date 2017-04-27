@@ -56,7 +56,6 @@ function ComputerClass() {
         }
         if (computerFrame >= computerAnimationFrames) {
             computerFrame = 0;
-
             this.isHit = false;
             this.whichPic = p2_standing;
             this.isSwinging = false;
@@ -108,7 +107,7 @@ function ComputerClass() {
 
         computerRunning=(nextX!=this.x);
         
-        if(computerRunning){
+        if(computerRunning && this.isSwinging==false){
         this.whichPic = p2_running;    
         }
 
@@ -136,6 +135,7 @@ function ComputerClass() {
 
         if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false) {
             this.isSwinging = true;
+            computerFrameTimer = 2;
             switch (quadrantHit) {
                 case TOPRIGHTQUADRANT:
                     Sound.hit();
