@@ -383,7 +383,7 @@ function BallClass() {
 
             //safety catch to avoid the ball running too low
             if (this.zv < 0.75) {
-                this.zv = 1.5
+                this.zv = 0.75
             }
 
             if (playerSwingTurn) {
