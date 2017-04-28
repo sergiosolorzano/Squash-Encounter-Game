@@ -100,8 +100,9 @@ function rightToServe() {
 }
 
 function rightToServeOutcome() {
-    var drawLocationPlayer = (ServeHandler.flipPos > 0 ? perspectiveLocation(COURT_W * 0.3, COURT_L * 0.65, 0) : perspectiveLocation(COURT_W * 0.8, COURT_L * 0.65, 0)),
-        subText = "Press Enter to Continue",
+    var drawLocationPlayer1 = (ServeHandler.flipPos > 0 ? perspectiveLocation(COURT_W * 0.3, COURT_L * 0.65, 0) : perspectiveLocation(COURT_W * 0.8, COURT_L * 0.65, 0));
+    var drawLocationPlayer2 = perspectiveLocation(COURT_W * 0.8, COURT_L * 0.65, 0);
+    var subText = "Press Enter to Continue",
         chooseLeft = "",
         chooseRight = "",
         setChoice = "",
@@ -109,7 +110,7 @@ function rightToServeOutcome() {
 
     if (ServeHandler.bluePicks) {
         window.clearTimeout(timer);
-        drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer.x, drawLocationPlayer.y, PLAYER_W, PLAYER_H);
+        drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer1.x, drawLocationPlayer1.y, PLAYER_W, PLAYER_H);
         titleText = "Choose Your Starting Side:";
         subText = "";
         chooseLeft = "A for Left";
@@ -119,7 +120,7 @@ function rightToServeOutcome() {
         ServeHandler.WhoServes();
     }
     else if (spinFrame == 5) {
-        drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer.x, drawLocationPlayer.y, PLAYER_W, PLAYER_H);
+        drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer1.x, drawLocationPlayer1.y, PLAYER_W, PLAYER_H);
         titleText = "Blue Player Has Right To Serve !";
         canvasContext.fillStyle = "blue";
         ServeHandler.servingPlayer = ServeHandler.BLUE;
@@ -128,6 +129,7 @@ function rightToServeOutcome() {
         subText = "";
         timer = window.setTimeout(function () { ServeHandler.bluePicks = true; }, 1200);
     } else {
+        drawAtBaseSheetSprite(p2_standing, 0, drawLocationPlayer2.x, drawLocationPlayer2.y, PLAYER_W, PLAYER_H);
         titleText = "Red Player Has Right To Serve !";
         canvasContext.fillStyle = "red";
         ServeHandler.servingPlayer = ServeHandler.RED;

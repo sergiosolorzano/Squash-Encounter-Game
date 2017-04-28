@@ -753,7 +753,7 @@ function drawCourtQuadrants (){
       //console.log("PlayerStanding ",PlayerClass.playerStandingOnCourtQuadrant)
     }
 
-    function checkUpperRedLine(){
+    /*function checkUpperRedLine(){
       const WALKTOPSQUAREW=35;
       const WALKBOTTOMSQUAREW=35;
       const WALKCENTERSQUAREW=35;
@@ -803,7 +803,7 @@ function drawCourtQuadrants (){
       var visualRightCenterX = drawThisLocation.x
       var drawThisLocation = perspectiveLocation(rightBottomX,rightBottomY,rightBottomZ);
       colorRect(drawThisLocation.x,drawThisLocation.y-drawThisLocation.z,8,8,"magenta");
-    }
+    }*/
 
 //Drawing calculations
   //determine window range for racket hit: Draw only
