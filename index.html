@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
+    <meta charset="utf-8">
     <title>Squash Encounter</title>
     <link href="https://fonts.googleapis.com/css?family=Cherry+Cream+Soda" rel="stylesheet" type="text/css">
     <style>
-        html, body {
+        *, html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body,
+        canvas, #gameArea {
+            position: relative;
             width: 100%;
             height: 100%;
-            margin: 0px;
-            padding: 0px;
         }
 
         body {
@@ -18,19 +22,14 @@
             overflow: hidden;
         }
 
-        #gameArea {
-            position: relative;
-            width: 100%;
-            height: 100%;
-        }
-
         canvas {
-            image-rendering: optimizeSpeed; /* Older versions of FF          */
-            image-rendering: -moz-crisp-edges; /* FF 6.0+                       */
-            image-rendering: -webkit-optimize-contrast; /* Safari                        */
+            position: relative;
+            image-rendering: optimizeSpeed; /* Older versions of FF */
+            image-rendering: -moz-crisp-edges; /* FF 6.0+ */
+            image-rendering: -webkit-optimize-contrast; /* Safari */
             image-rendering: -o-crisp-edges; /* OS X & Windows Opera (12.02+) */
-            image-rendering: pixelated; /* Awesome future-browsers       */
-            -ms-interpolation-mode: nearest-neighbor; /* IE                            */
+            image-rendering: pixelated; /* Awesome future-browsers */
+            -ms-interpolation-mode: nearest-neighbor; /* IE */
         }
 
         #drawCanvas {
@@ -39,9 +38,13 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
+
+        #gameCanvas {
+            width: auto;
+            height: auto;
+        }
     </style>
 </head>
-
 <body>
     <div id="gameArea">
         <canvas id="drawCanvas">
@@ -70,7 +73,6 @@
     <script src="js/UI.js"></script>
     <script src="js/game.js"></script>
     <script src="js/scorecounter.js"></script>
-
 
 </body>
 </html>
