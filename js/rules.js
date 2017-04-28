@@ -6,6 +6,8 @@ var TINHIT=2;
 var OUTLINES=3;
 var BLUESERVES=4;
 var REDSERVES=5;
+var PRESSENTER=6;
+var DRAWSERVE=7;
 
 var endPoint=false;
 

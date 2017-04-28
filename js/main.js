@@ -118,6 +118,7 @@ function drawAll() {
     drawStaminaBar();
     drawScoreCounter();
 
+
     if (serveBet) {
         rightToServe();
     } else {
@@ -138,7 +139,6 @@ function drawAll() {
             ServeHandler.DrawCountDown();
             drawAllParticles();
             drawAllKillParticles();
-            
             drawMessageBoard();
             //drawLines();
         }

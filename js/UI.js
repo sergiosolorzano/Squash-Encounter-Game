@@ -60,6 +60,9 @@ function rightToServe() {
     var drawLocation = perspectiveLocation(COURT_W / 2, COURT_L * 0.2, 0),
         titleText = null;
 
+    drawMessageBoard();
+    message=7;
+    
     if (numFullSpins > 0) {
         spinAnimationFrames = serve_spin.width / SERVE_W;
     } else if (!moreFrames) {
@@ -86,11 +89,11 @@ function rightToServe() {
             spinFrame = 0;
             numFullSpins--;
         }
-        titleText = "Drawing Right To Serve, please hold";
+        /*titleText = "";
         canvasContext.fillStyle = "grey";
         canvasContext.textAlign = "center";
         canvasContext.font = "bold 15px Cherry Cream Soda";
-        canvasContext.fillText((titleText), canvas.width / 2, 490);
+        canvasContext.fillText((titleText), canvas.width / 2, 490);*/
     }
     else {
         if (!endAnimation) {
@@ -105,24 +108,27 @@ function rightToServe() {
 function rightToServeOutcome() {
     var drawLocationPlayer1 = (ServeHandler.flipPos > 0 ? perspectiveLocation(COURT_W * 0.3, COURT_L * 0.65, 0) : perspectiveLocation(COURT_W * 0.8, COURT_L * 0.65, 0));
     var drawLocationPlayer2 = perspectiveLocation(COURT_W * 0.8, COURT_L * 0.65, 0);
-    var subText = "Press Enter to Continue",
-        chooseLeft = "",
+    var subText = "Press Enter to Continue";
+    var chooseLeft = "",
         chooseRight = "",
         setChoice = "",
         titleText = null;
 
     if (ServeHandler.bluePicks) {
         window.clearTimeout(timer);
+        
+
         drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer1.x, drawLocationPlayer1.y, PLAYER_W, PLAYER_H);
         titleText = "Choose Your Starting Side:";
         subText = "";
+        canvasContext.fillStyle = "blue";
         chooseLeft = "A for Left";
         chooseRight = "D for Right"
         setChoice = "Press Enter to Continue"
-        canvasContext.fillStyle = "blue";
         ServeHandler.WhoServes();
     }
     else if (spinFrame == 5) {
+        
         drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer1.x, drawLocationPlayer1.y, PLAYER_W, PLAYER_H);
         titleText = "Blue Player Has Right To Serve !";
         canvasContext.fillStyle = "blue";
@@ -132,6 +138,7 @@ function rightToServeOutcome() {
         subText = "";
         timer = window.setTimeout(function () { ServeHandler.bluePicks = true; }, 1200);
     } else {
+        
         drawAtBaseSheetSprite(p2_standing, 0, drawLocationPlayer2.x, drawLocationPlayer2.y, PLAYER_W, PLAYER_H);
         titleText = "Red Player Has Right To Serve !";
         canvasContext.fillStyle = "red";
@@ -145,10 +152,14 @@ function rightToServeOutcome() {
 
     canvasContext.fillStyle = "black";
     canvasContext.textAlign = "center";
-    canvasContext.fillText(setChoice, canvas.width / 2, canvas.height / 2);
+    //canvasContext.fillText(setChoice, canvas.width / 2, canvas.height / 2);
+    //message player
+    message=PRESSENTER;
+    drawMessageBoard();
 
     canvasContext.font = "bold 15px Cherry Cream Soda";
-    canvasContext.fillText((subText), canvas.width / 2, 515);
+    //canvasContext.fillText((subText), canvas.width / 2, 515);
+    canvasContext.fillStyle = "blue";
     canvasContext.fillText(chooseLeft, canvas.width * 2 / 5, 515);
     canvasContext.fillText(chooseRight, canvas.width * 3 / 5, 515);
 }
@@ -194,5 +205,18 @@ function drawMessageBoard(){
                     canvasContext.font = "18px Cherry Cream Soda";
                     canvasContext.fillText("Gamkedo Club's Squash Encounter !", canvas.width/2, canvas.height-42 );
                     break;
+                case PRESSENTER:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Press Enter To Continue", canvas.width/2, canvas.height-42 );
+                    break;
+                case DRAWSERVE:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Drawing Right To Serve, please hold", canvas.width/2, canvas.height-42 );
+                    break;
+                    
                 }
 }

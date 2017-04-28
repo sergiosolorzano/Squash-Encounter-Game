@@ -55,6 +55,7 @@ function returnToMenu(){
 function drawMenu() {
     clearScreen();
     drawBitmapCenteredWithRotation(squashcourt_nocheer, canvas.width / 2, canvas.height / 2, 0);
+    drawMessageBoard();
     switch (curr_menuScreen) {
         case "Credits":
             drawCredits();
@@ -151,7 +152,6 @@ function drawRules() {
 }
 
 function drawMainMenu() {
-
     drawText("Play", 400);
     drawText("Game Rules", 425);
     drawText("Scoring System", 450);
@@ -163,6 +163,7 @@ function drawMainMenu() {
     canvasContext.drawImage(p2_standing,
     canvas.width / 3.3 * 2, 350 + selectedMenuIndex * 25,
     50, 50);
+
 }
 
 function menuInput(keyEvent, pressed) {

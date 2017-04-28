@@ -1,5 +1,5 @@
-var timer=20;
-var maxTimer=20;
+var timer=50;
+var maxTimer=50;
 
 var Game = function Game() {
     ctrl = {}

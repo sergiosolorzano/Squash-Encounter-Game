@@ -48,6 +48,16 @@ function ServeClass() {
             if (this.servingPlayer === this.BLUE) BallClass.x = this.RIGHT_SQUASHBALL;
             else BallClass.x = this.LEFT_SQUASHBALL;
         }
+        
+        if(this.inPlay == false){
+            if (this.servingPlayer === this.RED){
+                message=REDSERVES;
+            } else {
+                message=BLUESERVES;
+            }
+    }
+        
+
         this.time = 0;
         this.RedServes();
     }
@@ -131,18 +141,6 @@ function ServeClass() {
 	}
         BallClass.isVisible = true;
         this.inServe = true;
-        
-        //Board message
-        if(this.inPlay == false){
-
-            if (this.servingPlayer === this.RED){
-                message=REDSERVES;
-            } else {
-                message=BLUESERVES;
-            }
-        } else {
-            message=MESSAGEBOARD;
-        }
     }
 
     this.DrawCountDown = function () {
