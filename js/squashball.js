@@ -159,8 +159,11 @@ function BallClass() {
         PlayerClass.hitGraphicSelection();
         ComputerClass.hitGraphicSelection();
 
+        //check ball didn't bounce on floor more than once
+        Rules.checkBallBouncedOnce();
+
         //check if ball hit the floor before hitting the front wall at swing
-        Rules.checkFirstBounce()
+        Rules.checkFirstBounce();
 
         //check if the ball hit the tin
         Rules.checkTin();
@@ -534,7 +537,7 @@ function BallClass() {
         }
         //console.log(this.speedY)
         //console.log(ComputerClass.swingTurn)
-        console.log(this.topRedLineLimitBreached)
+        //console.log(this.topRedLineLimitBreached)
         this.x += this.speedX;
         this.y += this.speedY;
     }

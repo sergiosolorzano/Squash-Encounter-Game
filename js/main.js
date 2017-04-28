@@ -138,7 +138,6 @@ function drawAll() {
             ServeHandler.DrawCountDown();
             drawAllParticles();
             drawAllKillParticles();
-            Rules.check();
             drawMessageBoard();
             //drawLines();
         }

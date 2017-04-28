@@ -5,10 +5,9 @@ var TINHIT=2;
 
 var Rules = function Score() {
     var self = {}
-    self.check = function() {
+    
+    self.checkBallBouncedOnce = function() {
         //if ball has bounced twice, reset
-        //TODO: figure out if a point needs to be rewarded here.
-        //console.log(BallClass.bouncedOnFloor)
         if (BallClass.bouncedOnFloor > 1) {
             console.log("Ball bounced twice on Floor",BallClass.bouncedOnFloor)
             self.givePoint();
@@ -35,6 +34,7 @@ var Rules = function Score() {
             message=2;    
             
         }
+        self.checkRound();
     }
 
     self.checkTopRedLineLimits = function() {
@@ -47,8 +47,22 @@ var Rules = function Score() {
                 message=2;    
                 
             }
+            self.checkRound();
         }
 
+//ball must hit wall before it hits the floor
+    self.checkFirstBounce = function() {
+        if (BallClass.bouncedOnFloor == 1 && BallClass.bouncedOnFrontWall == false) {
+            BallClass.ballHitFloorBeforeWall = true;
+            console.log("ball hit the floor before hitting the front wall, end of point")
+
+            self.givePoint();
+            Game.RallyReset();
+        } else {
+            BallClass.ballHitFloorBeforeWall = false;
+        }
+        self.checkRound();
+    }
 
     self.checkRound = function checkRound() {
         //Players must have scored at least 9 to win
@@ -70,27 +84,10 @@ var Rules = function Score() {
         } else {
             //AI won
         }
-
-
         //end round
         //TODO: WIN SCREEN
         self.Reset();
         returnToMenu();
-
-
-    }
-
-    //ball must hit wall before it hits the floor
-    self.checkFirstBounce = function() {
-        if (BallClass.bouncedOnFloor == 1 && BallClass.bouncedOnFrontWall == false) {
-            BallClass.ballHitFloorBeforeWall = true;
-            console.log("ball hit the floor before hitting the front wall, end of point")
-
-            self.givePoint();
-            Game.RallyReset();
-        } else {
-            BallClass.ballHitFloorBeforeWall = false;
-        }
     }
 
     self.givePoint = function givePoint() {
@@ -99,13 +96,27 @@ var Rules = function Score() {
         timerOnCheer=0;
         
         Sound.play("crowd-cheer", false, 0.1);
-        if (PlayerClass.swingTurn) {
-            self.score.AI += 1;
-            ServeHandler.nextServingPlayer = ServeHandler.RED;
-        } else {
-            self.score.player += 1;
-            ServeHandler.nextServingPlayer = ServeHandler.BLUE;
+
+        if (BallClass.bouncedOnFloor > 1){
+            if (PlayerClass.swingTurn) {
+                self.score.AI += 1;
+                ServeHandler.nextServingPlayer = ServeHandler.RED;
+            } else {
+                self.score.player += 1;
+                ServeHandler.nextServingPlayer = ServeHandler.BLUE;
+            }
         }
+
+        if (BallClass.tinHit || BallClass.topRedLineLimitBreached || BallClass.ballHitFloorBeforeWall){
+            if (PlayerClass.swingTurn) {
+                self.score.player += 1;
+                ServeHandler.nextServingPlayer = ServeHandler.BLUE;
+            } else {
+                self.score.AI += 1;
+                ServeHandler.nextServingPlayer = ServeHandler.RED;
+            }
+        }
+
         //console.log(self.score);
     }
 
