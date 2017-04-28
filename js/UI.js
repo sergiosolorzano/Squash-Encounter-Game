@@ -48,7 +48,10 @@ function drawStaminaBar() {
     //OLD colorRect(633, canvas.height - 560, PlayerClass.sprintStamina * 5, 20, 'red');
     colorRect(633, canvas.height - 560, 30, 20, 'red');
     //draw label
-    colorText('STAMINA', 700, canvas.height - 570, 'white');
+    canvasContext.fillStyle = "white";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
+    canvasContext.fillText("Stamina", 700, canvas.height - 570);
 }
 
 function rightToServe() {
@@ -86,7 +89,7 @@ function rightToServe() {
         titleText = "Drawing Right To Serve, please hold";
         canvasContext.fillStyle = "grey";
         canvasContext.textAlign = "center";
-        canvasContext.font = "bold 15px verdana";
+        canvasContext.font = "bold 15px Cherry Cream Soda";
         canvasContext.fillText((titleText), canvas.width / 2, 490);
     }
     else {
@@ -137,33 +140,59 @@ function rightToServeOutcome() {
         PlayerClass.swingTurn = true;
     }
 
-    canvasContext.font = "bold 20px verdana";
+    canvasContext.font = "bold 20px Cherry Cream Soda";
     canvasContext.fillText((titleText), canvas.width / 2, 485);
 
     canvasContext.fillStyle = "black";
     canvasContext.textAlign = "center";
     canvasContext.fillText(setChoice, canvas.width / 2, canvas.height / 2);
 
-    canvasContext.font = "bold 15px verdana";
+    canvasContext.font = "bold 15px Cherry Cream Soda";
     canvasContext.fillText((subText), canvas.width / 2, 515);
     canvasContext.fillText(chooseLeft, canvas.width * 2 / 5, 515);
     canvasContext.fillText(chooseRight, canvas.width * 3 / 5, 515);
 }
 
 function drawMessageBoard(){
-    var messageBoardW=345;
-    var messageBoardH=45;
-    //console.log(message)
+    var messageBoardW=412;
+    var messageBoardH=54;
+    drawAtBaseSheetSprite(messageboard, 0, canvas.width/2, canvas.height-40, messageBoardW, messageBoardH);
     switch (message) {
-                case MESSAGEBOARD:
-                    whichPic=messageboard;
+                case BLUESERVES:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Blue Serves, press Enter.", canvas.width/2, canvas.height-42 );
+                    break;
+                case REDSERVES:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Red Serves, press Enter.", canvas.width/2, canvas.height-42 );
                     break;
                 case FLOORBOUNCE:
-                    whichPic=floorbounce;
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Down ! Excess Ball Bounce On Floor", canvas.width/2, canvas.height-42 );
                     break;
                 case TINHIT:
-                    whichPic=tinhit;
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Down ! Ball Hit The Tin.", canvas.width/2, canvas.height-42 );
+                    break;
+                case OUTLINES:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Out ! Ball Over Outside Lines.", canvas.width/2, canvas.height-42 );
+                    break;
+                case MESSAGEBOARD:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Gamkedo Club's Squash Encounter !", canvas.width/2, canvas.height-42 );
                     break;
                 }
-    drawAtBaseSheetSprite(whichPic, 0, canvas.width/2, canvas.height-42, messageBoardW, messageBoardH);
 }

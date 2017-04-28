@@ -1,5 +1,5 @@
 var selectedMenuIndex = 0;
-var mainMenuArray =["Play", "Scoring System", "Controls", "Credits"];
+var mainMenuArray =["Play", "Game Rules", "Scoring System", "Controls", "Credits"];
 var difficultyMenu = ["Level 1", "Level 2", "Level 3"];
 var menuArray= mainMenuArray;
 
@@ -12,7 +12,7 @@ var AI_Difficulty = 0;
 function drawText(text, height) {
     canvasContext.fillStyle = "blue";
     canvasContext.textAlign = "center";
-    canvasContext.font = "bold 18px verdana";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
     //canvasContext.fillText(text, canvas.width / 2, 490);
     canvasContext.fillText(text, canvas.width / 2, height);
 }
@@ -20,7 +20,7 @@ function drawText(text, height) {
 function drawScoringText(text, height) {
     canvasContext.fillStyle = "blue";
     canvasContext.textAlign = "center";
-    canvasContext.font = "18px verdana";
+    canvasContext.font = "18px Cherry Cream Soda";
     //canvasContext.fillText(text, canvas.width / 2, 490);
     canvasContext.fillText(text, canvas.width / 2, height);
 }
@@ -28,7 +28,7 @@ function drawScoringText(text, height) {
 function drawTextCustom(text, x, y) {
     canvasContext.fillStyle = "blue";
     canvasContext.textAlign = "center";
-    canvasContext.font = "bold 18px verdana";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
     canvasContext.fillText(text, x, y);
 }
 var gameLoop;
@@ -59,8 +59,11 @@ function drawMenu() {
         case "Credits":
             drawCredits();
             break;
-        case "Scoring System":
+        case "Game Rules":
             drawRules();
+            break;
+        case "Scoring System":
+            drawScoring();
             break;
         case "Controls":
             drawControls();
@@ -76,9 +79,9 @@ function drawMenu() {
         drawTextCustom("Confirm: Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
     }else if (curr_menuScreen === "Play"){
         drawTextCustom("Confirm: Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
-        drawTextCustom("Exit: Shift", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
+        drawTextCustom("Exit: Enter", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     } else {
-        drawTextCustom("Exit: Shift", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
+        drawTextCustom("Exit: Enter", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }
     redrawCanvas();
 }
@@ -101,13 +104,13 @@ function drawControls() {
     drawScoringText("Backwards: S", 235);
     drawScoringText("Right: D", 255);
     drawScoringText("Left: A", 275);
-    drawScoringText("Sprint: Space Bar", 295);
-    drawScoringText("Kill Shot: Q", 315);
-    drawScoringText("Serve: Enter", 345);
+    drawScoringText("Sprint and Kill Shot: Space Bar", 295);
+    drawScoringText("", 315);
+    drawScoringText("Serve: Enter", 315);
 
-    drawScoringText("Target Wall Quadrants: Left mouse CLICK", 400);
-    drawScoringText("Front Wall: Top / Bottom Right / Left", 420);
-    drawScoringText("Back Wall: Right / Left ", 440);
+    drawScoringText("Target Wall Quadrants: Left mouse CLICK", 405);
+    drawScoringText("Front Wall: Top / Bottom Right / Left", 425);
+    drawScoringText("Back Wall: Right / Left ", 445);
 }
 
 function drawCredits() {
@@ -116,7 +119,7 @@ function drawCredits() {
     });
 }
 
-function drawRules() {
+function drawScoring() {
     drawText("Hand Out Scoring System:", 125);
     drawScoringText("If the server wins a", 215);
     drawScoringText("rally they receive a", 235);
@@ -131,12 +134,29 @@ function drawRules() {
     drawScoringText("points advantage to win (e.g. 10-8).", 465);
 }
 
+function drawRules() {
+    drawText("Key Game Encounter Rules:", 125);
+    drawScoringText("Down or the rally is over if", 215);
+    drawScoringText("the ball bounces on the floor", 235);
+    drawScoringText("more than once.", 255);
+    drawScoringText("Down or the rally is over if", 275);
+    drawScoringText("the ball hits the tin.", 295);
+    drawScoringText(" ", 315);
+    drawScoringText("Out or the rally is over if the ball", 400);
+    drawScoringText("bounces over the Outside (top) Lines.", 420);
+    drawScoringText("End of rally if the ball bounces on the", 440);
+    drawScoringText("floor and before the front wall.", 460);
+    drawScoringText("Accidental racket accidents.", 480);
+    drawScoringText("do not stop the rally or hand over points.", 500);
+}
+
 function drawMainMenu() {
 
     drawText("Play", 400);
-    drawText("Scoring System", 425);
-    drawText("Controls", 450);
-    drawText("Credits", 475);
+    drawText("Game Rules", 425);
+    drawText("Scoring System", 450);
+    drawText("Controls", 475);
+    drawText("Credits", 500);
     canvasContext.drawImage(p1_standing,
     canvas.width / 5.8 * 2, 350 + selectedMenuIndex * 25,
     50, 50);
@@ -195,7 +215,7 @@ function menuInput(keyEvent, pressed) {
             //console.log('Curr :'+curr_menuScreen);
         }
     }
-    else if (keyEvent.keyCode === KEY_LEFT_SHIFT) {
+    else if (keyEvent.keyCode === KEY_ENTER) {
         //console.log('Shift pressed');
         if (curr_menuScreen != 'Main') {
             if(curr_menuScreen === 'Play'){

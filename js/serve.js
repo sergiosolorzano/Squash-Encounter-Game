@@ -131,7 +131,18 @@ function ServeClass() {
 	}
         BallClass.isVisible = true;
         this.inServe = true;
-        message = 0;
+        
+        //Board message
+        if(this.inPlay == false){
+
+            if (this.servingPlayer === this.RED){
+                message=REDSERVES;
+            } else {
+                message=BLUESERVES;
+            }
+        } else {
+            message=MESSAGEBOARD;
+        }
     }
 
     this.DrawCountDown = function () {

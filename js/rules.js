@@ -1,7 +1,12 @@
-var message=0;//boar message for rules
+//board message for rules
+var message=0;
 var MESSAGEBOARD=0;
 var FLOORBOUNCE=1;
 var TINHIT=2;
+var OUTLINES=3;
+var BLUESERVES=4;
+var REDSERVES=5;
+
 var endPoint=false;
 
 var Rules = function Score() {
@@ -48,7 +53,7 @@ var Rules = function Score() {
 
                 self.givePoint();
                 //Game.RallyReset();
-                message=2;    
+                message=3;    
                 
             }
             self.checkRound();
