@@ -2,16 +2,18 @@ var message=0;//boar message for rules
 var MESSAGEBOARD=0;
 var FLOORBOUNCE=1;
 var TINHIT=2;
+var endPoint=false;
 
 var Rules = function Score() {
     var self = {}
     
     self.checkBallBouncedOnce = function() {
         //if ball has bounced twice, reset
-        if (BallClass.bouncedOnFloor > 1) {
+        if (BallClass.bouncedOnFloor > 1 && endPoint==false) {
+            endPoint=true;
             console.log("Ball bounced twice on Floor",BallClass.bouncedOnFloor)
             self.givePoint();
-            Game.RallyReset();
+            //Game.RallyReset();
             message=1;
         }
 
@@ -23,14 +25,15 @@ var Rules = function Score() {
         var tinLowerLimit = 2;
         var tinUpperLimit = 5;
 
-        if (BallClass.y <= tinLowerLimit && BallClass.z < tinUpperLimit) {
+        if (BallClass.y <= tinLowerLimit && BallClass.z < tinUpperLimit && endPoint==false) {
+            endPoint=true;
             BallClass.tinHit = true;
 
             //TODO: menu stuff
             console.log("HIT TIN")
 
             self.givePoint();
-            Game.RallyReset();
+            //Game.RallyReset();
             message=2;    
             
         }
@@ -39,11 +42,12 @@ var Rules = function Score() {
 
     self.checkTopRedLineLimits = function() {
             
-            if (BallClass.topRedLineLimitBreached) {
+            if (BallClass.topRedLineLimitBreached && endPoint==false) {
+                endPoint=true;
                 console.log("Ball Over the Top Red Line")
 
                 self.givePoint();
-                Game.RallyReset();
+                //Game.RallyReset();
                 message=2;    
                 
             }
@@ -52,15 +56,14 @@ var Rules = function Score() {
 
 //ball must hit wall before it hits the floor
     self.checkFirstBounce = function() {
-        if (BallClass.bouncedOnFloor == 1 && BallClass.bouncedOnFrontWall == false) {
+        if (BallClass.bouncedOnFloor == 1 && BallClass.bouncedOnFrontWall == false && endPoint==false) {
+            endPoint=true;
             BallClass.ballHitFloorBeforeWall = true;
             console.log("ball hit the floor before hitting the front wall, end of point")
 
             self.givePoint();
-            Game.RallyReset();
-        } else {
-            BallClass.ballHitFloorBeforeWall = false;
-        }
+            //Game.RallyReset();
+        } 
         self.checkRound();
     }
 
@@ -86,8 +89,14 @@ var Rules = function Score() {
         }
         //end round
         //TODO: WIN SCREEN
+        
+        if(timer>0){
+            timer--;
+            console.log("end of game",timer);
+        } else {
         self.Reset();
         returnToMenu();
+        }
     }
 
     self.givePoint = function givePoint() {

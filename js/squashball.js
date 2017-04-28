@@ -171,6 +171,11 @@ function BallClass() {
         //check if ball bounced over top red line
         Rules.checkTopRedLineLimits();
 
+        //point reset
+        if(endPoint){
+        Game.RallyReset();
+        }
+
         //swing takes place
 
         //console.log("BouncedOnFloor:",this.bouncedOnFloor,"bouncedOnFrontWall:",this.bouncedOnFrontWall,"quadrantHit:",quadrantHit,"swingTurn:",swingTurn)
@@ -378,7 +383,7 @@ function BallClass() {
 
             //safety catch to avoid the ball running too low
             if (this.zv < 0.75) {
-                this.zv = 0.75
+                this.zv = 1.5
             }
 
             if (playerSwingTurn) {
