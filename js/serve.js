@@ -33,9 +33,10 @@ function ServeClass() {
 
     self.WhoServes = function () {
         self.inPlay = false;
-        if (self.servingPlayer === self.nextServingPlayer) self.flipPos *= -1;
-        self.servingPlayer = self.nextServingPlayer;
-
+        if (self.matchStart) {
+            if (self.servingPlayer === self.nextServingPlayer) self.flipPos *= -1;
+            self.servingPlayer = self.nextServingPlayer;
+        }
         if (self.flipPos > 0) {
             PlayerClass.x = self.LEFT_SQUARE;
             ComputerClass.x = self.RIGHT_SQUARE;
