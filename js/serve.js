@@ -12,23 +12,22 @@ function ServeClass() {
     self.LEFT_SQUASHBALL = COURT_W * 0.07;
     self.RIGHT_SQUASHBALL = COURT_W * 0.97;
 
-    self.bluePos = self.LEFT_SQUARE;
-    self.redPos = self.RIGHT_SQUARE;
-    self.flipPos = 1;
-    self.bluePicks = false;
-    self.servingPlayer = self.RED;
-    self.nextServingPlayer = self.RED;
-    self.matchStart = false;
-    self.inPlay = false;
-    self.inServe = false;
     self.countTimer = null;
     self.animTimer = null;
-    self.time = 0;
 
     self.Reset = function () {
+        self.bluePos = self.LEFT_SQUARE;
+        self.redPos = self.RIGHT_SQUARE;
+        self.flipPos = 1;
+        self.bluePicks = false;
+        self.servingPlayer = self.RED;
+        self.nextServingPlayer = self.RED;
         self.matchStart = false;
         self.inPlay = false;
         self.inServe = false;
+        self.time = 0;
+        if (self.countTimer) window.clearInterval(self.countTimer);
+        if (self.animTimer) window.clearTimeout(self.animTimer);
     }
 
     self.WhoServes = function () {
@@ -153,3 +152,4 @@ function ServeClass() {
 }
 
 var ServeHandler = ServeClass();
+ServeHandler.Reset();
