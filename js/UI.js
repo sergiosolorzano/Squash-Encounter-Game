@@ -129,8 +129,6 @@ function rightToServeOutcome() {
 
     if (ServeHandler.bluePicks) {
         window.clearTimeout(timer);
-        
-
         drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer1.x, drawLocationPlayer1.y, PLAYER_W, PLAYER_H);
         titleText = "Choose Your Starting Side:";
         subText = "";
@@ -141,17 +139,17 @@ function rightToServeOutcome() {
         ServeHandler.WhoServes();
     }
     else if (spinFrame == 5) {
-        
         drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer1.x, drawLocationPlayer1.y, PLAYER_W, PLAYER_H);
         titleText = "Blue Player Has Right To Serve !";
         canvasContext.fillStyle = "blue";
         ServeHandler.servingPlayer = ServeHandler.BLUE;
+        ServeHandler.nextServingPlayer = ServeHandler.BLUE;
+        BallClass.x = ServeHandler.LEFT_SQUASHBALL;
         ComputerClass.swingTurn = true;
         PlayerClass.swingTurn = false;
         subText = "";
         timer = window.setTimeout(function () { ServeHandler.bluePicks = true; }, 1200);
     } else {
-        
         drawAtBaseSheetSprite(p2_standing, 0, drawLocationPlayer2.x, drawLocationPlayer2.y, PLAYER_W, PLAYER_H);
         titleText = "Red Player Has Right To Serve !";
         canvasContext.fillStyle = "red";

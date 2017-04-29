@@ -3,98 +3,96 @@ ServeClass Constructor
 *************************************************/
 
 function ServeClass() {
-    this.RED = -1;
-    this.BLUE = 1;
-    this.LEFT_SQUARE = COURT_W * 0.07;
-    this.RIGHT_SQUARE = COURT_W * 0.99;
-    this.LEFT_SQUASHBALL = COURT_W * 0.07;
-    this.RIGHT_SQUASHBALL = COURT_W * 0.97;
+    var self = {};
 
-    this.bluePos = this.LEFT_SQUARE;
-    this.redPos = this.RIGHT_SQUARE;
-    this.flipPos = 1;
-    this.bluePicks = false;
-    this.servingPlayer = this.RED;
-    this.nextServingPlayer = this.RED;
-    this.matchStart = false;
-    this.inPlay = false;
-    this.inServe = false;
-    this.countTimer = null;
-    this.animTimer = null;
-    this.time = 0;
+    self.RED = -1;
+    self.BLUE = 1;
+    self.LEFT_SQUARE = COURT_W * 0.07;
+    self.RIGHT_SQUARE = COURT_W * 0.99;
+    self.LEFT_SQUASHBALL = COURT_W * 0.07;
+    self.RIGHT_SQUASHBALL = COURT_W * 0.97;
 
-    this.Reset = function () {
-        this.matchStart = false;
-        this.inPlay = false;
-        this.inServe = false;
+    self.bluePos = self.LEFT_SQUARE;
+    self.redPos = self.RIGHT_SQUARE;
+    self.flipPos = 1;
+    self.bluePicks = false;
+    self.servingPlayer = self.RED;
+    self.nextServingPlayer = self.RED;
+    self.matchStart = false;
+    self.inPlay = false;
+    self.inServe = false;
+    self.countTimer = null;
+    self.animTimer = null;
+    self.time = 0;
+
+    self.Reset = function () {
+        self.matchStart = false;
+        self.inPlay = false;
+        self.inServe = false;
     }
 
-    this.WhoServes = function () {
-        this.inPlay = false;
-        if (this.matchStart) {
-            if (this.servingPlayer === this.nextServingPlayer) this.flipPos *= -1;
-            this.servingPlayer = this.nextServingPlayer;
-        }
+    self.WhoServes = function () {
+        self.inPlay = false;
+        if (self.servingPlayer === self.nextServingPlayer) self.flipPos *= -1;
+        self.servingPlayer = self.nextServingPlayer;
 
-        if (this.flipPos > 0) {
-            PlayerClass.x = this.LEFT_SQUARE;
-            ComputerClass.x = this.RIGHT_SQUARE;
-            if (this.servingPlayer === this.BLUE) BallClass.x = this.LEFT_SQUASHBALL;
-            else BallClass.x = this.RIGHT_SQUASHBALL;
+        if (self.flipPos > 0) {
+            PlayerClass.x = self.LEFT_SQUARE;
+            ComputerClass.x = self.RIGHT_SQUARE;
+            if (self.servingPlayer === self.BLUE) BallClass.x = self.LEFT_SQUASHBALL;
+            else BallClass.x = self.RIGHT_SQUASHBALL;
         }
         else {
-            PlayerClass.x = this.RIGHT_SQUARE;
-            ComputerClass.x = this.LEFT_SQUARE;
-            if (this.servingPlayer === this.BLUE) BallClass.x = this.RIGHT_SQUASHBALL;
-            else BallClass.x = this.LEFT_SQUASHBALL;
+            PlayerClass.x = self.RIGHT_SQUARE;
+            ComputerClass.x = self.LEFT_SQUARE;
+            if (self.servingPlayer === self.BLUE) BallClass.x = self.RIGHT_SQUASHBALL;
+            else BallClass.x = self.LEFT_SQUASHBALL;
         }
 
-        /*if (this.inPlay == false) {
-            if (this.servingPlayer === this.RED) {
+        /*if (self.inPlay == false) {
+            if (self.servingPlayer === self.RED) {
                 message = REDSERVES;
             } else {
                 message = BLUESERVES;
             }
         }*/
 
-        this.time = 0;
-        this.RedServes();
+        self.time = 0;
+        self.RedServes();
     }
 
-    this.WhereBall = function () {
-        if (this.flipPos > 0) {
-            if (this.servingPlayer === this.RED) return this.RIGHT_SQUASHBALL;
-            else return this.LEFT_SQUASHBALL;
+    self.WhereBall = function () {
+        if (self.flipPos > 0) {
+            if (self.servingPlayer === self.RED) return self.RIGHT_SQUASHBALL;
+            else return self.LEFT_SQUASHBALL;
         }
         else {
-            if (this.servingPlayer === this.RED) return this.LEFT_SQUASHBALL;
-            else return this.RIGHT_SQUASHBALL;
+            if (self.servingPlayer === self.RED) return self.LEFT_SQUASHBALL;
+            else return self.RIGHT_SQUASHBALL;
         }
     }
 
-    this.ServeBall = function () {
-        this.inServe = false;
+    self.ServeBall = function () {
+        self.inServe = false;
         BallClass.isServed = true;
-        this.inPlay = true;
+        self.inPlay = true;
     }
 
-    this.RedServes = function () {
-        var self = this;
-        if (this.servingPlayer === this.RED) {
-            this.time = 5;
-            this.countTimer = window.setInterval(function () { self.RedCountDown(); }, 1000);
+    self.RedServes = function () {
+        if (self.servingPlayer === self.RED) {
+            self.time = 5;
+            self.countTimer = window.setInterval(function () { self.RedCountDown(); }, 1000);
         }
     }
 
-    this.RedCountDown = function () {
-        this.time--;
-        if (this.time < 1) this.StartAnim();
+    self.RedCountDown = function () {
+        self.time--;
+        if (self.time < 1) self.StartAnim();
     }
 
-    this.StartAnim = function () {
-        if (!this.inPlay) {
-            var self = this;
-            if (this.servingPlayer === this.RED) {
+    self.StartAnim = function () {
+        if (!self.inPlay) {
+            if (self.servingPlayer === self.RED) {
                 ComputerClass.whichPic = p2_serve;
                 ComputerClass.computerFrameTimer = 10
                 ComputerClass.computerStepsPerAnimFrame = 10;
@@ -108,48 +106,49 @@ function ServeClass() {
         }
     }
 
-    this.StartPlay = function () {
-        var self = this;
+    self.StartPlay = function () {
         window.clearTimeout(self.animTimer);
-        if (this.servingPlayer === this.RED) {
+        if (self.servingPlayer === self.RED) {
             var ranNumber = Math.random();
             if (ranNumber < 0.33) {
-                BallClass.speedX = -1.68 * this.flipPos;
+                BallClass.speedX = -1.68 * self.flipPos;
                 BallClass.zv = 1.5;
             }
             else if (ranNumber < 0.66) {
-                BallClass.speedX = -1 * this.flipPos;
+                BallClass.speedX = -1 * self.flipPos;
                 BallClass.zv = 1.5;
             }
-            else BallClass.speedX = -1.1 * this.flipPos;
+            else BallClass.speedX = -1.1 * self.flipPos;
 
-            this.time = 0;
+            self.time = 0;
             window.clearInterval(self.countTimer);
         }
         else {
             switch (PlayerClass.targetFrontWall) {
                 case TOPRIGHTFRONTWALL:
-                    if (this.flipPos > 0) BallClass.speedX = 1.68;
+                    if (self.flipPos > 0) BallClass.speedX = 1.68;
                     else BallClass.speedX = -1;
                     BallClass.zv = 1.5;
                     break;
                 case TOPLEFTFRONTWALL:
-                    if (this.flipPos < 0) BallClass.speedX = -1.68;
+                    if (self.flipPos < 0) BallClass.speedX = -1.68;
                     else BallClass.speedX = 1;
                     BallClass.zv = 1.5;
                     break;
                 default:
-                    BallClass.speedX = 1.1 * this.flipPos;
+                    BallClass.speedX = 1.1 * self.flipPos;
                     break;
             }
         }
         BallClass.isVisible = true;
-        this.inServe = true;
+        self.inServe = true;
     }
 
-    this.DrawCountDown = function () {
-        if (this.time > 0) colorText(this.time, canvas.width * 0.5, canvas.height * 0.5, "blue", 60);
+    self.DrawCountDown = function () {
+        if (self.time > 0) colorText(self.time, canvas.width * 0.5, canvas.height * 0.5, "blue", 60);
     }
+
+    return self;
 }
 
-var ServeHandler = new ServeClass();
+var ServeHandler = ServeClass();

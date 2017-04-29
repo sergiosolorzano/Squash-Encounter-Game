@@ -89,8 +89,6 @@ function keySet(keyEvent, whichPlayer, setTo) {
                 serveBet = false;
                 message = 0;
             }
-                //TODO Delete the "else if" code and uncomment the "if" version once you delete the ENTER cheat
-                // if (ServeHandler.matchStart) ServeHandler.StartAnim();
             else if ((!playerEntry) && ServeHandler.matchStart) ServeHandler.StartAnim();
         }
     }
