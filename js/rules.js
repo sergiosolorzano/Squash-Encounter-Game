@@ -1,15 +1,6 @@
-//board message for rules
-var message=0;
-var MESSAGEBOARD=0;
-var FLOORBOUNCE=1;
-var TINHIT=2;
-var OUTLINES=3;
-var BLUESERVES=4;
-var REDSERVES=5;
-var PRESSENTER=6;
-var DRAWSERVE=7;
-
 var endPoint=false;
+var endGameTimer=100;
+var endGameTimerReset=100;
 
 var Rules = function Score() {
     var self = {}
@@ -90,19 +81,20 @@ var Rules = function Score() {
         }
 
         if (self.player > self.score.AI) {
-            //player won
+            message=BLUEWINS;
         } else {
-            //AI won
+            message=REDWINS;
         }
         //end round
         //TODO: WIN SCREEN
         
-        if(timer>0){
-            timer--;
+        if(endGameTimer>0){
+            endGameTimer--;
             console.log("end of game",timer);
         } else {
         self.Reset();
         returnToMenu();
+        endGameTimer=endGameTimerReset;
         }
     }
 

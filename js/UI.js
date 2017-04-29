@@ -10,6 +10,19 @@ var muteButtonY = 480;
 var muteButtonWidth = 50;
 var muteButtonHeight = 50;
 
+//board message for rules
+var message=0;
+var MESSAGEBOARD=0;
+var FLOORBOUNCE=1;
+var TINHIT=2;
+var OUTLINES=3;
+var BLUESERVES=4;
+var REDSERVES=5;
+var PRESSENTER=6;
+var DRAWSERVE=7;
+var BLUEWINS=8;
+var REDWINS=9;
+
 var spinFrame = 0,
     spinStepsPerAnimFrame = 2,
     spinFrameTimer = 2,
@@ -167,55 +180,67 @@ function rightToServeOutcome() {
 function drawMessageBoard(){
     var messageBoardW=412;
     var messageBoardH=54;
-    drawAtBaseSheetSprite(messageboard, 0, canvas.width/2, canvas.height-40, messageBoardW, messageBoardH);
+    drawAtBaseSheetSprite(messageboard, 0, canvas.width/2, canvas.height-35, messageBoardW, messageBoardH);
     switch (message) {
                 case BLUESERVES:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Blue Serves, press Enter.", canvas.width/2, canvas.height-42 );
+                    canvasContext.fillText("Blue Serves, press Enter.", canvas.width/2, canvas.height-30 );
                     break;
                 case REDSERVES:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Red Serves, press Enter.", canvas.width/2, canvas.height-42 );
+                    canvasContext.fillText("Red Serves, press Enter.", canvas.width/2, canvas.height-30 );
                     break;
                 case FLOORBOUNCE:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Down ! Excess Ball Bounce On Floor", canvas.width/2, canvas.height-42 );
+                    canvasContext.fillText("Down ! Excess Ball Bounce On Floor", canvas.width/2, canvas.height-30 );
                     break;
                 case TINHIT:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Down ! Ball Hit The Tin.", canvas.width/2, canvas.height-42 );
+                    canvasContext.fillText("Down ! Ball Hit The Tin.", canvas.width/2, canvas.height-30 );
                     break;
                 case OUTLINES:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Out ! Ball Over Outside Lines.", canvas.width/2, canvas.height-42 );
+                    canvasContext.fillText("Out ! Ball Over Outside Lines.", canvas.width/2, canvas.height-30 );
                     break;
                 case MESSAGEBOARD:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Gamkedo Club's Squash Encounter !", canvas.width/2, canvas.height-42 );
+                    canvasContext.fillText("Welcome to Squash Encounter !", canvas.width/2, canvas.height-30 );
                     break;
                 case PRESSENTER:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Press Enter To Continue", canvas.width/2, canvas.height-42 );
+                    canvasContext.fillText("Press Enter To Continue", canvas.width/2, canvas.height-30 );
                     break;
                 case DRAWSERVE:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Drawing Right To Serve, please hold", canvas.width/2, canvas.height-42 );
+                    canvasContext.fillText("Drawing Right To Serve, please hold", canvas.width/2, canvas.height-30 );
+                    break;
+                case BLUEWINS:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Blue Player Wins !", canvas.width/2, canvas.height-30 );
+                    break;                    
+                case REDWINS:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Red Player Wins !", canvas.width/2, canvas.height-30 );
                     break;
                     
                 }

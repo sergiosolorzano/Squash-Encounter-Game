@@ -49,13 +49,13 @@ function ServeClass() {
             else BallClass.x = this.LEFT_SQUASHBALL;
         }
 
-        if (this.inPlay == false) {
+        /*if (this.inPlay == false) {
             if (this.servingPlayer === this.RED) {
                 message = REDSERVES;
             } else {
                 message = BLUESERVES;
             }
-        }
+        }*/
 
         this.time = 0;
         this.RedServes();

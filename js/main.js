@@ -128,6 +128,14 @@ function drawAll() {
         }
         ParticleSystem.draw();
         GradientShotToFrontWall(PlayerClass.x, PlayerClass.y)
+        
+        //console.log(ServeHandler.servingPlayer,ServeHandler.inPlay)
+        if(ServeHandler.servingPlayer==ServeHandler.BLUE && ServeHandler.inPlay==false){//1=blueplayer
+            message=BLUESERVES;
+        }
+         if(ServeHandler.servingPlayer==ServeHandler.RED && ServeHandler.inPlay==false){//1=blueplayer
+            message=REDSERVES;
+        }
 
         if (playerEntry) {
             PlayerClass.initDrawPlayer();
