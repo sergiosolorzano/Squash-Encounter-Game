@@ -90,11 +90,15 @@ var Rules = function Score() {
         
         if(endGameTimer>0){
             endGameTimer--;
-            console.log("end of game",timer);
+        //    console.log("end of game at",timer);
         } else {
         self.Reset();
-        returnToMenu();
+        BallClass.Reset();
+        PlayerClass.Reset();
+        ComputerClass.Reset();
+        endPoint=false;
         endGameTimer=endGameTimerReset;
+        returnToMenu();
         }
     }
 

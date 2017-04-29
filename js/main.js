@@ -51,13 +51,10 @@ function perspectiveLocation(pixelX, pixelY, pixelZ) {
 }
 
 function imageLoadingDoneSoStartGame() {
-
-    menuActive = true;
     initInput();
     menuLoop = setInterval(function () {
         drawMenu();
     }, 1000 / framesPerSecond);
-
 }
 
 function loadLevel() {
@@ -118,9 +115,9 @@ function drawAll() {
     drawStaminaBar();
     drawScoreCounter();
 
-
     if (serveBet) {
         rightToServe();
+        //Rules.score.AI=8;//to test end of game
     } else {
         if (BallClass.isVisible) {
             BallClass.drawShadow();

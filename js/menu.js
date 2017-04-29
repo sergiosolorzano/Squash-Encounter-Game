@@ -33,29 +33,43 @@ function drawTextCustom(text, x, y) {
 }
 var gameLoop;
 function startGame() {
+    //console.log("startgame running")
     menuActive = false;
+    numFullSpins = 2;
+    moreFrames = false;
+    spinFrame = 0;
+    drawNow=false;
+    serveBet=true;
     clearInterval(menuLoop);
-    gameLoop = setInterval(function () {
-        moveAll();
-        drawAll();
-    }, 1000 / framesPerSecond);
-    loadLevel();
+    message=0;
+    if(menuActive==false){
+        gameLoop = setInterval(function () {
+            moveAll();
+            drawAll();
+        }, 1000 / framesPerSecond);
+        loadLevel();    
+    }
 }
 function returnToMenu(){
-    menuActive = true;
+    curr_menuScreen="Main";
+    message=0;
     playerEntry = false;
     ServeHandler.Reset();
     initInput();
     clearInterval(gameLoop);
+    menuArray= mainMenuArray;
     menuLoop = setInterval(function () {
         drawMenu();
     }, 1000 / framesPerSecond);
 }
 
 function drawMenu() {
+    menuActive = true;
     clearScreen();
     drawBitmapCenteredWithRotation(squashcourt_nocheer, canvas.width / 2, canvas.height / 2, 0);
     drawMessageBoard();
+    //console.log("Menu Active",menuActive)
+    //console.log("at returnToMenu ",curr_menuScreen)
     switch (curr_menuScreen) {
         case "Credits":
             drawCredits();
