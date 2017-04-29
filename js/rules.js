@@ -23,7 +23,7 @@ var Rules = function Score() {
         var tinLowerLimit = 2;
         var tinUpperLimit = 5;
 
-        if (BallClass.y <= tinLowerLimit && BallClass.z < tinUpperLimit && endPoint==false) {
+        if (BallClass.bouncedOnFloor==0 && BallClass.y <= tinLowerLimit && BallClass.z < tinUpperLimit && endPoint==false) {
             endPoint=true;
             BallClass.tinHit = true;
 
@@ -106,8 +106,58 @@ var Rules = function Score() {
         //crowd animation cheer
         cheerOn=true;
         timerOnCheer=0;
-        
         Sound.play("crowd-cheer", false, 0.1);
+        //console.log(ServeHandler.servingPlayer)
+        
+            if (BallClass.bouncedOnFloor > 1){
+                if (ServeHandler.servingPlayer == ServeHandler.RED && PlayerClass.swingTurn) {        
+                    self.score.AI += 1;
+                    console.log("scen here1")
+                    ServeHandler.nextServingPlayer = ServeHandler.RED;
+                }
+                if(ServeHandler.servingPlayer == ServeHandler.RED && ComputerClass.swingTurn){
+                    console.log("scen here2")
+                    ServeHandler.nextServingPlayer = ServeHandler.BLUE;
+                }
+                if (ServeHandler.servingPlayer == ServeHandler.BLUE && PlayerClass.swingTurn) {        
+                    console.log("scen here3")
+                    ServeHandler.nextServingPlayer = ServeHandler.RED;
+                }
+                if(ServeHandler.servingPlayer == ServeHandler.BLUE && ComputerClass.swingTurn){
+                    console.log("scen here4")
+                    self.score.player += 1;
+                    ServeHandler.nextServingPlayer = ServeHandler.BLUE;
+                }
+            }
+
+            if (BallClass.tinHit || BallClass.topRedLineLimitBreached || BallClass.ballHitFloorBeforeWall){
+            
+                if (ServeHandler.servingPlayer == ServeHandler.RED && PlayerClass.swingTurn) {        
+                    console.log("scen here5")
+                    ServeHandler.nextServingPlayer = ServeHandler.BLUE;  
+                }
+                if(ServeHandler.servingPlayer == ServeHandler.RED && ComputerClass.swingTurn){
+                    console.log("scen here6")
+                    self.score.AI += 1;
+                    ServeHandler.nextServingPlayer = ServeHandler.RED;
+                }
+                if (ServeHandler.servingPlayer == ServeHandler.BLUE && PlayerClass.swingTurn) {        
+                    console.log("scen here7")
+                    self.score.player += 1;
+                    ServeHandler.nextServingPlayer = ServeHandler.BLUE;
+                }
+                if(ServeHandler.servingPlayer == ServeHandler.BLUE && ComputerClass.swingTurn){
+                    console.log("scen here8")
+                    ServeHandler.nextServingPlayer = ServeHandler.RED;
+                }
+            }
+        
+
+
+
+        /*if (BallClass.tinHit || BallClass.topRedLineLimitBreached || BallClass.ballHitFloorBeforeWall){
+            if (ServeHandler.RED && ) {
+
 
         if (BallClass.bouncedOnFloor > 1){
             if (PlayerClass.swingTurn) {
@@ -127,7 +177,7 @@ var Rules = function Score() {
                 self.score.AI += 1;
                 ServeHandler.nextServingPlayer = ServeHandler.RED;
             }
-        }
+        }*/
 
         //console.log(self.score);
     }

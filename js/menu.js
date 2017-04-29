@@ -40,6 +40,7 @@ function startGame() {
     spinFrame = 0;
     drawNow=false;
     serveBet=true;
+    //ServeHandler.bluePicks=false;
     clearInterval(menuLoop);
     message=0;
     if(menuActive==false){
