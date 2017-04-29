@@ -22,8 +22,8 @@ var prevQuadrantWasAHit = false;
 //kill shot particles
 var killShotActive = false;//when true ball speed increases
 var killShotSpeedMultiple = 3;
-var particlesTimer=0;
-var particlesEndTimer=5;
+var particlesTimer = 0;
+var particlesEndTimer = 5;
 
 function BallClass() {
 
@@ -39,22 +39,22 @@ function BallClass() {
         this.zv = 1;//1.5
         this.heightOscillate = 0.0;
         this.speedX = (this.x > COURT_W * 0.5 ? -1 : 1);
-        this.startSpeedY=-2;
+        this.startSpeedY = -2;
         this.speedY = -2;
-        this.backWallOnPlay=false;
+        this.backWallOnPlay = false;
         this.tinHit = false;
         this.ballHitFloorBeforeWall = false;
         this.bouncedOnFrontWall = false;
         this.bouncedOnBackWall = false;
         this.bouncedOnFloor = 0;//player can only swing on ball if it has hit the ground once
         this.ballBouncedOnFloor = false;////captures ball bounced 0 or 1 times so player can only swing on ball if it has hit the ground once
-        this.topRedLineLimitBreached=false;
+        this.topRedLineLimitBreached = false;
         this.canBeHit = true;
         this.numFramesTouchGround;
         // keeps track of the previous x,y,z coordinates drawn
         this.ballDrawHistory = [];
         //kill particles vars
-        this.killParticlesActive=false;
+        this.killParticlesActive = false;
         this.isServed = false;
         this.serveVelocityZ = 1.5;
         this.maxServeZ = 15;
@@ -149,7 +149,7 @@ function BallClass() {
         }
 
         //check ball only bounced once or none on floor before swing
-        if (this.bouncedOnFloor<=1) {
+        if (this.bouncedOnFloor <= 1) {
             this.ballBouncedOnFloor = true;
         } else {
             this.ballBouncedOnFloor = false;
@@ -172,8 +172,8 @@ function BallClass() {
         Rules.checkTopRedLineLimits();
 
         //point reset
-        if(endPoint){
-        Game.RallyReset();
+        if (endPoint) {
+            Game.RallyReset();
         }
 
         //swing takes place
@@ -186,13 +186,13 @@ function BallClass() {
             this.bouncedOnFloor = 0;
             this.bouncedOnFrontWall = false;
             this.bouncedOnBackWall = false;
-            this.backWallOnPlay=false;
+            this.backWallOnPlay = false;
             if (PlayerClass.keyHeld_SprintAndKill && PlayerClass.swingTurn) {
                 killShotActive = true;
-                if(quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT){
-                    this.killParticlesActive=true;
-                    particlesTimer=0;
-                    particlesEndTimer=5;
+                if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
+                    this.killParticlesActive = true;
+                    particlesTimer = 0;
+                    particlesEndTimer = 5;
                 }
             }
 
@@ -211,7 +211,7 @@ function BallClass() {
             }
 
             //non-kill shot speed changes
-            if (killShotActive==false){
+            if (killShotActive == false) {
                 if (prevY < this.y) {
                     this.speedY *= -1;
                 } else {
@@ -219,154 +219,146 @@ function BallClass() {
                 }
             }
 
-        //radians to hit frontwall quadrant
-        var targetFrontWallVars = GradientShotToFrontWall(PlayerClass.x, PlayerClass.y);
-        var ballAng;
-        var playerStandHereQuad = targetFrontWallVars.playerOnThisCourtQuad;
-        var targetFrontWallQuadrant = targetFrontWallVars.tgtFrontWall;
-        //console.log(targetFrontWallQuadrant)
+            //radians to hit frontwall quadrant
+            var targetFrontWallVars = GradientShotToFrontWall(PlayerClass.x, PlayerClass.y);
+            var ballAng;
+            var playerStandHereQuad = targetFrontWallVars.playerOnThisCourtQuad;
+            var targetFrontWallQuadrant = targetFrontWallVars.tgtFrontWall;
+            //console.log(targetFrontWallQuadrant)
 
-        if (targetFrontWallQuadrant == TOPRIGHTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
-            ballAng = 3 * Math.PI / 2
-        }
-        if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
-            ballAng = 3 * Math.PI / 2
-        }
-        if (targetFrontWallQuadrant == TOPLEFTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
-            ballAng = 3 * Math.PI / 2
-        }
-        if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
-            ballAng = 3 * Math.PI / 2
-        }
-        if (targetFrontWallQuadrant == TOPRIGHTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
-            ballAng = targetFrontWallVars.ballAng;
-        }
-        if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
-            ballAng = targetFrontWallVars.ballAng;
-        }
-        if (targetFrontWallQuadrant == TOPLEFTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
-            ballAng = targetFrontWallVars.ballAng;
-        }
-        if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
-            ballAng = targetFrontWallVars.ballAng;
-        }
-
-        //radians to hit backwall quadrant
-        var targetBackWallVars = GradientShotToBackWall(PlayerClass.x, PlayerClass.y);
-        var ballAng;
-        var playerStandHereQuad = targetBackWallVars.playerOnThisCourtQuad;
-        var targetBackWallQuadrant = targetBackWallVars.tgtBackWall;
-
-        if (targetBackWallQuadrant == RIGHTBACKWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
-            ballAng = Math.PI / 2
-            //console.log("ballAimRight playerisRight straight back")
-        }
-        if (targetBackWallQuadrant == LEFTBACKWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
-            ballAng = Math.PI / 2;
-            //console.log("ballAimLeft playerisLeft straight back")
-        }
-        if (targetBackWallQuadrant == RIGHTBACKWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
-            ballAng = targetBackWallVars.ballAng;
-            //console.log("ballAimRight playerisLeft ball crossing" + ballAng)
-        }
-        if (targetBackWallQuadrant == LEFTBACKWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
-            ballAng = targetBackWallVars.ballAng;
-            //console.log("ballAimLeft playerisRight ball crossing"+ ballAng)
-        }
-
-        var degreeTarget = ballAng * 180 / Math.PI;
-
-        //Back Wall is a target swing
-        if (PlayerClass.backWallClicked && PlayerClass.isSwinging) {
-            //console.log("Aiming for back wall")
-            PlayerClass.backWallClicked = false;
-            this.backWallOnPlay=true;
-            var ballSpeed = magnitude(this.speedX, this.speedY);
-            this.speedX = Math.cos(ballAng) * ballSpeed;
-            this.speedY = Math.sin(ballAng) * ballSpeed;
-            if (prevY > this.y) {
-                //this.speedY*=1;
-                this.zv += 2;
-            } else {
-                this.zv += 2;
+            if (targetFrontWallQuadrant == TOPRIGHTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
+                ballAng = 3 * Math.PI / 2
             }
-            if (this.zv < 2) {
-                this.zv = 2
+            if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
+                ballAng = 3 * Math.PI / 2
+            }
+            if (targetFrontWallQuadrant == TOPLEFTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
+                ballAng = 3 * Math.PI / 2
+            }
+            if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
+                ballAng = 3 * Math.PI / 2
+            }
+            if (targetFrontWallQuadrant == TOPRIGHTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
+                ballAng = targetFrontWallVars.ballAng;
+            }
+            if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
+                ballAng = targetFrontWallVars.ballAng;
+            }
+            if (targetFrontWallQuadrant == TOPLEFTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
+                ballAng = targetFrontWallVars.ballAng;
+            }
+            if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
+                ballAng = targetFrontWallVars.ballAng;
             }
 
-        //Front Wall is a target swing
-        } else if (PlayerClass.frontWallClicked && PlayerClass.isSwinging) {
-            //console.log("Aiming for front wall")
-            PlayerClass.frontWallClicked = false;
-            var ballSpeed = magnitude(this.speedX, this.speedY);
-            this.speedX = Math.cos(ballAng) * ballSpeed;
-            this.speedY = Math.sin(ballAng) * ballSpeed;
+            //radians to hit backwall quadrant
+            var targetBackWallVars = GradientShotToBackWall(PlayerClass.x, PlayerClass.y);
+            var ballAng;
+            var playerStandHereQuad = targetBackWallVars.playerOnThisCourtQuad;
+            var targetBackWallQuadrant = targetBackWallVars.tgtBackWall;
 
-            //determine where player is on the court
-            drawCourtQuadrants()
-
-            //Front wall bottom quadrants targeted
-            if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == RIGHTTOPCOURTQUADRANT) {
-                this.z = 0;
+            if (targetBackWallQuadrant == RIGHTBACKWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
+                ballAng = Math.PI / 2
+                //console.log("ballAimRight playerisRight straight back")
             }
-            if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == LEFTTOPCOURTQUADRANT) {
-                //done
-                this.z = 2;
+            if (targetBackWallQuadrant == LEFTBACKWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
+                ballAng = Math.PI / 2;
+                //console.log("ballAimLeft playerisLeft straight back")
             }
-            if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
-                //done
-                this.z = 3;
-                //this.zv+=1;
+            if (targetBackWallQuadrant == RIGHTBACKWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
+                ballAng = targetBackWallVars.ballAng;
+                //console.log("ballAimRight playerisLeft ball crossing" + ballAng)
             }
-            if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == LEFTBOTTOMCOURTQUADRANT) {
-                //done
-                this.z = 4;
-                //this.zv+=1;
-            }
-            if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == RIGHTTOPCOURTQUADRANT) {
-                this.z = 2;
-                this.zv += 1;
-            }
-            if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == LEFTTOPCOURTQUADRANT) {
-                //done
-                this.z = 0;
-            }
-            if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
-                //done
-                this.z = 4;
-            }
-            if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == LEFTBOTTOMCOURTQUADRANT) {
-                //done
-                this.z = 5;
-            }
-            //safety catch to avoid the ball running too low
-            if (this.zv < 0.75 && PlayerClass.playerStandingOnCourtQuadrant == LEFTBOTTOMCOURTQUADRANT) {
-                this.zv = 0.75
-            }
-            if (this.zv < 0.75 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
-                this.zv = 0.75
-            }
-            if (this.zv < 0.5 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTTOPCOURTQUADRANT) {
-                this.zv = 0.5
-            }
-            if (this.zv < 0.5 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTTOPCOURTQUADRANT) {
-                this.zv = 0.5
+            if (targetBackWallQuadrant == LEFTBACKWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
+                ballAng = targetBackWallVars.ballAng;
+                //console.log("ballAimLeft playerisRight ball crossing"+ ballAng)
             }
 
-        //Front wall top quadrants targeted
-		//I could not see this used in the game
-        /*if(this.isServed) {
-		console.log("used here")
-        	this.zv += 5;
-		}*/
-		else {
-        	if (targetFrontWallQuadrant == TOPLEFTFRONTWALL || targetFrontWallQuadrant == TOPRIGHTFRONTWALL) {
-            		this.zv += 0.5;
-            		if (this.zv < 0.5 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
-                		this.zv = 0.5
-            		}
-        	}
-		}
+            var degreeTarget = ballAng * 180 / Math.PI;
+
+            //Back Wall is a target swing
+            if (PlayerClass.backWallClicked && PlayerClass.isSwinging) {
+                //console.log("Aiming for back wall")
+                PlayerClass.backWallClicked = false;
+                this.backWallOnPlay = true;
+                var ballSpeed = magnitude(this.speedX, this.speedY);
+                this.speedX = Math.cos(ballAng) * ballSpeed;
+                this.speedY = Math.sin(ballAng) * ballSpeed;
+                if (prevY > this.y) {
+                    //this.speedY*=1;
+                    this.zv += 2;
+                } else {
+                    this.zv += 2;
+                }
+                if (this.zv < 2) {
+                    this.zv = 2
+                }
+
+                //Front Wall is a target swing
+            } else if (PlayerClass.frontWallClicked && PlayerClass.isSwinging) {
+                //console.log("Aiming for front wall")
+                PlayerClass.frontWallClicked = false;
+                var ballSpeed = magnitude(this.speedX, this.speedY);
+                this.speedX = Math.cos(ballAng) * ballSpeed;
+                this.speedY = Math.sin(ballAng) * ballSpeed;
+
+                //determine where player is on the court
+                drawCourtQuadrants()
+
+                //Front wall bottom quadrants targeted
+                if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == RIGHTTOPCOURTQUADRANT) {
+                    this.z = 0;
+                }
+                if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == LEFTTOPCOURTQUADRANT) {
+                    //done
+                    this.z = 2;
+                }
+                if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
+                    //done
+                    this.z = 3;
+                    //this.zv+=1;
+                }
+                if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == LEFTBOTTOMCOURTQUADRANT) {
+                    //done
+                    this.z = 4;
+                    //this.zv+=1;
+                }
+                if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == RIGHTTOPCOURTQUADRANT) {
+                    this.z = 2;
+                    this.zv += 1;
+                }
+                if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == LEFTTOPCOURTQUADRANT) {
+                    //done
+                    this.z = 0;
+                }
+                if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
+                    //done
+                    this.z = 4;
+                }
+                if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && PlayerClass.playerStandingOnCourtQuadrant == LEFTBOTTOMCOURTQUADRANT) {
+                    //done
+                    this.z = 5;
+                }
+                //safety catch to avoid the ball running too low
+                if (this.zv < 0.75 && PlayerClass.playerStandingOnCourtQuadrant == LEFTBOTTOMCOURTQUADRANT) {
+                    this.zv = 0.75
+                }
+                if (this.zv < 0.75 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
+                    this.zv = 0.75
+                }
+                if (this.zv < 0.5 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTTOPCOURTQUADRANT) {
+                    this.zv = 0.5
+                }
+                if (this.zv < 0.5 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTTOPCOURTQUADRANT) {
+                    this.zv = 0.5
+                }
+
+                if (targetFrontWallQuadrant == TOPLEFTFRONTWALL || targetFrontWallQuadrant == TOPRIGHTFRONTWALL) {
+                    this.zv += 0.5;
+                    if (this.zv < 0.5 && PlayerClass.playerStandingOnCourtQuadrant == RIGHTBOTTOMCOURTQUADRANT) {
+                        this.zv = 0.5
+                    }
+                }
 
             } else {
                 //No Wall is a target
@@ -374,13 +366,12 @@ function BallClass() {
                 //console.log("no walls selected",quadrantHit)
                 if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
                     if (prevY < this.y) {
-                            this.zv += 1;
+                        this.zv += 1;
                     } else {
-                            this.zv += 1;
+                        this.zv += 1;
                     }
                 }
             }//end last else
-
             //safety catch to avoid the ball running too low
             if (this.zv < 0.75) {
                 this.zv = 0.75
@@ -398,13 +389,13 @@ function BallClass() {
 
 
         //kill particles on ball at kill shot
-            if(this.killParticlesActive){
-                if (particlesTimer++ < particlesEndTimer) {
+        if (this.killParticlesActive) {
+            if (particlesTimer++ < particlesEndTimer) {
                 createParticleskill();
-                } else {
-                    this.killParticlesActive=false;
-                }
+            } else {
+                this.killParticlesActive = false;
             }
+        }
 
         //wall bouncing mechanics:
         this.zv += -ballSinkRate;
@@ -429,13 +420,13 @@ function BallClass() {
 
         this.nextX = this.x + this.speedX;
         this.nextY = this.y + this.speedY;
-        
+
         //variables to determine if ball bounces above side wall red lines
         var percTowardNear = this.y / COURT_L;
         //calcualted at Court.js checkUpperRedLine() according to visual location and fudged as Z does not account for far front wall inclination
-        var farFrontWallZLimit=42;
-        var farSideWallZLimit=60;
-        var nearSideWallZLimit=40;
+        var farFrontWallZLimit = 42;
+        var farSideWallZLimit = 60;
+        var nearSideWallZLimit = 40;
         var hereSideWallZLimit = (1.0 - percTowardNear) * farSideWallZLimit + percTowardNear * nearSideWallZLimit;
 
         //Ball bounces on side walls
@@ -444,8 +435,8 @@ function BallClass() {
             this.speedX *= -1;
             Sound.wall();
             //check if side wall upper red line is breached
-            if(this.z>hereSideWallZLimit){
-                this.topRedLineLimitBreached=true;
+            if (this.z > hereSideWallZLimit) {
+                this.topRedLineLimitBreached = true;
             }
             if (this.zv > 0) {
                 this.zv *= -0.03;//necessary for computer player projection quadratic function
@@ -455,8 +446,8 @@ function BallClass() {
             createParticles();
             this.speedX *= -1;
             Sound.wall();
-            if(this.z>hereSideWallZLimit){
-                this.topRedLineLimitBreached=true;
+            if (this.z > hereSideWallZLimit) {
+                this.topRedLineLimitBreached = true;
             }
             if (this.zv > 0) {
                 this.zv *= -0.03;//necessary for computer player projection quadratic function
@@ -468,16 +459,16 @@ function BallClass() {
             createParticles();
             Sound.wall();
             this.speedY *= -1;
-            if(this.z>farFrontWallZLimit){
-                this.topRedLineLimitBreached=true;
+            if (this.z > farFrontWallZLimit) {
+                this.topRedLineLimitBreached = true;
                 //console.log("ZBreachLeft!","limit: ",hereSideWallZLimit,"ballZ: ",this.z)
             }
-        	if(this.isServed) {
-				this.isServed = false;
-				this.zv *= -1;
-				this.speedX *= 0.65; //can we change speed in one place, at reset
-				this.speedY *= 1.5; //can we change speed in one place, at reset
-			}
+            if (this.isServed) {
+                this.isServed = false;
+                this.zv *= -1.12;
+                this.speedX *= 0.65; //can we change speed in one place, at reset
+                this.speedY *= 1.5; //can we change speed in one place, at reset
+            }
             else if (this.zv > 0) {
                 this.zv *= -0.03;//necessary for computer player projection quadratic function
             }
@@ -500,20 +491,20 @@ function BallClass() {
             // account for wall bounces
             var ballLandingInCourt;
             do {
-                ballLandingInCourt=true;
+                ballLandingInCourt = true;
                 if (this.landingX < 0) {
                     this.landingX = -this.landingX;
-                    ballLandingInCourt=false;
+                    ballLandingInCourt = false;
                 }
                 if (this.landingX > COURT_W) {
                     this.landingX = 2 * COURT_W - this.landingX;
-                    ballLandingInCourt=false;
+                    ballLandingInCourt = false;
                 }
-                 if (this.landingY > COURT_L) {
+                if (this.landingY > COURT_L) {
                     this.landingY = 2 * COURT_L - this.landingY;
-                    ballLandingInCourt=false;
-                }    
-            } while (ballLandingInCourt==false);
+                    ballLandingInCourt = false;
+                }
+            } while (ballLandingInCourt == false);
             //console.log(this.z,this.zv,root1,root2)
             //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
@@ -526,19 +517,19 @@ function BallClass() {
                 this.zv *= -0.03;//necessary for computer player projection quadratic function
             }
             //console.log("touch back wall","speedY",this.speedY)
-            if (killShotActive && this.backWallOnPlay==false) {
+            if (killShotActive && this.backWallOnPlay == false) {
                 this.speedY = this.speedY / killShotSpeedMultiple;
                 killShotActive = false;
             }
         }
-        
+
         //when walls are targeted speedXY are adjuted by magnitude and speedY may not be maintained on-going. This ensure speedY does not go below this.startSpeedY
-        if(Math.abs(this.speedY)<Math.abs(this.startSpeedY)){
-            if(this.speedY<0){
-                this.speedY=this.startSpeedY
+        if (Math.abs(this.speedY) < Math.abs(this.startSpeedY)) {
+            if (this.speedY < 0) {
+                this.speedY = this.startSpeedY
             } else {
-                this.speedY=-this.startSpeedY
-           }
+                this.speedY = -this.startSpeedY
+            }
         }
         //console.log(this.speedY)
         //console.log(ComputerClass.swingTurn)

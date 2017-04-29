@@ -5,9 +5,9 @@ ServeClass Constructor
 function ServeClass() {
     this.RED = -1;
     this.BLUE = 1;
-    this.LEFT_SQUARE = COURT_W * 0.04;
+    this.LEFT_SQUARE = COURT_W * 0.07;
     this.RIGHT_SQUARE = COURT_W * 0.99;
-    this.LEFT_SQUASHBALL = COURT_W * 0.04;
+    this.LEFT_SQUASHBALL = COURT_W * 0.07;
     this.RIGHT_SQUASHBALL = COURT_W * 0.97;
 
     this.bluePos = this.LEFT_SQUARE;
