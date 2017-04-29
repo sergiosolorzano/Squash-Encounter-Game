@@ -15,6 +15,7 @@ var playerEntry;
 var menuLoop;
 var framesPerSecond = 30;
 var timerOnCheer = 0;
+var a =0;
 
 window.onload = function () {
     canvas = document.getElementById('gameCanvas');
@@ -125,13 +126,35 @@ function drawAll() {
         }
         ParticleSystem.draw();
         GradientShotToFrontWall(PlayerClass.x, PlayerClass.y)
-        
+        //console.log(ServeHandler.inPlay)
         //console.log(ServeHandler.servingPlayer,ServeHandler.inPlay)
         if(ServeHandler.servingPlayer==ServeHandler.BLUE && ServeHandler.inPlay==false){//1=blueplayer
+            //console.log("im here")
             message=BLUESERVES;
-        }
-         if(ServeHandler.servingPlayer==ServeHandler.RED && ServeHandler.inPlay==false){//1=blueplayer
+            messageTip=Math.floor(Math.random() * 5) + 1
+        } else if (ServeHandler.servingPlayer==ServeHandler.RED && ServeHandler.inPlay==false ){//1=blueplayer
+                //console.log("im here")
             message=REDSERVES;
+            messageTip=Math.floor(Math.random() * 5) + 1
+        } else if (endPoint==false){
+            //console.log(messageTip)
+            switch (messageTip) {//maybe quadrantHit=0 in which case none called
+                case 1:
+                    message=NOTHINGHAPPENS1;
+                    break;
+                case 2:
+                    message=NOTHINGHAPPENS2;
+                    break;
+                case 3:
+                    message=NOTHINGHAPPENS3;
+                    break;
+                case 4:
+                    message=NOTHINGHAPPENS4;
+                    break;
+                case 5:
+                    message=NOTHINGHAPPENS5;
+                    break;
+            }
         }
 
         if (playerEntry) {
