@@ -41,17 +41,17 @@ function drawMuteState (){
 
 function drawStaminaBar() {
     //draw bar border
-    colorRect(631, canvas.height - 562, 104, 24, 'White');
+    colorRect(700, canvas.height - 555, 104, 24, 'White');
     //draw bar background
-    colorRect(633, canvas.height - 560, 100, 20, 'LightGray');
+    colorRect(700, canvas.height - 555, 100, 20, 'LightGray');
     //draw current stamina
     //OLD colorRect(633, canvas.height - 560, PlayerClass.sprintStamina * 5, 20, 'red');
-    colorRect(633, canvas.height - 560, 30, 20, 'red');
+    colorRect(665, canvas.height - 555, 30, 20, 'red');
     //draw label
     canvasContext.fillStyle = "white";
     canvasContext.textAlign = "center";
     canvasContext.font = "bold 18px Cherry Cream Soda";
-    canvasContext.fillText("Stamina", 700, canvas.height - 570);
+    canvasContext.fillText("Stamina", 700, canvas.height - 573);
 }
 
 function rightToServe() {

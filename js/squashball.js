@@ -472,12 +472,12 @@ function BallClass() {
                 this.topRedLineLimitBreached=true;
                 //console.log("ZBreachLeft!","limit: ",hereSideWallZLimit,"ballZ: ",this.z)
             }
-        if(this.isServed) {
-			this.isServed = false;
-			this.zv *= -1.5;
-			//this.speedX *= 0.65; can we change speed in one place, at reset
-			//this.speedY *= 1.5; can we change speed in one place, at reset
-		}
+        	if(this.isServed) {
+				this.isServed = false;
+				this.zv *= -1;
+				this.speedX *= 0.65; //can we change speed in one place, at reset
+				this.speedY *= 1.5; //can we change speed in one place, at reset
+			}
             else if (this.zv > 0) {
                 this.zv *= -0.03;//necessary for computer player projection quadratic function
             }

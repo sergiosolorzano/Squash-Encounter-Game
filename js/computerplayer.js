@@ -73,7 +73,7 @@ function ComputerClass() {
         var computerSpeed;
         var playerGotoX;
         var playerGotoY;
-        var computerRunning=false;
+        var computerRunning = false;
 
         if (this.isHit) {
             return;
@@ -102,19 +102,21 @@ function ComputerClass() {
             this.speedY = Math.sin(atanResult) * COMPUTER_MOVE_SPEED;
         }
 
-        nextX += this.speedX;
-        nextY += this.speedY;
+        if (!BallClass.isServed) {
+            nextX += this.speedX;
+            nextY += this.speedY;
 
-        computerRunning=(nextX!=this.x);
-        
-        if(computerRunning && this.isSwinging==false){
-        this.whichPic = p2_running;    
+            computerRunning = (nextX != this.x);
+        }
+
+        if (computerRunning && this.isSwinging == false) {
+            this.whichPic = p2_running;
         }
 
         if (nextX >= 0 && nextX <= COURT_W) {
             this.x = nextX;
         }
-        if (nextY >= 0 && nextY <= COURT_L-9) {//COURT_L reduced by two so the ball doesn't go outside court. Can't change COURT_L as all front/back wall and court quadrants are measured according to original
+        if (nextY >= 0 && nextY <= COURT_L - 9) {//COURT_L reduced by two so the ball doesn't go outside court. Can't change COURT_L as all front/back wall and court quadrants are measured according to original
             this.y = nextY;
             //console.log(this.y)
         }

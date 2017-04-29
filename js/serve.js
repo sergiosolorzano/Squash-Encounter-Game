@@ -5,10 +5,10 @@ ServeClass Constructor
 function ServeClass() {
     this.RED = -1;
     this.BLUE = 1;
-    this.LEFT_SQUARE = COURT_W * 0.12;
-    this.RIGHT_SQUARE = COURT_W * 0.93;
-    this.LEFT_SQUASHBALL = COURT_W * 0.12;
-    this.RIGHT_SQUASHBALL = COURT_W * 0.92;
+    this.LEFT_SQUARE = COURT_W * 0.04;
+    this.RIGHT_SQUARE = COURT_W * 0.99;
+    this.LEFT_SQUASHBALL = COURT_W * 0.04;
+    this.RIGHT_SQUASHBALL = COURT_W * 0.97;
 
     this.bluePos = this.LEFT_SQUARE;
     this.redPos = this.RIGHT_SQUARE;
@@ -48,15 +48,14 @@ function ServeClass() {
             if (this.servingPlayer === this.BLUE) BallClass.x = this.RIGHT_SQUASHBALL;
             else BallClass.x = this.LEFT_SQUASHBALL;
         }
-        
-        if(this.inPlay == false){
-            if (this.servingPlayer === this.RED){
-                message=REDSERVES;
+
+        if (this.inPlay == false) {
+            if (this.servingPlayer === this.RED) {
+                message = REDSERVES;
             } else {
-                message=BLUESERVES;
+                message = BLUESERVES;
             }
-    }
-        
+        }
 
         this.time = 0;
         this.RedServes();
@@ -75,7 +74,7 @@ function ServeClass() {
 
     this.ServeBall = function () {
         this.inServe = false;
-	BallClass.isServed = true;
+        BallClass.isServed = true;
         this.inPlay = true;
     }
 
@@ -113,32 +112,37 @@ function ServeClass() {
         var self = this;
         window.clearTimeout(self.animTimer);
         if (this.servingPlayer === this.RED) {
-		var ranNumber = Math.random();
-		if(ranNumber < 0.33) {
-			BallClass.speedX = -1.68 * this.flipPos;
-			BallClass.zv = 1.5;
-		}
-		else if(ranNumber < 0.66) {
-			BallClass.zv = 1.5;
-		}
-		else BallClass.speedX = -1.1 * this.flipPos;
+            var ranNumber = Math.random();
+            if (ranNumber < 0.33) {
+                BallClass.speedX = -1.68 * this.flipPos;
+                BallClass.zv = 1.5;
+            }
+            else if (ranNumber < 0.66) {
+                BallClass.speedX = -1 * this.flipPos;
+                BallClass.zv = 1.5;
+            }
+            else BallClass.speedX = -1.1 * this.flipPos;
+
             this.time = 0;
             window.clearInterval(self.countTimer);
         }
-	else {
-		switch(PlayerClass.targetFrontWall) {
-			case TOPRIGHTFRONTWALL:
-				if(this.flipPos > 0) BallClass.speedX = 1.68;
-				BallClass.zv = 1.5;
-				break;
-			case TOPLEFTFRONTWALL:
-				if(this.flipPos < 0) BallClass.speedX = -1.68;
-				BallClass.zv = 1.5;
-				break;
-			default:
-				BallClass.speedX = 1.1 * this.flipPos;
-		}
-	}
+        else {
+            switch (PlayerClass.targetFrontWall) {
+                case TOPRIGHTFRONTWALL:
+                    if (this.flipPos > 0) BallClass.speedX = 1.68;
+                    else BallClass.speedX = -1;
+                    BallClass.zv = 1.5;
+                    break;
+                case TOPLEFTFRONTWALL:
+                    if (this.flipPos < 0) BallClass.speedX = -1.68;
+                    else BallClass.speedX = 1;
+                    BallClass.zv = 1.5;
+                    break;
+                default:
+                    BallClass.speedX = 1.1 * this.flipPos;
+                    break;
+            }
+        }
         BallClass.isVisible = true;
         this.inServe = true;
     }
