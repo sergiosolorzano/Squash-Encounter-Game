@@ -77,6 +77,8 @@ function moveAll() {
             PlayerClass.movePlayer();
             moveAllParticles();
             moveAllKillParticles();
+            //check rules for a point here
+            Rules.checkRound();
         }
     }
 }
@@ -118,7 +120,7 @@ function drawAll() {
 
     if (serveBet) {
         rightToServe();
-        //Rules.score.AI=8;//to test end of game
+    //Rules.score.AI=8;//to test end of game
     } else {
         if (BallClass.isVisible) {
             BallClass.drawShadow();

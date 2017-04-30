@@ -173,6 +173,7 @@ function BallClass() {
 
         //point reset
         if (endPoint) {
+            //console.log(endPoint)
             Game.RallyReset();
         }
 

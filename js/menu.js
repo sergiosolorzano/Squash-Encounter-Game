@@ -4,7 +4,22 @@ var difficultyMenu = ["Level 1", "Level 2", "Level 3"];
 var menuArray= mainMenuArray;
 
 var creditsListArray = ["A Gamkedo Club Team Production",
-
+"Sergio Solorzano - Lead; game design; player/computer AI and ball",
+"movement/controls, ball bounce/kill shot particles, target walls, rules,",
+"point assingment programming; messaging, game pixel and Unity art", 
+"JL Evans- Players serve, draw for right to serve, game scale to full screen,",
+"computer AI programming; player serve pixel art", 
+"Marcus Silva - Point assignment, score counter and computer AI programming",
+"Chris DeLeon- Computer AI and game tilt effect debugging support",
+"Christer (McFunkypants) Kaitila - Shoe squeaks, crowd cheer, racket",
+"and ball sounds;",
+"sound code and its integration",
+"Matthew Ko - Menu programming",
+"Ashleigh Morris - Sprint and sound play/mute programming",
+"Christopher Kocan - Ball bounce trace",
+"Caspar Dunant - Game scale to full screen",
+"Dalath - Sprint sweat particles",
+"Adam Croft - Ball hit integration",
 ];
 
 var curr_menuScreen = "Main"; //Rules, Credits
@@ -142,7 +157,7 @@ function drawControls() {
 
 function drawCredits() {
     creditsListArray.forEach(function (element, index, creditsListArray) {
-        drawCreditsText(element, 100 + 28 * index);
+        drawCreditsText(element, 60 + 28 * index);
     });
 }
 

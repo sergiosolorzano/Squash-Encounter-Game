@@ -9,14 +9,17 @@ var Rules = function Score() {
         //if ball has bounced twice, reset
         if (BallClass.bouncedOnFloor > 1 && endPoint==false) {
             endPoint=true;
+            timer=maxTimer;
+            endGameTimer=endGameTimerReset;
             console.log("Ball bounced twice on Floor",BallClass.bouncedOnFloor)
+            console.log("both timers reset",timer, endGameTimer);
             message=1;
             self.givePoint();
             //Game.RallyReset();
             
         }
 
-        self.checkRound();
+//        self.checkRound();
 
     }
 
@@ -26,6 +29,8 @@ var Rules = function Score() {
 
         if (BallClass.bouncedOnFloor==0 && BallClass.y <= tinLowerLimit && BallClass.z < tinUpperLimit && endPoint==false) {
             endPoint=true;
+            timer=maxTimer;
+            endGameTimer=endGameTimerReset;
             BallClass.tinHit = true;
 
             //TODO: menu stuff
@@ -36,13 +41,15 @@ var Rules = function Score() {
             
             
         }
-        self.checkRound();
+        //self.checkRound();
     }
 
     self.checkTopRedLineLimits = function() {
             
             if (BallClass.topRedLineLimitBreached && endPoint==false) {
                 endPoint=true;
+                timer=maxTimer;
+                endGameTimer=endGameTimerReset;
                 console.log("Ball Over the Top Red Line")
                 message=3;  
                 self.givePoint();
@@ -50,20 +57,22 @@ var Rules = function Score() {
                   
                 
             }
-            self.checkRound();
+            //self.checkRound();
         }
 
 //ball must hit wall before it hits the floor
     self.checkFirstBounce = function() {
         if (BallClass.bouncedOnFloor == 1 && BallClass.bouncedOnFrontWall == false && endPoint==false) {
             endPoint=true;
+            timer=maxTimer;
+            endGameTimer=endGameTimerReset;
             BallClass.ballHitFloorBeforeWall = true;
             console.log("ball hit the floor before hitting the front wall, end of point")
             message=FLOORBOUNCEBEFOREWALL;
             self.givePoint();
             //Game.RallyReset();
         } 
-        self.checkRound();
+        //self.checkRound();
     }
 
     self.checkRound = function checkRound() {
@@ -91,14 +100,14 @@ var Rules = function Score() {
         
         if(endGameTimer>0){
             endGameTimer--;
-        //    console.log("end of game at",timer);
+            console.log("end of game at",endGameTimer);
         } else {
+        console.log("End Game timer run out",timer, endGameTimer);
         self.Reset();
         BallClass.Reset();
         PlayerClass.Reset();
         ComputerClass.Reset();
         endPoint=false;
-        endGameTimer=endGameTimerReset;
         returnToMenu();
         }
     }
