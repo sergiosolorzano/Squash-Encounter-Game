@@ -531,7 +531,7 @@ function BallClass() {
                 this.speedY = -this.startSpeedY
             }
         }
-        console.log(this.speedY)
+        //console.log(this.speedY)
         //console.log(ComputerClass.swingTurn)
         //console.log(this.topRedLineLimitBreached)
         this.x += this.speedX;

@@ -95,9 +95,9 @@ function drawMenu() {
         drawTextCustom("Confirm: Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
     }else if (curr_menuScreen === "Play"){
         drawTextCustom("Confirm: Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
-        drawTextCustom("Exit: Enter", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
+        drawTextCustom("Exit: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     } else {
-        drawTextCustom("Exit: Enter", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
+        drawTextCustom("Exit: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }
     redrawCanvas();
 }
@@ -122,7 +122,7 @@ function drawControls() {
     drawScoringText("Left: A", 275);
     drawScoringText("Sprint and Kill Shot: Space Bar", 295);
     drawScoringText("", 315);
-    drawScoringText("Serve: Enter", 315);
+    drawScoringText("Serve: Space", 315);
 
     drawScoringText("Target Wall Quadrants: Left mouse CLICK", 405);
     drawScoringText("Front Wall: Top / Bottom Right / Left", 425);
@@ -231,7 +231,7 @@ function menuInput(keyEvent, pressed) {
             //console.log('Curr :'+curr_menuScreen);
         }
     }
-    else if (keyEvent.keyCode === KEY_ENTER) {
+    else if (keyEvent.keyCode === KEY_ESC) {
         //console.log('Shift pressed');
         if (curr_menuScreen != 'Main') {
             if(curr_menuScreen === 'Play'){

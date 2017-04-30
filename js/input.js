@@ -9,6 +9,7 @@ const KEY_M = 77;
 const KEY_SPACE = 32;
 const KEY_LEFT_SHIFT = 16;
 const KEY_ENTER = 13;
+const KEY_ESC = 27;
 //const KEY_Q = 81;
 
 var mouseX = 0;
@@ -84,7 +85,7 @@ function keySet(keyEvent, whichPlayer, setTo) {
     }
 
     if (setTo) { //only detecting when key goes down not held keys
-        if (keyEvent.keyCode == KEY_ENTER) {//TODO Remove cheat: cheat to avoid waiting for the draw to play, to remove cheat add && drawNow in if condition
+        if (keyEvent.keyCode == KEY_SPACE) {//TODO Remove cheat: cheat to avoid waiting for the draw to play, to remove cheat add && drawNow in if condition
             if (serveBet) {
                 serveBet = false;
                 message = 0;
@@ -108,7 +109,7 @@ function keyPressed(evt) {
             case KEY_D:
                 ServeHandler.flipPos = -1;
                 break;
-            case KEY_ENTER:
+            case KEY_SPACE:
                 ServeHandler.bluePicks = false;
                 keySet(evt, PlayerClass, true);
                 evt.preventDefault();

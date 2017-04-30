@@ -18,7 +18,7 @@ var TINHIT=2;
 var OUTLINES=3;
 var BLUESERVES=4;
 var REDSERVES=5;
-var PRESSENTER=6;
+var PRESSSPACE=6;
 var DRAWSERVE=7;
 var BLUEWINS=8;
 var REDWINS=9;
@@ -135,7 +135,7 @@ function rightToServe() {
 function rightToServeOutcome() {
     var drawLocationPlayer1 = (ServeHandler.flipPos > 0 ? perspectiveLocation(COURT_W * 0.3, COURT_L * 0.65, 0) : perspectiveLocation(COURT_W * 0.8, COURT_L * 0.65, 0));
     var drawLocationPlayer2 = perspectiveLocation(COURT_W * 0.8, COURT_L * 0.65, 0);
-    var subText = "Press Enter to Continue";
+    var subText = "Press Space to Continue";
     var chooseLeft = "",
         chooseRight = "",
         setChoice = "",
@@ -149,7 +149,7 @@ function rightToServeOutcome() {
         canvasContext.fillStyle = "blue";
         chooseLeft = "A for Left";
         chooseRight = "D for Right"
-        setChoice = "Press Enter to Continue"
+        setChoice = "Press Space to Continue"
         ServeHandler.WhoServes();
     }
     else if (spinFrame == 5) {
@@ -179,7 +179,7 @@ function rightToServeOutcome() {
     canvasContext.textAlign = "center";
     //canvasContext.fillText(setChoice, canvas.width / 2, canvas.height / 2);
     //message player
-    message=PRESSENTER;
+    message=PRESSSPACE;
     drawMessageBoard();
 
     canvasContext.font = "bold 15px Cherry Cream Soda";
@@ -198,13 +198,13 @@ function drawMessageBoard(){
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Blue Serves, press Enter.", canvas.width/2, canvas.height-30 );
+                    canvasContext.fillText("Blue Serves, press Space.", canvas.width/2, canvas.height-30 );
                     break;
                 case REDSERVES:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Red Serves, press Enter.", canvas.width/2, canvas.height-30 );
+                    canvasContext.fillText("Red Serves, press Space.", canvas.width/2, canvas.height-30 );
                     break;
                 case FLOORBOUNCE:
                     canvasContext.fillStyle = "white";
@@ -230,11 +230,11 @@ function drawMessageBoard(){
                     canvasContext.font = "18px Cherry Cream Soda";
                     canvasContext.fillText("Welcome to Squash Encounter !", canvas.width/2, canvas.height-30 );
                     break;
-                case PRESSENTER:
+                case PRESSSPACE:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Press Enter To Continue", canvas.width/2, canvas.height-30 );
+                    canvasContext.fillText("Press Space To Continue", canvas.width/2, canvas.height-30 );
                     break;
                 case DRAWSERVE:
                     canvasContext.fillStyle = "white";
