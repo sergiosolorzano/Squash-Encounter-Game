@@ -3,7 +3,7 @@ var mainMenuArray =["Play", "Game Rules", "Scoring System", "Controls", "Credits
 var difficultyMenu = ["Level 1", "Level 2", "Level 3"];
 var menuArray= mainMenuArray;
 
-var creditsListArray = ["Squash Encounter Credits",
+var creditsListArray = ["A Gamkedo Club Team Production",
 
 ];
 
