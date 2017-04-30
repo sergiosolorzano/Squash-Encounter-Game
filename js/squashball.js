@@ -21,7 +21,7 @@ var prevQuadrantWasAHit = false;
 
 //kill shot particles
 var killShotActive = false;//when true ball speed increases
-var killShotSpeedMultiple = 3;
+var killShotSpeedMultiple = 2;
 var particlesTimer = 0;
 var particlesEndTimer = 5;
 
@@ -531,7 +531,7 @@ function BallClass() {
                 this.speedY = -this.startSpeedY
             }
         }
-        //console.log(this.speedY)
+        console.log(this.speedY)
         //console.log(ComputerClass.swingTurn)
         //console.log(this.topRedLineLimitBreached)
         this.x += this.speedX;

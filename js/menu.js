@@ -53,7 +53,6 @@ function startGame() {
 }
 function returnToMenu(){
     curr_menuScreen="Main";
-    message=0;
     playerEntry = false;
     ServeHandler.Reset();
     initInput();
@@ -68,6 +67,7 @@ function drawMenu() {
     menuActive = true;
     clearScreen();
     drawBitmapCenteredWithRotation(squashcourt_nocheer, canvas.width / 2, canvas.height / 2, 0);
+    message=0;
     drawMessageBoard();
     //console.log("Menu Active",menuActive)
     //console.log("at returnToMenu ",curr_menuScreen)

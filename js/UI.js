@@ -27,12 +27,14 @@ var NOTHINGHAPPENS2=11;
 var NOTHINGHAPPENS3=12;
 var NOTHINGHAPPENS4=13;
 var NOTHINGHAPPENS5=14;
-var NOTHINGHAPPENS5=15;
-var NOTHINGHAPPENS5=16;
-var NOTHINGHAPPENS5=17;
-var NOTHINGHAPPENS5=18;
-var NOTHINGHAPPENS5=19;
-var NOTHINGHAPPENS5=20;
+var NOTHINGHAPPENS6=15;
+var NOTHINGHAPPENS7=16;
+var NOTHINGHAPPENS8=17;
+var NOTHINGHAPPENS9=18;
+var NOTHINGHAPPENS10=19;
+var NOTHINGHAPPENS11=20;
+var NOTHINGHAPPENS12=21;
+var NOTHINGHAPPENS13=22;
 var messageTip=NOTHINGHAPPENS1;
 
 var spinFrame = 0,
@@ -255,68 +257,86 @@ function drawMessageBoard(){
                 case NOTHINGHAPPENS1:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.font = "18px Gloria Hallelujah";
                     canvasContext.fillText("Constantly hydrate during your game !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS2:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.font = "18px Gloria Hallelujah";
                     canvasContext.fillText("Stretch before your game !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS3:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.font = "18px Gloria Hallelujah";
                     canvasContext.fillText("Stay fit to play Squash !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS3:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.font = "18px Gloria Hallelujah";
                     canvasContext.fillText("Don't play Squash to stay fit !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS4:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Be a team mate !", canvas.width/2, canvas.height-30 );
+                    canvasContext.font = "18px Gloria Hallelujah";
+                    canvasContext.fillText("Be a team player !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS5:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.font = "18px Gloria Hallelujah";
                     canvasContext.fillText("Don't appeal lets you don't believe !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS6:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.font = "18px Gloria Hallelujah";
                     canvasContext.fillText("Insist on precise tight drives !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS7:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.font = "18px Gloria Hallelujah";
                     canvasContext.fillText("Don't hit yourself !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS8:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.font = "18px Gloria Hallelujah";
                     canvasContext.fillText("Control the T !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS9:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.font = "18px Gloria Hallelujah";
                     canvasContext.fillText("Get that drive into the nick !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS10:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Gain control with boasts !", canvas.width/2, canvas.height-30 );
+                    canvasContext.font = "18px Gloria Hallelujah";
+                    canvasContext.fillText("Target wall quadrants to gain control !", canvas.width/2, canvas.height-30 );
+                    break;
+                case NOTHINGHAPPENS11:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Gloria Hallelujah";
+                    canvasContext.fillText("Pace yourself in a rally !", canvas.width/2, canvas.height-30 );
+                    break;
+                case NOTHINGHAPPENS12:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Gloria Hallelujah";
+                    canvasContext.fillText("Eat carbs the night before !", canvas.width/2, canvas.height-30 );
+                    break;
+                case NOTHINGHAPPENS13:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Gloria Hallelujah";
+                    canvasContext.fillText("Eat fruit on the day !", canvas.width/2, canvas.height-30 );
                     break;
                 }
 }
