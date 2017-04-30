@@ -10,9 +10,10 @@ var Rules = function Score() {
         if (BallClass.bouncedOnFloor > 1 && endPoint==false) {
             endPoint=true;
             console.log("Ball bounced twice on Floor",BallClass.bouncedOnFloor)
+            message=1;
             self.givePoint();
             //Game.RallyReset();
-            message=1;
+            
         }
 
         self.checkRound();
@@ -29,10 +30,10 @@ var Rules = function Score() {
 
             //TODO: menu stuff
             console.log("HIT TIN")
-
+            message=2;    
             self.givePoint();
             //Game.RallyReset();
-            message=2;    
+            
             
         }
         self.checkRound();
@@ -43,10 +44,10 @@ var Rules = function Score() {
             if (BallClass.topRedLineLimitBreached && endPoint==false) {
                 endPoint=true;
                 console.log("Ball Over the Top Red Line")
-
+                message=3;  
                 self.givePoint();
                 //Game.RallyReset();
-                message=3;    
+                  
                 
             }
             self.checkRound();
@@ -58,7 +59,7 @@ var Rules = function Score() {
             endPoint=true;
             BallClass.ballHitFloorBeforeWall = true;
             console.log("ball hit the floor before hitting the front wall, end of point")
-
+            message=FLOORBOUNCEBEFOREWALL;
             self.givePoint();
             //Game.RallyReset();
         } 

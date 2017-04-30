@@ -1,5 +1,5 @@
-var timer=50;
-var maxTimer=50;
+var timer=90;
+var maxTimer=90;
 
 var Game = function Game() {
     ctrl = {}
@@ -8,6 +8,7 @@ var Game = function Game() {
         
         if(timer>0){
         	timer--
+        	console.log(timer)
         } else {
 	        ServeHandler.WhoServes();
 	        BallClass.Reset();

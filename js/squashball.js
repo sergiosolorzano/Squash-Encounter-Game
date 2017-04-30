@@ -195,6 +195,7 @@ function BallClass() {
                     particlesEndTimer = 5;
                 }
             }
+            createParticles();
 
             //kill shot speed changes
             if (killShotActive && PlayerClass.swingTurn) {
@@ -416,6 +417,7 @@ function BallClass() {
             }
             this.bouncedOnFloor += 1;
             Sound.bounce();
+            createParticles();
         }
 
         this.nextX = this.x + this.speedX;

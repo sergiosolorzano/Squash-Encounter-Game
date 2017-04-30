@@ -3,7 +3,10 @@ var mainMenuArray =["Play", "Game Rules", "Scoring System", "Controls", "Credits
 var difficultyMenu = ["Level 1", "Level 2", "Level 3"];
 var menuArray= mainMenuArray;
 
-var creditsListArray = ["Sergio - Design, Gameplay, Code", "Christer - Design, Gameplay, Code", "TBD"];
+var creditsListArray = ["Squash Encounter Credits",
+
+];
+
 var curr_menuScreen = "Main"; //Rules, Credits
 var menuActive = false;
 
@@ -15,6 +18,14 @@ function drawText(text, height) {
     canvasContext.font = "bold 18px Cherry Cream Soda";
     //canvasContext.fillText(text, canvas.width / 2, 490);
     canvasContext.fillText(text, canvas.width / 2, height);
+}
+
+function drawCreditsText(text, height) {
+    canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "left";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
+    //canvasContext.fillText(text, canvas.width / 2, 490);
+    canvasContext.fillText(text, 20, height);
 }
 
 function drawScoringText(text, height) {
@@ -42,7 +53,7 @@ function startGame() {
     serveBet=true;
     //ServeHandler.bluePicks=false;
     clearInterval(menuLoop);
-    message=0;
+    //message=0;
     if(menuActive==false){
         gameLoop = setInterval(function () {
             moveAll();
@@ -67,7 +78,7 @@ function drawMenu() {
     menuActive = true;
     clearScreen();
     drawBitmapCenteredWithRotation(squashcourt_nocheer, canvas.width / 2, canvas.height / 2, 0);
-    message=0;
+    message=25;
     drawMessageBoard();
     //console.log("Menu Active",menuActive)
     //console.log("at returnToMenu ",curr_menuScreen)
@@ -95,9 +106,9 @@ function drawMenu() {
         drawTextCustom("Confirm: Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
     }else if (curr_menuScreen === "Play"){
         drawTextCustom("Confirm: Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
-        drawTextCustom("Exit: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
+        drawTextCustom("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     } else {
-        drawTextCustom("Exit: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
+        drawTextCustom("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }
     redrawCanvas();
 }
@@ -116,8 +127,8 @@ function drawDifficultySelection(){
 
 function drawControls() {
     drawText("Game Controls:", 125);
-    drawScoringText("Forwards: W", 215);
-    drawScoringText("Backwards: S", 235);
+    drawScoringText("Forward: W", 215);
+    drawScoringText("Backward: S", 235);
     drawScoringText("Right: D", 255);
     drawScoringText("Left: A", 275);
     drawScoringText("Sprint and Kill Shot: Space Bar", 295);
@@ -125,13 +136,13 @@ function drawControls() {
     drawScoringText("Serve: Space", 315);
 
     drawScoringText("Target Wall Quadrants: Left mouse CLICK", 405);
-    drawScoringText("Front Wall: Top / Bottom Right / Left", 425);
+    drawScoringText("Front Wall: Top / Bottom - Right / Left", 425);
     drawScoringText("Back Wall: Right / Left ", 445);
 }
 
 function drawCredits() {
     creditsListArray.forEach(function (element, index, creditsListArray) {
-        drawText(element, 100 + 28 * index);
+        drawCreditsText(element, 100 + 28 * index);
     });
 }
 
@@ -152,13 +163,13 @@ function drawScoring() {
 
 function drawRules() {
     drawText("Key Game Encounter Rules:", 125);
-    drawScoringText("Down or the rally is over if", 215);
+    drawScoringText("The rally is over (Down) if", 215);
     drawScoringText("the ball bounces on the floor", 235);
     drawScoringText("more than once.", 255);
-    drawScoringText("Down or the rally is over if", 275);
+    drawScoringText("The rally is over (Down) if", 275);
     drawScoringText("the ball hits the tin.", 295);
     drawScoringText(" ", 315);
-    drawScoringText("Out or the rally is over if the ball", 400);
+    drawScoringText("The rally is over (Out) if the ball", 400);
     drawScoringText("bounces over the Outside (top) Lines.", 420);
     drawScoringText("End of rally if the ball bounces on the", 440);
     drawScoringText("floor and before the front wall.", 460);

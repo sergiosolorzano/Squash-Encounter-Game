@@ -16,9 +16,11 @@ var MESSAGEBOARD=0;
 var FLOORBOUNCE=1;
 var TINHIT=2;
 var OUTLINES=3;
+var FLOORBOUNCEBEFOREWALL=24;
 var BLUESERVES=4;
 var REDSERVES=5;
 var PRESSSPACE=6;
+var MENUUPDOWNSELECTKEYS=25;
 var DRAWSERVE=7;
 var BLUEWINS=8;
 var REDWINS=9;
@@ -35,6 +37,7 @@ var NOTHINGHAPPENS10=19;
 var NOTHINGHAPPENS11=20;
 var NOTHINGHAPPENS12=21;
 var NOTHINGHAPPENS13=22;
+var NOTHINGHAPPENS14=23;
 var messageTip=NOTHINGHAPPENS1;
 
 var spinFrame = 0,
@@ -324,13 +327,13 @@ function drawMessageBoard(){
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Gloria Hallelujah";
-                    canvasContext.fillText("Pace yourself in a rally !", canvas.width/2, canvas.height-30 );
+                    canvasContext.fillText("Pace yourself in a Rally !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS12:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Gloria Hallelujah";
-                    canvasContext.fillText("Eat carbs the night before !", canvas.width/2, canvas.height-30 );
+                    canvasContext.fillText("Eat carbs the night before your game !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS13:
                     canvasContext.fillStyle = "white";
@@ -338,5 +341,24 @@ function drawMessageBoard(){
                     canvasContext.font = "18px Gloria Hallelujah";
                     canvasContext.fillText("Eat fruit on the day !", canvas.width/2, canvas.height-30 );
                     break;
+                case NOTHINGHAPPENS14:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Gloria Hallelujah";
+                    canvasContext.fillText("Target your wall shots !", canvas.width/2, canvas.height-30 );
+                    break;
+                case FLOORBOUNCEBEFOREWALL:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Ball bounced on floor before the wall !", canvas.width/2, canvas.height-30 );
+                    break;
+                case MENUUPDOWNSELECTKEYS:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Up (W), Down (S), Confirm (Space Bar)", canvas.width/2, canvas.height-30 );
+                    break;
+                    
                 }
 }

@@ -2,7 +2,7 @@
 var particleList=[];
 var PARTICLESNUM=35;
 var CYCLEANCHOR=4;//MINCYCLE + 1*CYCLEANCHOR = max cyclesLeft
-var MINCYCLE=1;
+var MINCYCLE=5;
 var MINPARTICLESIZE=3;
 var GRAVITY_PER_CYCLE=0.1;
 
