@@ -1,6 +1,7 @@
 var endPoint=false;
-var endGameTimer=100;
-var endGameTimerReset=100;
+var endGameTimer=150;
+var endGameTimerReset=150;
+var endGame=false;
 
 var Rules = function Score() {
     var self = {}
@@ -97,7 +98,8 @@ var Rules = function Score() {
         }
         //end round
         //TODO: WIN SCREEN
-        
+        endGame=true;
+        console.log(endGame)
         if(endGameTimer>0){
             endGameTimer--;
             console.log("end of game at",endGameTimer);
@@ -108,6 +110,7 @@ var Rules = function Score() {
         PlayerClass.Reset();
         ComputerClass.Reset();
         endPoint=false;
+        endGame=false;
         returnToMenu();
         }
     }

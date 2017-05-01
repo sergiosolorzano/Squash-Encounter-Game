@@ -157,7 +157,7 @@ function BallClass() {
 
         //run NCP and computer swing animations
         PlayerClass.hitGraphicSelection();
-        ComputerClass.hitGraphicSelection();
+        ComputerClass.hitGraphicSelection();        
 
         //check ball didn't bounce on floor more than once
         Rules.checkBallBouncedOnce();
@@ -171,8 +171,11 @@ function BallClass() {
         //check if ball bounced over top red line
         Rules.checkTopRedLineLimits();
 
+        //check if game over
+        Rules.checkRound();
+
         //point reset
-        if (endPoint) {
+        if (endPoint && endGame==false) {
             //console.log(endPoint)
             Game.RallyReset();
         }

@@ -77,8 +77,6 @@ function moveAll() {
             PlayerClass.movePlayer();
             moveAllParticles();
             moveAllKillParticles();
-            //check rules for a point here
-            Rules.checkRound();
         }
     }
 }

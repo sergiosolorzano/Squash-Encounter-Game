@@ -15,7 +15,7 @@ var Game = function Game() {
 	        BallClass.Reset();
 	        PlayerClass.Reset();
 	        ComputerClass.Reset();
-	        endPoint=false;
+	        endPoint=false;	
     	}
     }
 
