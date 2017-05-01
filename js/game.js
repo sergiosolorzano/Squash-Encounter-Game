@@ -16,7 +16,7 @@ var Game = function Game() {
 		        endPoint=false;	
 		    }
 		} else {
-	        console.log("Timer run out",timer, endGameTimer);
+	        //console.log("Timer run out",timer, endGameTimer);
 	        ServeHandler.WhoServes();
 			PlayerClass.Reset();
 	        ComputerClass.Reset();

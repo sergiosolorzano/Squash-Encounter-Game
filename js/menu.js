@@ -209,14 +209,14 @@ function drawMainMenu() {
 
 function menuInput(keyEvent, pressed) {
     Sound.wall();
-    if (keyEvent.keyCode === KEY_W) {
+    if (keyEvent.keyCode === KEY_W || keyEvent.keyCode === KEY_ARROWUP || keyEvent.keyCode === KEY_ARROWLEFT) {
         selectedMenuIndex -= 1;
         Sound.bounce();
         if (selectedMenuIndex < 0) {
             selectedMenuIndex = menuArray.length - 1;
         }
 
-    } else if (keyEvent.keyCode === KEY_S) {
+    } else if (keyEvent.keyCode === KEY_S || keyEvent.keyCode === KEY_ARROWDOWN || keyEvent.keyCode === KEY_ARROWRIGHT) {
         selectedMenuIndex += 1;
         Sound.bounce();
         if (selectedMenuIndex >= menuArray.length) {

@@ -10,6 +10,11 @@ const KEY_SPACE = 32;
 const KEY_LEFT_SHIFT = 16;
 const KEY_ENTER = 13;
 const KEY_ESC = 27;
+
+const KEY_ARROWUP = 38;
+const KEY_ARROWDOWN = 40;
+const KEY_ARROWRIGHT = 39;
+const KEY_ARROWLEFT = 37;
 //const KEY_Q = 81;
 
 var mouseX = 0;
