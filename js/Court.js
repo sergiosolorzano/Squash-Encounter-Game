@@ -90,7 +90,7 @@ var targetFrameTimer2 = 20;//how quick it changes between colours;
 
 //on mouseclick checks whether backwall is selected as target
 function selectBackWall (mouseClickX,mouseClickY){
-	if(ServeHandler.servingPlayer === ServeHandler.RED || ServeHandler.inPlay) {
+  if(ServeHandler.servingPlayer === ServeHandler.RED || ServeHandler.inPlay) {
       var centerTopX=COURT_W/2;
       var centerTopY=COURT_L-BACKWALLCENTERZ;
 
