@@ -16,8 +16,7 @@ const SPRINT_STAMINA_WHEN_TIRED = 15; // when to trigger sprint_breath sound eff
 var initYPosition = COURT_L * 0.4;
 
 var opponentAtReach = false;
-var playerHit = false;
-var computerHit = false;
+
 
 function PlayerClass() {
     this.sprintMultiplier = 1;
@@ -62,6 +61,7 @@ function PlayerClass() {
         this.particles = ParticleSystem.add(-14, 4, {}, "sweat");
         this.swingTurn = (ServeHandler.servingPlayer === ServeHandler.BLUE ? false : true);
         this.particles.active = false;
+        this.isHit=false;
         this.isSwinging = false;//used so player does not run if gif showing it's swinging the racket
         this.targetBackWall = NOBACKWALLSELECTED;
         this.targetFrontWall = NOFRONTWALLSELECTED;
@@ -98,7 +98,7 @@ function PlayerClass() {
             }
             if (playerFrame >= playerAnimationFrames) {
                 playerFrame = 0;
-                playerHit = false;
+                this.isHit = false;
                 this.isSwinging = false;
                 this.whichPic = p1_standing;
                 opponentAtReach = false;
@@ -113,9 +113,7 @@ function PlayerClass() {
         //console.log("person player:",this.swingTurn)
         var hereCollision = ballAtReach(this.x, this.y, BallClass.x, BallClass.y, this.swingTurn);
         var quadrantHit = hereCollision.quadrant;
-        var computerIsAtReach = playerAtReach(this.x, this.y, ComputerClass.x, ComputerClass.y);//racket accident
-        var computerIsAtReachNow = computerIsAtReach.oppAtReach;//racket accident
-
+        
         //check ball only bounced once or none on floor before swing
         if (BallClass.bouncedOnFloor == 1 || BallClass.bouncedOnFloor == 0) {
             ballBouncedOnFloor = true;
@@ -124,7 +122,9 @@ function PlayerClass() {
         }
 
         //kill shot
-        if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.keyHeld_SprintAndKill) {
+        if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.keyHeld_SprintAndKill && this.isHit==false) {
+            var computerIsAtReach = playerAtReach(this.x, this.y, ComputerClass.x, ComputerClass.y);//racket accident
+            var computerIsAtReachNow = computerIsAtReach.oppAtReach;//racket accident
             if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
                 this.isSwinging = true;
                 Sound.hit();
@@ -152,11 +152,12 @@ function PlayerClass() {
         }
 
         //normal automatic shot
-        if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.keyHeld_SprintAndKill == false) {
+        if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.keyHeld_SprintAndKill == false && this.isHit==false) {
         this.isSwinging = true;
         playerFrameTimer = 2;
             //console.log("swingturn:",this.swingTurn,"ballbounced:",ballBouncedOnFloor)
-            
+            computerIsAtReach = playerAtReach(this.x, this.y, ComputerClass.x, ComputerClass.y);//racket accident
+            computerIsAtReachNow = computerIsAtReach.oppAtReach;//racket accident
             switch (quadrantHit) {//maybe quadrantHit=0 in which case none called
                 case TOPRIGHTQUADRANT:
                     Sound.hit();
@@ -228,9 +229,9 @@ function PlayerClass() {
         var hereCollision = ballAtReach(this.x, this.y, BallClass.x, BallClass.y, this.swingTurn);
         var quadrantHit = hereCollision.quadrant;
         
-        //console.log(this.isSwinging,playerHit,quadrantHit)
+        //console.log(this.isSwinging,this.isHit,quadrantHit)
         
-        if (this.isSwinging == false && playerHit == false) {
+        if (this.isSwinging == false && this.isHit == false) {
 
             if (this.sprintCooldown > 0) {
                 this.sprintCooldown--;

@@ -63,6 +63,7 @@ function ComputerClass() {
             computerFrame = 0;
             this.isHit = false;
             this.whichPic = p2_standing;
+            opponentAtReach = false;
             this.isSwinging = false;
             computerFrameTimer = 2;
             computerStepsPerAnimFrame = 2;
@@ -140,7 +141,7 @@ function ComputerClass() {
             ballBouncedOnFloor = false;
         }
 
-        if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false) {
+        if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.isHit==false) {
             this.isSwinging = true;
             computerFrameTimer = 2;
             switch (quadrantHit) {
@@ -152,9 +153,9 @@ function ComputerClass() {
                         } else {
                             PlayerClass.whichPic = p1_right_hit;
                         }
-                        playerHit = true;
-                        playerFrameTimer = 10
-                        playerStepsPerAnimFrame = 10
+                        PlayerClass.isHit;
+                        playerFrameTimer = 10;
+                        playerStepsPerAnimFrame = 10;
                     }
                     this.whichPic = p2_shot_top_right;
                     break;
@@ -166,9 +167,9 @@ function ComputerClass() {
                         } else {
                             PlayerClass.whichPic = p1_right_hit;
                         }
-                        playerHit = true;
-                        playerFrameTimer = 10
-                        playerStepsPerAnimFrame = 10
+                        PlayerClass.isHit;
+                        playerFrameTimer = 10;
+                        playerStepsPerAnimFrame = 10;
                     }
                     this.whichPic = p2_shot_top_left;
                     break;
@@ -180,9 +181,9 @@ function ComputerClass() {
                         } else {
                             PlayerClass.whichPic = p1_right_hit;
                         }
-                        playerHit = true;
-                        playerFrameTimer = 10
-                        playerStepsPerAnimFrame = 10
+                        PlayerClass.isHit;
+                        playerFrameTimer = 10;
+                        playerStepsPerAnimFrame = 10;
                     }
                     this.whichPic = p2_shot_bottom_right;
                     break;
@@ -194,9 +195,9 @@ function ComputerClass() {
                         } else {
                             PlayerClass.whichPic = p1_right_hit;
                         }
-                        playerHit = true;
-                        playerFrameTimer = 10
-                        playerStepsPerAnimFrame = 10
+                        PlayerClass.isHit;
+                        playerFrameTimer = 10;
+                        playerStepsPerAnimFrame = 10;
                     }
                     this.whichPic = p2_shot_bottom_left;
                     break;

@@ -80,8 +80,7 @@ const WALKCENTERSQUAREW=35;
 const WALKTOPSQUAREY=39;
 const WALKBOTTOMSQUAREY=58;
 
-//player or computer whacked by opponent racket
-var playerHit=false;
+
 
 //draw target variables
 var stepsPerAnimation=20
@@ -690,6 +689,7 @@ function drawCourtQuadrants (){
 
       centerTopX=centerX;
       centerTopY=centerY-WALKTOPSQUAREY;
+      console.log(centerTopX,centerTopY)
 
       centerBottomX=centerX;
       centerBottomY=centerY+WALKBOTTOMSQUAREY;

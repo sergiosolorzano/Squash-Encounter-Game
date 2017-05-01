@@ -24,7 +24,9 @@ var Rules = function Score() {
 
     self.checkTin = function() {
         var tinLowerLimit = 2;
-        var tinUpperLimit = 5;
+        var tinUpperLimit = 4.4;
+        //var drawThisLocation = perspectiveLocation(400,200,tinUpperLimit);
+        //colorRect(drawThisLocation.x,drawThisLocation.y-drawThisLocation.z,80,80,"magenta");
 
         if (BallClass.bouncedOnFloor==0 && BallClass.y <= tinLowerLimit && BallClass.z < tinUpperLimit && endPoint==false) {
             endPoint=true;

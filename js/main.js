@@ -115,6 +115,7 @@ function drawAll() {
     drawMuteState();
     drawStaminaBar();
     drawScoreCounter();
+    //drawCourtQuadrants();
 
     if (serveBet) {
         rightToServe();

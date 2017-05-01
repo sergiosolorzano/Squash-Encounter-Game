@@ -155,8 +155,12 @@ function BallClass() {
         }
 
         //run NCP and computer swing animations
-        PlayerClass.hitGraphicSelection();
-        ComputerClass.hitGraphicSelection();        
+        if(PlayerClass.swingTurn){
+            PlayerClass.hitGraphicSelection();    
+            } else if(ComputerClass.swingTurn){
+            ComputerClass.hitGraphicSelection();        
+            }
+        
 
         //check ball didn't bounce on floor more than once
         Rules.checkBallBouncedOnce();
