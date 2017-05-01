@@ -35,7 +35,7 @@ function initInput() {
             }
         }
     });
-    PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE);
+    PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_ESC);
 }
 
 function updateMousePos(evt) {
@@ -77,9 +77,9 @@ function keySet(keyEvent, whichPlayer, setTo) {
     if (keyEvent.keyCode == whichPlayer.controlKeyDown) {
         whichPlayer.keyHeld_Reverse = setTo;
     }
-    //if (keyEvent.keyCode == whichPlayer.controlKeyKill) {
-    //    whichPlayer.keyHeld_Kill = setTo;
-   //}
+    if (keyEvent.keyCode == whichPlayer.controlKeyEsc) {//accelerate serve at end point
+        whichPlayer.keyHeld_Esc = setTo;
+    }
     if (keyEvent.keyCode == whichPlayer.controlKeySprintAndKill) {
         whichPlayer.keyHeld_SprintAndKill = setTo;
     }
@@ -97,10 +97,12 @@ function keySet(keyEvent, whichPlayer, setTo) {
 
 function keyPressed(evt) {
     //console.log("Key pressed: "+evt.keyCode);
+    
     if (menuActive) {
         menuInput(evt, true);
         evt.preventDefault();
     }
+
     else if (ServeHandler.bluePicks) {
         switch (evt.keyCode) {
             case KEY_A:

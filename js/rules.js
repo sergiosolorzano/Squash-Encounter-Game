@@ -17,9 +17,7 @@ var Rules = function Score() {
             message=1;
             self.givePoint();
             //Game.RallyReset();
-            
         }
-
 //        self.checkRound();
 
     }
@@ -99,14 +97,23 @@ var Rules = function Score() {
         //end round
         //TODO: WIN SCREEN
         endGame=true;
-        console.log(endGame)
+        //console.log(endGame)
+        BallClass.Reset();
+        
         if(endGameTimer>0){
             endGameTimer--;
-            console.log("end of game at",endGameTimer);
+            if(PlayerClass.keyHeld_Esc){
+                self.Reset();
+                PlayerClass.Reset();
+                ComputerClass.Reset();
+                endPoint=false;
+                endGame=false;
+                returnToMenu();
+            }
+            //console.log("end of game at",endGameTimer);
         } else {
-        console.log("End Game timer run out",timer, endGameTimer);
+        //console.log("End Game timer run out",timer, endGameTimer);
         self.Reset();
-        BallClass.Reset();
         PlayerClass.Reset();
         ComputerClass.Reset();
         endPoint=false;

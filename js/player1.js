@@ -31,6 +31,7 @@ function PlayerClass() {
     this.keyHeld_TurnRight = false;
     //this.keyHeld_Kill = false;
     this.keyHeld_SprintAndKill = false;
+    this.keyHeld_Esc = false;
 
     this.controlKeyUp;
     this.controlKeyRight;
@@ -38,13 +39,15 @@ function PlayerClass() {
     this.controlKeyLeft;
     //this.controlKeyKill;
     this.controlKeySprintAndKill;
+    this.controlKeyEsc;
 
-    this.initInput = function (upKey, rightKey, downKey, leftKey, sprintAndKillKey) {
+    this.initInput = function (upKey, rightKey, downKey, leftKey, sprintAndKillKey,escKey) {
         this.controlKeyUp = upKey;
         this.controlKeyRight = rightKey;
         this.controlKeyDown = downKey;
         this.controlKeyLeft = leftKey;
         this.controlKeySprintAndKill = sprintAndKillKey;
+        this.controlKeyEsc = escKey;
         //this.controlKeyKill = killKey;
     }
 
@@ -226,6 +229,7 @@ function PlayerClass() {
         var quadrantHit = hereCollision.quadrant;
         
         //console.log(this.isSwinging,playerHit,quadrantHit)
+        
         if (this.isSwinging == false && playerHit == false) {
 
             if (this.sprintCooldown > 0) {
