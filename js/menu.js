@@ -93,7 +93,7 @@ function drawMenu() {
     menuActive = true;
     clearScreen();
     drawBitmapCenteredWithRotation(squashcourt_nocheer, canvas.width / 2, canvas.height / 2, 0);
-    message=25;
+    message=MESSAGEBOARD;
     drawMessageBoard();
     //console.log("Menu Active",menuActive)
     //console.log("at returnToMenu ",curr_menuScreen)

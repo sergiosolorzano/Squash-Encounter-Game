@@ -213,19 +213,25 @@ function drawMessageBoard(){
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Down ! Excess Ball Bounce On Floor", canvas.width/2, canvas.height-30 );
+                    canvasContext.fillText("Excess Ball Bounce On Floor! Press Esc", canvas.width/2, canvas.height-30 );
+                    break;
+                case FLOORBOUNCEBEFOREWALL:
+                    canvasContext.fillStyle = "white";
+                    canvasContext.textAlign = "center";
+                    canvasContext.font = "18px Cherry Cream Soda";
+                    canvasContext.fillText("Floor bounce before the wall! Press Esc", canvas.width/2, canvas.height-30 );
                     break;
                 case TINHIT:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Down ! Ball Hit The Tin.", canvas.width/2, canvas.height-30 );
+                    canvasContext.fillText("Down ! Ball Hit The Tin. Press Esc.", canvas.width/2, canvas.height-30 );
                     break;
                 case OUTLINES:
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Out ! Ball Over Outside Lines.", canvas.width/2, canvas.height-30 );
+                    canvasContext.fillText("Out ! Ball Over Outside Lines. Press Esc", canvas.width/2, canvas.height-30 );
                     break;
                 case MESSAGEBOARD:
                     canvasContext.fillStyle = "white";
@@ -346,12 +352,6 @@ function drawMessageBoard(){
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Gloria Hallelujah";
                     canvasContext.fillText("Target your wall shots !", canvas.width/2, canvas.height-30 );
-                    break;
-                case FLOORBOUNCEBEFOREWALL:
-                    canvasContext.fillStyle = "white";
-                    canvasContext.textAlign = "center";
-                    canvasContext.font = "18px Cherry Cream Soda";
-                    canvasContext.fillText("Ball bounced on floor before the wall !", canvas.width/2, canvas.height-30 );
                     break;
                 case MENUUPDOWNSELECTKEYS:
                     canvasContext.fillStyle = "white";

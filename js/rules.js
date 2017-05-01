@@ -12,8 +12,8 @@ var Rules = function Score() {
             endPoint=true;
             timer=maxTimer;
             endGameTimer=endGameTimerReset;
-            console.log("Ball bounced twice on Floor",BallClass.bouncedOnFloor)
-            console.log("both timers reset",timer, endGameTimer);
+            //console.log("Ball bounced twice on Floor",BallClass.bouncedOnFloor)
+            //console.log("both timers reset",timer, endGameTimer);
             message=1;
             self.givePoint();
             //Game.RallyReset();

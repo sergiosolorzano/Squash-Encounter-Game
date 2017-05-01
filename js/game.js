@@ -6,7 +6,7 @@ var Game = function Game() {
 
     ctrl.RallyReset = function RallyReset() {
         BallClass.Reset();
-        console.log(PlayerClass.keyHeld_Esc)
+        //console.log(PlayerClass.keyHeld_Esc)
         if(timer>0){
         	timer--;
 			if(PlayerClass.keyHeld_Esc){
