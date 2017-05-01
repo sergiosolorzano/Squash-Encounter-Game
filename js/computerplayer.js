@@ -152,6 +152,7 @@ function ComputerClass() {
                         } else {
                             PlayerClass.whichPic = p1_right_hit;
                         }
+                        playerHit = true;
                         playerFrameTimer = 10
                         playerStepsPerAnimFrame = 10
                     }
