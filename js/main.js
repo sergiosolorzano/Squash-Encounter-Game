@@ -128,6 +128,7 @@ function drawAll() {
         drawAtBaseSheetSprite(squashcourt_nocheer, 0, canvas.width / 2, canvas.height / 2, 800, 600);
     }
 
+    drawGamePauseState();
     drawMuteState();
     drawStaminaBar();
     drawScoreCounter();

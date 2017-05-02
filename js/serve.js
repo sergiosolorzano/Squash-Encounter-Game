@@ -86,8 +86,11 @@ function ServeClass() {
     }
 
     self.RedCountDown = function () {
-        self.time--;
-        if (self.time < 1) self.StartAnim();
+        if(gameIsPaused){
+        } else {
+            self.time--;
+            if (self.time < 1) self.StartAnim();
+        }
     }
 
     self.StartAnim = function () {

@@ -1,10 +1,12 @@
 var isMuted = false;
+var gameIsPaused=false;
 
 const KEY_W = 87;
 const KEY_S = 83;
 const KEY_A = 65;
 const KEY_D = 68;
 const KEY_M = 77;
+const KEY_P = 80;
 
 const KEY_SPACE = 32;
 const KEY_LEFT_SHIFT = 16;
@@ -29,6 +31,7 @@ function initInput() {
         var mouseClickPos = updateMousePos(evt);
 
         muteToggleCheck(mouseClickPos.x, mouseClickPos.y);
+        gamePauseToggleCheck(mouseClickPos.x, mouseClickPos.y);
 
         selectBackWall(mouseClickPos.x, mouseClickPos.y);
         selectFrontWall(mouseClickPos.x, mouseClickPos.y);
@@ -156,6 +159,12 @@ function keyPressed(evt) {
     if (evt.keyCode == KEY_M) {
         isMuted = !isMuted;
         Howler.mute(isMuted);
+        evt.preventDefault();
+    }
+    if (evt.keyCode == KEY_P) {
+        //isMuted = !isMuted;
+        //Howler.mute(isMuted);
+        gameIsPaused=!gameIsPaused;
         evt.preventDefault();
     }
 }

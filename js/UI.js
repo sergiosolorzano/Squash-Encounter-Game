@@ -10,6 +10,12 @@ var muteButtonY = 480;
 var muteButtonWidth = 50;
 var muteButtonHeight = 50;
 
+var pauseButtonX = 750;
+var pauseButtonY = 480;
+var pauseButtonWidth = 50;
+var pauseButtonHeight = 50;
+var gamePauseState = 'P';
+
 //board message for rules
 var message=0;
 var MESSAGEBOARD=0;
@@ -67,6 +73,25 @@ function drawMuteState (){
     muteState = 'U';
   }
   colorText(muteState, muteButtonX, muteButtonY, 'white');
+}
+
+function gamePauseToggleCheck(x, y){
+  if(x > pauseButtonX && //if right of left side
+    x < pauseButtonX + pauseButtonWidth && //if left of right side
+    y > pauseButtonY && //if below top
+    y < pauseButtonY + pauseButtonHeight ){ //if above bottom
+    gameIsPaused = !gameIsPaused;
+  }
+}
+
+function drawGamePauseState (){
+  if(gameIsPaused){
+    gamePauseState = '||';
+    } else{
+        gamePauseState = 'P';
+    }
+  console.log(gameIsPaused,gamePauseState)
+  colorText(gamePauseState, pauseButtonX, pauseButtonY, 'red');
 }
 
 function drawStaminaBar() {

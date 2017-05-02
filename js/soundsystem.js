@@ -55,10 +55,16 @@ function SoundSystem() {
 			}//end new entry*/
 		}
 
-this.stop = function(samplename) {
+		this.stop = function(samplename) {
 			if (debug_sound) console.log("soundSystem.stop "+samplename);
 			if (sounds[samplename]) 
 				sounds[samplename].stop();
+		}
+
+		this.pause = function(samplename) {
+			if (debug_sound) console.log("soundSystem.stop "+samplename);
+			if (sounds[samplename]) 
+				sounds[samplename].pause();
 		}
 
 	
