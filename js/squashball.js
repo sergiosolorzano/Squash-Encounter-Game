@@ -70,7 +70,13 @@ function BallClass() {
 
     this.drawInAir = function () {
         var draw = perspectiveLocation(this.x, this.y, this.z)
-        var whichPic = ballPic;
+        
+        if(PlayerClass.swingTurn){
+            var whichPic = ballPicBlue;    
+        } else if (ComputerClass.swingTurn){
+            var whichPic = ballPicRed;    
+        }
+        
         var ballAnimationFrames = whichPic.width / BALL_W;
 
         if (ballFrameTimer-- < 0) {
