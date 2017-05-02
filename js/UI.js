@@ -88,9 +88,8 @@ function drawGamePauseState (){
   if(gameIsPaused){
     gamePauseState = '||';
     } else{
-        gamePauseState = 'P';
+        gamePauseState = 'P';    
     }
-  console.log(gameIsPaused,gamePauseState)
   colorText(gamePauseState, pauseButtonX, pauseButtonY, 'red');
 }
 

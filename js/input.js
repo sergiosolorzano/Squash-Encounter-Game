@@ -71,7 +71,7 @@ function keySet(keyEvent, whichPlayer, setTo) {
     // previous player direction and velocity and only
     // play shoe squeaks when you turn 180 degrees
     // at high speed. For now, just random shoe noise!
-    if (Math.random() > 0.75) Sound.shoe();
+    if (Math.random() > 0.75 && gameIsPaused==false) Sound.shoe();
 
     if (keyEvent.keyCode == whichPlayer.controlKeyLeft) {
         whichPlayer.keyHeld_TurnLeft = setTo;
@@ -166,6 +166,13 @@ function keyPressed(evt) {
         //Howler.mute(isMuted);
         gameIsPaused=!gameIsPaused;
         evt.preventDefault();
+        if(cheerOn && gameIsPaused==false && menuActive == false){
+            Sound.play("crowd-cheer", false, 0.1);
+            console.log("sounding from here input.js")
+        } else if (cheerOn && gameIsPaused){
+            Sound.pause("crowd-cheer", false, 0.1);
+            console.log("sound is paused in input.js")
+        }
     }
 }
 

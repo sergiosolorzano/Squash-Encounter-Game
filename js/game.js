@@ -13,6 +13,8 @@ var Game = function Game() {
 				ServeHandler.WhoServes();
 				PlayerClass.Reset();
 		        ComputerClass.Reset();
+		        timerOnCheer = 0;
+                cheerOn = false;
 		        endPoint=false;	
 		    }
 		} else {

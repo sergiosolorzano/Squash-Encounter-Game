@@ -72,10 +72,12 @@ function startGame() {
     if(menuActive==false){
         gameLoop = setInterval(function () {
             if(gameIsPaused==false){
-            moveAll();
-            drawAll();
+                moveAll();
+                drawAll();
+                
             } else {
                 drawGamePauseState();
+                
             }  
         }, 1000 / framesPerSecond);
         loadLevel();    
