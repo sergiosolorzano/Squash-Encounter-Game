@@ -16,6 +16,7 @@ var menuLoop;
 var framesPerSecond = 30;
 var timerOnCheer = 0;
 var a =0;
+var music1On=true;
 
 window.onload = function () {
     canvas = document.getElementById('gameCanvas');
@@ -28,7 +29,13 @@ window.onload = function () {
 
     ParticleSystem.init(canvas, 1000 / 30, false);
     Sound.stop("menu_music",true,0.5);
-    Sound.play("menu_music",true,0.5);
+    Sound.stop("menu2_music",true,0.5);
+    if(music1On){
+        Sound.play("menu_music",true,0.5);    
+    } else {
+        Sound.play("menu2_music",true,0.5);    
+    }
+    
 }
 
 //perspective location for player and ball
@@ -62,6 +69,12 @@ function imageLoadingDoneSoStartGame() {
 
 function loadLevel() {
     Sound.stop("menu_music",true,0.5);
+    Sound.stop("menu2_music",true,0.5);
+    if(music1On){
+        music1On=false;
+    } else {
+        music1On=true;
+    }
     playerEntry = true;
     BallClass.Init();
     PlayerClass.Init();

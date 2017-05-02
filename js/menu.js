@@ -78,8 +78,11 @@ function startGame() {
     }
 }
 function returnToMenu(){
-    Sound.stop("menu_music",true,0.5);
-    Sound.play("menu_music",true,0.5);
+    if(music1On){
+        Sound.play("menu_music",true,0.5);    
+    } else {
+        Sound.play("menu2_music",true,0.5);    
+    }
     curr_menuScreen="Main";
     playerEntry = false;
     ServeHandler.Reset();
