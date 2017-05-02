@@ -20,6 +20,7 @@ var creditsListArray = ["A Gamkedo Club Team Production",
 "Caspar Dunant - Game scale to full screen",
 "Dalath - Sprint sweat particles",
 "Adam Croft - Ball hit integration",
+"Source audio by pmBrowne Caboosey1186 AlaskaRobotics",
 ];
 
 var curr_menuScreen = "Main"; //Rules, Credits
