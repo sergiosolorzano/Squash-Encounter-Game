@@ -34,19 +34,27 @@ function PlayerClass() {
     this.keyHeld_Enter = false;
 
     this.controlKeyUp;
+    this.controlKeyUp2;
     this.controlKeyRight;
+    this.controlKeyRight2;
     this.controlKeyDown;
+    this.controlKeyDown2;
     this.controlKeyLeft;
+    this.controlKeyLeft2;
     //this.controlKeyKill;
     this.controlKeySprintAndKill;
     this.controlKeyEsc;
     this.controlKeyEnter;
 
-    this.initInput = function (upKey, rightKey, downKey, leftKey, sprintAndKillKey,escKey, enterKey) {
+    this.initInput = function (upKey, upArrowKey, rightKey, rightArrowKey, downKey, downArrowKey, leftKey, leftArrowKey, sprintAndKillKey,escKey, enterKey) {
         this.controlKeyUp = upKey;
+         this.controlKeyUp2 = upArrowKey;
         this.controlKeyRight = rightKey;
+        this.controlKeyRight2 = rightArrowKey;
         this.controlKeyDown = downKey;
+        this.controlKeyDown2 = downArrowKey;
         this.controlKeyLeft = leftKey;
+        this.controlKeyLeft2 = leftArrowKey;
         this.controlKeySprintAndKill = sprintAndKillKey;
         this.controlKeyEsc = escKey;
         this.controlKeyEnter = enterKey;

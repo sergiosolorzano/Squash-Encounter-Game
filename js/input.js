@@ -40,7 +40,7 @@ function initInput() {
             }
         }
     });
-    PlayerClass.initInput(KEY_W, KEY_D, KEY_S, KEY_A, KEY_SPACE, KEY_ESC, KEY_ENTER);
+    PlayerClass.initInput(KEY_W, KEY_ARROWUP, KEY_D, KEY_ARROWRIGHT, KEY_S, KEY_ARROWDOWN, KEY_A, KEY_ARROWLEFT, KEY_SPACE, KEY_ESC, KEY_ENTER);
 }
 
 function updateMousePos(evt) {
@@ -73,13 +73,25 @@ function keySet(keyEvent, whichPlayer, setTo) {
     if (keyEvent.keyCode == whichPlayer.controlKeyLeft) {
         whichPlayer.keyHeld_TurnLeft = setTo;
     }
+    if (keyEvent.keyCode == whichPlayer.controlKeyLeft2) {
+        whichPlayer.keyHeld_TurnLeft = setTo;
+    }
     if (keyEvent.keyCode == whichPlayer.controlKeyRight) {
+        whichPlayer.keyHeld_TurnRight = setTo;
+    }
+    if (keyEvent.keyCode == whichPlayer.controlKeyRight2) {
         whichPlayer.keyHeld_TurnRight = setTo;
     }
     if (keyEvent.keyCode == whichPlayer.controlKeyUp) {
         whichPlayer.keyHeld_Gas = setTo;
     }
+    if (keyEvent.keyCode == whichPlayer.controlKeyUp2) {
+        whichPlayer.keyHeld_Gas = setTo;
+    }
     if (keyEvent.keyCode == whichPlayer.controlKeyDown) {
+        whichPlayer.keyHeld_Reverse = setTo;
+    }
+    if (keyEvent.keyCode == whichPlayer.controlKeyDown2) {
         whichPlayer.keyHeld_Reverse = setTo;
     }
     if (keyEvent.keyCode == whichPlayer.controlKeyEsc) {//accelerate serve at end point
