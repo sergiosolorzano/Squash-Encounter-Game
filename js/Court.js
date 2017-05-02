@@ -689,7 +689,7 @@ function drawCourtQuadrants (){
 
       centerTopX=centerX;
       centerTopY=centerY-WALKTOPSQUAREY;
-      console.log(centerTopX,centerTopY)
+      //console.log(centerTopX,centerTopY)
 
       centerBottomX=centerX;
       centerBottomY=centerY+WALKBOTTOMSQUAREY;

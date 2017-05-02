@@ -13,6 +13,7 @@ function SoundSystem() {
 	var music = null;	// one looping Howl() object
   	var sounds = [];	// an array of Howl() objects
 	var atlas = null;	// one big sound sprite
+	var debug_sound = false; // write to console?
 
     // playback function
 	this.play = function(samplename,looping,vol,rate,pan)
@@ -44,7 +45,24 @@ function SoundSystem() {
 		}
 		if (!mute) // we still download even if muted
 			sounds[samplename].play();
-	}
+
+		//stops a sample from playing if it exists
+		
+
+		/*this.stopAll = function() {
+			for(var snd in sounds){
+				sounds[snd].stop();
+			}//end new entry*/
+		}
+
+this.stop = function(samplename) {
+			if (debug_sound) console.log("soundSystem.stop "+samplename);
+			if (sounds[samplename]) 
+				sounds[samplename].stop();
+		}
+
+	
+
 
 	function init()
 	{
@@ -101,6 +119,8 @@ function SoundSystem() {
 			console.log("unknown sound: " + samplename);
 		return result;
 	}
+
+
 
 	// inclusive: eg 1,10 may include 1 or 10
 	function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }

@@ -27,6 +27,8 @@ window.onload = function () {
     loadImages();
 
     ParticleSystem.init(canvas, 1000 / 30, false);
+    Sound.stop("menu_music",true,0.5);
+    Sound.play("menu_music",true,0.5);
 }
 
 //perspective location for player and ball
@@ -59,6 +61,7 @@ function imageLoadingDoneSoStartGame() {
 }
 
 function loadLevel() {
+    Sound.stop("menu_music",true,0.5);
     playerEntry = true;
     BallClass.Init();
     PlayerClass.Init();
