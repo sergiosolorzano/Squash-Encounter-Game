@@ -112,7 +112,7 @@ function GamepadKeyboardEventEmulator()
     
     function simulateKeyDown(thisKey) 
     {
-        console.log('fake keydown: ' + thisKey)
+        //console.log('fake keydown: ' + thisKey)
         var oEvent = document.createEvent('KeyboardEvent');
         Object.defineProperty(oEvent, 'keyCode', { get : function() { return this.keyCodeVal; } });     
         Object.defineProperty(oEvent, 'which', { get : function() { return this.keyCodeVal; } });     
@@ -127,7 +127,7 @@ function GamepadKeyboardEventEmulator()
     
     function simulateKeyUp(thisKey) 
     {
-        console.log('fake keyup: ' + thisKey)
+        //console.log('fake keyup: ' + thisKey)
         var oEvent = document.createEvent('KeyboardEvent');
         Object.defineProperty(oEvent, 'keyCode', { get : function() { return this.keyCodeVal; } });     
         Object.defineProperty(oEvent, 'which', { get : function() { return this.keyCodeVal; } });     
