@@ -506,8 +506,35 @@ function BallClass() {
             } else {
                 this.numFramesTouchGround = root2;
             }
-            this.landingX = this.x + this.speedX * this.numFramesTouchGround;
-            this.landingY = this.y + this.speedY * this.numFramesTouchGround;
+            
+            /*//playing difficulty level bias
+            var binary=Math.floor(Math.random() * (1-0+1)) + 0;//random number to set level of difficulty for computer player
+            var levelBias;
+            var AI_Difficulty_0=2;
+            var AI_Difficulty_1=1.5;
+            var AI_Difficulty_2=0.8;
+
+            //console.log(binary)
+            
+            if(AI_Difficulty==0){
+                levelBias=AI_Difficulty_0*binary;
+                } else if (AI_Difficulty==1){
+                    levelBias=AI_Difficulty_1*binary;
+                    } else if (AI_Difficulty==2){
+                        levelBias=AI_Difficulty_2*binary;
+                    }
+            this.landingX0 = this.x + (this.speedX * this.numFramesTouchGround);
+            this.landingY0 = this.y + (this.speedY * this.numFramesTouchGround);
+                    
+            this.landingX = this.x + (this.speedX * this.numFramesTouchGround)*(1+levelBias);
+            this.landingY = this.y + (this.speedY * this.numFramesTouchGround)*(1+levelBias);
+            console.log(AI_Difficulty,binary,this.landingX0,this.landingY0,this.landingX,this.landingY)            
+            */
+
+            this.landingX = this.x + (this.speedX * this.numFramesTouchGround);
+            this.landingY = this.y + (this.speedY * this.numFramesTouchGround);
+
+            
             // account for wall bounces
             var ballLandingInCourt;
             do {
@@ -528,7 +555,7 @@ function BallClass() {
             //console.log(this.z,this.zv,root1,root2)
             //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
-        if (this.nextY > COURT_L) {//COURT_L reduced by two so the ball doesn't go outside court. Can't change COURT_L as all front/back wall and court quadrants are measured according to original
+        if (this.nextY > COURT_L) {
             this.bouncedOnBackWall = true;
             createParticles();
             Sound.wall();
