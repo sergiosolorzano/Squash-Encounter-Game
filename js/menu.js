@@ -77,6 +77,7 @@ function startGame() {
         loadLevel();    
     }
 }
+
 function returnToMenu(){
     if(music1On){
         Sound.play("menu_music",true,0.5);    
@@ -228,7 +229,7 @@ function menuInput(keyEvent, pressed) {
             selectedMenuIndex = 0;
         }
 
-    } else if (keyEvent.keyCode === KEY_SPACE) {
+    } else if (keyEvent.keyCode === KEY_SPACE || keyEvent.keyCode ===KEY_ENTER) {
         if (curr_menuScreen != "Main" && curr_menuScreen!="Play") {
             //ignore if not on main menu
             return;

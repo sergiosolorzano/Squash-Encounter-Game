@@ -9,7 +9,7 @@ var Game = function Game() {
         //console.log(PlayerClass.keyHeld_Esc)
         if(timer>0){
         	timer--;
-			if(PlayerClass.keyHeld_Esc){
+			if(PlayerClass.keyHeld_Esc || PlayerClass.keyHeld_Enter){
 				ServeHandler.WhoServes();
 				PlayerClass.Reset();
 		        ComputerClass.Reset();

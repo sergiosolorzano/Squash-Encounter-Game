@@ -104,7 +104,7 @@ var Rules = function Score() {
         
         if(endGameTimer>0){
             endGameTimer--;
-            if(PlayerClass.keyHeld_Esc){
+            if(PlayerClass.keyHeld_Esc || PlayerClass.keyHeld_enter){
                 self.Reset();
                 PlayerClass.Reset();
                 ComputerClass.Reset();
