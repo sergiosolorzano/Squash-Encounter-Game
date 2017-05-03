@@ -14,7 +14,6 @@ const COURT_L = 97.0;
 const COURT_T = 56.0;
 
 var ballHeightNormal = 6;
-var heightChangePace = 0.04;
 var ballSinkRate = 0.03;
 var lenghtCourt = 440;
 var prevQuadrantWasAHit = false;
@@ -195,9 +194,10 @@ function BallClass() {
         //console.log(this.bouncedOnFloor)
         //console.log("squashball.js ",quadrantHit)
 
-        if (this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit != 0 && swingTurn && this.tinHit == false && this.ballHitFloorBeforeWall == false) {
+        if (this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit != 0 && this.tinHit == false && this.ballHitFloorBeforeWall == false) {
 
             this.bouncedOnFloor = 0;
+            console.log("reset bouncefloor to zero",this.bouncedOnFloor)
             this.bouncedOnFrontWall = false;
             this.bouncedOnBackWall = false;
             this.backWallOnPlay = false;
@@ -283,39 +283,37 @@ function BallClass() {
             } else if (PlayerClass.frontWallClicked && PlayerClass.isSwinging) {
                 //console.log("Aiming for front wall")
                 //radians to hit frontwall quadrant
-        var targetFrontWallVars = GradientShotToFrontWall(PlayerClass.x, PlayerClass.y);
-        var ballAng;
-        var playerStandHereQuad = targetFrontWallVars.playerOnThisCourtQuad;
-        var targetFrontWallQuadrant = targetFrontWallVars.tgtFrontWall;
-        //console.log(targetFrontWallQuadrant)
+                var targetFrontWallVars = GradientShotToFrontWall(PlayerClass.x, PlayerClass.y);
+                var ballAng;
+                var playerStandHereQuad = targetFrontWallVars.playerOnThisCourtQuad;
+                var targetFrontWallQuadrant = targetFrontWallVars.tgtFrontWall;
+                //console.log(targetFrontWallQuadrant)
 
-        if (targetFrontWallQuadrant == TOPRIGHTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
-            ballAng = 3 * Math.PI / 2
-        }
-        if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
-            ballAng = 3 * Math.PI / 2
-        }
-        if (targetFrontWallQuadrant == TOPLEFTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
-            ballAng = 3 * Math.PI / 2
-        }
-        if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
-            ballAng = 3 * Math.PI / 2
-        }
-        if (targetFrontWallQuadrant == TOPRIGHTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
-            ballAng = targetFrontWallVars.ballAng;
-        }
-        if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
-            ballAng = targetFrontWallVars.ballAng;
-        }
-        if (targetFrontWallQuadrant == TOPLEFTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
-            ballAng = targetFrontWallVars.ballAng;
-        }
-        if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
-            ballAng = targetFrontWallVars.ballAng;
-        }
-    
-
-                
+                if (targetFrontWallQuadrant == TOPRIGHTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
+                    ballAng = 3 * Math.PI / 2
+                }
+                if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
+                    ballAng = 3 * Math.PI / 2
+                }
+                if (targetFrontWallQuadrant == TOPLEFTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
+                    ballAng = 3 * Math.PI / 2
+                }
+                if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
+                    ballAng = 3 * Math.PI / 2
+                }
+                if (targetFrontWallQuadrant == TOPRIGHTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
+                    ballAng = targetFrontWallVars.ballAng;
+                }
+                if (targetFrontWallQuadrant == BOTTOMRIGHTFRONTWALL && playerStandHereQuad == LEFTCOURTQUADRANT) {
+                    ballAng = targetFrontWallVars.ballAng;
+                }
+                if (targetFrontWallQuadrant == TOPLEFTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
+                    ballAng = targetFrontWallVars.ballAng;
+                }
+                if (targetFrontWallQuadrant == BOTTOMLEFTFRONTWALL && playerStandHereQuad == RIGHTCOURTQUADRANT) {
+                    ballAng = targetFrontWallVars.ballAng;
+                }
+      
                 var ballSpeed = magnitude(this.speedX, this.speedY);
                 this.speedX = Math.cos(ballAng) * ballSpeed;
                 this.speedY = Math.sin(ballAng) * ballSpeed;
@@ -427,13 +425,22 @@ function BallClass() {
         }
         if (this.z <= 0) {
             this.zv *= -0.7;
+            console.log("this.zv here before MIN",this.zv)
             this.z = 0;
+            if (AI_Difficulty==0 || AI_Difficulty==1){
+                if(this.zv<0.8){
+                    this.zv=minBounceValue;
+                }    
+            }
+            
             //console.log("touch floor","speedY",this.speedY)
             if (killShotActive) {
                 this.speedY = this.speedY / killShotSpeedMultiple;
                 killShotActive = false;
             }
             this.bouncedOnFloor += 1;
+
+            console.log("bounce on floor", this.bouncedOnFloor, this.z, this.zv)
             Sound.bounce();
             createParticles();
         }
@@ -503,14 +510,17 @@ function BallClass() {
             //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
         if (this.nextY > COURT_L) {
+            //console.log("on back wall")
             this.bouncedOnBackWall = true;
             createParticles();
             Sound.wall();
             this.speedY *= -1;
-            if (this.zv > 0) {
+            if (this.zv > 0.8) {
                 this.zv *= -0.03;//necessary for computer player projection quadratic function
+            } else {
+                this.zv *=0.05;
             }
-            //console.log("touch back wall","speedY",this.speedY)
+
             if (killShotActive && this.backWallOnPlay == false) {
                 this.speedY = this.speedY / killShotSpeedMultiple;
                 killShotActive = false;

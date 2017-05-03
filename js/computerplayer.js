@@ -14,6 +14,7 @@ var walkTimer=walkDelay;
 var diversionX;
 var diversionY;
 var runningToT=false;
+var minBounceValue;
 
 function ComputerClass() {
 
@@ -38,12 +39,14 @@ function ComputerClass() {
             walkDelay=15;
             diversionLevelX=0.2;
             diversionLevelY=0.2;
+            minBounceValue=0.8;
         }
         if(AI_Difficulty == 1){
             COMPUTER_MOVE_SPEED=1.95;
             walkDelay=10;
             diversionLevelX=0.2;
             diversionLevelY=0.2;
+            minBounceValue=0.8;
         }
         if(AI_Difficulty == 2){
             COMPUTER_MOVE_SPEED=2.5;
@@ -153,7 +156,7 @@ var debugTarget;
         }
 
         debugTarget = perspectiveLocation(playerGotoX, playerGotoY, 0)
-        console.log("diversionX",diversionX,"runningToT",runningToT,"interimInterceptWalk",interimInterceptWalk,"this.swingTurn",this.swingTurn,"BouncedFrontWall",BallClass.bouncedOnFrontWall)
+        //console.log("diversionX",diversionX,"runningToT",runningToT,"interimInterceptWalk",interimInterceptWalk,"this.swingTurn",this.swingTurn,"BouncedFrontWall",BallClass.bouncedOnFrontWall)
         var distToGoX = playerGotoX - this.x;
         var distToGoY = playerGotoY - this.y;
         var atanResult = Math.atan2(distToGoY, distToGoX);//radians
