@@ -155,6 +155,7 @@ function selectBackWall (mouseClickX,mouseClickY){
 
       //determine target wall and its corner coordinates
       if(mouseClickX>=centerTopDrawn.x && mouseClickX<=rightTopDrawn.x && mouseClickY>=centerTopDrawn.y && mouseClickY<=centerBottomDrawn.y){
+        PlayerClass.frontWallClicked=false;
         PlayerClass.backWallClicked=true;
         PlayerClass.targetBackWall=RIGHTBACKWALL;
           farX=rightTopDrawn.x;
@@ -163,6 +164,7 @@ function selectBackWall (mouseClickX,mouseClickY){
           nearY=centerTopDrawn.y;
       }
       if(mouseClickX<centerTopDrawn.x && mouseClickX>=leftTopDrawn.x && mouseClickY>centerTopDrawn.y && mouseClickY<=leftBottomDrawn.y){
+        PlayerClass.frontWallClicked=false;
         PlayerClass.backWallClicked=true;
         PlayerClass.targetBackWall=LEFTBACKWALL;
           farX= leftTopDrawn.x;
@@ -235,6 +237,7 @@ function selectFrontWall (ballPixelX,ballPixelY){
 
       //determine target wall
       if(mouseX>=centerDrawn.x && mouseX<=rightCenterDrawn.x && mouseY<=centerDrawn.y && mouseY>=centerTopDrawn.y){
+        PlayerClass.backWallClicked=false;
         PlayerClass.frontWallClicked=true;
         PlayerClass.targetFrontWall=TOPRIGHTFRONTWALL;
         farX=rightTopDrawn.x;
@@ -244,6 +247,7 @@ function selectFrontWall (ballPixelX,ballPixelY){
       }
 
       if(mouseX<centerDrawn.x && mouseX>=leftCenterDrawn.x && mouseY<centerDrawn.y && mouseY>=leftTopDrawn.y){
+        PlayerClass.backWallClicked=false;
         PlayerClass.frontWallClicked=true;
         PlayerClass.targetFrontWall=TOPLEFTFRONTWALL;
         farX=leftTopDrawn.x;
@@ -254,7 +258,8 @@ function selectFrontWall (ballPixelX,ballPixelY){
 
 	if(ServeHandler.servingPlayer === ServeHandler.RED || ServeHandler.inPlay) {
       		if(mouseX>centerDrawn.x && mouseX<=rightBottomDrawn.x && mouseY>centerDrawn.y && mouseY<=rightBottomDrawn.y){
-        		PlayerClass.frontWallClicked=true;
+        		PlayerClass.backWallClicked=false;
+            PlayerClass.frontWallClicked=true;
         		PlayerClass.targetFrontWall=BOTTOMRIGHTFRONTWALL;
         		farX=rightBottomDrawn.x;
         		nearX=centerBottomDrawn.x;
@@ -263,7 +268,8 @@ function selectFrontWall (ballPixelX,ballPixelY){
       		}
 
       		if(mouseX<centerDrawn.x && mouseX >= leftBottomDrawn.x && mouseY>centerDrawn.y & mouseY<= leftBottomDrawn.y){
-        		PlayerClass.frontWallClicked=true;
+        		PlayerClass.backWallClicked=false;
+            PlayerClass.frontWallClicked=true;
         		PlayerClass.targetFrontWall=BOTTOMLEFTFRONTWALL;
         		farX=leftBottomDrawn.x;
         		nearX=centerDrawn.x;

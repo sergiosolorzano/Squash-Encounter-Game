@@ -140,9 +140,10 @@ function drawMenu() {
 }
 
 function drawDifficultySelection(){
-    drawText("Level 1", 400);
-    drawText("Level 2", 425);
-    drawText("Level 3", 450);
+    drawText("Select Level", 350);
+    drawText("A warm up", 400);
+    drawText("Moderate", 425);
+    drawText("Sweaty !", 450);
     canvasContext.drawImage(p1_standing,
     canvas.width / 5.8 * 2, 350 + selectedMenuIndex * 25,
     50, 50);
