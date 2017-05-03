@@ -166,14 +166,17 @@ function keyPressed(evt) {
         //isMuted = !isMuted;
         //Howler.mute(isMuted);
         gameIsPaused=!gameIsPaused;
+        cheerOn=false;
+        Sound.stop("crowd-cheer", false, 0.1);
         evt.preventDefault();
-        if(cheerOn && gameIsPaused==false && menuActive == false){
+        /*if(cheerOn && gameIsPaused==false && menuActive == false){
+            canvasFrame=0;
             Sound.play("crowd-cheer", false, 0.1);
             console.log("sounding from here input.js")
         } else if (cheerOn && gameIsPaused){
-            Sound.pause("crowd-cheer", false, 0.1);
+            Sound.stop("crowd-cheer", false, 0.1);
             console.log("sound is paused in input.js")
-        }
+        }*/
     }
 }
 
