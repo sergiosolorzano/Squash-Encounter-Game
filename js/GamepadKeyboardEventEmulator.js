@@ -24,7 +24,7 @@ function GamepadKeyboardEventEmulator()
     var SIMULATED_KEY_RIGHT = 39;
     var SIMULATED_KEY_UP = 38;
     var SIMULATED_KEY_DOWN = 40;
-    var SIMULATED_KEY_FIRE = 27; // [B] button = enter
+    var SIMULATED_KEY_FIRE = 13; // [B] button = enter
     var SIMULATED_KEY_JUMP = 32; // [A] button = space
 
     window.addEventListener("gamepadconnected", function(e) {
