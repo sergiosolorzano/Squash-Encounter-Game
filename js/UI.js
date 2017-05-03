@@ -55,6 +55,11 @@ var spinFrame = 0,
     moreFrames = false,
     drawNow = false,
     uiTimer;
+var spinDrawLocation;
+const SERVE_W = 330,
+        SERVE_H = 365;
+var rightToServeOutcomeReady=false;
+
 
 function muteToggleCheck(x, y){
   if(x > muteButtonX && //if right of left side
@@ -108,10 +113,8 @@ function drawStaminaBar() {
     canvasContext.fillText("Stamina", 700, canvas.height - 573);
 }
 
-function rightToServe() {
-    const SERVE_W = 330,
-        SERVE_H = 365;
-    var drawLocation = perspectiveLocation(COURT_W / 2, COURT_L * 0.2, 0),
+function calculateRightToServe() {
+    spinDrawLocation = perspectiveLocation(COURT_W / 2, COURT_L * 0.2, 0),
         titleText = null;
 
     drawMessageBoard();
@@ -154,9 +157,14 @@ function rightToServe() {
             spinFrame = spinAnimationFrames;
             endAnimation = true;
         }
-        rightToServeOutcome();
+        rightToServeOutcomeReady=true;
     }
-    if (!ServeHandler.bluePicks) drawAtBaseSheetSprite(serve_spin, spinFrame, drawLocation.x, drawLocation.y, SERVE_W, SERVE_H);
+    drawRightToServe();
+    //console.log(serve_spin, spinFrame, drawLocation.x, drawLocation.y, SERVE_W, SERVE_H)
+}
+
+function drawRightToServe(){
+    if (!ServeHandler.bluePicks) drawAtBaseSheetSprite(serve_spin, spinFrame, spinDrawLocation.x, spinDrawLocation.y, SERVE_W, SERVE_H);   
 }
 
 function rightToServeOutcome() {
@@ -168,6 +176,7 @@ function rightToServeOutcome() {
         setChoice = "",
         titleText = null;
 
+        //console.log(serveBet)
     if (ServeHandler.bluePicks) {
         window.clearTimeout(timer);
         drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer1.x, drawLocationPlayer1.y, PLAYER_W, PLAYER_H);
@@ -180,6 +189,7 @@ function rightToServeOutcome() {
         ServeHandler.WhoServes();
     }
     else if (spinFrame == 5) {
+        
         drawAtBaseSheetSprite(p1_standing, 0, drawLocationPlayer1.x, drawLocationPlayer1.y, PLAYER_W, PLAYER_H);
         titleText = "Blue Player Has Right To Serve !";
         canvasContext.fillStyle = "blue";

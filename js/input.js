@@ -113,8 +113,9 @@ function keySet(keyEvent, whichPlayer, setTo) {
                 serveBet = false;
                 message = 0;
             }
-            else if ((!playerEntry) && ServeHandler.matchStart) ServeHandler.StartAnim();
+            else if ((!playerEntry) && ServeHandler.matchStart && gameIsPaused==false) ServeHandler.StartAnim();
         }
+        rightToServeOutcomeReady=false;
     }
 }
 
@@ -161,7 +162,7 @@ function keyPressed(evt) {
         Howler.mute(isMuted);
         evt.preventDefault();
     }
-    if (evt.keyCode == KEY_P) {
+    if (evt.keyCode == KEY_P && menuActive==false) {
         //isMuted = !isMuted;
         //Howler.mute(isMuted);
         gameIsPaused=!gameIsPaused;

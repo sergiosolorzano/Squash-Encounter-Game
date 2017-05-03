@@ -5,7 +5,6 @@ var canvasStepsPerAnimFrame = 5;//
 var canvasFrameTimer = 5;//how quick it changes between frames;
 var cheerOn = false;//determines whether the crowd sprite should cheer
 
-
 var serveBet = true;
 var BallClass = new BallClass();
 var PlayerClass = new PlayerClass();
@@ -83,7 +82,8 @@ function loadLevel() {
 
 function moveAll() {
     if (serveBet) {
-        return;
+        calculateRightToServe();
+        //return;
     }
     else if (ServeHandler.inServe) BallClass.moveBallForServe();
     else if (playerEntry == false) {
@@ -135,18 +135,23 @@ function drawAll() {
     //drawCourtQuadrants();
 
     if (serveBet) {
-        rightToServe();
+        drawRightToServe();
+        if(rightToServeOutcomeReady){
+            rightToServeOutcome();
+        }
     //Rules.score.AI=8;//to test end of game
     } else {
         if (BallClass.isVisible) {
             BallClass.drawShadow();
             BallClass.drawInAir();
         }
+        
         ParticleSystem.draw();
         GradientShotToFrontWall(PlayerClass.x, PlayerClass.y)
         //console.log(ServeHandler.inPlay)
         //console.log(ServeHandler.servingPlayer,ServeHandler.inPlay)
         if(ServeHandler.servingPlayer==ServeHandler.BLUE && ServeHandler.inPlay==false){//1=blueplayer
+            
             //console.log("im here")
             message=BLUESERVES;
             messageTip=Math.floor(Math.random() * 5) + 1
@@ -201,7 +206,7 @@ function drawAll() {
                     break;
             }
         }
-
+        
         if (playerEntry) {
             PlayerClass.initDrawPlayer();
             ComputerClass.initDrawPlayer();
@@ -215,7 +220,8 @@ function drawAll() {
             drawMessageBoard();
             //drawLines();
         }
-    }
+    
+}
     redrawCanvas();
 }
 
