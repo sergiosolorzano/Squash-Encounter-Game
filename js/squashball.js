@@ -476,6 +476,7 @@ function BallClass() {
 
         if (this.nextY <= 0) {
             this.bouncedOnFrontWall = true;
+            interimInterceptWalk=true;
             createParticles();
             Sound.wall();
             this.speedY *= -1;
