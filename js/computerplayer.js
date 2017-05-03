@@ -4,16 +4,16 @@ var computerFrame = 0;
 
 var initComputerStepsPerAnimFrame = 5;//for players entry only
 var initComputerFrameTimer = 5;//how quick it changes between frames; for players entry only
-var COMPUTER_MOVE_SPEED = 2.8;
+var COMPUTER_MOVE_SPEED;
 
 //computer AI level variables
 var interimInterceptWalk=false;//computer AI does not intercept straight line
-var finalInterceptWalk=false;//computer AI does not intercept straight line
-
-function runToT() {
-    this.x = T_ONCOURT_W;
-    this.y = T_ONCOURT_L;
-}
+var walkDelay;
+var walkTimer=walkDelay;
+//interim step to intercept
+var diversionX;
+var diversionY;
+var runningToT=false;
 
 function ComputerClass() {
 
@@ -32,6 +32,27 @@ function ComputerClass() {
         this.speedX = 0;
         this.speedY = 0;
         this.isHit = false;
+
+        if(AI_Difficulty == 0){
+            COMPUTER_MOVE_SPEED=1.75;
+            walkDelay=15;
+            diversionLevelX=0.2;
+            diversionLevelY=0.2;
+        }
+        if(AI_Difficulty == 1){
+            COMPUTER_MOVE_SPEED=1.95;
+            walkDelay=10;
+            diversionLevelX=0.2;
+            diversionLevelY=0.2;
+        }
+        if(AI_Difficulty == 2){
+            COMPUTER_MOVE_SPEED=2.5;
+            walkDelay=5;
+            diversionLevelX=0.1;
+            diversionLevelY=0.1;
+        }
+        
+
     }
 
     this.initDrawPlayer = function () {
@@ -73,10 +94,23 @@ function ComputerClass() {
             computerStepsPerAnimFrame = 2;
         }
         drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y, PLAYER_W, PLAYER_H);
+        
+        var debugColor;
+        if(interimInterceptWalk){
+            debugColor="green"
+        } else {
+            debugColor="magenta"
+        }
+        
         if (debugTarget)
-            colorCircle(debugTarget.x, debugTarget.y - debugTarget.z, 3, "green")
+            colorCircle(debugTarget.x, debugTarget.y - debugTarget.z, 3, debugColor)
+        
+
+        /*if (debugTarget)
+            colorCircle(debugTarget.x, debugTarget.y - debugTarget.z, 3, "green")*/
     }
-    var debugTarget;
+var debugTarget;
+    
     this.movePlayer = function () {
         var nextX = this.x;
         var nextY = this.y;
@@ -89,72 +123,57 @@ function ComputerClass() {
             return;
         }
 
+        if(interimInterceptWalk && this.swingTurn && runningToT==false){
+            diversionX=diversionLevelX;
+            diversionY=diversionLevelY;
+        } else {
+            diversionX=0.0;
+            diversionY=0.0;
+            BallClass.calculateLanding();
+        } 
+
+        //console.log(COMPUTER_MOVE_SPEED,walkDelay,diversionX,diversionY)
+        
+
         if (this.swingTurn && BallClass.bouncedOnFrontWall) {
-            playerGotoX = BallClass.landingX;
-            playerGotoY = BallClass.landingY;
-        } /*else { // run to T
-            playerGotoX = T_ONCOURT_W;
-            playerGotoY = T_ONCOURT_L;
-        }*/
-
-        if(PlayerClass.swingTurn){
-            playerGotoX = T_ONCOURT_W;
-            playerGotoY = T_ONCOURT_L;
-            distToGoX = playerGotoX - this.x;
-            distToGoY = playerGotoY - this.y;
-            atanResult = Math.atan2(distToGoY, distToGoX);//radians
-            distToGoal = magnitude(distToGoX, distToGoY);
-
-            if (distToGoal <= COMPUTER_MOVE_SPEED) {
-                this.speedX = 0;
-                this.speedY = 0;
+            runningToT=false;
+            if(walkTimer--<0){
+                BallClass.calculateLanding();
+                playerGotoX = BallClass.landingX;
+                playerGotoY = BallClass.landingY;
+                //console.log("im not targeting T")
             } else {
-                this.speedX = Math.cos(atanResult) * COMPUTER_MOVE_SPEED;
-                this.speedY = Math.sin(atanResult) * COMPUTER_MOVE_SPEED;
+                
             }
+        } else { // run to T
+            runningToT=true;
+            playerGotoX = T_ONCOURT_W;
+            playerGotoY = T_ONCOURT_L;
+            //console.log("Target T")
         }
 
         debugTarget = perspectiveLocation(playerGotoX, playerGotoY, 0)
-
-        //interim step to intercept
-        var diversionX=1;
-        var diversionY=0.5;
-
-        //Step1 to reach interim
-        var interimDistToGoX = (playerGotoX - this.x)*(1+diversionX);
-        var interimDistToGoY = (playerGotoY - this.y)*(1-diversionY);
-        var interimAtanResult = Math.atan2(interimDistToGoY, interimDistToGoX);//radians
-        var interimDistToGoal = magnitude(interimDistToGoX, interimDistToGoY);
-        if(interimInterceptWalk){
-            if (interimDistToGoal <= COMPUTER_MOVE_SPEED) {
-                this.speedX = 0;
-                this.speedY = 0;
-                interimInterceptWalk=false;
-                finalInterceptWalk=true;
-            } else {
-                this.speedX = Math.cos(interimAtanResult) * COMPUTER_MOVE_SPEED;
-                this.speedY = Math.sin(interimAtanResult) * COMPUTER_MOVE_SPEED;
-            }
-        }
-
-        //Step 2 to reach destination
+        console.log("diversionX",diversionX,"runningToT",runningToT,"interimInterceptWalk",interimInterceptWalk,"this.swingTurn",this.swingTurn,"BouncedFrontWall",BallClass.bouncedOnFrontWall)
         var distToGoX = playerGotoX - this.x;
         var distToGoY = playerGotoY - this.y;
         var atanResult = Math.atan2(distToGoY, distToGoX);//radians
         var distToGoal = magnitude(distToGoX, distToGoY);
-
-        if(finalInterceptWalk){
-            if (distToGoal <= COMPUTER_MOVE_SPEED) {
-                this.speedX = 0;
-                this.speedY = 0;
-                finalInterceptWalk=false;
-            } else {
-                this.speedX = Math.cos(atanResult) * COMPUTER_MOVE_SPEED;
-                this.speedY = Math.sin(atanResult) * COMPUTER_MOVE_SPEED;
+        //console.log(interimInterceptWalk)
+        if (distToGoal <= COMPUTER_MOVE_SPEED) {
+            this.speedX = 0;
+            this.speedY = 0;
+            if(runningToT==false){
+                interimInterceptWalk=false;
             }
+            
+            //console.log("dist < Speed",interimInterceptWalk,diversionX,BallClass.landingX,distToGoX,distToGoal)
+        } else {
+            this.speedX = Math.cos(atanResult) * COMPUTER_MOVE_SPEED;
+            this.speedY = Math.sin(atanResult) * COMPUTER_MOVE_SPEED;
+            //console.log("dist > Speed",interimInterceptWalk,diversionX,BallClass.landingX,playerGotoX,this.swingTurn,BallClass.bouncedOnFrontWall,walkTimer,distToGoX,distToGoal,playerGotoX)
         }
 
-        if (!BallClass.isServed) {
+        if (!BallClass.isServed && walkTimer<0) {
             nextX += this.speedX;
             nextY += this.speedY;
 
@@ -167,9 +186,11 @@ function ComputerClass() {
 
         if (nextX >= 0 && nextX <= COURT_W) {
             this.x = nextX;
+          //  console.log("im walkingW")
         }
         if (nextY >= 0 && nextY <= COURT_L - 9) {//COURT_L reduced by two so the ball doesn't go outside court. Can't change COURT_L as all front/back wall and court quadrants are measured according to original
             this.y = nextY;
+        //console.log("im walkingL")
             //console.log(this.y)
         }
     }

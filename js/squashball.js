@@ -477,6 +477,7 @@ function BallClass() {
         if (this.nextY <= 0) {
             this.bouncedOnFrontWall = true;
             interimInterceptWalk=true;
+            walkTimer=walkDelay;
             createParticles();
             Sound.wall();
             this.speedY *= -1;
@@ -496,63 +497,8 @@ function BallClass() {
             //delta z to calcluate #frames to touch ground or z=0
             //this.z at n =this.z+this.zv*n+(n*(n+1)/2*ballsink), where (n*(n+1)/2*ballsink derives from the triangular number sequence.
             //This generates a quadratic equation of the form n^2-n*(2*this.zv+1)-2*this.z
-            a = -ballSinkRate;//quadratic a value
-            b = this.zv;//quadratic b value
-            c = this.z; //quadratic c value
-            root = Math.pow(b, 2) - 4 * a * c;
-            root1 = (-b + Math.sqrt(root)) / (2 * a);
-            root2 = (-b - Math.sqrt(root)) / (2 * a);
-            if (root1 > 0) {
-                this.numFramesTouchGround = root1;
-            } else {
-                this.numFramesTouchGround = root2;
-            }
             
-            /*//playing difficulty level bias
-            var binary=Math.floor(Math.random() * (1-0+1)) + 0;//random number to set level of difficulty for computer player
-            var levelBias;
-            var AI_Difficulty_0=2;
-            var AI_Difficulty_1=1.5;
-            var AI_Difficulty_2=0.8;
-
-            //console.log(binary)
-            
-            if(AI_Difficulty==0){
-                levelBias=AI_Difficulty_0*binary;
-                } else if (AI_Difficulty==1){
-                    levelBias=AI_Difficulty_1*binary;
-                    } else if (AI_Difficulty==2){
-                        levelBias=AI_Difficulty_2*binary;
-                    }
-            this.landingX0 = this.x + (this.speedX * this.numFramesTouchGround);
-            this.landingY0 = this.y + (this.speedY * this.numFramesTouchGround);
-                    
-            this.landingX = this.x + (this.speedX * this.numFramesTouchGround)*(1+levelBias);
-            this.landingY = this.y + (this.speedY * this.numFramesTouchGround)*(1+levelBias);
-            console.log(AI_Difficulty,binary,this.landingX0,this.landingY0,this.landingX,this.landingY)            
-            */
-
-            this.landingX = this.x + (this.speedX * this.numFramesTouchGround);
-            this.landingY = this.y + (this.speedY * this.numFramesTouchGround);
-
-            
-            // account for wall bounces
-            var ballLandingInCourt;
-            do {
-                ballLandingInCourt = true;
-                if (this.landingX < 0) {
-                    this.landingX = -this.landingX;
-                    ballLandingInCourt = false;
-                }
-                if (this.landingX > COURT_W) {
-                    this.landingX = 2 * COURT_W - this.landingX;
-                    ballLandingInCourt = false;
-                }
-                if (this.landingY > COURT_L) {
-                    this.landingY = 2 * COURT_L - this.landingY;
-                    ballLandingInCourt = false;
-                }
-            } while (ballLandingInCourt == false);
+            //this.calculateLanding();
             //console.log(this.z,this.zv,root1,root2)
             //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
@@ -584,6 +530,42 @@ function BallClass() {
         //console.log(this.topRedLineLimitBreached)
         this.x += this.speedX;
         this.y += this.speedY;
+    }
+
+    this.calculateLanding = function(){
+        a = -ballSinkRate;//quadratic a value
+        b = this.zv;//quadratic b value
+        c = this.z; //quadratic c value
+        root = Math.pow(b, 2) - 4 * a * c;
+        root1 = (-b + Math.sqrt(root)) / (2 * a);
+        root2 = (-b - Math.sqrt(root)) / (2 * a);
+        if (root1 > 0) {
+            this.numFramesTouchGround = root1;
+        } else {
+            this.numFramesTouchGround = root2;
+        }
+       
+        //console.log("squashball diversionX",diversionX)
+        this.landingX = (this.x + (this.speedX * this.numFramesTouchGround))*(1+diversionX);
+        this.landingY = (this.y + (this.speedY * this.numFramesTouchGround))*(1+diversionY);
+        
+        // account for wall bounces
+        var ballLandingInCourt;
+        do {
+            ballLandingInCourt = true;
+            if (this.landingX < 0) {
+                this.landingX = -this.landingX;
+                ballLandingInCourt = false;
+            }
+            if (this.landingX > COURT_W) {
+                this.landingX = 2 * COURT_W - this.landingX;
+                ballLandingInCourt = false;
+            }
+            if (this.landingY > COURT_L) {
+                this.landingY = 2 * COURT_L - this.landingY;
+                ballLandingInCourt = false;
+            }
+        } while (ballLandingInCourt == false);
     }
 }//end BallClass
 
