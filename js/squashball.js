@@ -434,10 +434,20 @@ function BallClass() {
                 if (AI_Difficulty==0 || AI_Difficulty==1){
                     this.z = 2.25;
                     if(this.zv<0.8){
-                        this.zv=minBounceValue;
+                        this.zv=minZVBounceValue;
                     }    
+                    //TODO:
+                    /*if(PlayerClass.playerStandingOnCourtQuadrant==RIGHTTOPCOURTQUADRANT || PlayerClass.playerStandingOnCourtQuadrant==LEFTTOPCOURTQUADRANT){
+                    this.z=zIncreaseAtFront;
+                    this.z=zIncreaseAtBack;
+                    }
+                    if(PlayerClass.playerStandingOnCourtQuadrant==RIGHTBOTTOMCOURTQUADRANT || PlayerClass.playerStandingOnCourtQuadrant==LEFTBOTTOMCOURTQUADRANT){
+                    this.z=zIncreaseAtFront;
+                    this.z=zIncreaseAtBack;
+                    }*/
                 }
             }
+        
             
             //console.log("touch floor","speedY",this.speedY)
             if (killShotActive) {

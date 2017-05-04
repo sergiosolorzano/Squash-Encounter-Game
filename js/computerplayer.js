@@ -14,7 +14,9 @@ var walkTimer=walkDelay;
 var diversionX;
 var diversionY;
 var runningToT=false;
-var minBounceValue;
+var minZVBounceValue;//increase of zv when ball too low for player only
+var zIncreaseAtFront;//increase of z when ball too low for player only at front court quadrants
+var zIncreaseAtBack;//increase of z when ball too low for player only at back court quadrants
 
 function ComputerClass() {
 
@@ -39,20 +41,26 @@ function ComputerClass() {
             walkDelay=15;
             diversionLevelX=0.2;
             diversionLevelY=0.2;
-            minBounceValue=0.8;
+            minZVBounceValue=0.8;
             if(PlayerClass.swingTurn){
                 SWINGBUFFER=4;//HITSQUAREW*.5
             }
+            //TODO
+            //zIncreaseAtFront=7.5;
+            //zIncreaseAtBack=12;
         }
         if(AI_Difficulty == 1){
             COMPUTER_MOVE_SPEED=1.95;
             walkDelay=10;
             diversionLevelX=0.2;
             diversionLevelY=0.2;
-            minBounceValue=0.8;
+            minZVBounceValue=0.8;
             if(PlayerClass.swingTurn){
             SWINGBUFFER=2.4;//HITSQUAREW*.3
             }
+            //TODO
+            //zIncreaseAtFront=6.5;
+            //zIncreaseAtBack=10.5;
         }
         if(AI_Difficulty == 2){
             COMPUTER_MOVE_SPEED=2.5;
