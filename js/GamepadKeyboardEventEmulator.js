@@ -23,6 +23,7 @@ function GamepadKeyboardEventEmulator()
     // buttons
     var gamepad_fire = false; // button 0 = A
     var gamepad_jump = false; // button 1 = B
+    var gamepad_start = false; // button 9 = start
     
     // so we can fire events when changed
     var prev_gamepad_left = false;
@@ -35,6 +36,7 @@ function GamepadKeyboardEventEmulator()
     var prev_gamepad_look_right = false;
     var prev_gamepad_look_up = false;
     var prev_gamepad_look_down = false;
+    var prev_gamepad_start = false;
 
     // more buttons - currently unimplemented
     /*
@@ -44,7 +46,6 @@ function GamepadKeyboardEventEmulator()
     var gamepad_dpad_down = false; // button 13
     var gamepad_dpad_left = false; // button 14
     var gamepad_dpad_right = false; // button 15
-    var gamepad_start = false; // button 9
     var gamepad_back = false; // button 8
     var gamepad_l1 = false; // button 4
     var gamepad_r1 = false; // button 5
@@ -71,6 +72,7 @@ function GamepadKeyboardEventEmulator()
     var SIMULATED_KEY_DOWN = 40;
     var SIMULATED_KEY_FIRE = 13; // [B] button = enter
     var SIMULATED_KEY_JUMP = 32; // [A] button = space
+    var SIMULATED_KEY_START = 27; // [START] button = esc
 
     window.addEventListener("gamepadconnected", function(e) {
     // Gamepad connected
@@ -149,12 +151,14 @@ function GamepadKeyboardEventEmulator()
         if (!prev_gamepad_down && gamepad_down) simulateKeyDown(SIMULATED_KEY_DOWN);
         if (!prev_gamepad_fire && gamepad_fire) simulateKeyDown(SIMULATED_KEY_FIRE);
         if (!prev_gamepad_jump && gamepad_jump) simulateKeyDown(SIMULATED_KEY_JUMP);
+        if (!prev_gamepad_start && gamepad_start) simulateKeyDown(SIMULATED_KEY_START);
         if (prev_gamepad_left && !gamepad_left) simulateKeyUp(SIMULATED_KEY_LEFT);
         if (prev_gamepad_right && !gamepad_right) simulateKeyUp(SIMULATED_KEY_RIGHT);
         if (prev_gamepad_up && !gamepad_up) simulateKeyUp(SIMULATED_KEY_UP);
         if (prev_gamepad_down && !gamepad_down) simulateKeyUp(SIMULATED_KEY_DOWN);
         if (prev_gamepad_fire && !gamepad_fire) simulateKeyUp(SIMULATED_KEY_FIRE);
         if (prev_gamepad_jump && !gamepad_jump) simulateKeyUp(SIMULATED_KEY_JUMP);
+        if (prev_gamepad_start && !gamepad_start) simulateKeyUp(SIMULATED_KEY_START);
 
         if (SQUASH_ENCOUNTER_WALL_SELECTING)
         {
