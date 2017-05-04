@@ -27,6 +27,7 @@ const HITSQUAREW=8;
 const HITSQUAREH=8;
 const SHIFTTORAQUETPOSITIONX=6;
 const SHIFTTORAQUETPOSITIONY=-5;
+var SWINGBUFFER=0;
 
 //back wall sizing
 const HITSQUAREBOTTOMW=32;
@@ -385,28 +386,28 @@ function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY, swingTu
       var scaleAdjustmentX = (1-playerPixelY/initYPosition)*100*WINDOWXSCALE;
 
       centerTopX=centerX;
-      centerTopY=centerY-HITSQUAREH;
+      centerTopY=centerY-HITSQUAREH-SWINGBUFFER;
 
       centerBottomX=centerX;
-      centerBottomY=centerY+HITSQUAREH;
+      centerBottomY=centerY+HITSQUAREH+SWINGBUFFER;
 
-      rightCenterX=centerX+HITSQUAREW+scaleAdjustmentX;
+      rightCenterX=centerX+HITSQUAREW+scaleAdjustmentX+SWINGBUFFER;
       rightCenterY=centerY;
 
-      rightTopX=centerX+HITSQUAREW+scaleAdjustmentX;
-      rightTopY=centerY-HITSQUAREH;
+      rightTopX=centerX+HITSQUAREW+scaleAdjustmentX+SWINGBUFFER;
+      rightTopY=centerY-HITSQUAREH-SWINGBUFFER;
 
-      rightBottomX=centerX+HITSQUAREW+scaleAdjustmentX;
-      rightBottomY=centerY+HITSQUAREH;
+      rightBottomX=centerX+HITSQUAREW+scaleAdjustmentX+SWINGBUFFER;
+      rightBottomY=centerY+HITSQUAREH+SWINGBUFFER;
 
-      leftCenterX=centerX-HITSQUAREW-scaleAdjustmentX;
+      leftCenterX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER;
       leftCenterY=centerY;
 
-      leftTopX=centerX-HITSQUAREW-scaleAdjustmentX;
-      leftTopY=centerY-HITSQUAREH;
+      leftTopX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER;
+      leftTopY=centerY-HITSQUAREH-SWINGBUFFER;
 
-      leftBottomX=centerX-HITSQUAREW-scaleAdjustmentX;
-      leftBottomY=centerY+HITSQUAREH;
+      leftBottomX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER;
+      leftBottomY=centerY+HITSQUAREH+SWINGBUFFER;
 
       raquetPositionX=centerX+SHIFTTORAQUETPOSITIONX+scaleAdjustmentX;
       raquetPositionY=centerY+SHIFTTORAQUETPOSITIONY;

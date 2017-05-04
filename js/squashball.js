@@ -417,7 +417,11 @@ function BallClass() {
         //wall bouncing mechanics:
         this.zv += -ballSinkRate;
         this.z += this.zv;
-
+        if(ComputerClass.swingTurn){
+            console.log("change",this.z,this.zv)    
+        }
+        
+        
         if (this.z > COURT_T) {//hit ceiling
             this.z = COURT_T;
             this.zv *= -1;
@@ -425,12 +429,14 @@ function BallClass() {
         }
         if (this.z <= 0) {
             this.zv *= -0.7;
-            console.log("this.zv here before MIN",this.zv)
-            this.z = 0;
-            if (AI_Difficulty==0 || AI_Difficulty==1){
-                if(this.zv<0.8){
-                    this.zv=minBounceValue;
-                }    
+            //console.log("this.zv here before MIN",this.zv,"thisz:",this.z)
+            if(PlayerClass.swingTurn){
+                if (AI_Difficulty==0 || AI_Difficulty==1){
+                    this.z = 2.25;
+                    if(this.zv<0.8){
+                        this.zv=minBounceValue;
+                    }    
+                }
             }
             
             //console.log("touch floor","speedY",this.speedY)

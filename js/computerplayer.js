@@ -40,6 +40,9 @@ function ComputerClass() {
             diversionLevelX=0.2;
             diversionLevelY=0.2;
             minBounceValue=0.8;
+            if(PlayerClass.swingTurn){
+                SWINGBUFFER=4;//HITSQUAREW*.5
+            }
         }
         if(AI_Difficulty == 1){
             COMPUTER_MOVE_SPEED=1.95;
@@ -47,12 +50,18 @@ function ComputerClass() {
             diversionLevelX=0.2;
             diversionLevelY=0.2;
             minBounceValue=0.8;
+            if(PlayerClass.swingTurn){
+            SWINGBUFFER=2.4;//HITSQUAREW*.3
+            }
         }
         if(AI_Difficulty == 2){
             COMPUTER_MOVE_SPEED=2.5;
             walkDelay=5;
             diversionLevelX=0.1;
             diversionLevelY=0.1;
+            if(PlayerClass.swingTurn){
+                SWINGBUFFER=0;//HITSQUAREW*0
+            }
         }
         
 
