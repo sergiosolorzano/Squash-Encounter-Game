@@ -88,8 +88,8 @@ var stepsPerAnimation=20
 var targetFrameTimer1 = 20;//how quick it changes between colours;
 var targetFrameTimer2 = 20;//how quick it changes between colours;
 
-//on mouseclick checks whether backwall is selected as target
-function selectBackWall (mouseClickX,mouseClickY){
+//on mouseclick checks whether backwall is selected as target, (force_this_wall to ignore mouse coords)
+function selectBackWall (mouseClickX,mouseClickY,force_this_wall){
   if(ServeHandler.servingPlayer === ServeHandler.RED || ServeHandler.inPlay) {
       var centerTopX=COURT_W/2;
       var centerTopY=COURT_L-BACKWALLCENTERZ;
@@ -155,7 +155,8 @@ function selectBackWall (mouseClickX,mouseClickY){
       var nearY;
 
       //determine target wall and its corner coordinates
-      if(mouseClickX>=centerTopDrawn.x && mouseClickX<=rightTopDrawn.x && mouseClickY>=centerTopDrawn.y && mouseClickY<=centerBottomDrawn.y){
+      if((force_this_wall==RIGHTBACKWALL) ||
+        (mouseClickX>=centerTopDrawn.x && mouseClickX<=rightTopDrawn.x && mouseClickY>=centerTopDrawn.y && mouseClickY<=centerBottomDrawn.y)){
         PlayerClass.frontWallClicked=false;
         PlayerClass.backWallClicked=true;
         PlayerClass.targetBackWall=RIGHTBACKWALL;
@@ -164,7 +165,8 @@ function selectBackWall (mouseClickX,mouseClickY){
           farY=centerBottomDrawn.y;
           nearY=centerTopDrawn.y;
       }
-      if(mouseClickX<centerTopDrawn.x && mouseClickX>=leftTopDrawn.x && mouseClickY>centerTopDrawn.y && mouseClickY<=leftBottomDrawn.y){
+      if((force_this_wall==LEFTBACKWALL) ||
+        (mouseClickX<centerTopDrawn.x && mouseClickX>=leftTopDrawn.x && mouseClickY>centerTopDrawn.y && mouseClickY<=leftBottomDrawn.y)){
         PlayerClass.frontWallClicked=false;
         PlayerClass.backWallClicked=true;
         PlayerClass.targetBackWall=LEFTBACKWALL;
@@ -185,8 +187,8 @@ function selectBackWall (mouseClickX,mouseClickY){
       redrawCanvas();
   }//end of function to target the back wall
 
-//on mouse target front wall
-function selectFrontWall (ballPixelX,ballPixelY){
+//on mouse target front wall (force_this_wall to ignore mouse coords)
+function selectFrontWall (ballPixelX,ballPixelY,force_this_wall){
       const HITSQUARETOPW=71;
       const HITSQUAREBOTTOMW=34;
       const HITSQUARECENTERW=39;
@@ -237,7 +239,8 @@ function selectFrontWall (ballPixelX,ballPixelY){
       var nearY;
 
       //determine target wall
-      if(mouseX>=centerDrawn.x && mouseX<=rightCenterDrawn.x && mouseY<=centerDrawn.y && mouseY>=centerTopDrawn.y){
+      if((force_this_wall==TOPRIGHTFRONTWALL) ||
+        (mouseX>=centerDrawn.x && mouseX<=rightCenterDrawn.x && mouseY<=centerDrawn.y && mouseY>=centerTopDrawn.y)){
         PlayerClass.backWallClicked=false;
         PlayerClass.frontWallClicked=true;
         PlayerClass.targetFrontWall=TOPRIGHTFRONTWALL;
@@ -247,7 +250,8 @@ function selectFrontWall (ballPixelX,ballPixelY){
         nearY=centerDrawn.y;
       }
 
-      if(mouseX<centerDrawn.x && mouseX>=leftCenterDrawn.x && mouseY<centerDrawn.y && mouseY>=leftTopDrawn.y){
+      if((force_this_wall==TOPLEFTFRONTWALL) ||
+        (mouseX<centerDrawn.x && mouseX>=leftCenterDrawn.x && mouseY<centerDrawn.y && mouseY>=leftTopDrawn.y)){
         PlayerClass.backWallClicked=false;
         PlayerClass.frontWallClicked=true;
         PlayerClass.targetFrontWall=TOPLEFTFRONTWALL;
@@ -258,7 +262,8 @@ function selectFrontWall (ballPixelX,ballPixelY){
       }
 
 	if(ServeHandler.servingPlayer === ServeHandler.RED || ServeHandler.inPlay) {
-      		if(mouseX>centerDrawn.x && mouseX<=rightBottomDrawn.x && mouseY>centerDrawn.y && mouseY<=rightBottomDrawn.y){
+      		if((force_this_wall==BOTTOMRIGHTFRONTWALL) ||
+            (mouseX>centerDrawn.x && mouseX<=rightBottomDrawn.x && mouseY>centerDrawn.y && mouseY<=rightBottomDrawn.y)){
         		PlayerClass.backWallClicked=false;
             PlayerClass.frontWallClicked=true;
         		PlayerClass.targetFrontWall=BOTTOMRIGHTFRONTWALL;
@@ -268,7 +273,8 @@ function selectFrontWall (ballPixelX,ballPixelY){
         		nearY=centerDrawn.y;
       		}
 
-      		if(mouseX<centerDrawn.x && mouseX >= leftBottomDrawn.x && mouseY>centerDrawn.y & mouseY<= leftBottomDrawn.y){
+      		if((force_this_wall==BOTTOMLEFTFRONTWALL) ||
+            (mouseX<centerDrawn.x && mouseX >= leftBottomDrawn.x && mouseY>centerDrawn.y & mouseY<= leftBottomDrawn.y)){
         		PlayerClass.backWallClicked=false;
             PlayerClass.frontWallClicked=true;
         		PlayerClass.targetFrontWall=BOTTOMLEFTFRONTWALL;
@@ -289,6 +295,9 @@ function selectFrontWall (ballPixelX,ballPixelY){
   }//end of function to target the front wall
 
 function drawTargets(){
+
+      // console.log('drawTargets frontWallClicked='+PlayerClass.frontWallClicked+' backWallClicked=' + PlayerClass.backWallClicked);
+
       if (PlayerClass.backWallClicked || PlayerClass.frontWallClicked) {
         if(targetFrameTimer1>0){
         targetColor="#0000A0"; 
