@@ -7,8 +7,8 @@ function drawUI(){
 
 const BUTTON_W=40;
 const BUTTON_H=40;
-var menuMuteButtonX=230;
-var menuMuteButtonY=510;
+var menuMuteButtonX=715;
+var menuMuteButtonY=65;
 var gameMuteButtonX=708;
 var gameMuteButtonY=90;
 

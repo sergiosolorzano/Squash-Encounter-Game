@@ -10,7 +10,8 @@ var creditsListArray = ["A Gamkedo Club Team Production",
 "point assingment, messaging, game pixel and Unity art", 
 "JL Evans- Players serve, draw for right to serve, game scale to full screen,",
 "computer AI programming; player serve pixel art", 
-"Marcus Silva - Point assignment, score counter and computer AI programming",
+"Marcus Silva - Point assignment, score counter, computer AI programming,",
+"menu game title banner",
 "Matthew Ko - Menu programming",
 "Adam Croft - Credits Music and Ball hit sound integration",
 "Nikki Sapp - Menu Music",
@@ -37,6 +38,35 @@ function drawText(text, height) {
     //canvasContext.fillText(text, canvas.width / 2, 490);
     canvasContext.fillText(text, canvas.width / 2, height);
 }
+function drawRulesTextTitle(text, height) {
+    canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
+    //canvasContext.fillText(text, canvas.width / 2, 490);
+    canvasContext.fillText(text, canvas.width / 2, height);
+}
+
+function drawRulesEsc(text, x, y) {
+        canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
+    canvasContext.fillText(text, x, y);
+}
+
+function drawControlsMouse(text, x, y) {
+        canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "18px Cherry Cream Soda";
+    canvasContext.fillText(text, x, y);
+}
+
+function drawRulesText(text, height) {
+    canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
+    //canvasContext.fillText(text, canvas.width / 2, 490);
+    canvasContext.fillText(text, canvas.width / 2, height);
+}
 
 function drawCreditsText(text, height) {
     canvasContext.fillStyle = "black";
@@ -47,7 +77,7 @@ function drawCreditsText(text, height) {
 }
 
 function drawScoringText(text, height) {
-    canvasContext.fillStyle = "blue";
+    canvasContext.fillStyle = "black";
     canvasContext.textAlign = "center";
     canvasContext.font = "18px Cherry Cream Soda";
     //canvasContext.fillText(text, canvas.width / 2, 490);
@@ -105,7 +135,13 @@ function returnToMenu(){
 function drawMenu() {
     menuActive = true;
     clearScreen();
-    drawBitmapCenteredWithRotation(squashcourt_nocheer, canvas.width / 2, canvas.height / 2, 0);
+    
+    if(curr_menuScreen=='Game Rules' || curr_menuScreen=='Credits' || curr_menuScreen=='Scoring System' || curr_menuScreen=='Controls'){
+        drawBitmapCenteredWithRotation(squashcourt_towrite, canvas.width / 2, canvas.height / 2, 0);        
+    } else {
+    drawBitmapCenteredWithRotation(squashcourt_menu, canvas.width / 2, canvas.height / 2, 0);
+    }
+
     message=MESSAGEBOARD;
     drawMessageBoard();
     //console.log("Menu Active",menuActive)
@@ -137,7 +173,7 @@ function drawMenu() {
         drawTextCustom("Confirm: Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
         drawTextCustom("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     } else {
-        drawTextCustom("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
+        drawRulesEsc("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }
     redrawCanvas();
 }
@@ -156,19 +192,25 @@ function drawDifficultySelection(){
 }
 
 function drawControls() {
-    drawText("Game Controls:", 125);
-    drawScoringText("Forward: W", 215);
-    drawScoringText("Backward: S", 235);
-    drawScoringText("Right: D", 255);
-    drawScoringText("Left: A", 275);
-    drawScoringText("Sprint and Kill Shot: Space Bar", 295);
-    drawScoringText("", 315);
-    drawScoringText("Serve: Space", 315);
+    drawRulesTextTitle("Game Controls:", 230);
+    drawScoringText("Forward: W", 260);
+    drawScoringText("Backward: S", 280);
+    drawScoringText("Right: D", 300);
+    drawScoringText("Left: A", 320);
+    drawScoringText("Sprint & Kill Shot: Space Bar", 340);
+    drawScoringText("Serve: Space", 360);
 
-    drawScoringText("Target Wall Quadrants: Left mouse CLICK", 405);
-    drawScoringText("Front Wall: Top / Bottom - Right / Left", 425);
-    drawScoringText("Back Wall: Right / Left ", 445);
-    drawScoringText("Exit Game: Esc ", 485);
+    drawScoringText("Target Wall Quadrants:", 390);
+    drawControlsMouse("Left mouse CLICK", 470, 410);
+    drawControlsMouse("Front Wall Targets:", 375, 430);    
+    drawControlsMouse("Top / Bottom", 440, 450);
+    drawControlsMouse("Right / Left", 433, 470);
+
+    drawControlsMouse("Back Wall Targets:", 360, 490);    
+    drawControlsMouse("Top / Bottom", 440, 510);
+
+    //drawControls("Front Wall: Top / Bottom - Right / Left", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
+    //drawControls("Back Wall: Right / Left ", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
 }
 
 function drawCredits() {
@@ -178,34 +220,36 @@ function drawCredits() {
 }
 
 function drawScoring() {
-    drawText("Hand Out Scoring System:", 125);
-    drawScoringText("If the server wins a", 215);
-    drawScoringText("rally they receive a", 235);
-    drawScoringText("point, while if the returner", 255);
-    drawScoringText("wins a rally, only the service", 275);
-    drawScoringText("changes, i.e. (the ball goes", 295);
-    drawScoringText(" hand-out), and no point", 315);
-    drawScoringText("is given.", 335);
-    drawScoringText("The first player to reach 9 points", 405);
-    drawScoringText("wins the game. However, if the score", 425);
-    drawScoringText("reaches 8–8 the winner needs two", 445);
-    drawScoringText("points advantage to win (e.g. 10-8).", 465);
+    drawRulesText("Hand Out", 230);
+    drawRulesText("Scoring System:", 250);
+    drawScoringText("If the server wins a rally", 280);
+    drawScoringText("receives a point whilst", 300);
+    drawScoringText("if the returner wins a", 320);
+    drawScoringText("rally, only the service", 340);
+    drawScoringText("changes, i.e. (the ball goes", 360);
+    drawScoringText(" hand-out), and no point", 380);
+    drawScoringText("is given.", 400);
+    drawScoringText("The first player to reach 9", 430);
+    drawScoringText("points wins the game. However, if", 450);
+    drawScoringText("the score reaches 8–8 the winner", 470);
+    drawScoringText("needs two points advantage to win ", 490);
+    drawScoringText("(e.g. 10-8).", 510);
 }
 
 function drawRules() {
-    drawText("Key Game Encounter Rules:", 125);
-    drawScoringText("The rally is over (Down) if", 215);
-    drawScoringText("the ball bounces on the floor", 235);
-    drawScoringText("more than once.", 255);
-    drawScoringText("The rally is over (Down) if", 275);
-    drawScoringText("the ball hits the tin.", 295);
-    drawScoringText(" ", 315);
-    drawScoringText("The rally is over (Out) if the ball", 400);
-    drawScoringText("bounces over the Outside (top) Lines.", 420);
-    drawScoringText("End of rally if the ball bounces on the", 440);
-    drawScoringText("floor and before the front wall.", 460);
-    drawScoringText("Accidental racket accidents.", 480);
-    drawScoringText("do not stop the rally or hand over points.", 500);
+    drawRulesTextTitle("Key Game Rules:", 230);
+    drawRulesText("The rally is over (Down)", 260);
+    drawRulesText("if the ball bounces on", 280);
+    drawRulesText("the floor more than once.", 300);
+    drawRulesText("The rally is over (Down) if", 320);
+    drawRulesText("the ball hits the tin.", 340);
+    
+    drawRulesText("The rally is over if the ball", 380);
+    drawRulesText("bounces over the Outside (top).", 400);
+    drawRulesText(" End of rally if the ball bounces on", 420);
+    drawRulesText("the floor and before the front wall.", 440);
+    drawRulesText("Accidental racket accidents do not", 480);
+    drawRulesText(" stop the rally or hand over points.", 500);
 }
 
 function drawMainMenu() {

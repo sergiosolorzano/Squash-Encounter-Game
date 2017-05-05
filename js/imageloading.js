@@ -47,7 +47,8 @@ var soundOnButton = document.createElement("img");
 var soundOffButton = document.createElement("img");
 var gamePauseButton = document.createElement("img");
 
-var entryScreen = document.createElement("img");
+var squashcourt_menu = document.createElement("img");
+var squashcourt_towrite = document.createElement("img");
 
 
 //message board
@@ -123,7 +124,8 @@ function loadImages(){
 	{varName: soundOffButton, theFile: "soundOffButton.png"},
 	{varName: gamePlayButton, theFile: "gameplaybutton.png"},
 	{varName: gamePauseButton, theFile: "gamepausebutton.png"},
-	{varName: entryScreen, theFile: "entryscreen.png"}
+	{varName: squashcourt_menu, theFile: "squashcourt_menu.png"},
+	{varName: squashcourt_towrite, theFile: "squashcourt_towrite.png"}
 
 	];
 
