@@ -11,8 +11,9 @@ var muteButtonX = 708;
 var muteButtonY = 90;
 var pauseButtonX = 755;
 var pauseButtonY = muteButtonY;
-
+var buttonPausePressed=false;
 var gamePauseState = 'P';
+var timesbuttonPausePressed=0;
 
 //board message for rules
 var message=0;
@@ -85,11 +86,21 @@ function drawMuteState (){
 }
 
 function gamePauseToggleCheck(x, y){
-  if(x > pauseButtonX-BUTTON_W/2 && //if right of left side
-    x < pauseButtonX + BUTTON_W/2 && //if left of right side
-    y > pauseButtonY-BUTTON_H/2 && //if below top
-    y < pauseButtonY + BUTTON_H/2 ){ //if above bottom
-    gameIsPaused = !gameIsPaused;
+  if(potentialEsc==false){
+    if(x > pauseButtonX-BUTTON_W/2 && //if right of left side
+        x < pauseButtonX + BUTTON_W/2 && //if left of right side
+        y > pauseButtonY-BUTTON_H/2 && //if below top
+        y < pauseButtonY + BUTTON_H/2 ){ //if above bottom
+        Sound.stop("crowd-cheer", false, 0.1);
+        cheerOn=false;
+        gameIsPaused = !gameIsPaused;
+        buttonPausePressed=true;
+        timesbuttonPausePressed+=1;
+        if(timesbuttonPausePressed==2){
+            buttonPausePressed=false;
+            timesbuttonPausePressed=0;
+        }
+    }
   }
 }
 

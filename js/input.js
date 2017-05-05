@@ -24,6 +24,7 @@ var mouseX = 0;
 var mouseY = 0;
 var mouseClickPos = { x: 0, y: 0 };
 var escPress=0;
+var potentialEsc=false;
 
 function initInput() {
     canvas.addEventListener('mousemove', updateMousePos);
@@ -164,11 +165,16 @@ function keyPressed(evt) {
         Howler.mute(isMuted);
         evt.preventDefault();
     }
-    if (evt.keyCode == KEY_P && menuActive==false && playerEntry==false) {
+
+    /*if (evt.keyCode == KEY_P && menuActive==false && playerEntry==false && potentialEsc==false) {
+        if(buttonPausePressed==false){
         gameIsPaused=!gameIsPaused;
+        }
+        timesbuttonPausePressed=0;
         cheerOn=false;
         Sound.stop("crowd-cheer", false, 0.1);
         evt.preventDefault();
+        buttonPausePressed=false;
         /*if(cheerOn && gameIsPaused==false && menuActive == false){
             canvasFrame=0;
             Sound.play("crowd-cheer", false, 0.1);
@@ -176,30 +182,44 @@ function keyPressed(evt) {
         } else if (cheerOn && gameIsPaused){
             Sound.stop("crowd-cheer", false, 0.1);
             console.log("sound is paused in input.js")
-        }*/
-    }
+        }
+    }*/
+
     if (evt.keyCode == KEY_ESC && playerEntry==false) {
+        if(buttonPausePressed==false){
         gameIsPaused=!gameIsPaused;
+        }
+        timesbuttonPausePressed=0;
+        //potentialEsc=true;
         escPress+=1;
+        if(escPress==1){
+            potentialEsc=true;
+        }
         //console.log(escPress);
         cheerOn=false;
         Sound.stop("crowd-cheer", false, 0.1);
         evt.preventDefault();
+        console.log(potentialEsc);
+        buttonPausePressed=false;
     }
     
     if (evt.keyCode == KEY_ESC && playerEntry==false && escPress==2) {
         escPress=0;
+        timesbuttonPausePressed=0;
+        potentialEsc=false;
     }
 
     //console.log(escPress)
     if (evt.keyCode == KEY_ENTER && playerEntry==false && escPress==1) {
         escPress=0;
+        timesbuttonPausePressed=0;
         Rules.Reset();
         PlayerClass.Reset();
         ComputerClass.Reset();
         endPoint=false;
         endGame=false;
         gameIsPaused=false;
+        potentialEsc=false;
         returnToMenu();
         evt.preventDefault();
     }
