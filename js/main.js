@@ -219,6 +219,10 @@ function drawAll() {
             drawAllKillParticles();
             drawMessageBoard();
             //drawLines();
+            if(escPress==1){
+                drawText("Press Enter to Exit Game", 425);
+                drawText("Press Esc to Return to Game", 475); 
+            }
         }
     
 }

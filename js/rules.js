@@ -129,7 +129,7 @@ var Rules = function Score() {
         cheerOn=true;
         timerOnCheer=0;
         Sound.play("crowd-cheer", false, 0.1);
-        console.log("sounding from here rules.js")
+        //console.log("sounding from here rules.js")
         //console.log(ServeHandler.servingPlayer)
             if (BallClass.bouncedOnFloor > 1){
                 if (ServeHandler.servingPlayer == ServeHandler.RED && PlayerClass.swingTurn) {        

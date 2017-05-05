@@ -1,5 +1,6 @@
 var isMuted = false;
 var gameIsPaused=false;
+var exitScreen=false;
 
 const KEY_W = 87;
 const KEY_S = 83;
@@ -22,6 +23,7 @@ const KEY_ARROWLEFT = 37;
 var mouseX = 0;
 var mouseY = 0;
 var mouseClickPos = { x: 0, y: 0 };
+var escPress=0;
 
 function initInput() {
     canvas.addEventListener('mousemove', updateMousePos);
@@ -163,8 +165,6 @@ function keyPressed(evt) {
         evt.preventDefault();
     }
     if (evt.keyCode == KEY_P && menuActive==false) {
-        //isMuted = !isMuted;
-        //Howler.mute(isMuted);
         gameIsPaused=!gameIsPaused;
         cheerOn=false;
         Sound.stop("crowd-cheer", false, 0.1);
@@ -177,6 +177,31 @@ function keyPressed(evt) {
             Sound.stop("crowd-cheer", false, 0.1);
             console.log("sound is paused in input.js")
         }*/
+    }
+    if (evt.keyCode == KEY_ESC && playerEntry==false) {
+        gameIsPaused=!gameIsPaused;
+        escPress+=1;
+        //console.log(escPress);
+        cheerOn=false;
+        Sound.stop("crowd-cheer", false, 0.1);
+        evt.preventDefault();
+    }
+    
+    if (evt.keyCode == KEY_ESC && playerEntry==false && escPress==2) {
+        escPress=0;
+    }
+
+    //console.log(escPress)
+    if (evt.keyCode == KEY_ENTER && playerEntry==false && escPress==1) {
+        escPress=0;
+        Rules.Reset();
+        PlayerClass.Reset();
+        ComputerClass.Reset();
+        endPoint=false;
+        endGame=false;
+        gameIsPaused=false;
+        returnToMenu();
+        evt.preventDefault();
     }
 }
 

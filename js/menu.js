@@ -2,6 +2,7 @@ var selectedMenuIndex = 0;
 var mainMenuArray =["Play", "Game Rules", "Scoring System", "Controls", "Credits"];
 var difficultyMenu = ["Level 1", "Level 2", "Level 3"];
 var menuArray= mainMenuArray;
+var exitLoop;
 
 var creditsListArray = ["A Gamkedo Club Team Production",
 "Sergio Solorzano - Lead; game design; player/computer AI and ball",
@@ -100,6 +101,13 @@ function returnToMenu(){
     }, 1000 / framesPerSecond);
 }
 
+/*function exitScreen(){
+    exitLoop = setInterval(function () {
+        drawText("Press Esc to Exit Game", 350);
+        drawText("Press Enter to Return to Game", 400);
+    }, 1000 / framesPerSecond);
+}*/
+
 function drawMenu() {
     menuActive = true;
     clearScreen();
@@ -165,6 +173,7 @@ function drawControls() {
     drawScoringText("Target Wall Quadrants: Left mouse CLICK", 405);
     drawScoringText("Front Wall: Top / Bottom - Right / Left", 425);
     drawScoringText("Back Wall: Right / Left ", 445);
+    drawScoringText("Exit Game: Esc ", 485);
 }
 
 function drawCredits() {

@@ -449,11 +449,10 @@ function BallClass() {
             Sound.bounce();
             createParticles();
         }
-
-        console.log(zIsActive)
+        //console.log(zIsActive)
         if(this.z<=zIncreaseBackTrigger || this.z<=zIncreaseFrontTrigger){
             if(ComputerClass.swingTurn && zIsActive){
-                console.log("before",this.z,this.zv)
+          //      console.log("before",this.z,this.zv)
                 if(PlayerClass.playerStandingOnCourtQuadrant==RIGHTTOPCOURTQUADRANT || PlayerClass.playerStandingOnCourtQuadrant==LEFTTOPCOURTQUADRANT){
                     this.z=zIncreaseAtFront;
                     this.z=zIncreaseAtBack;
@@ -463,7 +462,7 @@ function BallClass() {
                     this.z=zIncreaseAtBack;
                 }
                 zIsActive=false;
-                console.log("after",this.z)
+            //    console.log("after",this.z)
             }
         }
 

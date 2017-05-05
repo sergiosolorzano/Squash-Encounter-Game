@@ -119,7 +119,7 @@ function calculateRightToServe() {
 
     drawMessageBoard();
     message=7;
-    
+    //console.log(numFullSpins)
     if (numFullSpins > 0) {
         spinAnimationFrames = serve_spin.width / SERVE_W;
     } else if (!moreFrames) {
@@ -325,7 +325,7 @@ function drawMessageBoard(){
                     canvasContext.fillStyle = "white";
                     canvasContext.textAlign = "center";
                     canvasContext.font = "18px Gloria Hallelujah";
-                    canvasContext.fillText("Be a team player !", canvas.width/2, canvas.height-30 );
+                    canvasContext.fillText("Stretch your goals !", canvas.width/2, canvas.height-30 );
                     break;
                 case NOTHINGHAPPENS5:
                     canvasContext.fillStyle = "white";

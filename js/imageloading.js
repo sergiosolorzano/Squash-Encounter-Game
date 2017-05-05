@@ -21,7 +21,6 @@ var p2_shot_top_right = document.createElement("img");
 var p2_shot_top_left = document.createElement("img");
 var p2_serve = document.createElement("img");
 
-
 var scorecounterbackground = document.createElement("img");
 var zero = document.createElement("img");
 var one = document.createElement("img");
