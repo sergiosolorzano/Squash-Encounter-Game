@@ -5,8 +5,9 @@ var menuArray= mainMenuArray;
 var exitLoop;
 
 var creditsListArray = ["A Gamkedo Club Team Production",
-"Sergio Solorzano - Lead; game design; player/computer AI and ball",
-"movement/controls, ball bounce/kill shot particles, target walls, rules,",
+"Sergio Solorzano - Lead; game design; player/computer AI and ball,",
+"computer AI levels, movement/controls, ball bounce/kill shot particles,",
+"target walls, rules, on-game pause/escape programming,",
 "point assingment programming; messaging, game pixel and Unity art", 
 "JL Evans- Players serve, draw for right to serve, game scale to full screen,",
 "computer AI programming; player serve pixel art", 
@@ -16,13 +17,14 @@ var creditsListArray = ["A Gamkedo Club Team Production",
 "and ball sounds;",
 "sound code and its integration",
 "Matthew Ko - Menu programming",
-"Ashleigh Morris - Sprint and sound play/mute programming",
+"Ashleigh Morris - Sprint and sound mute programming",
 "Christopher Kocan - Ball bounce trace",
+"Nikki Sapp - Music",
 "Caspar Dunant - Game scale to full screen",
 "Dalath - Sprint sweat particles",
 "Adam Croft - Ball hit integration",
-"Game Testing: Chris DeLeon, Jeremy Kenyon, Christer (McFunkypants) Kaitila,", 
-"Trenton Pegeas",
+"Game Testing: Chris DeLeon, Jeremy Kenyon, Christer (McFunkypants) Kaitila", 
+"Trenton Pegeas, Matthew Ko",
 "Source audio by pmBrowne Caboosey1186 AlaskaRobotics",
 ];
 
@@ -85,11 +87,7 @@ function startGame() {
 }
 
 function returnToMenu(){
-    if(music1On){
-        Sound.play("menu_music",true,0.5);    
-    } else {
-        Sound.play("menu2_music",true,0.5);    
-    }
+    Sound.play("menu3_music",true,0.5);    
     curr_menuScreen="Main";
     playerEntry = false;
     ServeHandler.Reset();
@@ -118,6 +116,8 @@ function drawMenu() {
     //console.log("at returnToMenu ",curr_menuScreen)
     switch (curr_menuScreen) {
         case "Credits":
+            Sound.stop("menu3_music");
+            //Sound.play("creditsmusic",true,0.5);   
             drawCredits();
             break;
         case "Game Rules":
@@ -284,6 +284,10 @@ function menuInput(keyEvent, pressed) {
             if(curr_menuScreen === 'Play'){
                 selectedMenuIndex = 0;
             }  
+            if(curr_menuScreen=='Credits'){
+                Sound.stop("creditsmusic");
+                Sound.play("menu3_music",true,0.5);        
+            }
             curr_menuScreen = 'Main';
             menuArray = mainMenuArray;          
         }
