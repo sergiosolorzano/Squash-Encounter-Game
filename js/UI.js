@@ -5,15 +5,13 @@ function drawUI(){
 }
 */
 
-var muteButtonX = 700;
-var muteButtonY = 480;
-var muteButtonWidth = 50;
-var muteButtonHeight = 50;
+const BUTTON_W=40;
+const BUTTON_H=40;
+var muteButtonX = 708;
+var muteButtonY = 90;
+var pauseButtonX = 755;
+var pauseButtonY = muteButtonY;
 
-var pauseButtonX = 750;
-var pauseButtonY = 480;
-var pauseButtonWidth = 50;
-var pauseButtonHeight = 50;
 var gamePauseState = 'P';
 
 //board message for rules
@@ -60,12 +58,16 @@ const SERVE_W = 330,
         SERVE_H = 365;
 var rightToServeOutcomeReady=false;
 
+var gamePlayFrame = 0;
+var gamePlayStepsPerAnimFrame = 20;
+var gamePlayFrameTimer = gamePlayStepsPerAnimFrame;
+
 
 function muteToggleCheck(x, y){
-  if(x > muteButtonX && //if right of left side
-    x < muteButtonX + muteButtonWidth && //if left of right side
-    y > muteButtonY && //if below top
-    y < muteButtonY + muteButtonHeight ){ //if above bottom
+  if(x > muteButtonX-BUTTON_W/2 && //if right of left side
+    x < muteButtonX + BUTTON_W/2 && //if left of right side
+    y > muteButtonY - BUTTON_H/2 && //if below top
+    y < muteButtonY + BUTTON_H/2 ){ //if above bottom
     isMuted = !isMuted;
   }
 }
@@ -73,44 +75,60 @@ function muteToggleCheck(x, y){
 function drawMuteState (){
   var muteState = 'U';
   if(isMuted){
+    drawAtBaseSheetSprite(soundOffButton, gamePlayFrame, muteButtonX, muteButtonY, BUTTON_W, BUTTON_H);
     muteState = 'M';
   } else{
+    drawAtBaseSheetSprite(soundOnButton, gamePlayFrame, muteButtonX, muteButtonY, BUTTON_W, BUTTON_H);
     muteState = 'U';
   }
-  colorText(muteState, muteButtonX, muteButtonY, 'white');
+  //colorText(muteState, muteButtonX, muteButtonY, 'white');
 }
 
 function gamePauseToggleCheck(x, y){
-  if(x > pauseButtonX && //if right of left side
-    x < pauseButtonX + pauseButtonWidth && //if left of right side
-    y > pauseButtonY && //if below top
-    y < pauseButtonY + pauseButtonHeight ){ //if above bottom
+  if(x > pauseButtonX-BUTTON_W/2 && //if right of left side
+    x < pauseButtonX + BUTTON_W/2 && //if left of right side
+    y > pauseButtonY-BUTTON_H/2 && //if below top
+    y < pauseButtonY + BUTTON_H/2 ){ //if above bottom
     gameIsPaused = !gameIsPaused;
   }
 }
 
 function drawGamePauseState (){
+  var gamePlayAnimationFrames = gamePlayButton.width / BUTTON_W;
   if(gameIsPaused){
+    drawAtBaseSheetSprite(gamePauseButton, gamePlayFrame, pauseButtonX, pauseButtonY, BUTTON_W, BUTTON_H);
     gamePauseState = '||';
     } else{
+        drawAtBaseSheetSprite(gamePlayButton, gamePlayFrame, pauseButtonX, pauseButtonY, BUTTON_W, BUTTON_H);
         gamePauseState = 'P';    
     }
-  colorText(gamePauseState, pauseButtonX, pauseButtonY, 'red');
+  //colorText(gamePauseState, pauseButtonX, pauseButtonY, 'red');
+  
+
+            /*if (gamePlayFrameTimer-- < 0) {
+                gamePlayFrameTimer = gamePlayStepsPerAnimFrame;
+                gamePlayFrame++;
+            }
+            if (gamePlayFrame >= gamePlayAnimationFrames) {
+                gamePlayFrame = 0;
+            }*/
+            //drawAtBaseSheetSprite(gamePauseButton, gamePlayFrame, pauseButtonX, pauseButtonY, BUTTON_W, BUTTON_H);
+        
 }
 
 function drawStaminaBar() {
     //draw bar border
-    colorRect(700, canvas.height - 555, 104, 24, 'White');
+    colorRect(740, canvas.height - 555, 104, 24, 'White');
     //draw bar background
-    colorRect(700, canvas.height - 555, 100, 20, 'LightGray');
+    colorRect(740, canvas.height - 555, 100, 20, 'LightGray');
     //draw current stamina
     //OLD colorRect(633, canvas.height - 560, PlayerClass.sprintStamina * 5, 20, 'red');
-    colorRect(665, canvas.height - 555, 30, 20, 'red');
+    colorRect(705, canvas.height - 555, 30, 20, 'red');
     //draw label
     canvasContext.fillStyle = "white";
     canvasContext.textAlign = "center";
     canvasContext.font = "bold 18px Cherry Cream Soda";
-    canvasContext.fillText("Stamina", 700, canvas.height - 573);
+    canvasContext.fillText("Stamina", 728, canvas.height - 573);
 }
 
 function calculateRightToServe() {

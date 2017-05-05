@@ -164,7 +164,7 @@ function keyPressed(evt) {
         Howler.mute(isMuted);
         evt.preventDefault();
     }
-    if (evt.keyCode == KEY_P && menuActive==false) {
+    if (evt.keyCode == KEY_P && menuActive==false && playerEntry==false) {
         gameIsPaused=!gameIsPaused;
         cheerOn=false;
         Sound.stop("crowd-cheer", false, 0.1);
