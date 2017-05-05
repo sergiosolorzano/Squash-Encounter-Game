@@ -5,27 +5,24 @@ var menuArray= mainMenuArray;
 var exitLoop;
 
 var creditsListArray = ["A Gamkedo Club Team Production",
-"Sergio Solorzano - Lead; game design; player/computer AI and ball,",
-"computer AI levels, movement/controls, ball bounce/kill shot particles,",
-"target walls, rules, on-game pause/escape programming,",
-"point assingment programming; messaging, game pixel and Unity art", 
+"Sergio Solorzano - Lead game developer; characters and ball movement,",
+"ball particle effects, mouse ball aim, squash rules, pause functionality,",
+"point assingment, messaging, game pixel and Unity art", 
 "JL Evans- Players serve, draw for right to serve, game scale to full screen,",
 "computer AI programming; player serve pixel art", 
 "Marcus Silva - Point assignment, score counter and computer AI programming",
-"Chris DeLeon- Computer AI and game tilt effect debugging support",
-"Christer (McFunkypants) Kaitila - Shoe squeaks, crowd cheer, racket",
-"and ball sounds;",
-"sound code and its integration",
 "Matthew Ko - Menu programming",
+"Adam Croft - Credits Music and Ball hit sound integration",
+"Nikki Sapp - Menu Music",
 "Ashleigh Morris - Sprint and sound mute programming",
-"Christopher Kocan - Ball bounce trace",
-"Nikki Sapp - Music",
-"Caspar Dunant - Game scale to full screen",
+"Christopher Kocan - Ball bounce trail",
 "Dalath - Sprint sweat particles",
-"Adam Croft - Ball hit integration",
-"Game Testing: Chris DeLeon, Jeremy Kenyon, Christer (McFunkypants) Kaitila", 
-"Trenton Pegeas, Matthew Ko",
-"Source audio by pmBrowne Caboosey1186 AlaskaRobotics",
+"Caspar Dunant - Game scale to full screen",
+"Christer (McFunkypants) Kaitila - Adapted sounds from pmBrowne",
+"Caboosey1186 AlaskaRobotics, Howler sound library integration,",
+"gamepad functionality",
+"Chris DeLeon- Computer AI and game debugging support",
+"Game Testing: Jeremy Kenyon, Trenton Pegeas",
 ];
 
 var curr_menuScreen = "Main"; //Rules, Credits
@@ -91,7 +88,6 @@ function returnToMenu(){
     curr_menuScreen="Main";
     playerEntry = false;
     ServeHandler.Reset();
-    initInput();
     clearInterval(gameLoop);
     menuArray= mainMenuArray;
     menuLoop = setInterval(function () {
@@ -116,8 +112,6 @@ function drawMenu() {
     //console.log("at returnToMenu ",curr_menuScreen)
     switch (curr_menuScreen) {
         case "Credits":
-            Sound.stop("menu3_music");
-            //Sound.play("creditsmusic",true,0.5);   
             drawCredits();
             break;
         case "Game Rules":
@@ -274,6 +268,10 @@ function menuInput(keyEvent, pressed) {
                     break;
                 default:
                     curr_menuScreen = menuArray[selectedMenuIndex];
+                    if(curr_menuScreen=='Credits'){
+                        Sound.stop("menu3_music");
+                        Sound.play("creditsmusic",true,0.5);
+                    }
                     break;
             }
             //console.log('Curr :'+curr_menuScreen);
