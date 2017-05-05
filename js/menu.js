@@ -134,6 +134,7 @@ function drawMenu() {
             break;
         default:
             drawMainMenu();
+            drawMuteState();
             break;
     }
     if (curr_menuScreen === "Main") {

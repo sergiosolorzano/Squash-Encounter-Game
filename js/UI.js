@@ -7,6 +7,11 @@ function drawUI(){
 
 const BUTTON_W=40;
 const BUTTON_H=40;
+var menuMuteButtonX=230;
+var menuMuteButtonY=510;
+var gameMuteButtonX=708;
+var gameMuteButtonY=90;
+
 var muteButtonX = 708;
 var muteButtonY = 90;
 var pauseButtonX = 755;
@@ -59,6 +64,7 @@ const SERVE_W = 330,
         SERVE_H = 365;
 var rightToServeOutcomeReady=false;
 
+//todo
 var gamePlayFrame = 0;
 var gamePlayStepsPerAnimFrame = 20;
 var gamePlayFrameTimer = gamePlayStepsPerAnimFrame;
@@ -70,11 +76,21 @@ function muteToggleCheck(x, y){
     y > muteButtonY - BUTTON_H/2 && //if below top
     y < muteButtonY + BUTTON_H/2 ){ //if above bottom
     isMuted = !isMuted;
+    Howler.mute(isMuted);
   }
 }
 
 function drawMuteState (){
   var muteState = 'U';
+  console.log(muteButtonX,muteButtonY)
+  if(menuActive){
+    muteButtonX=menuMuteButtonX;
+    muteButtonY=menuMuteButtonY;
+  } else {
+    muteButtonX=gameMuteButtonX;
+    muteButtonY=gameMuteButtonY;
+  }
+
   if(isMuted){
     drawAtBaseSheetSprite(soundOffButton, gamePlayFrame, muteButtonX, muteButtonY, BUTTON_W, BUTTON_H);
     muteState = 'M';

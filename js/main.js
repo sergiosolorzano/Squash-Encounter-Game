@@ -14,8 +14,8 @@ var playerEntry;
 var menuLoop;
 var framesPerSecond = 30;
 var timerOnCheer = 0;
-var a =0;
 var music1On=true;
+var entryTimer=15;
 
 window.onload = function () {
     canvas = document.getElementById('gameCanvas');
@@ -57,7 +57,12 @@ function perspectiveLocation(pixelX, pixelY, pixelZ) {
 function imageLoadingDoneSoStartGame() {
     initInput();
     menuLoop = setInterval(function () {
+        if(entryTimer--<0){
         drawMenu();
+        } else {
+            //console.log(entryTimer)
+            drawAtBaseSheetSprite(entryScreen, 0, 400, 300, 522, 230);
+        }
     }, 1000 / framesPerSecond);
 }
 

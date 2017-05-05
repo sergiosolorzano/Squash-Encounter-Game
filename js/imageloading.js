@@ -47,6 +47,8 @@ var soundOnButton = document.createElement("img");
 var soundOffButton = document.createElement("img");
 var gamePauseButton = document.createElement("img");
 
+var entryScreen = document.createElement("img");
+
 
 //message board
 var messageboard = document.createElement("img");
@@ -120,7 +122,8 @@ function loadImages(){
 	{varName: soundOnButton, theFile: "soundOnButton.png"},
 	{varName: soundOffButton, theFile: "soundOffButton.png"},
 	{varName: gamePlayButton, theFile: "gameplaybutton.png"},
-	{varName: gamePauseButton, theFile: "gamepausebutton.png"}
+	{varName: gamePauseButton, theFile: "gamepausebutton.png"},
+	{varName: entryScreen, theFile: "entryscreen.png"}
 
 	];
 
