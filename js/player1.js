@@ -16,7 +16,7 @@ const SPRINT_STAMINA_WHEN_TIRED = 15; // when to trigger sprint_breath sound eff
 var initYPosition = COURT_L * 0.4;
 
 var opponentAtReach = false;
-
+var zIsActive=false;
 
 function PlayerClass() {
     this.sprintMultiplier = 1;
@@ -166,6 +166,7 @@ function PlayerClass() {
         if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.keyHeld_SprintAndKill == false && this.isHit==false) {
         this.isSwinging = true;
         playerFrameTimer = 2;
+        zIsActive=true;
             //console.log("swingturn:",this.swingTurn,"ballbounced:",ballBouncedOnFloor)
             computerIsAtReach = playerAtReach(this.x, this.y, ComputerClass.x, ComputerClass.y);//racket accident
             computerIsAtReachNow = computerIsAtReach.oppAtReach;//racket accident

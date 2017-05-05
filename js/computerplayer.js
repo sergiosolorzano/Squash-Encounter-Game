@@ -45,9 +45,10 @@ function ComputerClass() {
             if(PlayerClass.swingTurn){
                 SWINGBUFFER=4;//HITSQUAREW*.5
             }
-            //TODO
-            //zIncreaseAtFront=7.5;
-            //zIncreaseAtBack=12;
+            zIncreaseBackTrigger=8;
+            zIncreaseFrontTrigger=5;
+            zIncreaseAtFront=7.5;
+            zIncreaseAtBack=12;
         }
         if(AI_Difficulty == 1){
             COMPUTER_MOVE_SPEED=1.95;
@@ -58,9 +59,10 @@ function ComputerClass() {
             if(PlayerClass.swingTurn){
             SWINGBUFFER=2.4;//HITSQUAREW*.3
             }
-            //TODO
-            //zIncreaseAtFront=6.5;
-            //zIncreaseAtBack=10.5;
+            zIncreaseBackTrigger=8;
+            zIncreaseFrontTrigger=5;
+            zIncreaseAtFront=6.5;
+            zIncreaseAtBack=10.5;
         }
         if(AI_Difficulty == 2){
             COMPUTER_MOVE_SPEED=2.5;

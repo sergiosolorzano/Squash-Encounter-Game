@@ -418,9 +418,8 @@ function BallClass() {
         this.zv += -ballSinkRate;
         this.z += this.zv;
         if(ComputerClass.swingTurn){
-            console.log("change",this.z,this.zv)    
+            //console.log("change",this.z,this.zv)    
         }
-        
         
         if (this.z > COURT_T) {//hit ceiling
             this.z = COURT_T;
@@ -436,19 +435,9 @@ function BallClass() {
                     if(this.zv<0.8){
                         this.zv=minZVBounceValue;
                     }    
-                    //TODO:
-                    /*if(PlayerClass.playerStandingOnCourtQuadrant==RIGHTTOPCOURTQUADRANT || PlayerClass.playerStandingOnCourtQuadrant==LEFTTOPCOURTQUADRANT){
-                    this.z=zIncreaseAtFront;
-                    this.z=zIncreaseAtBack;
-                    }
-                    if(PlayerClass.playerStandingOnCourtQuadrant==RIGHTBOTTOMCOURTQUADRANT || PlayerClass.playerStandingOnCourtQuadrant==LEFTBOTTOMCOURTQUADRANT){
-                    this.z=zIncreaseAtFront;
-                    this.z=zIncreaseAtBack;
-                    }*/
                 }
             }
         
-            
             //console.log("touch floor","speedY",this.speedY)
             if (killShotActive) {
                 this.speedY = this.speedY / killShotSpeedMultiple;
@@ -456,9 +445,26 @@ function BallClass() {
             }
             this.bouncedOnFloor += 1;
 
-            console.log("bounce on floor", this.bouncedOnFloor, this.z, this.zv)
+            //console.log("bounce on floor", this.bouncedOnFloor, this.z, this.zv)
             Sound.bounce();
             createParticles();
+        }
+
+        console.log(zIsActive)
+        if(this.z<=zIncreaseBackTrigger || this.z<=zIncreaseFrontTrigger){
+            if(ComputerClass.swingTurn && zIsActive){
+                console.log("before",this.z,this.zv)
+                if(PlayerClass.playerStandingOnCourtQuadrant==RIGHTTOPCOURTQUADRANT || PlayerClass.playerStandingOnCourtQuadrant==LEFTTOPCOURTQUADRANT){
+                    this.z=zIncreaseAtFront;
+                    this.z=zIncreaseAtBack;
+                }
+                if(PlayerClass.playerStandingOnCourtQuadrant==RIGHTBOTTOMCOURTQUADRANT || PlayerClass.playerStandingOnCourtQuadrant==LEFTBOTTOMCOURTQUADRANT){
+                    this.z=zIncreaseAtFront;
+                    this.z=zIncreaseAtBack;
+                }
+                zIsActive=false;
+                console.log("after",this.z)
+            }
         }
 
         this.nextX = this.x + this.speedX;
