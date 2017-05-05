@@ -220,6 +220,7 @@ function keyPressed(evt) {
         endGame=false;
         gameIsPaused=false;
         potentialEsc=false;
+        clearParticles();
         returnToMenu();
         evt.preventDefault();
     }

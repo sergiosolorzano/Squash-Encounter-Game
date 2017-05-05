@@ -110,6 +110,7 @@ var Rules = function Score() {
                 ComputerClass.Reset();
                 endPoint=false;
                 endGame=false;
+                clearParticles()
                 returnToMenu();
             }
             //console.log("end of game at",endGameTimer);
@@ -120,6 +121,7 @@ var Rules = function Score() {
         ComputerClass.Reset();
         endPoint=false;
         endGame=false;
+        clearParticles()
         returnToMenu();
         }
     }

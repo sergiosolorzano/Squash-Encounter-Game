@@ -22,7 +22,6 @@ function createParticles(){
 		}
 	}
 
-
 function moveAllParticles(){
 	
 		for(var i=0;i<particleList.length;i++){
@@ -35,6 +34,9 @@ function moveAllParticles(){
 		}
 	}
 
+function clearParticles(){
+	particleList=[];
+}
 
 function drawAllParticles(){
 

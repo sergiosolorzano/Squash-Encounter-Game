@@ -82,7 +82,6 @@ function muteToggleCheck(x, y){
 
 function drawMuteState (){
   var muteState = 'U';
-  console.log(muteButtonX,muteButtonY)
   if(menuActive){
     muteButtonX=menuMuteButtonX;
     muteButtonY=menuMuteButtonY;
