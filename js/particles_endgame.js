@@ -4,13 +4,13 @@ var particleEndGameList=[];
 var PARTICLESEndGameNUM=60;
 var CYCLEEndGameANCHOR=5;//MINEndGameCYCLE + 1*CYCLEEndGameANCHOR = max cyclesEndGameLeft
 var MINEndGameCYCLE=1;
-var MINEndGamePARTICLESIZE=2;
+var MINEndGamePARTICLESIZE=4;
 var GRAVITY_EndGame_PER_CYCLE=0.1;*/
 
 //circles
-var PARTICLESENDGAMENUM=75;
-var CYCLEENDGAMEANCHOR;//MINEndGameCYCLE + 1*CYCLEEndGameANCHOR = max cyclesEndGameLeft
-var MINENDGAMECYCLE;
+var PARTICLESENDGAMENUM=20;
+var CYCLEENDGAMEANCHOR=20;//MINEndGameCYCLE + 1*CYCLEEndGameANCHOR = max cyclesEndGameLeft
+var MINENDGAMECYCLE=20;
 var MINENDGAMEPARTICLESIZE=2;
 var GRAVITY_ENDGAME_PER_CYCLE=0.1;
 
@@ -19,8 +19,6 @@ function createParticlesEndGame(){
 			var particlesEndGameClass = new ParticlesEndGameClass();
 			particlesEndGameClass.cyclesEndGameLeft=MINENDGAMECYCLE+Math.random()*CYCLEENDGAMEANCHOR;
 			particleEndGameList.push(particlesEndGameClass);
-			MINEndGameCYCLE=3;
-			CYCLEEndGameANCHOR=6;
 			if(Math.random()<0.5){
 				particlesEndGameClass.myColor="#ED1313";//red ED1313
 			} else {
@@ -46,7 +44,6 @@ function moveAllEndGameParticles(){
 }
 
 function drawAllEndGameParticles(){
-
 		for(var i=0;i<particleEndGameList.length;i++){
 			particleEndGameList[i].draw();
 		}
@@ -59,10 +56,8 @@ function drawAllEndGameParticles(){
 }*/
 
 function ParticlesEndGameClass (){
-var draw = perspectiveLocation(canvas.width/2, canvas.height/2, 0)
-this.x=draw.x;
-this.y=draw.y;
-this.z=draw.z;
+this.x=canvas.width/2;
+this.y=canvas.height/2;
 this.cyclesLeft;
 this.myColor;
 this.cyclesEndGameLeft;
@@ -97,6 +92,6 @@ this.readyToRemove=false;
 	}
 
 	this.draw=function(){
-		colorCircle(this.x,this.y-this.z,MINENDGAMEPARTICLESIZE*this.cyclesEndGameLeft/(MINENDGAMECYCLE+CYCLEENDGAMEANCHOR),this.myColor);
+		colorCircle(this.x,this.y,MINENDGAMEPARTICLESIZE/**this.cyclesEndGameLeft/(MINENDGAMECYCLE+CYCLEENDGAMEANCHOR)*/,this.myColor);
 	}
 }
