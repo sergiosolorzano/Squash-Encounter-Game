@@ -7,13 +7,13 @@ var exitLoop;
 var creditsListArray = ["A Gamkedo Club Team Production",
 "Sergio Solorzano - Lead game developer; characters and ball movement,",
 "ball particle effects, mouse ball aim, squash rules, pause functionality,",
-"point assingment, messaging, game pixel and Unity art", 
+"point assingment, messaging, design, game pixel and Unity art", 
 "JL Evans- Players serve, draw for right to serve, game scale to full screen,",
 "computer AI programming; player serve pixel art", 
 "Marcus Silva - Point assignment, score counter, computer AI programming,",
 "menu game title banner",
 "Matthew Ko - Menu programming",
-"Adam Croft - Credits Music and Ball hit sound integration",
+"Adam Croft - Credits and Ball hit sound integration",
 "Nikki Sapp - Menu Music",
 "Ashleigh Morris - Sprint and sound mute programming",
 "Christopher Kocan - Ball bounce trail",
@@ -149,15 +149,19 @@ function drawMenu() {
     switch (curr_menuScreen) {
         case "Credits":
             drawCredits();
+            drawMuteState();
             break;
         case "Game Rules":
             drawRules();
+            drawMuteState();
             break;
         case "Scoring System":
             drawScoring();
+            drawMuteState();
             break;
         case "Controls":
             drawControls();
+            drawMuteState();
             break;
         case "Play":
             drawDifficultySelection();

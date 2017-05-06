@@ -5,8 +5,8 @@ function drawUI(){
 }
 */
 
-const BUTTON_W=40;
-const BUTTON_H=40;
+const BUTTON_W=51;
+const BUTTON_H=51;
 var menuMuteButtonX=715;
 var menuMuteButtonY=65;
 var gameMuteButtonX=708;
@@ -14,7 +14,7 @@ var gameMuteButtonY=90;
 
 var muteButtonX = 708;
 var muteButtonY = 90;
-var pauseButtonX = 755;
+var pauseButtonX = 770;
 var pauseButtonY = muteButtonY;
 var buttonPausePressed=false;
 var gamePauseState = 'P';
