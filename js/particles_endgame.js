@@ -92,6 +92,6 @@ this.readyToRemove=false;
 	}
 
 	this.draw=function(){
-		colorCircle(this.x,this.y,MINENDGAMEPARTICLESIZE/**this.cyclesEndGameLeft/(MINENDGAMECYCLE+CYCLEENDGAMEANCHOR)*/,this.myColor);
+		colorCircle(this.x,this.y,MINENDGAMEPARTICLESIZE*this.cyclesEndGameLeft/(MINENDGAMECYCLE+CYCLEENDGAMEANCHOR),this.myColor);
 	}
 }
