@@ -12,6 +12,7 @@ var p1_kill_shot_left = document.createElement("img");
 var p1_shot_top_right = document.createElement("img");
 var p1_shot_top_left = document.createElement("img");
 var p1_serve = document.createElement("img");
+var p1_wins = document.createElement("img");
 
 var p2_standing = document.createElement("img");
 var p2_running = document.createElement("img");
@@ -20,6 +21,7 @@ var p2_shot_bottom_right = document.createElement("img");
 var p2_shot_top_right = document.createElement("img");
 var p2_shot_top_left = document.createElement("img");
 var p2_serve = document.createElement("img");
+var p2_wins = document.createElement("img");
 
 var scorecounterbackground = document.createElement("img");
 var zero = document.createElement("img");
@@ -93,6 +95,7 @@ function loadImages(){
 	{varName: p1_shot_top_right, theFile: "shortsprite_p1_shot_top_right.png"},
 	{varName: p1_shot_top_left, theFile: "shortsprite_p1_shot_top_left.png"},
     {varName: p1_serve, theFile: "p1_serve.png" },
+    {varName: p1_wins, theFile: "p1_wins.png" },
 	
 	{varName: p2_shot_bottom_left, theFile: "shortsprite_p2_shot_bottom_left.png"},
 	{varName: p2_shot_bottom_right, theFile: "shortsprite_p2_shot_bottom_right2.png"},
@@ -101,6 +104,7 @@ function loadImages(){
 	{varName: p2_shot_top_right, theFile: "shortsprite_p2_shot_top_right.png"},
 	{varName: p2_shot_top_left, theFile: "shortsprite_p2_shot_top_left.png"},
     {varName: p2_serve, theFile: "p2_serve.png" },
+    {varName: p2_wins, theFile: "p2_wins.png" },
 
 	
 	{varName: scorecounterbackground, theFile: "scorecounterbackground.png"},

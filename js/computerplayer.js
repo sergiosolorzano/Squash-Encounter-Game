@@ -131,7 +131,9 @@ function ComputerClass() {
         if (computerFrame >= computerAnimationFrames) {
             computerFrame = 0;
             this.isHit = false;
+            if(endGame==false){
             this.whichPic = p2_standing;
+            }
             opponentAtReach = false;
             this.isSwinging = false;
             computerFrameTimer = 2;

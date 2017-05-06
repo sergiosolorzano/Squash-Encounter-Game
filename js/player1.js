@@ -111,7 +111,9 @@ function PlayerClass() {
                 playerFrame = 0;
                 this.isHit = false;
                 this.isSwinging = false;
-                this.whichPic = p1_standing;
+                if(endGame==false){
+                    this.whichPic = p1_standing;
+                }
                 opponentAtReach = false;
                 playerFrameTimer = 2
                 playerStepsPerAnimFrame = 2

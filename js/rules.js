@@ -114,6 +114,31 @@ var Rules = function Score() {
                 returnToMenu();
             }
             //console.log("end of game at",endGameTimer);
+            if(self.player>self.score.AI){
+                PlayerClass.whichPic=p1_wins;
+            } else {
+                ComputerClass.whichPic=p2_wins;
+            }
+            
+
+            /*var drawLocation = perspectiveLocation(this.x, this.y, 0);
+            var playerAnimationFrames = this.whichPic.width / PLAYER_W;
+
+            if (playerFrameTimer-- < 0) {
+                playerFrameTimer = playerStepsPerAnimFrame;
+                playerFrame++;
+            }
+            if (playerFrame >= playerAnimationFrames) {
+                playerFrame = 0;
+                this.isHit = false;
+                this.isSwinging = false;
+                this.whichPic = p1_standing;
+                opponentAtReach = false;
+                playerFrameTimer = 2
+                playerStepsPerAnimFrame = 2
+            }
+            drawAtBaseSheetSprite(this.whichPic, playerFrame, drawLocation.x, drawLocation.y, PLAYER_W, PLAYER_H);*/
+            
         } else {
         //console.log("End Game timer run out",timer, endGameTimer);
         self.Reset();
