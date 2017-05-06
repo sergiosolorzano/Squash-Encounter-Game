@@ -155,7 +155,7 @@ function ComputerClass() {
         /*if (debugTarget)
             colorCircle(debugTarget.x, debugTarget.y - debugTarget.z, 3, "green")*/
     }
-var debugTarget;
+var debugTarget=false;
     
     this.movePlayer = function () {
         var nextX = this.x;
