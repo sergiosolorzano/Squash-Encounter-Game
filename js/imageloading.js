@@ -54,6 +54,7 @@ var orangepost = document.createElement("img");
 var greenpost = document.createElement("img");
 var bluepost = document.createElement("img");
 var lightbluepost = document.createElement("img");
+var redpost = document.createElement("img");
 
 
 //message board
@@ -135,7 +136,8 @@ function loadImages(){
 	{varName: orangepost, theFile: "orangepost.png"},
 	{varName: bluepost, theFile: "bluepost.png"},
 	{varName: lightbluepost, theFile: "lightbluepost.png"},
-	{varName: greenpost, theFile: "greenpost.png"}
+	{varName: greenpost, theFile: "greenpost.png"},
+	{varName: redpost, theFile: "redpost.png"}
 
 	];
 

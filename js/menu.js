@@ -89,23 +89,95 @@ function drawMenu() {
     }
 
     if(curr_menuScreen=='Credits'){
-    //    drawBitmapCenteredWithRotation(orangepost, 405, 125, 0);        
-
-        colorTextCredits("hello", 600,175, Math.PI/8)
 
         drawBitmapCenteredWithRotation(orangepost, canvas.width/2+4, 104, 0);
-        var anchorsergioY=132;
-        var offsetY=20;
-        colorTextCreditsName("Sergio Solorzano", canvas.width/2-90,anchorsergioY-offsetY*3)
-        colorTextCredits("Lead game developer", canvas.width/2-90,anchorsergioY-offsetY*2)
-        colorTextCredits("characters and ball movement", canvas.width/2-90,anchorsergioY-offsetY)
-        colorTextCredits("ball particle effects, mouse ball aim,", canvas.width/2-90,anchorsergioY)
-        colorTextCredits("squash rules, pause functionality,", canvas.width/2-90,anchorsergioY+offsetY, 0)
-        colorTextCredits("point assingment, messaging, design, ", canvas.width/2-90,anchorsergioY+offsetY*2, 0)
-        colorTextCredits("game pixel and Unity art", canvas.width/2-90,anchorsergioY+offsetY*3, 0)
+        var anchorsergioY=100;
+        var offsetY=14;
+        colorTextCreditsName("Sergio Solorzano, Lead Game Developer", canvas.width/2-93,anchorsergioY-offsetY*2)
+        //colorTextCredits("", canvas.width/2-90,anchorsergioY-offsetY*2)
+        colorTextCredits("Characters and ball movement,", canvas.width/2-90,anchorsergioY-offsetY)
+        colorTextCredits("on-mouse ball aim, ball particle effects,", canvas.width/2-90,anchorsergioY)
+        colorTextCredits("squash rules, pause functionality, point", canvas.width/2-90,anchorsergioY+offsetY, 0)
+        colorTextCredits("assingment, messaging, design, menu", canvas.width/2-90,anchorsergioY+offsetY*2, 0)
+        colorTextCredits("data/format, game pixel and Unity art", canvas.width/2-90,anchorsergioY+offsetY*3, 0)
 
-        //drawBitmapCenteredWithRotation(bluepost, 200, 175, Math.PI*7/4);        
 
+        anchorY=130;
+        offsetY=14;
+        drawBitmapCenteredWithRotation(greenpost, 600, 175,Math.PI*0.25);//Math.PI*0.25
+        colorTextCreditsName("JL Evans", 570,anchorY-offsetY*2-5, Math.PI*0.25)
+        colorTextCredits("Players serve, draw for right to", 560,anchorY-offsetY-5, Math.PI*0.25)
+        colorTextCredits("serve, game scale to full screen,", 550, anchorY-10, Math.PI*0.25)
+        colorTextCredits("computer AI programming, ", 540, anchorY+offsetY-14, Math.PI*0.25)
+        colorTextCredits("player serve pixel art", 530, anchorY+offsetY*2-15, Math.PI*0.25)
+        
+        anchorY=230;
+        offsetY=0;
+        var postAng=Math.PI*7/4;
+        drawBitmapCenteredWithRotation(lightbluepost, 210, 175,postAng);
+        colorTextCreditsName("Marcus Silva", 130,anchorY-offsetY*2-25, postAng)
+        colorTextCredits("Point assignment, score counter,", 142,anchorY-offsetY-10, postAng)
+        colorTextCredits("computer AI programming", 150, anchorY, postAng)
+        colorTextCredits("menu game title banner", 160, anchorY+offsetY+8, postAng)
+
+        anchorY=250;
+        offsetY=14;
+        postAng=Math.PI*0.05;
+        drawBitmapCenteredWithRotation(lightbluepost, 400, 250,postAng);//Math.PI*0.25
+        colorTextCreditsName("Matthew Ko", 330,anchorY-offsetY*3, postAng)
+        colorTextCredits("Menu programming", 328,anchorY-offsetY*2, postAng)
+        
+        colorTextCreditsName("Adam Croft", 326, anchorY-offsetY+5, postAng)
+        colorTextCredits("Credits Music and", 324, anchorY+5, postAng)
+        colorTextCredits("ball hit sound integration", 322, anchorY+offsetY+5, postAng)
+        
+        anchorY=300;
+        offsetY=15;
+        postAng=Math.PI*0.05;
+        drawBitmapCenteredWithRotation(greenpost, 200, 350,postAng);//Math.PI*0.25
+        colorTextCreditsName("Nikki Sapp", 130, anchorY-offsetY*2+40, postAng)
+        colorTextCredits("Menu Music", 128, anchorY-offsetY+40, postAng)
+
+        colorTextCreditsName("Ashleigh Morris", 125, anchorY+40, postAng)
+        colorTextCredits("Sprint and ", 123, anchorY+offsetY+40, postAng)
+        colorTextCredits("sound mute programming", 121, anchorY+offsetY*2+40, postAng)
+        
+        anchorY=450;
+        offsetY=14;
+        postAng=Math.PI*11/6;
+        drawBitmapCenteredWithRotation(redpost, 375, 400,postAng);//Math.PI*0.25
+        colorTextCreditsName("Christopher Kocan", 300,anchorY-offsetY*3-2, postAng)
+        colorTextCredits("Ball bounce trail", 307,anchorY-offsetY*2-2-4, postAng)
+        
+        colorTextCreditsName("Dalath", 315, anchorY-offsetY-6-2, postAng)
+        colorTextCredits("Sprint sweat particles", 320, anchorY-offsetY+13-6-4, postAng)
+        
+        colorTextCreditsName("Caspar Dunant", 326, anchorY-offsetY+18-3, postAng)
+        colorTextCredits("Game scale to full screen", 332, anchorY+offsetY*2-17, postAng)
+        colorTextCredits("debug support", 340, anchorY+offsetY*2-9, postAng)
+
+        anchorY=315;
+        offsetY=14;
+        postAng=Math.PI*0.2;
+        drawBitmapCenteredWithRotation(orangepost, 600, 350,postAng);
+        colorTextCreditsName("Christer (McFunkypants) Kaitila", 540,anchorY-offsetY*3-5, postAng)
+        
+        colorTextCredits("Adapted sounds from pmBrowne", 535,anchorY-offsetY*2-8, postAng)
+        colorTextCredits("Caboosey1186 AlaskaRobotics,", 528,anchorY-offsetY*1-13, postAng)
+        colorTextCredits("Howler sound library integration,", 522,anchorY-18, postAng)
+        colorTextCredits("gamepad functionality", 516,anchorY-9, postAng)
+
+        colorTextCreditsName("Chris DeLeon", 508,anchorY+offsetY-13, postAng)
+        colorTextCredits("Computer AI, debugging support", 500, anchorY+offsetY*2-20, postAng)
+ 
+        anchorY=420;
+        offsetY=14;
+        postAng=Math.PI*0.1;
+        drawBitmapCenteredWithRotation(greenpost, 550, 450,postAng);
+
+        colorTextCreditsName("Game Testing", 490,anchorY-offsetY, postAng)
+        colorTextCredits("Jeremy Kenyon", 490, anchorY+5, postAng)
+        colorTextCredits("Trenton Pegeas ", 485, anchorY+offsetY+10, postAng)
     }
 
     message=MESSAGEBOARD;
@@ -142,7 +214,11 @@ function drawMenu() {
     }else if (curr_menuScreen === "Play"){
         drawTextCustom("Confirm: Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
         drawTextCustom("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
-    } else {
+    } else if (curr_menuScreen==="Credits"){
+        drawTextCustom("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
+    }
+
+    else {
         drawRulesEsc("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }
     redrawCanvas();

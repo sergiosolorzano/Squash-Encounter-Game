@@ -35,9 +35,9 @@ function colorRect(topLeftX,topLeftY, boxWidth,boxHeight, fillColor, withAng) {
 
 function colorTextCredits(showWords, topLeftX,topLeftY, withAng) {
   canvasContext.save();
-  canvasContext.font = "10px Indie Flower";
+  canvasContext.font = "11px Roboto";
   canvasContext.textAlign = "left";
-  canvasContext.fillStyle = "blue";
+  canvasContext.fillStyle = "black";
   canvasContext.translate(topLeftX,topLeftY); // added, sets position 'after' rotation
   canvasContext.rotate(withAng);
   canvasContext.fillText(showWords, 0, 0);
@@ -47,8 +47,8 @@ function colorTextCredits(showWords, topLeftX,topLeftY, withAng) {
 function colorTextCreditsName(showWords, topLeftX,topLeftY, withAng) {
   canvasContext.save();
   canvasContext.textAlign = "left";
-  canvasContext.font = "bold 10px Indie Flower";
-  canvasContext.fillStyle = "blue";
+  canvasContext.font = "bold 11px Roboto";
+  canvasContext.fillStyle = "black";
   canvasContext.translate(topLeftX,topLeftY); // added, sets position 'after' rotation
   canvasContext.rotate(withAng);
   canvasContext.fillText(showWords, 0, 0);
