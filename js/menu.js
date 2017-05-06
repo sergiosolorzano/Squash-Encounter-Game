@@ -5,6 +5,17 @@ var menuArray= mainMenuArray;
 var exitLoop;
 var creditsListArray =[];
 
+var sergio=5
+var jlevans = 15
+var marcus = 25
+var mko = 35
+var nikki = 45
+var chris = 55 
+var dalath = 65
+var jeremy = 75
+var christer = 85
+
+
 /*var creditsListArray = ["A Gamkedo Club Team Production",
 "Sergio Solorzano - Lead game developer; characters and ball movement,",
 "ball particle effects, mouse ball aim, squash rules, pause functionality,",
@@ -90,6 +101,8 @@ function drawMenu() {
 
     if(curr_menuScreen=='Credits'){
 
+        if(sergio--<0){
+        console.log(sergio)
         drawBitmapCenteredWithRotation(orangepost, canvas.width/2+4, 104, 0);
         var anchorsergioY=100;
         var offsetY=14;
@@ -99,9 +112,11 @@ function drawMenu() {
         colorTextCredits("on-mouse ball aim, ball particle effects,", canvas.width/2-90,anchorsergioY)
         colorTextCredits("squash rules, pause functionality, point", canvas.width/2-90,anchorsergioY+offsetY, 0)
         colorTextCredits("assingment, messaging, design, menu", canvas.width/2-90,anchorsergioY+offsetY*2, 0)
-        colorTextCredits("data/format, game pixel and Unity art", canvas.width/2-90,anchorsergioY+offsetY*3, 0)
+        colorTextCredits("data/format, game pixel and Unity art", canvas.width/2-90,anchorsergioY+offsetY*3, 0)    
+        //return
+        }
 
-
+        if(jlevans--<0){
         anchorY=130;
         offsetY=14;
         drawBitmapCenteredWithRotation(greenpost, 600, 175,Math.PI*0.25);//Math.PI*0.25
@@ -109,8 +124,10 @@ function drawMenu() {
         colorTextCredits("Players serve, draw for right to", 560,anchorY-offsetY-5, Math.PI*0.25)
         colorTextCredits("serve, game scale to full screen,", 550, anchorY-10, Math.PI*0.25)
         colorTextCredits("computer AI programming, ", 540, anchorY+offsetY-14, Math.PI*0.25)
-        colorTextCredits("player serve pixel art", 530, anchorY+offsetY*2-15, Math.PI*0.25)
+        colorTextCredits("player serve pixel art", 530, anchorY+offsetY*2-15, Math.PI*0.25)    
+        }
         
+        if(marcus--<0){
         anchorY=230;
         offsetY=0;
         var postAng=Math.PI*7/4;
@@ -118,8 +135,10 @@ function drawMenu() {
         colorTextCreditsName("Marcus Silva", 130,anchorY-offsetY*2-25, postAng)
         colorTextCredits("Point assignment, score counter,", 142,anchorY-offsetY-10, postAng)
         colorTextCredits("computer AI programming", 150, anchorY, postAng)
-        colorTextCredits("menu game title banner", 160, anchorY+offsetY+8, postAng)
+        colorTextCredits("menu game title banner", 160, anchorY+offsetY+8, postAng)    
+        }
 
+        if(mko--<0){
         anchorY=250;
         offsetY=14;
         postAng=Math.PI*0.05;
@@ -129,8 +148,9 @@ function drawMenu() {
         
         colorTextCreditsName("Adam Croft", 326, anchorY-offsetY+5, postAng)
         colorTextCredits("Credits Music and", 324, anchorY+5, postAng)
-        colorTextCredits("ball hit sound integration", 322, anchorY+offsetY+5, postAng)
-        
+        colorTextCredits("ball hit sound integration", 322, anchorY+offsetY+5, postAng)    
+        }
+        if(nikki--<0){
         anchorY=300;
         offsetY=15;
         postAng=Math.PI*0.05;
@@ -140,8 +160,9 @@ function drawMenu() {
 
         colorTextCreditsName("Ashleigh Morris", 125, anchorY+40, postAng)
         colorTextCredits("Sprint and ", 123, anchorY+offsetY+40, postAng)
-        colorTextCredits("sound mute programming", 121, anchorY+offsetY*2+40, postAng)
-        
+        colorTextCredits("sound mute programming", 121, anchorY+offsetY*2+40, postAng)            
+        }
+        if(chris--<0){
         anchorY=450;
         offsetY=14;
         postAng=Math.PI*11/6;
@@ -154,9 +175,49 @@ function drawMenu() {
         
         colorTextCreditsName("Caspar Dunant", 326, anchorY-offsetY+18-3, postAng)
         colorTextCredits("Game scale to full screen", 332, anchorY+offsetY*2-17, postAng)
-        colorTextCredits("debug support", 340, anchorY+offsetY*2-9, postAng)
+        colorTextCredits("debug support", 340, anchorY+offsetY*2-9, postAng)    
+        }
+        if(jeremy--<0){
+        anchorY=325;
+        offsetY=14;
+        postAng=Math.PI*0.2;
+        drawBitmapCenteredWithRotation(greenpost, 600, 350,postAng);
 
-        anchorY=315;
+        colorTextCreditsName("Game Testing", 565,anchorY-offsetY*3, postAng)
+        colorTextCredits("Jeremy Kenyon", 552, anchorY-offsetY*2+5, postAng)
+        colorTextCredits("Trenton Pegeas ", 538, anchorY-offsetY+15, postAng)    
+        }
+        if(christer--<0){
+        anchorY=470;
+        offsetY=0;
+        postAng=Math.PI*1.9;
+        drawBitmapCenteredWithRotation(orangepost, 485, 470,postAng);
+        colorTextCreditsName("Christer (McFunkypants) Kaitila", 390,anchorY-offsetY*3-4, postAng)
+        
+        colorTextCredits("Adapted sounds from pmBrowne", 394,anchorY-offsetY*2+12-5, postAng)
+        colorTextCredits("Caboosey1186 AlaskaRobotics,", 397,anchorY-offsetY*1+24-5, postAng)
+        colorTextCredits("Howler sound library integration,", 401,anchorY+36-5, postAng)
+        colorTextCredits("gamepad functionality", 405,anchorY+48-5, postAng)
+
+        colorTextCreditsName("Chris DeLeon", 409,anchorY+offsetY+60-5, postAng)
+        colorTextCredits("Computer AI, debugging support", 413, anchorY+offsetY*2+72-7, postAng)    
+        }
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+ 
+        
+
+
+
+        /*anchorY=315;
         offsetY=14;
         postAng=Math.PI*0.2;
         drawBitmapCenteredWithRotation(orangepost, 600, 350,postAng);
@@ -177,7 +238,7 @@ function drawMenu() {
 
         colorTextCreditsName("Game Testing", 490,anchorY-offsetY, postAng)
         colorTextCredits("Jeremy Kenyon", 490, anchorY+5, postAng)
-        colorTextCredits("Trenton Pegeas ", 485, anchorY+offsetY+10, postAng)
+        colorTextCredits("Trenton Pegeas ", 485, anchorY+offsetY+10, postAng)*/
     }
 
     message=MESSAGEBOARD;
