@@ -50,9 +50,10 @@ var gamePauseButton = document.createElement("img");
 var squashcourt_menu = document.createElement("img");
 var squashcourt_towrite = document.createElement("img");
 
-var credits_sergio = document.createElement("img");
-var credits_jlevans = document.createElement("img");
-var credits_jlevans2 = document.createElement("img");
+var orangepost = document.createElement("img");
+var greenpost = document.createElement("img");
+var bluepost = document.createElement("img");
+var lightbluepost = document.createElement("img");
 
 
 //message board
@@ -131,9 +132,10 @@ function loadImages(){
 	{varName: squashcourt_menu, theFile: "squashcourt_menu.png"},
 	{varName: squashcourt_towrite, theFile: "squashcourt_towrite.png"},
 
-	{varName: credits_sergio, theFile: "credits_sergio.png"},
-	{varName: credits_jlevans, theFile: "credits_jlevans.png"},
-	{varName: credits_jlevans2, theFile: "credits_jlevans2.png"}
+	{varName: orangepost, theFile: "orangepost.png"},
+	{varName: bluepost, theFile: "bluepost.png"},
+	{varName: lightbluepost, theFile: "lightbluepost.png"},
+	{varName: greenpost, theFile: "greenpost.png"}
 
 	];
 

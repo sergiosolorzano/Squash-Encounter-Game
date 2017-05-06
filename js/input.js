@@ -199,7 +199,7 @@ function keyPressed(evt) {
         cheerOn=false;
         Sound.stop("crowd-cheer", false, 0.1);
         evt.preventDefault();
-        console.log(potentialEsc);
+        //console.log(potentialEsc);
         buttonPausePressed=false;
     }
     

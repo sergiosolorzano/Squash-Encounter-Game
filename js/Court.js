@@ -641,10 +641,51 @@ function GradientShotToBackWall (playerX,playerY){
           PlayerClass.playerStandingOnCourtQuadrant=LEFTCOURTQUADRANT;
           //console.log("playerleft")
         }
+
+        var centerX=COURT_W/2;
+      var centerY=0-centerZ;
+
+      centerTopX=centerX;
+      centerTopY=centerY-HITSQUARETOPZ;
+
+      centerBottomX=centerX;
+      centerBottomY=centerY+HITSQUAREBOTTOMZ;
+
+      rightCenterX=centerX+HITSQUARECENTERW;
+      rightCenterY=centerY;
+
+      rightTopX=centerX+HITSQUARETOPW;
+      rightTopY=centerY-HITSQUARETOPZ;
+
+      rightBottomX=centerX+HITSQUAREBOTTOMW;
+      rightBottomY=centerY+HITSQUAREBOTTOMZ;
+
+      leftCenterX=centerX-HITSQUARECENTERW;
+      leftCenterY=centerY;
+
+      leftTopX=centerX-HITSQUARETOPW;
+      leftTopY=centerY-HITSQUARETOPZ;
+
+      leftBottomX=centerX-HITSQUAREBOTTOMW;
+      leftBottomY=centerY+HITSQUAREBOTTOMZ;
+
+
       return {
         ballAng:ballAng,
         playerOnThisCourtQuad:PlayerClass.playerStandingOnCourtQuadrant,
-        tgtFrontWall:PlayerClass.targetFrontWall
+        tgtFrontWall:PlayerClass.targetFrontWall,
+        centerX:centerX,
+        centerY:centerY,
+        centerBottomX:centerBottomX,
+        centerBottomY:centerBottomY,
+        rightCenterX:rightCenterX,
+        rightCenterY:rightCenterY,
+        rightBottomX:rightBottomX,
+        rightBottomY:rightBottomY,
+        leftCenterX:leftCenterX,
+        leftCenterY:leftCenterY,
+        leftBottomX:leftBottomX,
+        leftBottomY:leftBottomY
       };
   }//end of function
 

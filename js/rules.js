@@ -130,6 +130,7 @@ var Rules = function Score() {
         //crowd animation cheer
         cheerOn=true;
         timerOnCheer=0;
+        Sound.stop("crowd-cheer");
         Sound.play("crowd-cheer", false, 0.1);
         //console.log("sounding from here rules.js")
         //console.log(ServeHandler.servingPlayer)

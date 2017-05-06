@@ -19,7 +19,7 @@ var creditsListArray =[];
 "Ashleigh Morris - Sprint and sound mute programming",
 "Christopher Kocan - Ball bounce trail",
 "Dalath - Sprint sweat particles",
-"Caspar Dunant - Game scale to full screen",
+"Caspar Dunant - Game scale to full screen, debug support",
 "Christer (McFunkypants) Kaitila - Adapted sounds from pmBrowne",
 "Caboosey1186 AlaskaRobotics, Howler sound library integration,",
 "gamepad functionality",
@@ -32,65 +32,7 @@ var menuActive = false;
 
 var AI_Difficulty = 0;
 
-function drawText(text, height) {
-    canvasContext.fillStyle = "blue";
-    canvasContext.textAlign = "center";
-    canvasContext.font = "bold 18px Cherry Cream Soda";
-    //canvasContext.fillText(text, canvas.width / 2, 490);
-    canvasContext.fillText(text, canvas.width / 2, height);
-}
-function drawRulesTextTitle(text, height) {
-    canvasContext.fillStyle = "black";
-    canvasContext.textAlign = "center";
-    canvasContext.font = "bold 18px Cherry Cream Soda";
-    //canvasContext.fillText(text, canvas.width / 2, 490);
-    canvasContext.fillText(text, canvas.width / 2, height);
-}
 
-function drawRulesEsc(text, x, y) {
-        canvasContext.fillStyle = "black";
-    canvasContext.textAlign = "center";
-    canvasContext.font = "bold 18px Cherry Cream Soda";
-    canvasContext.fillText(text, x, y);
-}
-
-function drawControlsMouse(text, x, y) {
-        canvasContext.fillStyle = "black";
-    canvasContext.textAlign = "center";
-    canvasContext.font = "18px Cherry Cream Soda";
-    canvasContext.fillText(text, x, y);
-}
-
-function drawRulesText(text, height) {
-    canvasContext.fillStyle = "black";
-    canvasContext.textAlign = "center";
-    canvasContext.font = "bold 18px Cherry Cream Soda";
-    //canvasContext.fillText(text, canvas.width / 2, 490);
-    canvasContext.fillText(text, canvas.width / 2, height);
-}
-
-function drawCreditsText(text, height) {
-    canvasContext.fillStyle = "black";
-    canvasContext.textAlign = "left";
-    canvasContext.font = "bold 18px Cherry Cream Soda";
-    //canvasContext.fillText(text, canvas.width / 2, 490);
-    canvasContext.fillText(text, 20, height);
-}
-
-function drawScoringText(text, height) {
-    canvasContext.fillStyle = "black";
-    canvasContext.textAlign = "center";
-    canvasContext.font = "18px Cherry Cream Soda";
-    //canvasContext.fillText(text, canvas.width / 2, 490);
-    canvasContext.fillText(text, canvas.width / 2, height);
-}
-
-function drawTextCustom(text, x, y) {
-    canvasContext.fillStyle = "blue";
-    canvasContext.textAlign = "center";
-    canvasContext.font = "bold 18px Cherry Cream Soda";
-    canvasContext.fillText(text, x, y);
-}
 var gameLoop;
 function startGame() {
     //console.log("startgame running")
@@ -147,9 +89,23 @@ function drawMenu() {
     }
 
     if(curr_menuScreen=='Credits'){
-        drawBitmapCenteredWithRotation(credits_sergio, 405, 125, 0);        
-        drawBitmapCenteredWithRotation(credits_jlevans, 600, 175, Math.PI/8);        
-        drawBitmapCenteredWithRotation(credits_jlevans2, 200, 175, Math.PI*7/4);        
+    //    drawBitmapCenteredWithRotation(orangepost, 405, 125, 0);        
+
+        colorTextCredits("hello", 600,175, Math.PI/8)
+
+        drawBitmapCenteredWithRotation(orangepost, canvas.width/2+4, 104, 0);
+        var anchorsergioY=132;
+        var offsetY=20;
+        colorTextCreditsName("Sergio Solorzano", canvas.width/2-90,anchorsergioY-offsetY*3)
+        colorTextCredits("Lead game developer", canvas.width/2-90,anchorsergioY-offsetY*2)
+        colorTextCredits("characters and ball movement", canvas.width/2-90,anchorsergioY-offsetY)
+        colorTextCredits("ball particle effects, mouse ball aim,", canvas.width/2-90,anchorsergioY)
+        colorTextCredits("squash rules, pause functionality,", canvas.width/2-90,anchorsergioY+offsetY, 0)
+        colorTextCredits("point assingment, messaging, design, ", canvas.width/2-90,anchorsergioY+offsetY*2, 0)
+        colorTextCredits("game pixel and Unity art", canvas.width/2-90,anchorsergioY+offsetY*3, 0)
+
+        //drawBitmapCenteredWithRotation(bluepost, 200, 175, Math.PI*7/4);        
+
     }
 
     message=MESSAGEBOARD;

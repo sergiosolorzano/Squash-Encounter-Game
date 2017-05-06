@@ -17,6 +17,7 @@ var initYPosition = COURT_L * 0.4;
 
 var opponentAtReach = false;
 var zIsActive=false;
+var killShotCheer=false;
 
 function PlayerClass() {
     this.sprintMultiplier = 1;
@@ -139,6 +140,10 @@ function PlayerClass() {
             if (quadrantHit == TOPRIGHTQUADRANT || quadrantHit == TOPLEFTQUADRANT || quadrantHit == BOTTOMRIGHTQUADRANT || quadrantHit == BOTTOMLEFTQUADRANT) {
                 this.isSwinging = true;
                 Sound.hit();
+                //kill shot cheer
+                killShotCheer=true;
+
+                
                 if (computerIsAtReachNow) {
                     
                     if (this.x > ComputerClass.x) {

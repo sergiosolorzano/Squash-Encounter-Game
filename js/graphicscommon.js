@@ -33,6 +33,29 @@ function colorRect(topLeftX,topLeftY, boxWidth,boxHeight, fillColor, withAng) {
   canvasContext.restore();
 }
 
+function colorTextCredits(showWords, topLeftX,topLeftY, withAng) {
+  canvasContext.save();
+  canvasContext.font = "10px Indie Flower";
+  canvasContext.textAlign = "left";
+  canvasContext.fillStyle = "blue";
+  canvasContext.translate(topLeftX,topLeftY); // added, sets position 'after' rotation
+  canvasContext.rotate(withAng);
+  canvasContext.fillText(showWords, 0, 0);
+  canvasContext.restore();
+}
+
+function colorTextCreditsName(showWords, topLeftX,topLeftY, withAng) {
+  canvasContext.save();
+  canvasContext.textAlign = "left";
+  canvasContext.font = "bold 10px Indie Flower";
+  canvasContext.fillStyle = "blue";
+  canvasContext.translate(topLeftX,topLeftY); // added, sets position 'after' rotation
+  canvasContext.rotate(withAng);
+  canvasContext.fillText(showWords, 0, 0);
+  
+  canvasContext.restore();
+}
+
 function colorRectStamina(topLeftX,topLeftY, boxWidth,boxHeight, fillColor, withAng) {
   canvasContext.save();
   canvasContext.fillStyle = fillColor;
@@ -56,4 +79,64 @@ function colorText(showWords, textX, textY, fillColor, size) {
     if (size) canvasContext.font = size + "px Verdana";
     else canvasContext.font = "30px Verdana";
     canvasContext.fillText(showWords, textX, textY);
+}
+
+function drawText(text, height) {
+    canvasContext.fillStyle = "blue";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
+    //canvasContext.fillText(text, canvas.width / 2, 490);
+    canvasContext.fillText(text, canvas.width / 2, height);
+}
+function drawRulesTextTitle(text, height) {
+    canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
+    //canvasContext.fillText(text, canvas.width / 2, 490);
+    canvasContext.fillText(text, canvas.width / 2, height);
+}
+
+function drawRulesEsc(text, x, y) {
+        canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
+    canvasContext.fillText(text, x, y);
+}
+
+function drawControlsMouse(text, x, y) {
+        canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "18px Cherry Cream Soda";
+    canvasContext.fillText(text, x, y);
+}
+
+function drawRulesText(text, height) {
+    canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
+    //canvasContext.fillText(text, canvas.width / 2, 490);
+    canvasContext.fillText(text, canvas.width / 2, height);
+}
+
+function drawCreditsText(text, height) {
+    canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "left";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
+    //canvasContext.fillText(text, canvas.width / 2, 490);
+    canvasContext.fillText(text, 20, height);
+}
+
+function drawScoringText(text, height) {
+    canvasContext.fillStyle = "black";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "18px Cherry Cream Soda";
+    //canvasContext.fillText(text, canvas.width / 2, 490);
+    canvasContext.fillText(text, canvas.width / 2, height);
+}
+
+function drawTextCustom(text, x, y) {
+    canvasContext.fillStyle = "blue";
+    canvasContext.textAlign = "center";
+    canvasContext.font = "bold 18px Cherry Cream Soda";
+    canvasContext.fillText(text, x, y);
 }

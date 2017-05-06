@@ -509,6 +509,32 @@ function BallClass() {
             createParticles();
             Sound.wall();
             this.speedY *= -1;
+
+            //kill shot cheer
+            var bottomFrontWallQuadrants = GradientShotToFrontWall(this.x,this.y)
+            var centerX= bottomFrontWallQuadrants.centerX;
+            var centerY=bottomFrontWallQuadrants.centerY;
+            var centerBottomX=bottomFrontWallQuadrants.centerBottomX;
+            var centerBottomY=bottomFrontWallQuadrants.centerBottomY;
+            var rightCenterX=bottomFrontWallQuadrants.rightCenterX;
+            var rightCenterY=bottomFrontWallQuadrants.rightCenterY;
+            var rightBottomX=bottomFrontWallQuadrants.rightBottomX;
+            var rightBottomY=bottomFrontWallQuadrants.rightBottomY;
+            var leftCenterX=bottomFrontWallQuadrants.leftCenterX;
+            var leftCenterY=bottomFrontWallQuadrants.leftCenterY;
+            var leftBottomX=bottomFrontWallQuadrants.leftBottomX;
+            var leftBottomY=bottomFrontWallQuadrants.leftBottomY;
+
+            console.log(killShotCheer,this.x>leftBottomX && this.x<rightBottomX && this.y-this.z>centerY && this.y-this.z< centerBottomY)
+            if(killShotCheer && this.x>leftBottomX && this.x<rightBottomX && this.y-this.z>centerY && this.y-this.z< centerBottomY){
+                cheerOn=true;
+                timerOnCheer=0;
+                Sound.stop("crowd-cheer");
+                Sound.play("crowd-cheer", false, 0.1);    
+            }
+
+            killShotCheer=false;
+
             if (this.z > farFrontWallZLimit) {
                 this.topRedLineLimitBreached = true;
                 //console.log("ZBreachLeft!","limit: ",hereSideWallZLimit,"ballZ: ",this.z)
