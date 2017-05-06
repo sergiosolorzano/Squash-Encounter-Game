@@ -27,7 +27,8 @@ const HITSQUAREW=8;
 const HITSQUAREH=8;
 const SHIFTTORAQUETPOSITIONX=6;
 const SHIFTTORAQUETPOSITIONY=-5;
-var SWINGBUFFER=0;
+var SWINGBUFFER=2;
+var swingReduction=0;
 
 //back wall sizing
 const HITSQUAREBOTTOMW=32;
@@ -66,6 +67,13 @@ const RIGHTTOPCOURTQUADRANT=1;
 const RIGHTBOTTOMCOURTQUADRANT=2;
 const LEFTTOPCOURTQUADRANT=4;
 const LEFTBOTTOMCOURTQUADRANT=3;
+
+//quadrant where computer is standing
+const CPURIGHTTOPCOURTQUADRANT=1;
+const CPURIGHTBOTTOMCOURTQUADRANT=2;
+const CPULEFTTOPCOURTQUADRANT=4;
+const CPULEFTBOTTOMCOURTQUADRANT=3;
+
 
 //front wall quadrants
 const NOFRONTWALLSELECTED=0;
@@ -393,29 +401,29 @@ function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY, swingTu
       var centerX=playerPixelX+SHIFTTOCENTERX;
       var centerY=playerPixelY+SHIFTTOCENTERY;
       var scaleAdjustmentX = (1-playerPixelY/initYPosition)*100*WINDOWXSCALE;
-
+      
       centerTopX=centerX;
-      centerTopY=centerY-HITSQUAREH-SWINGBUFFER;
+      centerTopY=centerY-HITSQUAREH-SWINGBUFFER+swingReduction;
 
       centerBottomX=centerX;
-      centerBottomY=centerY+HITSQUAREH+SWINGBUFFER;
+      centerBottomY=centerY+HITSQUAREH+SWINGBUFFER-swingReduction;
 
-      rightCenterX=centerX+HITSQUAREW+scaleAdjustmentX+SWINGBUFFER;
+      rightCenterX=centerX+HITSQUAREW+scaleAdjustmentX+SWINGBUFFER-swingReduction;
       rightCenterY=centerY;
 
-      rightTopX=centerX+HITSQUAREW+scaleAdjustmentX+SWINGBUFFER;
+      rightTopX=centerX+HITSQUAREW+scaleAdjustmentX+SWINGBUFFER-swingReduction;
       rightTopY=centerY-HITSQUAREH-SWINGBUFFER;
 
-      rightBottomX=centerX+HITSQUAREW+scaleAdjustmentX+SWINGBUFFER;
+      rightBottomX=centerX+HITSQUAREW+scaleAdjustmentX-SWINGBUFFER-swingReduction;
       rightBottomY=centerY+HITSQUAREH+SWINGBUFFER;
 
-      leftCenterX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER;
+      leftCenterX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER+swingReduction;
       leftCenterY=centerY;
 
-      leftTopX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER;
+      leftTopX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER+swingReduction;
       leftTopY=centerY-HITSQUAREH-SWINGBUFFER;
 
-      leftBottomX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER;
+      leftBottomX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER+swingReduction;
       leftBottomY=centerY+HITSQUAREH+SWINGBUFFER;
 
       raquetPositionX=centerX+SHIFTTORAQUETPOSITIONX+scaleAdjustmentX;
@@ -807,6 +815,21 @@ function drawCourtQuadrants (){
       if(PlayerClass.x<centerX && PlayerClass.x >= leftBottomX && PlayerClass.y>centerY & PlayerClass.y<= leftBottomY){
         PlayerClass.playerStandingOnCourtQuadrant=LEFTBOTTOMCOURTQUADRANT;
       }
+
+      if(ComputerClass.x>=centerX && ComputerClass.x<=rightCenterX && ComputerClass.y<=centerY && ComputerClass.y>=centerTopY){
+        ComputerClass.playerStandingOnCourtQuadrant=CPURIGHTTOPCOURTQUADRANT;
+      }
+      if(ComputerClass.x<centerX && ComputerClass.x>=leftCenterX && ComputerClass.y<centerY && ComputerClass.y>=leftTopY){
+        ComputerClass.playerStandingOnCourtQuadrant=CPULEFTTOPCOURTQUADRANT;
+      }
+      if(ComputerClass.x>centerX && ComputerClass.x<=rightBottomX && ComputerClass.y>centerY && ComputerClass.y<=rightBottomY){
+        ComputerClass.playerStandingOnCourtQuadrant=CPURIGHTBOTTOMCOURTQUADRANT;
+      }
+
+      if(ComputerClass.x<centerX && ComputerClass.x >= leftBottomX && ComputerClass.y>centerY & ComputerClass.y<= leftBottomY){
+        ComputerClass.playerStandingOnCourtQuadrant=CPULEFTBOTTOMCOURTQUADRANT;
+      }
+
       //console.log("PlayerStanding ",PlayerClass.playerStandingOnCourtQuadrant)
     }
 

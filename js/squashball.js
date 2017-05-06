@@ -394,6 +394,21 @@ function BallClass() {
                 this.zv = 0.75
             }
 
+            console.log("outside the function",ComputerClass.swingTurn, zIsActive,ComputerClass.playerStandingOnCourtQuadrant,quadrantHit,this.z,this.zv,zIncreaseFrontTrigger,zIncreaseBackTrigger)
+            if(this.z<=zIncreaseBackTrigger || this.z<=zIncreaseFrontTrigger){
+            if(ComputerClass.swingTurn && zIsActive){
+                console.log("before",this.z,this.zv)
+                if(ComputerClass.playerStandingOnCourtQuadrant==CPURIGHTTOPCOURTQUADRANT || ComputerClass.playerStandingOnCourtQuadrant==CPULEFTTOPCOURTQUADRANT){
+                    this.z=zIncreaseAtFront;
+                }
+                if(ComputerClass.playerStandingOnCourtQuadrant==CPURIGHTBOTTOMCOURTQUADRANT || ComputerClass.playerStandingOnCourtQuadrant==CPULEFTBOTTOMCOURTQUADRANT){
+                    this.z=zIncreaseAtBack;
+                }
+                zIsActive=false;
+              console.log("after",this.z)
+            }
+        }
+
             if (playerSwingTurn) {
                 PlayerClass.swingTurn = false;
                 ComputerClass.swingTurn = true;
@@ -402,6 +417,7 @@ function BallClass() {
                 PlayerClass.swingTurn = true;
                 ComputerClass.swingTurn = false;
             }
+
         }//end if ball bounced on the floor, was swing turn etc
 
 
@@ -450,21 +466,8 @@ function BallClass() {
             createParticles();
         }
         //console.log(zIsActive)
-        if(this.z<=zIncreaseBackTrigger || this.z<=zIncreaseFrontTrigger){
-            if(ComputerClass.swingTurn && zIsActive){
-          //      console.log("before",this.z,this.zv)
-                if(PlayerClass.playerStandingOnCourtQuadrant==RIGHTTOPCOURTQUADRANT || PlayerClass.playerStandingOnCourtQuadrant==LEFTTOPCOURTQUADRANT){
-                    this.z=zIncreaseAtFront;
-                    this.z=zIncreaseAtBack;
-                }
-                if(PlayerClass.playerStandingOnCourtQuadrant==RIGHTBOTTOMCOURTQUADRANT || PlayerClass.playerStandingOnCourtQuadrant==LEFTBOTTOMCOURTQUADRANT){
-                    this.z=zIncreaseAtFront;
-                    this.z=zIncreaseAtBack;
-                }
-                zIsActive=false;
-            //    console.log("after",this.z)
-            }
-        }
+        console.log(this.z,this.zv)
+        
 
         this.nextX = this.x + this.speedX;
         this.nextY = this.y + this.speedY;
@@ -525,7 +528,6 @@ function BallClass() {
             var leftBottomX=bottomFrontWallQuadrants.leftBottomX;
             var leftBottomY=bottomFrontWallQuadrants.leftBottomY;
 
-            console.log(killShotCheer,this.x>leftBottomX && this.x<rightBottomX && this.y-this.z>centerY && this.y-this.z< centerBottomY)
             if(killShotCheer && this.x>leftBottomX && this.x<rightBottomX && this.y-this.z>centerY && this.y-this.z< centerBottomY){
                 cheerOn=true;
                 timerOnCheer=0;

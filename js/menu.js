@@ -134,7 +134,7 @@ function drawMenu() {
         drawBitmapCenteredWithRotation(lightbluepost, 210, 175,postAng);
         colorTextCreditsName("Marcus Silva", 130,anchorY-offsetY*2-25, postAng)
         colorTextCredits("Point assignment, score counter,", 142,anchorY-offsetY-10, postAng)
-        colorTextCredits("computer AI programming", 150, anchorY, postAng)
+        colorTextCredits("computer AI programming,", 150, anchorY, postAng)
         colorTextCredits("menu game title banner", 160, anchorY+offsetY+8, postAng)    
         }
 
@@ -202,20 +202,6 @@ function drawMenu() {
         colorTextCreditsName("Chris DeLeon", 409,anchorY+offsetY+60-5, postAng)
         colorTextCredits("Computer AI, debugging support", 413, anchorY+offsetY*2+72-7, postAng)    
         }
-
-        
-        
-        
-        
-        
-        
-        
-        
-        
- 
-        
-
-
 
         /*anchorY=315;
         offsetY=14;

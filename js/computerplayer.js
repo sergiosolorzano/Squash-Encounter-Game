@@ -5,6 +5,7 @@ var computerFrame = 0;
 var initComputerStepsPerAnimFrame = 5;//for players entry only
 var initComputerFrameTimer = 5;//how quick it changes between frames; for players entry only
 var COMPUTER_MOVE_SPEED;
+var zIsActive=false;
 
 //computer AI level variables
 var interimInterceptWalk=false;//computer AI does not intercept straight line
@@ -18,6 +19,8 @@ var minZVBounceValue;//increase of zv when ball too low for player only
 var zIncreaseAtFront;//increase of z when ball too low for player only at front court quadrants
 var zIncreaseAtBack;//increase of z when ball too low for player only at back court quadrants
 var staminaRecharge;
+var runToTActive=true;
+
 
 function ComputerClass() {
 
@@ -35,6 +38,7 @@ function ComputerClass() {
         this.swingTurn = (ServeHandler.servingPlayer === ServeHandler.RED ? false : true);
         this.speedX = 0;
         this.speedY = 0;
+        this.playerStandingOnCourtQuadrant=CPURIGHTBOTTOMCOURTQUADRANT;
         this.isHit = false;
 
         if(AI_Difficulty == 0){
@@ -44,29 +48,36 @@ function ComputerClass() {
             diversionLevelY=0.2;
             minZVBounceValue=0.8;
             if(PlayerClass.swingTurn){
-                SWINGBUFFER=4;//HITSQUAREW*.5
+                SWINGBUFFER=6;//HITSQUAREW*.5
             }
-            zIncreaseBackTrigger=8;
-            zIncreaseFrontTrigger=5;
-            zIncreaseAtFront=7.5;
-            zIncreaseAtBack=12;
+            if(ComputerClass.swingTurn){
+                swingReduction=5;
+            }
+            zIncreaseBackTrigger=5;
+            zIncreaseAtBack=6.5;
+            zIncreaseFrontTrigger=2;
+            zIncreaseAtFront=5.5;
             staminaRecharge=0.5;
-
+            runToTActive=false;
         }
         if(AI_Difficulty == 1){
             COMPUTER_MOVE_SPEED=1.95;
-            walkDelay=10;
+            walkDelay=12;
             diversionLevelX=0.2;
             diversionLevelY=0.2;
             minZVBounceValue=0.8;
             if(PlayerClass.swingTurn){
-            SWINGBUFFER=2.4;//HITSQUAREW*.3
+            SWINGBUFFER=4;//HITSQUAREW*.3
             }
-            zIncreaseBackTrigger=8;
-            zIncreaseFrontTrigger=5;
-            zIncreaseAtFront=6.5;
-            zIncreaseAtBack=10.5;
+            if(ComputerClass.swingTurn){
+                swingReduction=3;
+            }
+            zIncreaseBackTrigger=5;
+            zIncreaseAtBack=6.5;
+            zIncreaseFrontTrigger=2;
+            zIncreaseAtFront=5.5;
             staminaRecharge=0.4;
+            runToTActive=true;
         }
         if(AI_Difficulty == 2){
             COMPUTER_MOVE_SPEED=2.5;
@@ -76,14 +87,16 @@ function ComputerClass() {
             if(PlayerClass.swingTurn){
                 SWINGBUFFER=0;//HITSQUAREW*0
             }
+            if(ComputerClass.swingTurn){
+                swingReduction=0;
+            }
             staminaRecharge=0.25;
             zIncreaseBackTrigger=0.01;
+            zIncreaseAtBack=8;
             zIncreaseFrontTrigger=0.01;
-            zIncreaseAtFront=7.5;
-            zIncreaseAtBack=12;
+            zIncreaseAtFront=5.5;
+            runToTActive=true;
         }
-        
-
     }
 
     this.initDrawPlayer = function () {
@@ -165,7 +178,6 @@ var debugTarget;
 
         //console.log(COMPUTER_MOVE_SPEED,walkDelay,diversionX,diversionY)
         
-
         if (this.swingTurn && BallClass.bouncedOnFrontWall) {
             runningToT=false;
             if(walkTimer--<0){
@@ -178,8 +190,14 @@ var debugTarget;
             }
         } else { // run to T
             runningToT=true;
-            playerGotoX = T_ONCOURT_W;
-            playerGotoY = T_ONCOURT_L;
+            if(runToTActive){
+                playerGotoX = T_ONCOURT_W;
+                playerGotoY = T_ONCOURT_L;    
+            } else {
+                playerGotoX=this.x;
+                playerGotoY=this.y;
+            }
+            
             //console.log("Target T")
         }
 
@@ -242,6 +260,7 @@ var debugTarget;
         if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.isHit==false) {
             this.isSwinging = true;
             computerFrameTimer = 2;
+            zIsActive=true;
             switch (quadrantHit) {
                 case TOPRIGHTQUADRANT:
                     Sound.hit();
