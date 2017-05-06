@@ -421,7 +421,10 @@ function menuInput(keyEvent, pressed) {
                     curr_menuScreen = menuArray[selectedMenuIndex];
                     if(curr_menuScreen=='Credits'){
                         Sound.stop("menu3_music");
-                        Sound.play("creditsmusic",true,0.5);
+                        Sound.play("creditsmusic", false, 0.5);  
+                        if(sergio>0){
+                            Sound.play("crowd-cheer", false, 0.5);    
+                        }
                     }
                     break;
             }
