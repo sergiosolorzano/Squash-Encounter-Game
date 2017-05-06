@@ -33,6 +33,17 @@ function colorRect(topLeftX,topLeftY, boxWidth,boxHeight, fillColor, withAng) {
   canvasContext.restore();
 }
 
+function colorRectStamina(topLeftX,topLeftY, boxWidth,boxHeight, fillColor, withAng) {
+  canvasContext.save();
+  canvasContext.fillStyle = fillColor;
+  canvasContext.translate(topLeftX,topLeftY); // added, sets position 'after' rotation
+  canvasContext.rotate(withAng);
+  //canvasContext.fillRect(0, 0, boxWidth,boxHeight);
+  canvasContext.fillRect(-boxWidth,-boxHeight, boxWidth,boxHeight);
+  canvasContext.restore();
+}
+
+
 function colorCircle(centerX, centerY, radius, fillColor) {
     canvasContext.fillStyle = fillColor;
     canvasContext.beginPath();

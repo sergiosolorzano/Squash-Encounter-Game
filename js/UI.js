@@ -1,7 +1,7 @@
 /*
 function drawUI(){
-	colorText("stamina: " +  PlayerClass.sprintStamina, canvas.width-200, 50, 'red');
-	console.log(PlayerClass.sprintStamina);
+    colorText("stamina: " +  PlayerClass.sprintStamina, canvas.width-200, 50, 'red');
+    console.log(PlayerClass.sprintStamina);
 }
 */
 
@@ -149,7 +149,8 @@ function drawStaminaBar() {
     colorRect(740, canvas.height - 555, 100, 20, 'LightGray');
     //draw current stamina
     //OLD colorRect(633, canvas.height - 560, PlayerClass.sprintStamina * 5, 20, 'red');
-    colorRect(705, canvas.height - 555, 30, 20, 'red');
+    //colorText("stamina: " +  PlayerClass.sprintStamina, canvas.width-200, 50, 'red');
+    colorRectStamina(740-104/2+2, canvas.height - 555-10, PlayerClass.sprintStamina * 5, 20, 'red',Math.PI);
     //draw label
     canvasContext.fillStyle = "white";
     canvasContext.textAlign = "center";

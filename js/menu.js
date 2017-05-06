@@ -3,8 +3,9 @@ var mainMenuArray =["Play", "Game Rules", "Scoring System", "Controls", "Credits
 var difficultyMenu = ["Level 1", "Level 2", "Level 3"];
 var menuArray= mainMenuArray;
 var exitLoop;
+var creditsListArray =[];
 
-var creditsListArray = ["A Gamkedo Club Team Production",
+/*var creditsListArray = ["A Gamkedo Club Team Production",
 "Sergio Solorzano - Lead game developer; characters and ball movement,",
 "ball particle effects, mouse ball aim, squash rules, pause functionality,",
 "point assingment, messaging, design, game pixel and Unity art", 
@@ -24,7 +25,7 @@ var creditsListArray = ["A Gamkedo Club Team Production",
 "gamepad functionality",
 "Chris DeLeon- Computer AI and game debugging support",
 "Game Testing: Jeremy Kenyon, Trenton Pegeas",
-];
+];*/
 
 var curr_menuScreen = "Main"; //Rules, Credits
 var menuActive = false;
@@ -136,10 +137,19 @@ function drawMenu() {
     menuActive = true;
     clearScreen();
     
-    if(curr_menuScreen=='Game Rules' || curr_menuScreen=='Credits' || curr_menuScreen=='Scoring System' || curr_menuScreen=='Controls'){
+    if(curr_menuScreen=='Game Rules' || curr_menuScreen=='Scoring System' || curr_menuScreen=='Controls'){
         drawBitmapCenteredWithRotation(squashcourt_towrite, canvas.width / 2, canvas.height / 2, 0);        
-    } else {
+    } else if (curr_menuScreen=='Credits'){
+    drawBitmapCenteredWithRotation(squashcourt_nocheer, canvas.width / 2, canvas.height / 2, 0);
+    }
+    else {
     drawBitmapCenteredWithRotation(squashcourt_menu, canvas.width / 2, canvas.height / 2, 0);
+    }
+
+    if(curr_menuScreen=='Credits'){
+        drawBitmapCenteredWithRotation(credits_sergio, 405, 125, 0);        
+        drawBitmapCenteredWithRotation(credits_jlevans, 600, 175, Math.PI/8);        
+        drawBitmapCenteredWithRotation(credits_jlevans2, 200, 175, Math.PI*7/4);        
     }
 
     message=MESSAGEBOARD;

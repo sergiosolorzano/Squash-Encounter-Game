@@ -251,7 +251,7 @@ function PlayerClass() {
             }
             if (this.keyHeld_SprintAndKill && isPlayerMoving) {
                 this.particles.active = true;
-                if (this.sprintStamina > 0 && this.sprintCooldown == 0) {
+                if (this.sprintStamina > 0) {
                     this.sprintMultiplier = SPRINT_MULTIPLER;
                     this.sprintStamina--;
                     //console.log(this.sprintStamina)
@@ -263,7 +263,7 @@ function PlayerClass() {
             } else {
                 this.sprintMultiplier = 1;
                 if (this.sprintStamina < 20) {
-                    this.sprintStamina += 0.25;
+                    this.sprintStamina += staminaRecharge;
                 }
             }
             //TODO might need to reset this.sprintMultiplier

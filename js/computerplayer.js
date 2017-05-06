@@ -17,6 +17,7 @@ var runningToT=false;
 var minZVBounceValue;//increase of zv when ball too low for player only
 var zIncreaseAtFront;//increase of z when ball too low for player only at front court quadrants
 var zIncreaseAtBack;//increase of z when ball too low for player only at back court quadrants
+var staminaRecharge;
 
 function ComputerClass() {
 
@@ -49,6 +50,8 @@ function ComputerClass() {
             zIncreaseFrontTrigger=5;
             zIncreaseAtFront=7.5;
             zIncreaseAtBack=12;
+            staminaRecharge=0.5;
+
         }
         if(AI_Difficulty == 1){
             COMPUTER_MOVE_SPEED=1.95;
@@ -63,6 +66,7 @@ function ComputerClass() {
             zIncreaseFrontTrigger=5;
             zIncreaseAtFront=6.5;
             zIncreaseAtBack=10.5;
+            staminaRecharge=0.4;
         }
         if(AI_Difficulty == 2){
             COMPUTER_MOVE_SPEED=2.5;
@@ -72,6 +76,11 @@ function ComputerClass() {
             if(PlayerClass.swingTurn){
                 SWINGBUFFER=0;//HITSQUAREW*0
             }
+            staminaRecharge=0.25;
+            zIncreaseBackTrigger=0.01;
+            zIncreaseFrontTrigger=0.01;
+            zIncreaseAtFront=7.5;
+            zIncreaseAtBack=12;
         }
         
 
