@@ -22,7 +22,7 @@ function createParticles(){
 		}
 	}
 
-function moveAllParticles(){
+function moveAllPuffParticles(){
 	
 		for(var i=0;i<particleList.length;i++){
 			particleList[i].move();
@@ -34,11 +34,11 @@ function moveAllParticles(){
 		}
 	}
 
-function clearParticles(){
+function clearPuffParticles(){
 	particleList=[];
 }
 
-function drawAllParticles(){
+function drawAllPuffParticles(){
 
 		for(var i=0;i<particleList.length;i++){
 			particleList[i].draw();

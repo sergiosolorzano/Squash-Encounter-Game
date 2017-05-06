@@ -80,8 +80,9 @@ function moveAll() {
             BallClass.moveBall();
             ComputerClass.movePlayer();
             PlayerClass.movePlayer();
-            moveAllParticles();
+            moveAllPuffParticles();
             moveAllKillParticles();
+            moveAllEndGameParticles();
         }
     }
 }
@@ -128,7 +129,7 @@ function drawAll() {
         if(rightToServeOutcomeReady){
             rightToServeOutcome();
         }
-    //Rules.score.AI=8;//to test end of game
+    Rules.score.AI=8;//to test end of game
     } else {
         if (BallClass.isVisible) {
             BallClass.drawShadow();
@@ -204,7 +205,8 @@ function drawAll() {
             PlayerClass.drawPlayer();
             ComputerClass.drawPlayer();
             ServeHandler.DrawCountDown();
-            drawAllParticles();
+            drawAllPuffParticles();
+            drawAllEndGameParticles();
             drawAllKillParticles();
             drawMessageBoard();
             //drawLines();

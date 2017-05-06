@@ -1,74 +1,82 @@
-//ball subtle puff on wall bounce
-var particleList=[];
-var PARTICLESNUM=35;
-var CYCLEANCHOR=4;//MINCYCLE + 1*CYCLEANCHOR = max cyclesLeft
-var MINCYCLE=5;
-var MINPARTICLESIZE=3;
-var GRAVITY_PER_CYCLE=0.1;
+//end game particles party
+var particleEndGameList=[];
+/*//RECT
+var PARTICLESEndGameNUM=60;
+var CYCLEEndGameANCHOR=5;//MINEndGameCYCLE + 1*CYCLEEndGameANCHOR = max cyclesEndGameLeft
+var MINEndGameCYCLE=1;
+var MINEndGamePARTICLESIZE=2;
+var GRAVITY_EndGame_PER_CYCLE=0.1;*/
 
+//circles
+var PARTICLESENDGAMENUM=75;
+var CYCLEENDGAMEANCHOR;//MINEndGameCYCLE + 1*CYCLEEndGameANCHOR = max cyclesEndGameLeft
+var MINENDGAMECYCLE;
+var MINENDGAMEPARTICLESIZE=2;
+var GRAVITY_ENDGAME_PER_CYCLE=0.1;
 
-function createParticles(){
-		for(var i=0;i<PARTICLESNUM;i++){
-			var particlesClass = new ParticlesTwoClass();
-			//particlesClass.x=0.5*canvas.width;
-			//particlesClass.y=0.5*canvas.height;
-			particlesClass.cyclesLeft=MINCYCLE+Math.random()*CYCLEANCHOR;
-			particleList.push(particlesClass);
-				if(Math.random()<0.5){
-					particlesClass.myColor="#9C9BA0";
-				} else {
-					particlesClass.myColor="#888A8A"
-				}
-		}
-	}
-
-function moveAllParticles(){
-	
-		for(var i=0;i<particleList.length;i++){
-			particleList[i].move();
-		}
-		for(var i=particleList.length-1;i>=0;i--){
-			if(particleList[i].readyToRemove){
-				particleList.splice(i,1);			
+function createParticlesEndGame(){
+		for(var i=0;i<PARTICLESENDGAMENUM;i++){
+			var particlesEndGameClass = new ParticlesEndGameClass();
+			particlesEndGameClass.cyclesEndGameLeft=MINENDGAMECYCLE+Math.random()*CYCLEENDGAMEANCHOR;
+			particleEndGameList.push(particlesEndGameClass);
+			MINEndGameCYCLE=3;
+			CYCLEEndGameANCHOR=6;
+			if(Math.random()<0.5){
+				particlesEndGameClass.myColor="#ED1313";//red ED1313
+			} else {
+				particlesEndGameClass.myColor="#E4E418"; //yellow E4E418
 			}
 		}
-	}
-
-function clearParticles(){
-	particleList=[];
 }
 
-function drawAllParticles(){
+function clearEndGameParticles(){
+	particleEndGameList=[];
+}
 
-		for(var i=0;i<particleList.length;i++){
-			particleList[i].draw();
+function moveAllEndGameParticles(){
+	
+		for(var i=0;i<particleEndGameList.length;i++){
+			particleEndGameList[i].move();
 		}
-	}
+		for(var i=particleEndGameList.length-1;i>=0;i--){
+			if(particleEndGameList[i].readyToRemove){
+				particleEndGameList.splice(i,1);			
+			}
+		}
+}
+
+function drawAllEndGameParticles(){
+
+		for(var i=0;i<particleEndGameList.length;i++){
+			particleEndGameList[i].draw();
+		}
+}
 
 /*function removeParticles(){
-	for(var i=0;i<particleList.length;i++){
-		particleList[i].readyToRemove=true;
+	for(var i=0;i<particleEndGameList.length;i++){
+		particleEndGameList[i].readyToRemove=true;
 	}
 }*/
 
-function ParticlesTwoClass (){
-var draw = perspectiveLocation(BallClass.x, BallClass.y, BallClass.z)
+function ParticlesEndGameClass (){
+var draw = perspectiveLocation(canvas.width/2, canvas.height/2, 0)
 this.x=draw.x;
 this.y=draw.y;
 this.z=draw.z;
-this.myColor;
 this.cyclesLeft;
+this.myColor;
+this.cyclesEndGameLeft;
 this.velX=2-Math.random()*4;
 this.velY=2-Math.random()*4;
 
 this.readyToRemove=false;
 
 	this.move=function(){
-		this.cyclesLeft--;
-		if(this.cyclesLeft <0){
+		this.cyclesEndGameLeft--;
+		if(this.cyclesEndGameLeft <0){
 			this.readyToRemove=true;
 		}
-		this.velY+=GRAVITY_PER_CYCLE;
+		this.velY+=GRAVITY_ENDGAME_PER_CYCLE;
 		this.x+=this.velX;
 		this.y+=this.velY;
 
@@ -89,7 +97,6 @@ this.readyToRemove=false;
 	}
 
 	this.draw=function(){
-		colorCircle(this.x,this.y-this.z,MINPARTICLESIZE*this.cyclesLeft/(MINCYCLE+CYCLEANCHOR),this.myColor);
-		
+		colorCircle(this.x,this.y-this.z,MINENDGAMEPARTICLESIZE*this.cyclesEndGameLeft/(MINENDGAMECYCLE+CYCLEENDGAMEANCHOR),this.myColor);
 	}
 }

@@ -110,15 +110,18 @@ var Rules = function Score() {
                 ComputerClass.Reset();
                 endPoint=false;
                 endGame=false;
-                clearParticles()
+                clearPuffParticles();
                 returnToMenu();
             }
             //console.log("end of game at",endGameTimer);
+            //createParticles();
+            createParticlesEndGame();
             if(self.player>self.score.AI){
                 PlayerClass.whichPic=p1_wins;
             } else {
                 ComputerClass.whichPic=p2_wins;
             }
+            
             
 
             /*var drawLocation = perspectiveLocation(this.x, this.y, 0);
@@ -146,7 +149,8 @@ var Rules = function Score() {
         ComputerClass.Reset();
         endPoint=false;
         endGame=false;
-        clearParticles()
+        clearPuffParticles();
+        clearEndGameParticles();
         returnToMenu();
         }
     }
