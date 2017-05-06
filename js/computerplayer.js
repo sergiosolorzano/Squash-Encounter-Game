@@ -141,7 +141,7 @@ function ComputerClass() {
         }
         drawAtBaseSheetSprite(this.whichPic, computerFrame, drawLocation.x, drawLocation.y, PLAYER_W, PLAYER_H);
         
-        var debugColor;
+        /*var debugColor;
         if(interimInterceptWalk){
             debugColor="green"
         } else {
@@ -152,10 +152,10 @@ function ComputerClass() {
             colorCircle(debugTarget.x, debugTarget.y - debugTarget.z, 3, debugColor)
         
 
-        /*if (debugTarget)
+        if (debugTarget)
             colorCircle(debugTarget.x, debugTarget.y - debugTarget.z, 3, "green")*/
     }
-var debugTarget=false;
+//var debugTarget=false;
     
     this.movePlayer = function () {
         var nextX = this.x;
