@@ -23,6 +23,8 @@ var killShotActive = false;//when true ball speed increases
 var killShotSpeedMultiple = 2;
 var particlesTimer = 0;
 var particlesEndTimer = 5;
+var swingLoopTrigger=3;//if players have been locked playing the ball in the same swing angle, trigger computer to change angle
+var changeBallAng=-Math.PI/3;
 
 function BallClass() {
 
@@ -57,6 +59,9 @@ function BallClass() {
         this.isServed = false;
         this.serveVelocityZ = 1.5;
         this.maxServeZ = 15;
+        //determines if the players have entered a constant swing loop playing the same point over and over
+        this.ballTravelAng;
+        this.swingLoop=0;
     }
 
     this.moveBallForServe = function () {
@@ -226,11 +231,17 @@ function BallClass() {
             }
 
             //non-kill shot speed changes
+            //breaks a swing loop where players playing same ballang all the time
             if (killShotActive == false) {
                 if (prevY < this.y) {
                     this.speedY *= -1;
                 } else {
                     this.speedY *= 1;
+                }
+                if(this.swingLoop>swingLoopTrigger){
+                    var ballSpeedInLoop = magnitude(this.speedX, this.speedY);
+                    this.speedX = Math.cos(changeBallAng) * ballSpeedInLoop;
+                    this.speedY = Math.sin(changeBallAng) * ballSpeedInLoop;
                 }
             }
 
@@ -394,10 +405,10 @@ function BallClass() {
                 this.zv = 0.75
             }
 
-            console.log("outside the function",ComputerClass.swingTurn, zIsActive,ComputerClass.playerStandingOnCourtQuadrant,quadrantHit,this.z,this.zv,zIncreaseFrontTrigger,zIncreaseBackTrigger)
+            //console.log("outside the function",ComputerClass.swingTurn, zIsActive,ComputerClass.playerStandingOnCourtQuadrant,quadrantHit,this.z,this.zv,zIncreaseFrontTrigger,zIncreaseBackTrigger)
             if(this.z<=zIncreaseBackTrigger || this.z<=zIncreaseFrontTrigger){
             if(ComputerClass.swingTurn && zIsActive){
-                console.log("before",this.z,this.zv)
+                //console.log("before",this.z,this.zv)
                 if(ComputerClass.playerStandingOnCourtQuadrant==CPURIGHTTOPCOURTQUADRANT || ComputerClass.playerStandingOnCourtQuadrant==CPULEFTTOPCOURTQUADRANT){
                     this.z=zIncreaseAtFront;
                 }
@@ -405,7 +416,7 @@ function BallClass() {
                     this.z=zIncreaseAtBack;
                 }
                 zIsActive=false;
-              console.log("after",this.z)
+              //console.log("after",this.z)
             }
         }
 
@@ -466,7 +477,7 @@ function BallClass() {
             createParticles();
         }
         //console.log(zIsActive)
-        console.log(this.z,this.zv)
+        //console.log(this.z,this.zv)
         
 
         this.nextX = this.x + this.speedX;
@@ -512,6 +523,18 @@ function BallClass() {
             createParticles();
             Sound.wall();
             this.speedY *= -1;
+
+            //calculate ball travel angle in case players swinging in a constant angle loop
+            var distBallXToNextX=this.x-prevX;
+            var distBallYToNextY=this.y-prevY;
+            this.ballTravelAng=atanResult=Math.atan2(distBallYToNextY,distBallXToNextX);//radians
+            //console.log(this.ballTravelAng,Math.PI*2,Math.PI,Math.PI/2,Math.PI*3/2)
+            //console.log(this.swingLoop>swingLoopTrigger, this.swingLoop,this.ballTravelAng, Math.PI/2)
+            if(Math.abs(this.ballTravelAng)==Math.PI/2){
+                this.swingLoop+=1;
+            } else {
+                this.swingLoop=0;
+            }
 
             //kill shot cheer
             var bottomFrontWallQuadrants = GradientShotToFrontWall(this.x,this.y)
@@ -587,6 +610,7 @@ function BallClass() {
         //console.log(this.speedY)
         //console.log(ComputerClass.swingTurn)
         //console.log(this.topRedLineLimitBreached)
+
         this.x += this.speedX;
         this.y += this.speedY;
     }

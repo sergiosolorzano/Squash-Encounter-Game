@@ -102,13 +102,13 @@ function drawMenu() {
     if(curr_menuScreen=='Credits'){
 
         if(sergio--<0){
-        console.log(sergio)
+        
         drawBitmapCenteredWithRotation(orangepost, canvas.width/2+4, 104, 0);
         var anchorsergioY=100;
         var offsetY=14;
         colorTextCreditsName("Sergio Solorzano, Lead Game Developer", canvas.width/2-93,anchorsergioY-offsetY*2)
         //colorTextCredits("", canvas.width/2-90,anchorsergioY-offsetY*2)
-        colorTextCredits("Characters and ball movement,", canvas.width/2-90,anchorsergioY-offsetY)
+        colorTextCredits("Characters and ball movement, tools,", canvas.width/2-90,anchorsergioY-offsetY)
         colorTextCredits("on-mouse ball aim, ball particle effects,", canvas.width/2-90,anchorsergioY)
         colorTextCredits("squash rules, pause functionality, point", canvas.width/2-90,anchorsergioY+offsetY, 0)
         colorTextCredits("assingment, messaging, design, menu", canvas.width/2-90,anchorsergioY+offsetY*2, 0)
@@ -174,7 +174,7 @@ function drawMenu() {
         colorTextCredits("Sprint sweat particles", 320, anchorY-offsetY+13-6-4, postAng)
         
         colorTextCreditsName("Caspar Dunant", 326, anchorY-offsetY+18-3, postAng)
-        colorTextCredits("Game scale to full screen", 332, anchorY+offsetY*2-17, postAng)
+        colorTextCredits("Game scale to full screen,", 332, anchorY+offsetY*2-17, postAng)
         colorTextCredits("debug support", 340, anchorY+offsetY*2-9, postAng)    
         }
         if(jeremy--<0){
