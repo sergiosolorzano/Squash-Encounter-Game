@@ -1,6 +1,7 @@
 var selectedMenuIndex = 0;
 var mainMenuArray =["Play", "Game Rules", "Scoring System", "Controls", "Credits"];
 var difficultyMenu = ["Level 1", "Level 2", "Level 3"];
+var controlsMenuCurrMode = "Keyboard";
 var menuArray= mainMenuArray;
 var exitLoop;
 var creditsListArray =[];
@@ -263,6 +264,9 @@ function drawMenu() {
         drawTextCustom("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     } else if (curr_menuScreen==="Credits"){
         drawTextCustom("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
+    }else if(curr_menuScreen === "Controls"){
+        drawTextCustom(controlsMenuCurrMode+": Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
+        drawRulesEsc("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }
 
     else {
@@ -285,22 +289,35 @@ function drawDifficultySelection(){
 }
 
 function drawControls() {
-    drawRulesTextTitle("Game Controls:", 230);
-    drawScoringText("Forward: W", 260);
-    drawScoringText("Backward: S", 280);
-    drawScoringText("Right: D", 300);
-    drawScoringText("Left: A", 320);
-    drawScoringText("Sprint & Kill Shot: Space Bar", 340);
-    drawScoringText("Serve: Space", 360);
+    var heightMod = -5;
 
-    drawScoringText("Target Wall Quadrants:", 390);
-    drawControlsMouse("Left mouse CLICK", 470, 410);
-    drawControlsMouse("Front Wall Targets:", 375, 430);    
-    drawControlsMouse("Top / Bottom", 440, 450);
-    drawControlsMouse("Right / Left", 433, 470);
+    if(controlsMenuCurrMode === 'Keyboard'){
+        drawRulesTextTitle("Game Controls:", 230+heightMod);
+        drawScoringText("Forward: W", 260+heightMod);
+        drawScoringText("Backward: S", 280+heightMod);
+        drawScoringText("Right: D", 300+heightMod);
+        drawScoringText("Left: A", 320+heightMod);
+        drawScoringText("Sprint & Kill Shot: Space Bar", 340+heightMod);
+        drawScoringText("Serve: Space", 360+heightMod);
+        
+    }else if(controlsMenuCurrMode === 'Controller'){
+        drawRulesTextTitle("Game Controls:", 230+heightMod);
+        drawScoringText("Forward: Joystick Up", 260+heightMod);
+        drawScoringText("Backward: Joystick Down", 280+heightMod);
+        drawScoringText("Right: Joystick Right", 300+heightMod);
+        drawScoringText("Left: Joystick Left", 320+heightMod);
+        drawScoringText("Sprint & Kill Shot: The Red Button", 340+heightMod);
+        drawScoringText("Serve: The Green Button", 360+heightMod);
+    }
 
-    drawControlsMouse("Back Wall Targets:", 360, 490);    
-    drawControlsMouse("Top / Bottom", 440, 510);
+    drawScoringText("Target Wall Quadrants:", 390+heightMod);
+    drawControlsMouse("Left mouse CLICK", 470, 410+heightMod);
+    drawControlsMouse("Front Wall Targets:", 375, 430+heightMod);    
+    drawControlsMouse("Top / Bottom", 440, 450+heightMod);
+    drawControlsMouse("Right / Left", 433, 470+heightMod);
+
+    drawControlsMouse("Back Wall Targets:", 360, 490+heightMod);    
+    drawControlsMouse("Top / Bottom", 440, 510+heightMod);
 
     //drawControls("Front Wall: Top / Bottom - Right / Left", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     //drawControls("Back Wall: Right / Left ", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
@@ -377,7 +394,15 @@ function menuInput(keyEvent, pressed) {
         }
 
     } else if (keyEvent.keyCode === KEY_SPACE || keyEvent.keyCode ===KEY_ENTER) {
-        if (curr_menuScreen != "Main" && curr_menuScreen!="Play") {
+        if(curr_menuScreen == 'Controls'){            
+            if(controlsMenuCurrMode === 'Keyboard'){
+                controlsMenuCurrMode = 'Controller';
+            }else{
+                controlsMenuCurrMode = 'Keyboard';
+            }            
+            return;
+        }
+        if (curr_menuScreen != "Main" && curr_menuScreen!="Play" && curr_menuScreen!="Controls") {
             //ignore if not on main menu
             return;
         } else {
@@ -402,7 +427,7 @@ function menuInput(keyEvent, pressed) {
                     Sound.wall();
                     AI_Difficulty = 2;
                     startGame();
-                    break;
+                    break;                
                 default:
                     curr_menuScreen = menuArray[selectedMenuIndex];
                     if(curr_menuScreen=='Credits'){
