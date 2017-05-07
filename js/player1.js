@@ -68,6 +68,7 @@ function PlayerClass() {
 
     this.Reset = function () {
         this.y = initYPosition;
+        this.keyHeld_Esc = false;
         ParticleSystem.remove(this.particles);
         this.particles = ParticleSystem.add(-14, 4, {}, "sweat");
         this.swingTurn = (ServeHandler.servingPlayer === ServeHandler.BLUE ? false : true);

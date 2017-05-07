@@ -107,12 +107,14 @@ var Rules = function Score() {
         
         //end round
         //TODO: WIN SCREEN
-        endGame=true;
+        
         createParticlesEndGame();   
         //console.log(endGame)
         BallClass.Reset();
         console.log(endGame,endGameTimer)
         if(endGameTimer>0){
+            console.log(PlayerClass.keyHeld_Esc,"ive entered", endGameTimer)
+            endGame=true;
             endGameTimer--;
             if(PlayerClass.keyHeld_Esc || PlayerClass.keyHeld_enter){
                 self.Reset();
