@@ -132,8 +132,8 @@ function drawAll() {
         if(rightToServeOutcomeReady){
             rightToServeOutcome();
         }
-    Rules.score.AI=8;//to test end of game
-    Rules.score.player=8;
+    //Rules.score.AI=8;//to test end of game
+    //Rules.score.player=8;
     } else {
         if (BallClass.isVisible) {
             BallClass.drawShadow();
