@@ -143,6 +143,7 @@ function PlayerClass() {
                 this.isSwinging = true;
                 Sound.hit();
                 //kill shot cheer
+                Sound.play("kill_breath", false, 1);    
                 killShotCheer=true;
 
                 
@@ -299,7 +300,8 @@ function PlayerClass() {
                     // console.log("TIRED! My sprintStamin is " + this.sprintStamina); // debug spam
                     if (!Sound.isPlaying("sprint_breath")) {
                         //console.log("Need more oxygen! Breathing!");
-                        Sound.play("sprint_breath", false, 0.2);
+                        Sound.play("sprint_breath", false, 1);
+                        console.log(Sound.play("sprint_breath", false, 1))
                     }
                 }
         }
