@@ -301,6 +301,7 @@ function drawControls() {
         drawScoringText("Serve: Space", 360+heightMod);
         
     }else if(controlsMenuCurrMode === 'Controller'){
+        drawBitmapCenteredWithRotation(squashcourt_menu, canvas.width / 2, canvas.height / 2, 0);        
         drawRulesTextTitle("Game Controls:", 230+heightMod);
         drawScoringText("Forward: Joystick Up", 260+heightMod);
         drawScoringText("Backward: Joystick Down", 280+heightMod);

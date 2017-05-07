@@ -92,11 +92,17 @@ var Rules = function Score() {
         	return;
         }
 
-        if (self.player > self.score.AI) {
+        if (self.score.player > self.score.AI) {
             message=BLUEWINS;
+            PlayerClass.whichPic=p1_wins;
+            ComputerClass.whichPic=p2_standing;
         } else {
             message=REDWINS;
+            PlayerClass.whichPic=p1_standing;
+            ComputerClass.whichPic=p2_wins;
         }
+
+        
         //end round
         //TODO: WIN SCREEN
         endGame=true;
@@ -122,11 +128,7 @@ var Rules = function Score() {
                 createParticlesEndGame();    
             //}
             
-            if(self.player>self.score.AI){
-                PlayerClass.whichPic=p1_wins;
-            } else {
-                ComputerClass.whichPic=p2_wins;
-            }
+            
             
             
 
