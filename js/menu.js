@@ -57,6 +57,7 @@ function startGame() {
     //ServeHandler.bluePicks=false;
     clearInterval(menuLoop);
     //message=0;
+    escPress=0;
     if(menuActive==false){
         gameLoop = setInterval(function () {
             if(gameIsPaused==false){
@@ -299,26 +300,27 @@ function drawControls() {
         drawScoringText("Left: A", 320+heightMod);
         drawScoringText("Sprint & Kill Shot: Space Bar", 340+heightMod);
         drawScoringText("Serve: Space", 360+heightMod);
+        drawScoringText("Target Wall Quadrants:", 390+heightMod);
+        drawControlsMouse("Left mouse CLICK", 470, 410+heightMod);
+        drawControlsMouse("Front Wall Targets:", 375, 430+heightMod);    
+        drawControlsMouse("Top / Bottom", 440, 450+heightMod);
+        drawControlsMouse("Right / Left", 433, 470+heightMod);
+
+        drawControlsMouse("Back Wall Targets:", 360, 490+heightMod);    
+        drawControlsMouse("Top / Bottom", 440, 510+heightMod);
         
     }else if(controlsMenuCurrMode === 'Controller'){
-        drawBitmapCenteredWithRotation(squashcourt_menu, canvas.width / 2, canvas.height / 2, 0);        
-        drawRulesTextTitle("Game Controls:", 230+heightMod);
+        drawBitmapCenteredWithRotation(squashcourt_gamepad, canvas.width / 2, canvas.height / 2, 0);        
+        /*drawRulesTextTitle("Game Controls:", 230+heightMod);
         drawScoringText("Forward: Joystick Up", 260+heightMod);
         drawScoringText("Backward: Joystick Down", 280+heightMod);
         drawScoringText("Right: Joystick Right", 300+heightMod);
         drawScoringText("Left: Joystick Left", 320+heightMod);
         drawScoringText("Sprint & Kill Shot: The Red Button", 340+heightMod);
-        drawScoringText("Serve: The Green Button", 360+heightMod);
+        drawScoringText("Serve: The Green Button", 360+heightMod);*/
     }
 
-    drawScoringText("Target Wall Quadrants:", 390+heightMod);
-    drawControlsMouse("Left mouse CLICK", 470, 410+heightMod);
-    drawControlsMouse("Front Wall Targets:", 375, 430+heightMod);    
-    drawControlsMouse("Top / Bottom", 440, 450+heightMod);
-    drawControlsMouse("Right / Left", 433, 470+heightMod);
-
-    drawControlsMouse("Back Wall Targets:", 360, 490+heightMod);    
-    drawControlsMouse("Top / Bottom", 440, 510+heightMod);
+   
 
     //drawControls("Front Wall: Top / Bottom - Right / Left", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     //drawControls("Back Wall: Right / Left ", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);

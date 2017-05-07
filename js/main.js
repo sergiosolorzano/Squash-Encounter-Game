@@ -148,11 +148,11 @@ function drawAll() {
             
             //console.log("im here")
             message=BLUESERVES;
-            messageTip=Math.floor(Math.random() * 5) + 1
+            messageTip=Math.floor(Math.random() * 15) + 1
         } else if (ServeHandler.servingPlayer==ServeHandler.RED && ServeHandler.inPlay==false ){//1=blueplayer
                 //console.log("im here")
             message=REDSERVES;
-            messageTip=Math.floor(Math.random() * 14) + 1
+            messageTip=Math.floor(Math.random() * 15) + 1
         } else if (endPoint==false){
             //console.log(messageTip)
             switch (messageTip) {//maybe quadrantHit=0 in which case none called
@@ -197,6 +197,9 @@ function drawAll() {
                     break;
                 case 14:
                     message=NOTHINGHAPPENS14;
+                    break;
+                case 15:
+                    message=NOTHINGHAPPENS15;
                     break;
             }
         }

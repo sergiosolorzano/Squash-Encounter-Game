@@ -62,6 +62,10 @@ function drawAllKillParticles(){
 		}
 	}
 
+function clearKillParticles(){
+particleKillList=[];
+}
+
 /*function removeParticles(){
 	for(var i=0;i<particleKillList.length;i++){
 		particleKillList[i].readyToRemove=true;

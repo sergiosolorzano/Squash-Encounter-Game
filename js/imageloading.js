@@ -51,6 +51,7 @@ var gamePauseButton = document.createElement("img");
 
 var squashcourt_menu = document.createElement("img");
 var squashcourt_towrite = document.createElement("img");
+var squashcourt_gamepad = document.createElement("img");
 
 var orangepost = document.createElement("img");
 var greenpost = document.createElement("img");
@@ -136,6 +137,7 @@ function loadImages(){
 	{varName: gamePauseButton, theFile: "gamepausebutton.png"},
 	{varName: squashcourt_menu, theFile: "squashcourt_menu.png"},
 	{varName: squashcourt_towrite, theFile: "squashcourt_towrite.png"},
+	{varName: squashcourt_gamepad, theFile: "squashcourt_gamepad.png"},
 
 	{varName: orangepost, theFile: "orangepost.png"},
 	{varName: bluepost, theFile: "bluepost.png"},

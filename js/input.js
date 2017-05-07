@@ -111,7 +111,7 @@ function keySet(keyEvent, whichPlayer, setTo) {
     }
 
     if (setTo) { //only detecting when key goes down not held keys
-        if (keyEvent.keyCode == KEY_SPACE || keyEvent.keyCode == KEY_ENTER) {//TODO Remove cheat: cheat to avoid waiting for the draw to play, to remove cheat add && drawNow in if condition
+        if (drawNow) {//TODO Remove cheat: cheat to avoid waiting for the draw to play, to remove cheat add && drawNow in if condition
             if (serveBet) {
                 serveBet = false;
                 message = 0;
@@ -222,6 +222,7 @@ function keyPressed(evt) {
         potentialEsc=false;
         clearPuffParticles();
         clearEndGameParticles();
+        clearKillParticles();
         returnToMenu();
         evt.preventDefault();
     }

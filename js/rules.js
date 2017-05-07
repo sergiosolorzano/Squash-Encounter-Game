@@ -53,7 +53,7 @@ var Rules = function Score() {
                 timer=maxTimer;
                 endGameTimer=endGameTimerReset;
                 console.log("Ball Over the Top Red Line")
-                message=3;  
+                message=OUTLINES;  
                 self.givePoint();
                 //Game.RallyReset();
                   
@@ -67,8 +67,8 @@ var Rules = function Score() {
         if (BallClass.bouncedOnFloor == 1 && BallClass.bouncedOnFrontWall == false && endPoint==false) {
             endPoint=true;
             timer=maxTimer;
-            endGameTimer=endGameTimerReset;
             BallClass.ballHitFloorBeforeWall = true;
+            endGameTimer=endGameTimerReset;
             console.log("ball hit the floor before hitting the front wall, end of point")
             message=FLOORBOUNCEBEFOREWALL;
             self.givePoint();
@@ -79,6 +79,8 @@ var Rules = function Score() {
 
     self.checkRound = function checkRound() {
         //Players must have scored at least 9 to win
+        clearPuffParticles();
+        clearKillParticles();
         if (self.score.player < 9 && self.score.AI < 9) {
             return;
         }
@@ -106,9 +108,10 @@ var Rules = function Score() {
         //end round
         //TODO: WIN SCREEN
         endGame=true;
+        createParticlesEndGame();   
         //console.log(endGame)
         BallClass.Reset();
-        
+        console.log(endGame,endGameTimer)
         if(endGameTimer>0){
             endGameTimer--;
             if(PlayerClass.keyHeld_Esc || PlayerClass.keyHeld_enter){
@@ -118,6 +121,9 @@ var Rules = function Score() {
                 endPoint=false;
                 endGame=false;
                 clearPuffParticles();
+                clearEndGameParticles();
+                clearKillParticles();
+                //endGameTimer=endGameTimerReset;
                 returnToMenu();
             }
             //console.log("end of game at",endGameTimer);
@@ -125,7 +131,7 @@ var Rules = function Score() {
             
             //if(partStart--<0){
               //  particleList= [];
-                createParticlesEndGame();    
+                
             //}
             
             
@@ -159,6 +165,8 @@ var Rules = function Score() {
         endGame=false;
         clearPuffParticles();
         clearEndGameParticles();
+        clearKillParticles();
+        //endGameTimer=endGameTimerReset;
         returnToMenu();
         }
     }
