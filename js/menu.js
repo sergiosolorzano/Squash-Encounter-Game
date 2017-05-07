@@ -312,9 +312,37 @@ function drawControls() {
         
     }else if(controlsMenuCurrMode === 'Controller'){
         drawBitmapCenteredWithRotation(squashcourt_gamepad, canvas.width / 2, canvas.height / 2, 0);        
-        colorTextCreditsName("Target Top Front Wall Quadrant", canvas.width/2-286,187)
-        //colorTextCredits("", canvas.width/2-90,anchorsergioY-offsetY*2)
-        //colorTextCredits("Characters and ball movement, tools,", canvas.width/2-90,anchorsergioY-offsetY)
+        drawMessageBoard();
+        message=0;
+        
+        colorTextCreditsName("Target BOTTOM LEFT", canvas.width/2-270,140);
+        colorTextCreditsName("Front Wall Quadrant", canvas.width/2-270,155);
+        colorTextCreditsName("Target BOTTOM LEFT", canvas.width/2-270,175);
+        colorTextCreditsName("BACK Wall Quadrant", canvas.width/2-270,190);
+
+        colorTextCreditsName("Target TOP LEFT", canvas.width/2-335,223);
+        colorTextCreditsName("Front Wall Quadrant", canvas.width/2-335,238);
+        
+
+        colorTextCreditsName("Player Walk Controls", canvas.width/2-300,290);
+        colorTextCreditsName("Sound Mute/Play", canvas.width/2-100,410);
+        colorTextCreditsName("Target Walls", canvas.width/2+40,410);
+        colorTextCreditsName("Forward: Front Walls", canvas.width/2+50,425);
+        colorTextCreditsName("Backward: Back Walls", canvas.width/2+50,440);
+
+
+        colorTextCreditsName("Sprint and Confirm", canvas.width/2+175,400);
+        colorTextCreditsName("Back (Menu only)", canvas.width/2+227,345);
+        colorTextCreditsName("Target TOP RIGHT", canvas.width/2+233,227);
+        colorTextCreditsName("Front Wall Quadrant", canvas.width/2+233,242);
+        
+        colorTextCreditsName("Target BOTTOM LEFT", canvas.width/2+170,145);
+        colorTextCreditsName("Front Wall Quadrant", canvas.width/2+170,160);
+        colorTextCreditsName("Target BOTTOM LEFT", canvas.width/2+170,180);
+        colorTextCreditsName("BACK Wall Quadrant", canvas.width/2+170,195);
+
+        colorTextCreditsName("Pause/Exit Game", canvas.width/2-40,210);
+        
         
 
         /*drawRulesTextTitle("Game Controls:", 230+heightMod);
