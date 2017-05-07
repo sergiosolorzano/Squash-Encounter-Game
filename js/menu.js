@@ -266,7 +266,8 @@ function drawMenu() {
     } else if (curr_menuScreen==="Credits"){
         drawTextCustom("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }else if(curr_menuScreen === "Controls"){
-        drawTextCustom(controlsMenuCurrMode+": Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
+        var opposite = controlsMenuCurrMode === 'Keyboard'? 'Controller': 'Keyboard';
+        drawTextCustom(opposite+": Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
         drawRulesEsc("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }
 
