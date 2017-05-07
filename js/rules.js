@@ -2,6 +2,7 @@ var endPoint=false;
 var endGameTimer=150;
 var endGameTimerReset=150;
 var endGame=false;
+var partStart=10;
 
 var Rules = function Score() {
     var self = {}
@@ -115,7 +116,12 @@ var Rules = function Score() {
             }
             //console.log("end of game at",endGameTimer);
             //createParticles();
-            createParticlesEndGame();
+            
+            //if(partStart--<0){
+              //  particleList= [];
+                createParticlesEndGame();    
+            //}
+            
             if(self.player>self.score.AI){
                 PlayerClass.whichPic=p1_wins;
             } else {

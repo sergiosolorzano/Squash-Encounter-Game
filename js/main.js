@@ -97,7 +97,7 @@ function drawAll() {
 
     var canvasAnimationFrames = squashcourt_withcheer.width / 800;
     //console.log(timerOnCheer)
-    if (cheerOn) {
+    if (cheerOn && endGame==false) {
         if (canvasFrameTimer-- < 0) {
             canvasFrameTimer = canvasStepsPerAnimFrame;
             canvasFrame++;
@@ -114,7 +114,10 @@ function drawAll() {
         }
         drawAtBaseSheetSprite(squashcourt_withcheer, canvasFrame, canvas.width / 2, canvas.height / 2, 800, 600);
 
-    } else {
+    } else if(endGame){
+        drawBitmapCenteredWithRotation(squashcourt_menu, canvas.width / 2, canvas.height / 2, 0);        
+        }
+        else {
         drawAtBaseSheetSprite(squashcourt_nocheer, 0, canvas.width / 2, canvas.height / 2, 800, 600);
     }
 
@@ -129,7 +132,7 @@ function drawAll() {
         if(rightToServeOutcomeReady){
             rightToServeOutcome();
         }
-    Rules.score.AI=8;//to test end of game
+    //Rules.score.AI=8;//to test end of game
     } else {
         if (BallClass.isVisible) {
             BallClass.drawShadow();

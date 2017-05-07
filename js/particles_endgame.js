@@ -8,11 +8,11 @@ var MINEndGamePARTICLESIZE=4;
 var GRAVITY_EndGame_PER_CYCLE=0.1;*/
 
 //circles
-var PARTICLESENDGAMENUM=20;
-var CYCLEENDGAMEANCHOR=20;//MINEndGameCYCLE + 1*CYCLEEndGameANCHOR = max cyclesEndGameLeft
-var MINENDGAMECYCLE=20;
-var MINENDGAMEPARTICLESIZE=2;
-var GRAVITY_ENDGAME_PER_CYCLE=0.1;
+var PARTICLESENDGAMENUM=100;
+var CYCLEENDGAMEANCHOR=30;//MINEndGameCYCLE + 1*CYCLEEndGameANCHOR = max cyclesEndGameLeft
+var MINENDGAMECYCLE=40;
+var MINENDGAMEPARTICLESIZE=1;
+var GRAVITY_ENDGAME_PER_CYCLE=0.2;
 
 function createParticlesEndGame(){
 		for(var i=0;i<PARTICLESENDGAMENUM;i++){
@@ -56,8 +56,10 @@ function drawAllEndGameParticles(){
 }*/
 
 function ParticlesEndGameClass (){
+//this.x=canvas.width/2;
+this.y=100;
 this.x=canvas.width/2;
-this.y=canvas.height/2;
+//this.y=canvas.height/2;
 this.cyclesLeft;
 this.myColor;
 this.cyclesEndGameLeft;
