@@ -24,6 +24,13 @@ function GamepadKeyboardEventEmulator()
     var gamepad_fire = false; // button 0 = A
     var gamepad_jump = false; // button 1 = B
     var gamepad_start = false; // button 9 = start
+    // misc buttons
+    var gamepad_back = false; // back
+    var gamepad_logo = false; // big middle logo button
+    var gamepad_r1 = false; // rb = button 10
+    var gamepad_r2 = false; // rt = button 9
+    var gamepad_l1 = false; // lb = button 5
+    var gamepad_l2 = false; // lt = button 6
     
     // so we can fire events when changed
     var prev_gamepad_left = false;
@@ -37,6 +44,12 @@ function GamepadKeyboardEventEmulator()
     var prev_gamepad_look_up = false;
     var prev_gamepad_look_down = false;
     var prev_gamepad_start = false;
+    var prev_gamepad_back = false;
+    var prev_gamepad_logo = false;
+    var prev_gamepad_r1 = false;
+    var prev_gamepad_r2 = false;
+    var prev_gamepad_l1 = false;
+    var prev_gamepad_l2 = false;
 
     // more buttons - currently unimplemented
     /*
@@ -73,6 +86,13 @@ function GamepadKeyboardEventEmulator()
     var SIMULATED_KEY_FIRE = 13; // [B] button = enter
     var SIMULATED_KEY_JUMP = 32; // [A] button = space
     var SIMULATED_KEY_START = 27; // [START] button = esc
+    var SIMULATED_KEY_LOGO = 27; // big button = esc
+    var SIMULATED_KEY_BACK = 77; // back button = "m" for mute
+    var prev_gamepad_r1 = false;
+    var prev_gamepad_r2 = false;
+    var prev_gamepad_l1 = false;
+    var prev_gamepad_l2 = false;
+
 
     window.addEventListener("gamepadconnected", function(e) {
     // Gamepad connected
@@ -107,7 +127,6 @@ function GamepadKeyboardEventEmulator()
         // poll every frame
         var joystickX = 0;
         var joystickY = 0;
-        var butt = 0;
         gamepad = navigator.getGamepads()[0];
         if (gamepad)
         {
@@ -126,10 +145,16 @@ function GamepadKeyboardEventEmulator()
             gamepad_look_down = (joystickY > 0);
             gamepad_look_up = (joystickY < 0);
 
-            butt = applyDeadzone(gamepad.buttons[0].value, 0.25);
-            gamepad_jump = (butt>0);
-            butt = applyDeadzone(gamepad.buttons[1].value, 0.25);
-            gamepad_fire = (butt>0);
+            gamepad_jump = (applyDeadzone(gamepad.buttons[0].value, 0.25)>0);
+            gamepad_fire = (applyDeadzone(gamepad.buttons[1].value, 0.25)>0);
+            gamepad_logo = (applyDeadzone(gamepad.buttons[1].value, 0.25)>0); // FIXME: never fires? Steam intercepts it!
+            gamepad_back = (applyDeadzone(gamepad.buttons[8].value, 0.25)>0);
+            gamepad_start = (applyDeadzone(gamepad.buttons[9].value, 0.25)>0);
+            gamepad_r1 = (applyDeadzone(gamepad.buttons[5].value, 0.25)>0);
+            gamepad_r2 = (applyDeadzone(gamepad.buttons[7].value, 0.25)>0);
+            gamepad_l1 = (applyDeadzone(gamepad.buttons[4].value, 0.25)>0);
+            gamepad_l2 = (applyDeadzone(gamepad.buttons[6].value, 0.25)>0);
+
         }
         else
         {
@@ -142,6 +167,9 @@ function GamepadKeyboardEventEmulator()
         window.requestAnimationFrame(handle_gamepad);
     }
 
+    var prevFrontWallSelection = TOPLEFTFRONTWALL;
+    var prevBackWallSelection = LEFTBACKWALL;
+    var prevWallFront = true;
     function fake_keyboard_events() // if any
     {
         // compare previous state and simulate a keypress if changed
@@ -152,6 +180,9 @@ function GamepadKeyboardEventEmulator()
         if (!prev_gamepad_fire && gamepad_fire) simulateKeyDown(SIMULATED_KEY_FIRE);
         if (!prev_gamepad_jump && gamepad_jump) simulateKeyDown(SIMULATED_KEY_JUMP);
         if (!prev_gamepad_start && gamepad_start) simulateKeyDown(SIMULATED_KEY_START);
+        if (!prev_gamepad_logo && gamepad_logo) simulateKeyDown(SIMULATED_KEY_LOGO);
+        if (!prev_gamepad_back && gamepad_back) simulateKeyDown(SIMULATED_KEY_BACK);
+
         if (prev_gamepad_left && !gamepad_left) simulateKeyUp(SIMULATED_KEY_LEFT);
         if (prev_gamepad_right && !gamepad_right) simulateKeyUp(SIMULATED_KEY_RIGHT);
         if (prev_gamepad_up && !gamepad_up) simulateKeyUp(SIMULATED_KEY_UP);
@@ -159,64 +190,66 @@ function GamepadKeyboardEventEmulator()
         if (prev_gamepad_fire && !gamepad_fire) simulateKeyUp(SIMULATED_KEY_FIRE);
         if (prev_gamepad_jump && !gamepad_jump) simulateKeyUp(SIMULATED_KEY_JUMP);
         if (prev_gamepad_start && !gamepad_start) simulateKeyUp(SIMULATED_KEY_START);
+        if (prev_gamepad_logo && !gamepad_logo) simulateKeyUp(SIMULATED_KEY_LOGO);
+        if (prev_gamepad_back && !gamepad_back) simulateKeyUp(SIMULATED_KEY_BACK);
 
         if (SQUASH_ENCOUNTER_WALL_SELECTING)
         {
             // squash encounter game-specific extras:
             if (window.PlayerClass != undefined) // sanity check
             {
-                if (gamepad_look_left && gamepad_look_up)
+
+                if (prevWallFront && gamepad_r1)
                 {
-                    //console.log('TOPLEFTFRONTWALL');
-                    selectFrontWall(0,0,TOPLEFTFRONTWALL);
-                    
-                    // FIXME the above feels like a hack but the below does not work
-                    // see selectFrontWall() - it does many calcs for where to put the +
-                    //PlayerClass.frontWallClicked = true;
-                    //PlayerClass.backWallClicked=false;
-                    //PlayerClass.targetFrontWall==TOPLEFTFRONTWALL;
+                    //console.log('TARGET TOPRIGHTFRONTWALL');
+                    prevFrontWallSelection = TOPRIGHTFRONTWALL;
+                    selectFrontWall(0,0,prevFrontWallSelection);
                 }
-                else if (gamepad_look_right && gamepad_look_up)
+                if (prevWallFront && gamepad_r2)
                 {
-                    //console.log('TOPRIGHTFRONTWALL');
-                    selectFrontWall(0,0,TOPRIGHTFRONTWALL);
-                    //PlayerClass.frontWallClicked = true;
-                    //PlayerClass.backWallClicked=false;
-                    //PlayerClass.targetFrontWall==TOPRIGHTFRONTWALL;
+                    //console.log('TARGET BOTTOMRIGHTFRONTWALL');
+                    prevFrontWallSelection = BOTTOMRIGHTFRONTWALL;
+                    selectFrontWall(0,0,prevFrontWallSelection);
                 }
-                if (gamepad_look_left && gamepad_look_down)
+                if (prevWallFront && gamepad_l1)
                 {
-                    //console.log('LEFTBACKWALL');
-                    selectBackWall(0,0,LEFTBACKWALL);
-                    //PlayerClass.backWallClicked=true;
-                    //PlayerClass.frontWallClicked = false;
-                    //PlayerClass.targetBackWall=LEFTBACKWALL;
+                    //console.log('TARGET TOPLEFTFRONTWALL');
+                    prevFrontWallSelection = TOPLEFTFRONTWALL;
+                    selectFrontWall(0,0,prevFrontWallSelection);
                 }
-                else if (gamepad_look_right && gamepad_look_down)
+                if (prevWallFront && gamepad_l2)
                 {
-                    //console.log('RIGHTBACKWALL');
-                    selectBackWall(0,0,RIGHTBACKWALL);
-                    //PlayerClass.backWallClicked=true;
-                    //PlayerClass.frontWallClicked = false;
-                    //PlayerClass.targetBackWall=RIGHTBACKWALL;
+                    //console.log('TARGET BOTTOMLEFTFRONTWALL');
+                    prevFrontWallSelection = BOTTOMLEFTFRONTWALL;
+                    selectFrontWall(0,0,prevFrontWallSelection);
                 }
-                else if (gamepad_look_right && !gamepad_look_up && !gamepad_look_down)
+                if (!prevWallFront && (gamepad_r1 || gamepad_r2))
                 {
-                    //console.log('BOTTOMRIGHTFRONTWALL');
-                    selectFrontWall(0,0,BOTTOMRIGHTFRONTWALL);
-                    //PlayerClass.frontWallClicked = true;
-                    //PlayerClass.backWallClicked=false;
-                    //PlayerClass.targetFrontWall==BOTTOMRIGHTFRONTWALL;
+                    //console.log('TARGET RIGHTBACKWALL');
+                    prevBackWallSelection = RIGHTBACKWALL;
+                    selectBackWall(0,0,prevBackWallSelection);
                 }
-                else if (gamepad_look_left && !gamepad_look_up && !gamepad_look_down)
+                if (!prevWallFront && (gamepad_l1 || gamepad_l2))
                 {
-                    //console.log('BOTTOMLEFTFRONTWALL');
-                    selectFrontWall(0,0,BOTTOMLEFTFRONTWALL);
-                    //PlayerClass.frontWallClicked = true;
-                    //PlayerClass.backWallClicked=false;
-                    //PlayerClass.targetFrontWall==BOTTOMLEFTFRONTWALL;
+                    //console.log('TARGET LEFTBACKWALL');
+                    prevBackWallSelection = LEFTBACKWALL;
+                    selectBackWall(0,0,prevBackWallSelection);
                 }
 
+                if (gamepad_look_up) // switch current target direction
+                {
+                    //console.log('SELECTING FRONT WALL');
+                    selectFrontWall(0,0,prevFrontWallSelection);
+                    prevWallFront = true;
+                }
+                
+                if (gamepad_look_down)
+                {
+                    //console.log('SELECTING BACK WALL');
+                    selectBackWall(0,0,prevBackWallSelection);
+                    prevWallFront = false;
+                }
+          
             }
             else
             {
@@ -231,6 +264,10 @@ function GamepadKeyboardEventEmulator()
         prev_gamepad_down = gamepad_down;
         prev_gamepad_fire = gamepad_fire;
         prev_gamepad_jump = gamepad_jump;
+        prev_gamepad_start = gamepad_start;
+        prev_gamepad_logo = gamepad_logo;
+        prev_gamepad_back = gamepad_back;
+        
     }
     
     function simulateKeyDown(thisKey) 
