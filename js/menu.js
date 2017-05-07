@@ -294,7 +294,7 @@ function drawControls() {
     var heightMod = -5;
 
     if(controlsMenuCurrMode === 'Keyboard'){
-        drawRulesTextTitle("Game Controls:", 230+heightMod);
+        drawRulesTextTitle("Keyboard Controls:", 230+heightMod);
         drawScoringText("Forward: W", 260+heightMod);
         drawScoringText("Backward: S", 280+heightMod);
         drawScoringText("Right: D", 300+heightMod);
@@ -312,6 +312,11 @@ function drawControls() {
         
     }else if(controlsMenuCurrMode === 'Controller'){
         drawBitmapCenteredWithRotation(squashcourt_gamepad, canvas.width / 2, canvas.height / 2, 0);        
+        colorTextCreditsName("Target Top Front Wall Quadrant", canvas.width/2-286,187)
+        //colorTextCredits("", canvas.width/2-90,anchorsergioY-offsetY*2)
+        //colorTextCredits("Characters and ball movement, tools,", canvas.width/2-90,anchorsergioY-offsetY)
+        
+
         /*drawRulesTextTitle("Game Controls:", 230+heightMod);
         drawScoringText("Forward: Joystick Up", 260+heightMod);
         drawScoringText("Backward: Joystick Down", 280+heightMod);
