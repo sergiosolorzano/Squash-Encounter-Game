@@ -1,8 +1,11 @@
-// Christer McFunkypants Kaitila's Gamepad Keyboard Emulator v2
+// Christer McFunkypants Kaitila's Gamepad Keyboard Emulator v2.1
 // Sends fake keyboard events to the browser by polling the gamepad (if any).
-// plug-n-play: addd gamepad support to keyboard-only games.
+// plug-n-play: add gamepad support to keyboard-only games!
+
+// modified to provide game-specific functionality for Squash Encounter
 
 const SQUASH_ENCOUNTER_WALL_SELECTING = true; // using right thumbstick
+const SQUASH_ENCOUNTER_B_BUTTON_MENUS_ONLY = true; // is sends ESC
 
 var joystick = new GamepadKeyboardEventEmulator();
 
@@ -21,10 +24,9 @@ function GamepadKeyboardEventEmulator()
     var gamepad_look_up = false;  // axis 1 < 0
     var gamepad_look_down = false; // axis 1 > 0
     // buttons
-    var gamepad_fire = false; // button 0 = A
-    var gamepad_jump = false; // button 1 = B
+    var gamepad_jump = false; // button 0 = A
+    var gamepad_fire = false; // button 1 = B
     var gamepad_start = false; // button 9 = start
-    // misc buttons
     var gamepad_back = false; // back
     var gamepad_logo = false; // big middle logo button
     var gamepad_r1 = false; // rb = button 10
@@ -64,7 +66,6 @@ function GamepadKeyboardEventEmulator()
     var gamepad_r1 = false; // button 5
     var gamepad_l2 = false; // button 6 (analog)
     var gamepad_r2 = false; // button 7 (analog)
-
     var prev_gamepad_button_x = false;
     var prev_gamepad_button_y = false;
     var prev_gamepad_dpad_up = false;
@@ -83,8 +84,8 @@ function GamepadKeyboardEventEmulator()
     var SIMULATED_KEY_RIGHT = 39;
     var SIMULATED_KEY_UP = 38;
     var SIMULATED_KEY_DOWN = 40;
-    var SIMULATED_KEY_FIRE = 13; // [B] button = enter
     var SIMULATED_KEY_JUMP = 32; // [A] button = space
+    var SIMULATED_KEY_FIRE = 27; // [B] button = ESC (enter is 13) BUT ONLY IF menuActive
     var SIMULATED_KEY_START = 27; // [START] button = esc
     var SIMULATED_KEY_LOGO = 27; // big button = esc
     var SIMULATED_KEY_BACK = 77; // back button = "m" for mute
@@ -145,11 +146,11 @@ function GamepadKeyboardEventEmulator()
             gamepad_look_down = (joystickY > 0);
             gamepad_look_up = (joystickY < 0);
 
-            gamepad_jump = (applyDeadzone(gamepad.buttons[0].value, 0.25)>0);
-            gamepad_fire = (applyDeadzone(gamepad.buttons[1].value, 0.25)>0);
-            gamepad_logo = (applyDeadzone(gamepad.buttons[1].value, 0.25)>0); // FIXME: never fires? Steam intercepts it!
-            gamepad_back = (applyDeadzone(gamepad.buttons[8].value, 0.25)>0);
-            gamepad_start = (applyDeadzone(gamepad.buttons[9].value, 0.25)>0);
+            gamepad_jump = (applyDeadzone(gamepad.buttons[0].value, 0.25)>0); // [A]
+            gamepad_fire = (applyDeadzone(gamepad.buttons[1].value, 0.25)>0); // [B]
+            //gamepad_logo = (applyDeadzone(gamepad.buttons[???].value, 0.25)>0); // FIXME: never fires? Steam intercepts it!
+            gamepad_back = (applyDeadzone(gamepad.buttons[8].value, 0.25)>0); // [BACK]
+            gamepad_start = (applyDeadzone(gamepad.buttons[9].value, 0.25)>0); // [START]
             gamepad_r1 = (applyDeadzone(gamepad.buttons[5].value, 0.25)>0);
             gamepad_r2 = (applyDeadzone(gamepad.buttons[7].value, 0.25)>0);
             gamepad_l1 = (applyDeadzone(gamepad.buttons[4].value, 0.25)>0);
@@ -177,11 +178,21 @@ function GamepadKeyboardEventEmulator()
         if (!prev_gamepad_right && gamepad_right) simulateKeyDown(SIMULATED_KEY_RIGHT);
         if (!prev_gamepad_up && gamepad_up) simulateKeyDown(SIMULATED_KEY_UP);
         if (!prev_gamepad_down && gamepad_down) simulateKeyDown(SIMULATED_KEY_DOWN);
-        if (!prev_gamepad_fire && gamepad_fire) simulateKeyDown(SIMULATED_KEY_FIRE);
-        if (!prev_gamepad_jump && gamepad_jump) simulateKeyDown(SIMULATED_KEY_JUMP);
-        if (!prev_gamepad_start && gamepad_start) simulateKeyDown(SIMULATED_KEY_START);
-        if (!prev_gamepad_logo && gamepad_logo) simulateKeyDown(SIMULATED_KEY_LOGO);
-        if (!prev_gamepad_back && gamepad_back) simulateKeyDown(SIMULATED_KEY_BACK);
+        if (!prev_gamepad_fire && gamepad_fire) { 
+            if (!SQUASH_ENCOUNTER_B_BUTTON_MENUS_ONLY || 
+                (SQUASH_ENCOUNTER_B_BUTTON_MENUS_ONLY && window.menuActive) || 
+                (SQUASH_ENCOUNTER_B_BUTTON_MENUS_ONLY && window.escPress)
+                ) 
+                {
+                    // squash encounter game specific hardcoded state check
+                    console.log("[B] = ESC when menuActive or escPress");
+                    simulateKeyDown(SIMULATED_KEY_FIRE); 
+                }
+        }
+        if (!prev_gamepad_jump && gamepad_jump) { console.log("[A] = SPACE"); simulateKeyDown(SIMULATED_KEY_JUMP); }
+        if (!prev_gamepad_start && gamepad_start) { console.log("[START] = ESC"); simulateKeyDown(SIMULATED_KEY_START); }
+        if (!prev_gamepad_back && gamepad_back) { console.log("[BACK] = M"); simulateKeyDown(SIMULATED_KEY_BACK); }
+        //if (!prev_gamepad_logo && gamepad_logo) { console.log("[LOGO]"); simulateKeyDown(SIMULATED_KEY_LOGO); }
 
         if (prev_gamepad_left && !gamepad_left) simulateKeyUp(SIMULATED_KEY_LEFT);
         if (prev_gamepad_right && !gamepad_right) simulateKeyUp(SIMULATED_KEY_RIGHT);
@@ -190,8 +201,8 @@ function GamepadKeyboardEventEmulator()
         if (prev_gamepad_fire && !gamepad_fire) simulateKeyUp(SIMULATED_KEY_FIRE);
         if (prev_gamepad_jump && !gamepad_jump) simulateKeyUp(SIMULATED_KEY_JUMP);
         if (prev_gamepad_start && !gamepad_start) simulateKeyUp(SIMULATED_KEY_START);
-        if (prev_gamepad_logo && !gamepad_logo) simulateKeyUp(SIMULATED_KEY_LOGO);
         if (prev_gamepad_back && !gamepad_back) simulateKeyUp(SIMULATED_KEY_BACK);
+        //if (prev_gamepad_logo && !gamepad_logo) simulateKeyUp(SIMULATED_KEY_LOGO);
 
         if (SQUASH_ENCOUNTER_WALL_SELECTING)
         {
@@ -272,7 +283,8 @@ function GamepadKeyboardEventEmulator()
     
     function simulateKeyDown(thisKey) 
     {
-        //console.log('fake keydown: ' + thisKey)
+        if (!thisKey) return;
+        //console.log('gamepad keydown: ' + thisKey)
         var oEvent = document.createEvent('KeyboardEvent');
         Object.defineProperty(oEvent, 'keyCode', { get : function() { return this.keyCodeVal; } });     
         Object.defineProperty(oEvent, 'which', { get : function() { return this.keyCodeVal; } });     
@@ -287,7 +299,8 @@ function GamepadKeyboardEventEmulator()
     
     function simulateKeyUp(thisKey) 
     {
-        //console.log('fake keyup: ' + thisKey)
+        if (!thisKey) return;
+        // console.log('gamepad keyup: ' + thisKey)
         var oEvent = document.createEvent('KeyboardEvent');
         Object.defineProperty(oEvent, 'keyCode', { get : function() { return this.keyCodeVal; } });     
         Object.defineProperty(oEvent, 'which', { get : function() { return this.keyCodeVal; } });     
