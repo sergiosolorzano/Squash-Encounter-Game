@@ -202,7 +202,7 @@ function BallClass() {
         if (this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit != 0 && this.tinHit == false && this.ballHitFloorBeforeWall == false) {
 
             this.bouncedOnFloor = 0;
-            console.log("reset bouncefloor to zero",this.bouncedOnFloor)
+            //console.log("reset bouncefloor to zero",this.bouncedOnFloor)
             this.bouncedOnFrontWall = false;
             this.bouncedOnBackWall = false;
             this.backWallOnPlay = false;

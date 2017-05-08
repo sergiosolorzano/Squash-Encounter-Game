@@ -301,7 +301,7 @@ function PlayerClass() {
                     if (!Sound.isPlaying("sprint_breath")) {
                         //console.log("Need more oxygen! Breathing!");
                         Sound.play("sprint_breath", false, 1);
-                        console.log(Sound.play("sprint_breath", false, 1))
+                        //console.log(Sound.play("sprint_breath", false, 1))
                     }
                 }
         }

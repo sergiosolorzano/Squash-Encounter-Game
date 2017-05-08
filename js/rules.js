@@ -36,7 +36,7 @@ var Rules = function Score() {
             BallClass.tinHit = true;
 
             //TODO: menu stuff
-            console.log("HIT TIN")
+            //console.log("HIT TIN")
             message=2;    
             self.givePoint();
             //Game.RallyReset();
@@ -52,7 +52,7 @@ var Rules = function Score() {
                 endPoint=true;
                 timer=maxTimer;
                 endGameTimer=endGameTimerReset;
-                console.log("Ball Over the Top Red Line")
+                //console.log("Ball Over the Top Red Line")
                 message=OUTLINES;  
                 self.givePoint();
                 //Game.RallyReset();
@@ -69,7 +69,7 @@ var Rules = function Score() {
             timer=maxTimer;
             BallClass.ballHitFloorBeforeWall = true;
             endGameTimer=endGameTimerReset;
-            console.log("ball hit the floor before hitting the front wall, end of point")
+            //console.log("ball hit the floor before hitting the front wall, end of point")
             message=FLOORBOUNCEBEFOREWALL;
             self.givePoint();
             //Game.RallyReset();
