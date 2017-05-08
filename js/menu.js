@@ -1,8 +1,9 @@
 var selectedMenuIndex = 0;
-var mainMenuArray =["Play", "Game Rules", "Scoring System", "Controls", "Credits"];
+var mainMenuArray =["Play", "Game Rules", "Scoring System", "Controls Selection", "Tutorial", "Credits"];
+var controlsMenuArray = ["Keyboard", "Gamepad"];
 var difficultyMenu = ["Level 1", "Level 2", "Level 3"];
 var controlsMenuCurrMode = "Keyboard";
-var menuArray= mainMenuArray;
+var menuArray = mainMenuArray;
 var exitLoop;
 var creditsListArray =[];
 
@@ -11,7 +12,7 @@ var jlevans = 15
 var marcus = 25
 var mko = 35
 var nikki = 45
-var chris = 55 
+var chris = 55
 var dalath = 65
 var jeremy = 75
 var christer = 85
@@ -20,9 +21,9 @@ var christer = 85
 /*var creditsListArray = ["A Gamkedo Club Team Production",
 "Sergio Solorzano - Lead game developer; characters and ball movement,",
 "ball particle effects, mouse ball aim, squash rules, pause functionality,",
-"point assingment, messaging, design, game pixel and Unity art", 
+"point assingment, messaging, design, game pixel and Unity art",
 "JL Evans- Players serve, draw for right to serve, game scale to full screen,",
-"computer AI programming; player serve pixel art", 
+"computer AI programming; player serve pixel art",
 "Marcus Silva - Point assignment, score counter, computer AI programming,",
 "menu game title banner",
 "Matthew Ko - Menu programming",
@@ -62,15 +63,15 @@ function startGame() {
         gameLoop = setInterval(function () {
             if(gameIsPaused==false){
                 moveAll();
-            }  
+            }
             drawAll();
         }, 1000 / framesPerSecond);
-        loadLevel();    
+        loadLevel();
     }
 }
 
 function returnToMenu(){
-    Sound.play("menu3_music",true,0.5);    
+    Sound.play("menu3_music",true,0.5);
     curr_menuScreen="Main";
     playerEntry = false;
     ServeHandler.Reset();
@@ -91,9 +92,9 @@ function returnToMenu(){
 function drawMenu() {
     menuActive = true;
     clearScreen();
-    
+
     if(curr_menuScreen=='Game Rules' || curr_menuScreen=='Scoring System' || curr_menuScreen=='Controls'){
-        drawBitmapCenteredWithRotation(squashcourt_towrite, canvas.width / 2, canvas.height / 2, 0);        
+        drawBitmapCenteredWithRotation(squashcourt_towrite, canvas.width / 2, canvas.height / 2, 0);
     } else if (curr_menuScreen=='Credits'){
     drawBitmapCenteredWithRotation(squashcourt_nocheer, canvas.width / 2, canvas.height / 2, 0);
     }
@@ -104,7 +105,7 @@ function drawMenu() {
     if(curr_menuScreen=='Credits'){
 
         if(sergio--<0){
-        
+
         drawBitmapCenteredWithRotation(orangepost, canvas.width/2+4, 104, 0);
         var anchorsergioY=100;
         var offsetY=14;
@@ -114,7 +115,7 @@ function drawMenu() {
         colorTextCredits("on-mouse ball aim, ball particle effects,", canvas.width/2-90,anchorsergioY)
         colorTextCredits("squash rules, pause functionality, point", canvas.width/2-90,anchorsergioY+offsetY, 0)
         colorTextCredits("assingment, messaging, design, menu", canvas.width/2-90,anchorsergioY+offsetY*2, 0)
-        colorTextCredits("data/format, game pixel and Unity art", canvas.width/2-90,anchorsergioY+offsetY*3, 0)    
+        colorTextCredits("data/format, game pixel and Unity art", canvas.width/2-90,anchorsergioY+offsetY*3, 0)
         //return
         }
 
@@ -126,9 +127,9 @@ function drawMenu() {
         colorTextCredits("Players serve, draw for right to", 560,anchorY-offsetY-5, Math.PI*0.25)
         colorTextCredits("serve, game scale to full screen,", 550, anchorY-10, Math.PI*0.25)
         colorTextCredits("computer AI programming, ", 540, anchorY+offsetY-14, Math.PI*0.25)
-        colorTextCredits("player serve pixel art", 530, anchorY+offsetY*2-15, Math.PI*0.25)    
+        colorTextCredits("player serve pixel art", 530, anchorY+offsetY*2-15, Math.PI*0.25)
         }
-        
+
         if(marcus--<0){
         anchorY=230;
         offsetY=0;
@@ -137,7 +138,7 @@ function drawMenu() {
         colorTextCreditsName("Marcus Silva", 130,anchorY-offsetY*2-25, postAng)
         colorTextCredits("Point assignment, score counter,", 142,anchorY-offsetY-10, postAng)
         colorTextCredits("computer AI programming,", 150, anchorY, postAng)
-        colorTextCredits("menu game title banner", 160, anchorY+offsetY+8, postAng)    
+        colorTextCredits("menu game title banner", 160, anchorY+offsetY+8, postAng)
         }
 
         if(mko--<0){
@@ -147,10 +148,10 @@ function drawMenu() {
         drawBitmapCenteredWithRotation(lightbluepost, 400, 250,postAng);//Math.PI*0.25
         colorTextCreditsName("Matthew Ko", 330,anchorY-offsetY*3, postAng)
         colorTextCredits("Menu programming", 328,anchorY-offsetY*2, postAng)
-        
+
         colorTextCreditsName("Adam Croft", 326, anchorY-offsetY+5, postAng)
         colorTextCredits("Credits Music and", 324, anchorY+5, postAng)
-        colorTextCredits("ball hit sound integration", 322, anchorY+offsetY+5, postAng)    
+        colorTextCredits("ball hit sound integration", 322, anchorY+offsetY+5, postAng)
         }
         if(nikki--<0){
         anchorY=300;
@@ -162,7 +163,7 @@ function drawMenu() {
 
         colorTextCreditsName("Ashleigh Morris", 125, anchorY+40, postAng)
         colorTextCredits("Sprint and ", 123, anchorY+offsetY+40, postAng)
-        colorTextCredits("sound mute programming", 121, anchorY+offsetY*2+40, postAng)            
+        colorTextCredits("sound mute programming", 121, anchorY+offsetY*2+40, postAng)
         }
         if(chris--<0){
         anchorY=450;
@@ -171,13 +172,13 @@ function drawMenu() {
         drawBitmapCenteredWithRotation(redpost, 375, 400,postAng);//Math.PI*0.25
         colorTextCreditsName("Christopher Kocan", 300,anchorY-offsetY*3-2, postAng)
         colorTextCredits("Ball bounce trail", 307,anchorY-offsetY*2-2-4, postAng)
-        
+
         colorTextCreditsName("Dalath", 315, anchorY-offsetY-6-2, postAng)
         colorTextCredits("Sprint sweat particles", 320, anchorY-offsetY+13-6-4, postAng)
-        
+
         colorTextCreditsName("Caspar Dunant", 326, anchorY-offsetY+18-3, postAng)
         colorTextCredits("Game scale to full screen,", 332, anchorY+offsetY*2-17, postAng)
-        colorTextCredits("debug support", 340, anchorY+offsetY*2-9, postAng)    
+        colorTextCredits("debug support", 340, anchorY+offsetY*2-9, postAng)
         }
         if(jeremy--<0){
         anchorY=325;
@@ -187,7 +188,7 @@ function drawMenu() {
 
         colorTextCreditsName("Game Testing", 565,anchorY-offsetY*3, postAng)
         colorTextCredits("Jeremy Kenyon", 552, anchorY-offsetY*2+5, postAng)
-        colorTextCredits("Trenton Pegeas ", 538, anchorY-offsetY+15, postAng)    
+        colorTextCredits("Trenton Pegeas ", 538, anchorY-offsetY+15, postAng)
         }
         if(christer--<0){
         anchorY=470;
@@ -195,14 +196,14 @@ function drawMenu() {
         postAng=Math.PI*1.9;
         drawBitmapCenteredWithRotation(orangepost, 485, 470,postAng);
         colorTextCreditsName("Christer (McFunkypants) Kaitila", 390,anchorY-offsetY*3-4, postAng)
-        
+
         colorTextCredits("Adapted sounds from pmBrowne", 394,anchorY-offsetY*2+12-5, postAng)
         colorTextCredits("Caboosey1186 AlaskaRobotics,", 397,anchorY-offsetY*1+24-5, postAng)
         colorTextCredits("Howler sound library integration,", 401,anchorY+36-5, postAng)
         colorTextCredits("gamepad functionality", 405,anchorY+48-5, postAng)
 
         colorTextCreditsName("Chris DeLeon", 409,anchorY+offsetY+60-5, postAng)
-        colorTextCredits("Computer AI, debugging support", 413, anchorY+offsetY*2+72-7, postAng)    
+        colorTextCredits("Computer AI, debugging support", 413, anchorY+offsetY*2+72-7, postAng)
         }
 
         /*anchorY=315;
@@ -210,7 +211,7 @@ function drawMenu() {
         postAng=Math.PI*0.2;
         drawBitmapCenteredWithRotation(orangepost, 600, 350,postAng);
         colorTextCreditsName("Christer (McFunkypants) Kaitila", 540,anchorY-offsetY*3-5, postAng)
-        
+
         colorTextCredits("Adapted sounds from pmBrowne", 535,anchorY-offsetY*2-8, postAng)
         colorTextCredits("Caboosey1186 AlaskaRobotics,", 528,anchorY-offsetY*1-13, postAng)
         colorTextCredits("Howler sound library integration,", 522,anchorY-18, postAng)
@@ -218,7 +219,7 @@ function drawMenu() {
 
         colorTextCreditsName("Chris DeLeon", 508,anchorY+offsetY-13, postAng)
         colorTextCredits("Computer AI, debugging support", 500, anchorY+offsetY*2-20, postAng)
- 
+
         anchorY=420;
         offsetY=14;
         postAng=Math.PI*0.1;
@@ -250,6 +251,14 @@ function drawMenu() {
             drawControls();
             drawMuteState();
             break;
+        case "Controls Selection":
+            drawControlsSelection();
+            drawMuteState();
+            break;
+        case "Tutorial":
+            drawTutorial();
+            drawMuteState();
+            break;
         case "Play":
             drawDifficultySelection();
             break;
@@ -266,8 +275,8 @@ function drawMenu() {
     } else if (curr_menuScreen==="Credits"){
         drawTextCustom("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }else if(curr_menuScreen === "Controls"){
-        var opposite = controlsMenuCurrMode === 'Keyboard'? 'Controller': 'Keyboard';
-        drawTextCustom(opposite+": Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
+        //var opposite = controlsMenuCurrMode === 'Keyboard'? 'Controller': 'Keyboard';
+        //drawTextCustom(opposite+": Space", canvas.width / 10 * 6.5, canvas.height / 10 * 8.7);
         drawRulesEsc("Back: Esc", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
     }
 
@@ -290,6 +299,17 @@ function drawDifficultySelection(){
     50, 50);
 }
 
+function drawControlsSelection(){
+    drawText("Keyboard", 400);
+    drawText("Gamepad", 425);
+    canvasContext.drawImage(p1_standing,
+    canvas.width / 5.8 * 2, 350 + selectedMenuIndex * 25,
+    50, 50);
+    canvasContext.drawImage(p2_standing,
+    canvas.width / 3.3 * 2, 350 + selectedMenuIndex * 25,
+    50, 50);
+}
+
 function drawControls() {
     var heightMod = -5;
 
@@ -303,18 +323,18 @@ function drawControls() {
         drawScoringText("Serve: Space", 360+heightMod);
         drawScoringText("Target Wall Quadrants:", 390+heightMod);
         drawControlsMouse("Left mouse CLICK", 470, 410+heightMod);
-        drawControlsMouse("Front Wall Targets:", 375, 430+heightMod);    
+        drawControlsMouse("Front Wall Targets:", 375, 430+heightMod);
         drawControlsMouse("Top / Bottom", 440, 450+heightMod);
         drawControlsMouse("Right / Left", 433, 470+heightMod);
 
-        drawControlsMouse("Back Wall Targets:", 360, 490+heightMod);    
+        drawControlsMouse("Back Wall Targets:", 360, 490+heightMod);
         drawControlsMouse("Top / Bottom", 440, 510+heightMod);
-        
+
     }else if(controlsMenuCurrMode === 'Controller'){
-        drawBitmapCenteredWithRotation(squashcourt_gamepad, canvas.width / 2, canvas.height / 2, 0);        
+        drawBitmapCenteredWithRotation(squashcourt_gamepad, canvas.width / 2, canvas.height / 2, 0);
         drawMessageBoard();
         message=0;
-        
+
         colorTextCreditsName("Target BOTTOM LEFT", canvas.width/2-270,140);
         colorTextCreditsName("Front Wall Quadrant", canvas.width/2-270,155);
         colorTextCreditsName("Target BOTTOM LEFT", canvas.width/2-270,175);
@@ -322,7 +342,7 @@ function drawControls() {
 
         colorTextCreditsName("Target TOP LEFT", canvas.width/2-335,223);
         colorTextCreditsName("Front Wall Quadrant", canvas.width/2-335,238);
-        
+
 
         colorTextCreditsName("Player Walk Controls", canvas.width/2-300,290);
         colorTextCreditsName("Sound Mute/Play", canvas.width/2-100,410);
@@ -335,29 +355,19 @@ function drawControls() {
         colorTextCreditsName("Back (Menu only)", canvas.width/2+227,345);
         colorTextCreditsName("Target TOP RIGHT", canvas.width/2+233,227);
         colorTextCreditsName("Front Wall Quadrant", canvas.width/2+233,242);
-        
+
         colorTextCreditsName("Target BOTTOM LEFT", canvas.width/2+170,145);
         colorTextCreditsName("Front Wall Quadrant", canvas.width/2+170,160);
         colorTextCreditsName("Target BOTTOM LEFT", canvas.width/2+170,180);
         colorTextCreditsName("BACK Wall Quadrant", canvas.width/2+170,195);
 
         colorTextCreditsName("Pause/Exit Game", canvas.width/2-40,210);
-        
-        
 
-        /*drawRulesTextTitle("Game Controls:", 230+heightMod);
-        drawScoringText("Forward: Joystick Up", 260+heightMod);
-        drawScoringText("Backward: Joystick Down", 280+heightMod);
-        drawScoringText("Right: Joystick Right", 300+heightMod);
-        drawScoringText("Left: Joystick Left", 320+heightMod);
-        drawScoringText("Sprint & Kill Shot: The Red Button", 340+heightMod);
-        drawScoringText("Serve: The Green Button", 360+heightMod);*/
     }
+}
 
-   
-
-    //drawControls("Front Wall: Top / Bottom - Right / Left", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
-    //drawControls("Back Wall: Right / Left ", canvas.width / 10 * 3.25, canvas.height / 10 * 8.7);
+function drawTutorial(){
+    drawRulesTextTitle("Tutorial vid", 230);
 }
 
 function drawCredits() {
@@ -390,7 +400,7 @@ function drawRules() {
     drawRulesText("the floor more than once.", 300);
     drawRulesText("The rally is over (Down) if", 320);
     drawRulesText("the ball hits the tin.", 340);
-    
+
     drawRulesText("The rally is over if the ball", 380);
     drawRulesText("bounces over the Outside (top).", 400);
     drawRulesText(" End of rally if the ball bounces on", 420);
@@ -400,16 +410,22 @@ function drawRules() {
 }
 
 function drawMainMenu() {
+    var baseHeight = 300;
+    for(var i=0; i<mainMenuArray.length; i++){
+        drawText(mainMenuArray[i], baseHeight + 50 + (i* 25));
+    }
+    /*
     drawText("Play", 400);
     drawText("Game Rules", 425);
     drawText("Scoring System", 450);
     drawText("Controls", 475);
     drawText("Credits", 500);
+    */
     canvasContext.drawImage(p1_standing,
-    canvas.width / 5.8 * 2, 350 + selectedMenuIndex * 25,
+    canvas.width / 5.8 * 2, baseHeight + selectedMenuIndex * 25,
     50, 50);
     canvasContext.drawImage(p2_standing,
-    canvas.width / 3.3 * 2, 350 + selectedMenuIndex * 25,
+    canvas.width / 3.3 * 2, baseHeight + selectedMenuIndex * 25,
     50, 50);
 
 }
@@ -431,14 +447,25 @@ function menuInput(keyEvent, pressed) {
         }
 
     } else if (keyEvent.keyCode === KEY_SPACE || keyEvent.keyCode ===KEY_ENTER) {
-        if(curr_menuScreen == 'Controls'){            
+        if(curr_menuScreen == 'Controls Selection'){
+            if(selectedMenuIndex === 0){
+                controlsMenuCurrMode = 'Keyboard';
+                curr_menuScreen = 'Controls';
+            }else{
+                controlsMenuCurrMode = 'Controller';
+                curr_menuScreen = 'Controls';
+            }
+            return;
+        }
+        /*
+        if(curr_menuScreen == 'Controls'){
             if(controlsMenuCurrMode === 'Keyboard'){
                 controlsMenuCurrMode = 'Controller';
             }else{
                 controlsMenuCurrMode = 'Keyboard';
-            }            
+            }
             return;
-        }
+        }*/
         if (curr_menuScreen != "Main" && curr_menuScreen!="Play" && curr_menuScreen!="Controls") {
             //ignore if not on main menu
             return;
@@ -448,6 +475,11 @@ function menuInput(keyEvent, pressed) {
                 case 'Play':
                     curr_menuScreen = 'Play';
                     menuArray = difficultyMenu;
+                    selectedMenuIndex = 0;
+                    break;
+                case 'Controls Selection':
+                    curr_menuScreen = 'Controls Selection';
+                    menuArray = controlsMenuArray;
                     selectedMenuIndex = 0;
                     break;
                 case 'Level 1':
@@ -464,14 +496,14 @@ function menuInput(keyEvent, pressed) {
                     Sound.wall();
                     AI_Difficulty = 2;
                     startGame();
-                    break;                
+                    break;
                 default:
                     curr_menuScreen = menuArray[selectedMenuIndex];
                     if(curr_menuScreen=='Credits'){
                         Sound.stop("menu3_music");
-                        Sound.play("creditsmusic", true, 0.5);  
+                        Sound.play("creditsmusic", true, 0.5);
                         if(sergio>0){
-                            Sound.play("crowd-cheer", false, 0.5);    
+                            Sound.play("crowd-cheer", false, 0.5);
                         }
                     }
                     break;
@@ -481,16 +513,47 @@ function menuInput(keyEvent, pressed) {
     }
     else if (keyEvent.keyCode === KEY_ESC) {
         //console.log('Shift pressed');
+
+        switch(curr_menuScreen){
+            case 'Controls':
+                selectedMenuIndex = 0;
+                curr_menuScreen = 'Controls Selection';
+                menuArray = controlsMenuArray;
+                break;
+            case 'Play':
+                selectedMenuIndex = 0;
+                curr_menuScreen = 'Main';
+                menuArray = mainMenuArray;
+                break;
+            case 'Credits':
+                Sound.stop("creditsmusic");
+                Sound.play("menu3_music",true,0.5);
+                curr_menuScreen = 'Main';
+                menuArray = mainMenuArray;
+                break;
+            default:
+                curr_menuScreen = 'Main';
+                menuArray = mainMenuArray;
+                break;
+        }
+        /*
         if (curr_menuScreen != 'Main') {
+
+            if(curr_menuScreen === 'Controls'){
+
+            }
+
             if(curr_menuScreen === 'Play'){
                 selectedMenuIndex = 0;
-            }  
+            }
             if(curr_menuScreen=='Credits'){
                 Sound.stop("creditsmusic");
-                Sound.play("menu3_music",true,0.5);        
+                Sound.play("menu3_music",true,0.5);
             }
             curr_menuScreen = 'Main';
-            menuArray = mainMenuArray;          
-        }
+            menuArray = mainMenuArray;
+
+
+        }*/
     }
 }
