@@ -1,11 +1,11 @@
 //ball subtle fire puff on kill shot swing
 var particleKillList=[];
 /*//RECT
-var PARTICLESKILLNUM=60;
-var CYCLEKILLANCHOR=5;//MINKILLCYCLE + 1*CYCLEKILLANCHOR = max cyclesKillLeft
-var MINKILLCYCLE=1;
-var MINKILLPARTICLESIZE=2;
-var GRAVITY_KILL_PER_CYCLE=0.1;*/
+//var PARTICLESKILLNUM=60;
+//var CYCLEKILLANCHOR=5;//MINKILLCYCLE + 1*CYCLEKILLANCHOR = max cyclesKillLeft
+//var MINKILLCYCLE=1;
+//var MINKILLPARTICLESIZE=2;
+//var GRAVITY_KILL_PER_CYCLE=0.1;*/
 
 //circles
 var PARTICLESKILLNUM=60;
@@ -20,6 +20,7 @@ function createParticleskill(){
 			particlesKillClass.cyclesKillLeft=MINKILLCYCLE+Math.random()*CYCLEKILLANCHOR;
 			particleKillList.push(particlesKillClass);
 
+				//console.log(particlesTimer==1, particlesTimer==2,  BallClass.killParticlesActive)
 				if(particlesTimer==1 || particlesTimer==2 && BallClass.killParticlesActive){
 					MINKILLCYCLE=3;
 					CYCLEKILLANCHOR=6;
@@ -39,6 +40,7 @@ function createParticleskill(){
 					}
 				}
 		}
+		//console.log(MINKILLCYCLE,CYCLEKILLANCHOR,particlesKillClass.myColor)
 	}
 
 

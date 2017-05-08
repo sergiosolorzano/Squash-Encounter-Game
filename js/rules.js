@@ -79,8 +79,8 @@ var Rules = function Score() {
 
     self.checkRound = function checkRound() {
         //Players must have scored at least 9 to win
-        clearPuffParticles();
-        clearKillParticles();
+        //clearPuffParticles();
+        //clearKillParticles();
         if (self.score.player < 9 && self.score.AI < 9) {
             return;
         }
@@ -111,9 +111,9 @@ var Rules = function Score() {
         createParticlesEndGame();   
         //console.log(endGame)
         BallClass.Reset();
-        console.log(endGame,endGameTimer)
+        //console.log(endGame,endGameTimer)
         if(endGameTimer>0){
-            console.log(PlayerClass.keyHeld_Esc,"ive entered", endGameTimer)
+            //console.log(PlayerClass.keyHeld_Esc,"ive entered", endGameTimer)
             endGame=true;
             endGameTimer--;
             if(PlayerClass.keyHeld_Esc || PlayerClass.keyHeld_enter){
