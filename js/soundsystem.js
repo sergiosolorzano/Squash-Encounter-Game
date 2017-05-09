@@ -24,14 +24,14 @@ function SoundSystem() {
 		if (rate == null) rate = 1;
 		if (pan == null) pan = 0;
 
-		//console.log("pan: " + pan);
+		//if (debug_sound) console.log("pan: " + pan);
 
 		if (!sounds[samplename]) // downloads on demand once only
 		{
 			// src array is filenames to try in what order
 			// every new browser supports .webm,
 			// older ones like mp3 or ogg but not both
-			console.log("Downloading a new sound: " + samplename);
+			if (debug_sound) console.log("Downloading a new sound: " + samplename);
 			sounds[samplename] = new Howl({
 				src: [
 					'audio/'+samplename+'.mp3',
@@ -119,10 +119,12 @@ function SoundSystem() {
 	this.isPlaying = function(samplename) {
 		var result = false;
 
-		if (sounds[samplename])
+		if (sounds[samplename]) {
 			result = sounds[samplename].playing();
-		else
-			console.log("unknown sound: " + samplename);
+		}
+		else {
+			if (debug_sound) console.log("unknown sound: " + samplename);
+		}
 		return result;
 	}
 

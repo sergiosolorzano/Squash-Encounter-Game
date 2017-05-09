@@ -97,12 +97,12 @@ function GamepadKeyboardEventEmulator()
 
     window.addEventListener("gamepadconnected", function(e) {
     // Gamepad connected
-    console.log("Gamepad connected", e.gamepad);
+    // console.log("Gamepad connected", e.gamepad);
     });
 
     window.addEventListener("gamepaddisconnected", function(e) {
     // Gamepad disconnected
-    console.log("Gamepad disconnected", e.gamepad);
+    // console.log("Gamepad disconnected", e.gamepad);
     });
 
     function applyDeadzone(number, threshold)
@@ -121,7 +121,7 @@ function GamepadKeyboardEventEmulator()
             //console.log("Init gamepad..."); // spammy
             if (!navigator.getGamepads)
             {
-                console.log("Gamepad NOT supported on this browser!");
+                // console.log("Gamepad NOT supported on this browser!");
                 return; // not supported?
             }
         }
@@ -185,13 +185,22 @@ function GamepadKeyboardEventEmulator()
                 ) 
                 {
                     // squash encounter game specific hardcoded state check
-                    console.log("[B] = ESC when menuActive or escPress");
+                    // console.log("[B] = ESC when menuActive or escPress");
                     simulateKeyDown(SIMULATED_KEY_FIRE); 
                 }
         }
-        if (!prev_gamepad_jump && gamepad_jump) { console.log("[A] = SPACE"); simulateKeyDown(SIMULATED_KEY_JUMP); }
-        if (!prev_gamepad_start && gamepad_start) { console.log("[START] = ESC"); simulateKeyDown(SIMULATED_KEY_START); }
-        if (!prev_gamepad_back && gamepad_back) { console.log("[BACK] = M"); simulateKeyDown(SIMULATED_KEY_BACK); }
+        if (!prev_gamepad_jump && gamepad_jump) { 
+			// console.log("[A] = SPACE");
+			simulateKeyDown(SIMULATED_KEY_JUMP);
+		}
+        if (!prev_gamepad_start && gamepad_start) {
+			// console.log("[START] = ESC");
+			simulateKeyDown(SIMULATED_KEY_START); 
+		}
+        if (!prev_gamepad_back && gamepad_back) {
+			// console.log("[BACK] = M");
+			simulateKeyDown(SIMULATED_KEY_BACK);
+		}
         //if (!prev_gamepad_logo && gamepad_logo) { console.log("[LOGO]"); simulateKeyDown(SIMULATED_KEY_LOGO); }
 
         if (prev_gamepad_left && !gamepad_left) simulateKeyUp(SIMULATED_KEY_LEFT);
@@ -264,7 +273,7 @@ function GamepadKeyboardEventEmulator()
             }
             else
             {
-                console.log("ERROR: GamepadKeyboardEventEmulator is missing the PlayerClass");
+				// console.log("ERROR: GamepadKeyboardEventEmulator is missing the PlayerClass");
             }
         }
 
@@ -314,7 +323,7 @@ function GamepadKeyboardEventEmulator()
     }
 
     // init
-    console.log('Initializing gamepad support...')
+    // console.log('Initializing gamepad support...')
     window.requestAnimationFrame(handle_gamepad);
 
 } // GamepadKeyboardEventEmulator
