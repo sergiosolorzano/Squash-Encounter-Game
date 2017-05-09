@@ -93,7 +93,7 @@ function drawMenu() {
     menuActive = true;
     clearScreen();
 
-    if(curr_menuScreen=='Game Rules' || curr_menuScreen=='Scoring System' || curr_menuScreen=='Controls'){
+    if(curr_menuScreen=='Game Rules' || curr_menuScreen=='Scoring System' || curr_menuScreen=='Controls' || curr_menuScreen=='Tutorial'){
         drawBitmapCenteredWithRotation(squashcourt_towrite, canvas.width / 2, canvas.height / 2, 0);
     } else if (curr_menuScreen=='Credits'){
     drawBitmapCenteredWithRotation(squashcourt_nocheer, canvas.width / 2, canvas.height / 2, 0);
@@ -367,7 +367,11 @@ function drawControls() {
 }
 
 function drawTutorial(){
-    drawRulesTextTitle("Tutorial vid", 230);
+    drawRulesTextTitle("If a Youtube window", 250);
+    drawRulesTextTitle("with the Tutorial didn't", 280);
+    drawRulesTextTitle("open, here is the link !", 310);
+    
+    drawRulesTextTitle("https://youtu.be/Lfyj-AD1QBs", 380);
 }
 
 function drawCredits() {
@@ -422,10 +426,10 @@ function drawMainMenu() {
     drawText("Credits", 500);
     */
     canvasContext.drawImage(p1_standing,
-    canvas.width / 5.8 * 2, baseHeight + selectedMenuIndex * 25,
+    canvas.width / 5.8 * 1.9, baseHeight + selectedMenuIndex * 25,
     50, 50);
     canvasContext.drawImage(p2_standing,
-    canvas.width / 3.3 * 2, baseHeight + selectedMenuIndex * 25,
+    canvas.width / 3.3 * 2.05, baseHeight + selectedMenuIndex * 25,
     50, 50);
 
 }
@@ -486,16 +490,19 @@ function menuInput(keyEvent, pressed) {
                     Sound.wall();
                     AI_Difficulty = 0;
                     startGame();
+                    selectedMenuIndex=0;
                     break;
                 case 'Level 2':
                     Sound.wall();
                     AI_Difficulty = 1;
                     startGame();
+                    selectedMenuIndex=0;
                     break;
                 case 'Level 3':
                     Sound.wall();
                     AI_Difficulty = 2;
                     startGame();
+                    selectedMenuIndex=0;
                     break;
                 default:
                     curr_menuScreen = menuArray[selectedMenuIndex];
@@ -505,6 +512,10 @@ function menuInput(keyEvent, pressed) {
                         if(sergio>0){
                             Sound.play("crowd-cheer", false, 0.5);
                         }
+                    }
+                    if(curr_menuScreen=='Tutorial'){
+                        var vidWindow=window.open("https://youtu.be/Lfyj-AD1QBs","_blank");
+                        vidWindow.focus();
                     }
                     break;
             }
