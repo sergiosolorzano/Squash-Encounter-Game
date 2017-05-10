@@ -114,7 +114,7 @@ function drawMenu() {
         colorTextCredits("Characters and ball movement, tools,", canvas.width/2-90,anchorsergioY-offsetY)
         colorTextCredits("on-mouse ball aim, ball particle effects,", canvas.width/2-90,anchorsergioY)
         colorTextCredits("squash rules, pause functionality, point", canvas.width/2-90,anchorsergioY+offsetY, 0)
-        colorTextCredits("assingment, messaging, design, menu", canvas.width/2-90,anchorsergioY+offsetY*2, 0)
+        colorTextCredits("assingment, messaging, tutorial, menu", canvas.width/2-90,anchorsergioY+offsetY*2, 0)
         colorTextCredits("data/format, game pixel and Unity art", canvas.width/2-90,anchorsergioY+offsetY*3, 0)
         //return
         }
@@ -369,9 +369,9 @@ function drawControls() {
 function drawTutorial(){
     drawRulesTextTitle("If a Youtube window", 250);
     drawRulesTextTitle("with the Tutorial didn't", 280);
-    drawRulesTextTitle("open, here is the link !", 310);
+    drawRulesTextTitle("open, here is the URL !", 310);
     
-    drawRulesTextTitle("https://youtu.be/Lfyj-AD1QBs", 380);
+    drawRulesTextTitle("http://tinyurl.com/squash-how", 380);
 }
 
 function drawCredits() {
@@ -514,6 +514,7 @@ function menuInput(keyEvent, pressed) {
                         }
                     }
                     if(curr_menuScreen=='Tutorial'){
+                        Sound.stop("menu3_music");
                         var vidWindow=window.open("https://youtu.be/Lfyj-AD1QBs","_blank");
                         vidWindow.focus();
                     }
@@ -538,6 +539,11 @@ function menuInput(keyEvent, pressed) {
                 break;
             case 'Credits':
                 Sound.stop("creditsmusic");
+                Sound.play("menu3_music",true,0.5);
+                curr_menuScreen = 'Main';
+                menuArray = mainMenuArray;
+                break;
+            case 'Tutorial':
                 Sound.play("menu3_music",true,0.5);
                 curr_menuScreen = 'Main';
                 menuArray = mainMenuArray;
