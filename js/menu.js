@@ -21,7 +21,7 @@ var christer = 85
 /*var creditsListArray = ["A Gamkedo Club Team Production",
 "Sergio Solorzano - Lead game developer; characters and ball movement,",
 "ball particle effects, mouse ball aim, squash rules, pause functionality,",
-"point assingment, messaging, design, game pixel and Unity art",
+"point assignment, messaging, design, game pixel and Unity art",
 "JL Evans- Players serve, draw for right to serve, game scale to full screen,",
 "computer AI programming; player serve pixel art",
 "Marcus Silva - Point assignment, score counter, computer AI programming,",
@@ -114,7 +114,7 @@ function drawMenu() {
         colorTextCredits("Characters and ball movement, tools,", canvas.width/2-90,anchorsergioY-offsetY)
         colorTextCredits("on-mouse ball aim, ball particle effects,", canvas.width/2-90,anchorsergioY)
         colorTextCredits("squash rules, pause functionality, point", canvas.width/2-90,anchorsergioY+offsetY, 0)
-        colorTextCredits("assingment, messaging, tutorial, menu", canvas.width/2-90,anchorsergioY+offsetY*2, 0)
+        colorTextCredits("assignment, messaging, tutorial, menu", canvas.width/2-90,anchorsergioY+offsetY*2, 0)
         colorTextCredits("data/format, game pixel and Unity art", canvas.width/2-90,anchorsergioY+offsetY*3, 0)
         //return
         }
