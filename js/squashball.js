@@ -57,6 +57,7 @@ function BallClass() {
         //kill particles vars
         this.killParticlesActive = false;
         this.isServed = false;
+        this.firstReturn = false;
         this.serveVelocityZ = 1.5;
         this.maxServeZ = 15;
         //determines if the players have entered a constant swing loop playing the same point over and over
@@ -582,6 +583,7 @@ function BallClass() {
             }
             if (this.isServed) {
                 this.isServed = false;
+                this.firstReturn = true;
                 this.zv *= -1.12;
                 this.speedX *= 0.65; //can we change speed in one place, at reset
                 this.speedY *= 1.5; //can we change speed in one place, at reset
@@ -597,6 +599,12 @@ function BallClass() {
             //console.log(this.z,this.zv,root1,root2)
             //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
+
+        if (this.firstReturn && this.zv > 0) {
+            this.zv = Math.max(this.zv, 1.25);
+            this.firstReturn = false;
+        }
+
         if (this.nextY > COURT_L) {
             //console.log("on back wall")
             this.bouncedOnBackWall = true;
