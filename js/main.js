@@ -127,6 +127,9 @@ function drawAll() {
     drawScoreCounter();
     //drawCourtQuadrants();
 
+    //ballAtReach (ComputerClass.x, ComputerClass.y, BallClass.x,BallClass.y)
+    //ballAtReach (PlayerClass.x, PlayerClass.y, BallClass.x,BallClass.y)
+
     if (serveBet) {
         drawRightToServe();
         if(rightToServeOutcomeReady){

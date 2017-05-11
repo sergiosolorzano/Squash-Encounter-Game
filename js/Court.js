@@ -11,6 +11,11 @@ var nearTargetFrontWallY=0;
 var farTargetFrontWallX=0;
 var farTargetFrontWallY=0;
 
+//to delete
+var rightCenterTempX
+var rightCenterTempY
+
+
 //player swing-quadrants
 const NOQUADRANTHIT = 0;
 const TOPRIGHTQUADRANT=1;
@@ -27,7 +32,7 @@ const HITSQUAREW=8;
 const HITSQUAREH=8;
 const SHIFTTORAQUETPOSITIONX=6;
 const SHIFTTORAQUETPOSITIONY=-5;
-var SWINGBUFFER=2;
+var SWINGBUFFER;
 var swingReduction=0;
 
 //back wall sizing
@@ -241,6 +246,12 @@ function selectFrontWall (ballPixelX,ballPixelY,force_this_wall){
       var leftTopDrawn = perspectiveLocation(leftTopX,leftTopY,0);
       var leftBottomDrawn=perspectiveLocation(leftBottomX,leftBottomY,0);
 
+      /*//to delete
+      rightCenterTempX=centerBottomX-25
+      rightCenterTempY=centerBottomY+75
+      console.log(rightCenterTempX,rightCenterTempY)
+      //end to delete*/
+
       var farX;
       var nearX;
       var farY;
@@ -319,6 +330,8 @@ function drawTargets(){
         }
         //console.log(targetFrameTimer1, targetFrameTimer2)
   
+  //drawThisTempLocation=perspectiveLocation(rightCenterTempX,rightCenterTempY,0);
+
   if(PlayerClass.frontWallClicked && PlayerClass.targetFrontWall==TOPLEFTFRONTWALL){
     colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
     colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
@@ -342,6 +355,7 @@ function drawTargets(){
    }
 
    if(PlayerClass.frontWallClicked && PlayerClass.targetFrontWall==TOPRIGHTFRONTWALL){
+    //colorRect(drawThisTempLocation.x, drawThisTempLocation.y, targetWidth, targetHeight, "magenta",Math.PI);
     colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,2*Math.PI);
     colorRect(nearTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,3/2*Math.PI);
     colorRect(farTargetFrontWallX, nearTargetFrontWallY, targetWidth, targetHeight, targetColor,Math.PI);
@@ -402,6 +416,19 @@ function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY, swingTu
       var centerY=playerPixelY+SHIFTTOCENTERY;
       var scaleAdjustmentX = (1-playerPixelY/initYPosition)*100*WINDOWXSCALE;
       
+      if(PlayerClass.swingTurn){
+                SWINGBUFFER=PLAYERSWINGBUFFER;//player buffer depending on level
+        } else {
+                SWINGBUFFER=0;//computer buffer depending on level
+        }
+
+      if(ComputerClass.swingTurn){
+              swingReduction=COMPUTERSWINGREDUCTION;//player buffer depending on level
+      } else {
+              swingReduction=0;//computer buffer depending on level
+      }
+
+      
       centerTopX=centerX;
       centerTopY=centerY-HITSQUAREH-SWINGBUFFER+swingReduction;
 
@@ -412,22 +439,52 @@ function ballAtReach (playerPixelX, playerPixelY, ballPixelX,ballPixelY, swingTu
       rightCenterY=centerY;
 
       rightTopX=centerX+HITSQUAREW+scaleAdjustmentX+SWINGBUFFER-swingReduction;
-      rightTopY=centerY-HITSQUAREH-SWINGBUFFER;
+      rightTopY=centerY-HITSQUAREH-SWINGBUFFER+swingReduction;
 
-      rightBottomX=centerX+HITSQUAREW+scaleAdjustmentX-SWINGBUFFER-swingReduction;
-      rightBottomY=centerY+HITSQUAREH+SWINGBUFFER;
+      rightBottomX=centerX+HITSQUAREW+scaleAdjustmentX+SWINGBUFFER-swingReduction;
+      rightBottomY=centerY+HITSQUAREH+SWINGBUFFER-swingReduction;
 
       leftCenterX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER+swingReduction;
       leftCenterY=centerY;
 
       leftTopX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER+swingReduction;
-      leftTopY=centerY-HITSQUAREH-SWINGBUFFER;
+      leftTopY=centerY-HITSQUAREH-SWINGBUFFER+swingReduction;
 
       leftBottomX=centerX-HITSQUAREW-scaleAdjustmentX-SWINGBUFFER+swingReduction;
-      leftBottomY=centerY+HITSQUAREH+SWINGBUFFER;
+      leftBottomY=centerY+HITSQUAREH+SWINGBUFFER-swingReduction;
 
       raquetPositionX=centerX+SHIFTTORAQUETPOSITIONX+scaleAdjustmentX;
       raquetPositionY=centerY+SHIFTTORAQUETPOSITIONY;
+
+      /*//drawSwingCoors
+      var drawThisLocation = perspectiveLocation(centerX,centerY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"orange");
+      var visualCenterX = drawThisLocation.x
+      var visualCenterY = drawThisLocation.y
+
+      var drawThisLocation = perspectiveLocation(centerTopX,centerTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"orange");
+      var visualCenterTopY = drawThisLocation.y
+
+      var drawThisLocation = perspectiveLocation(rightTopX,rightTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"orange");
+      var visualRightTopX = drawThisLocation.x
+
+      var drawThisLocation = perspectiveLocation(rightCenterX,rightCenterY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"orange");
+      var visualRightCenterX = drawThisLocation.x
+
+      var drawThisLocation = perspectiveLocation(rightBottomX,rightBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"orange");
+      var drawThisLocation = perspectiveLocation(centerBottomX,centerBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"orange");
+      var drawThisLocation = perspectiveLocation(leftCenterX,leftCenterY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"orange");
+      var drawThisLocation = perspectiveLocation(leftTopX,leftTopY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"orange");
+      var drawThisLocation = perspectiveLocation(leftBottomX,leftBottomY,0);
+      colorRect(drawThisLocation.x,drawThisLocation.y,3,3,"orange");*/
+
 
       if(ballPixelX>=centerX && ballPixelX<=rightCenterX && ballPixelY<=centerY && ballPixelY>=centerTopY){
         quadrantHit=TOPRIGHTQUADRANT;

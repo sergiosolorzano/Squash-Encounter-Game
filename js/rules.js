@@ -29,7 +29,7 @@ var Rules = function Score() {
         //var drawThisLocation = perspectiveLocation(400,200,tinUpperLimit);
         //colorRect(drawThisLocation.x,drawThisLocation.y-drawThisLocation.z,80,80,"magenta");
 
-        if (BallClass.bouncedOnFloor==0 && BallClass.y <= tinLowerLimit && BallClass.z < tinUpperLimit && endPoint==false) {
+        if (BallClass.bouncedOnFrontWall==0 && BallClass.y <= tinLowerLimit && BallClass.z < tinUpperLimit && endPoint==false) {
             endPoint=true;
             timer=maxTimer;
             endGameTimer=endGameTimerReset;

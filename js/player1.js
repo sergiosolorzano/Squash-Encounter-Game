@@ -250,32 +250,37 @@ function PlayerClass() {
         
         //console.log(this.isSwinging,this.isHit,quadrantHit)
         
-        if (this.isSwinging == false && this.isHit == false) {
-
-            if (this.sprintCooldown > 0) {
-                this.sprintCooldown--;
-                this.particles.active = true;
-            }
-            if (this.keyHeld_SprintAndKill && isPlayerMoving) {
-                this.particles.active = true;
-                if (this.sprintStamina > 0) {
-                    this.sprintMultiplier = SPRINT_MULTIPLER;
-                    this.sprintStamina--;
-                    //console.log(this.sprintStamina)
+        //console.log(this.isSwinging)
+        if (this.isSwinging || this.isHit) {
+            return
+        } else {
+                if (this.sprintCooldown > 0) {
+                    this.sprintCooldown--;
+                    this.particles.active = true;
                 }
-                else if (this.sprintStamina == 0) {
+                if (this.keyHeld_SprintAndKill && isPlayerMoving) {
+                    this.particles.active = true;
+                    
+                    if (this.sprintStamina > 0) {
+                        this.sprintMultiplier = SPRINT_MULTIPLER;
+                        this.sprintStamina--;
+                    } else if (this.sprintStamina == 0) {
+                        this.sprintMultiplier = 1;
+                        this.sprintCooldown = 80;
+                    }
+
+                } else {
                     this.sprintMultiplier = 1;
-                    this.sprintCooldown = 80;
+                    if (this.sprintStamina < 20) {
+                        this.sprintStamina += staminaRecharge;
+                    }
                 }
-            } else {
-                this.sprintMultiplier = 1;
-                if (this.sprintStamina < 20) {
-                    this.sprintStamina += staminaRecharge;
-                }
-            }
-            //TODO might need to reset this.sprintMultiplier
-
+                
+                
+                //console.log(this.isSwinging,this.isHit,this.isSwinging == false || this.isHit == false)
+            //console.log(this.isHit)
                 if (this.keyHeld_Gas) {
+                    //console.log("i'm mv fwd")
                     nextY -= PLAYER_MOVE_SPEED * this.sprintMultiplier;
                     if (this.keyHeld_SprintAndKill && this.sprintStamina > 0) {
                         this.whichPic = p1_sprint;
@@ -304,7 +309,8 @@ function PlayerClass() {
                         //console.log(Sound.play("sprint_breath", false, 1))
                     }
                 }
-        }
+            }//big else
+
         //check so player doesn't go outside the court
         if (nextX >= 0 && nextX <= COURT_W) {
             this.x = nextX;
@@ -316,5 +322,5 @@ function PlayerClass() {
         var pLoc = perspectiveLocation(this.x, this.y, 0);
         this.particles.xOffset = pLoc.x;
         this.particles.yOffset = pLoc.y;
-    }
-}
+    }//end this.move
+}//end class

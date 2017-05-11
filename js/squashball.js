@@ -62,6 +62,7 @@ function BallClass() {
         //determines if the players have entered a constant swing loop playing the same point over and over
         this.ballTravelAng;
         this.swingLoop=0;
+        this.swingerIsHit=false;
     }
 
     this.moveBallForServe = function () {
@@ -143,6 +144,11 @@ function BallClass() {
         var prevY = this.y - this.speedY;
         var quadrantHit;
         var swingTurn;
+        if(PlayerClass.swingTurn){
+            this.swingerIsHit=PlayerClass.isHit;
+        } else {
+            this.swingerIsHit=ComputerClass.isHit;
+        }
 
         var herePlayerCollision = ballAtReach(PlayerClass.x, PlayerClass.y, this.x, this.y, PlayerClass.swingTurn);
         var playerSwingTurn = herePlayerCollision.canSwing;
@@ -199,7 +205,7 @@ function BallClass() {
         //console.log(this.bouncedOnFloor)
         //console.log("squashball.js ",quadrantHit)
 
-        if (this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit != 0 && this.tinHit == false && this.ballHitFloorBeforeWall == false) {
+        if (this.ballBouncedOnFloor && this.bouncedOnFrontWall && quadrantHit != 0 && this.tinHit == false && this.ballHitFloorBeforeWall == false && this.swingerIsHit==false) {
 
             this.bouncedOnFloor = 0;
             //console.log("reset bouncefloor to zero",this.bouncedOnFloor)
@@ -407,18 +413,29 @@ function BallClass() {
 
             //console.log("outside the function",ComputerClass.swingTurn, zIsActive,ComputerClass.playerStandingOnCourtQuadrant,quadrantHit,this.z,this.zv,zIncreaseFrontTrigger,zIncreaseBackTrigger)
             if(this.z<=zIncreaseBackTrigger || this.z<=zIncreaseFrontTrigger){
-            if(ComputerClass.swingTurn && zIsActive){
-                //console.log("before",this.z,this.zv)
-                if(ComputerClass.playerStandingOnCourtQuadrant==CPURIGHTTOPCOURTQUADRANT || ComputerClass.playerStandingOnCourtQuadrant==CPULEFTTOPCOURTQUADRANT){
-                    this.z=zIncreaseAtFront;
+                if(ComputerClass.swingTurn && zIsActive){
+                    
+                    if(ComputerClass.playerStandingOnCourtQuadrant==CPURIGHTTOPCOURTQUADRANT || ComputerClass.playerStandingOnCourtQuadrant==CPULEFTTOPCOURTQUADRANT){
+                        this.z=zIncreaseAtFront;
+                    }
+                    if(ComputerClass.playerStandingOnCourtQuadrant==CPURIGHTBOTTOMCOURTQUADRANT || ComputerClass.playerStandingOnCourtQuadrant==CPULEFTBOTTOMCOURTQUADRANT){
+                        this.z=zIncreaseAtBack;
+                    }
+                    zIsActive=false;
+                    
                 }
-                if(ComputerClass.playerStandingOnCourtQuadrant==CPURIGHTBOTTOMCOURTQUADRANT || ComputerClass.playerStandingOnCourtQuadrant==CPULEFTBOTTOMCOURTQUADRANT){
-                    this.z=zIncreaseAtBack;
-                }
-                zIsActive=false;
-              //console.log("after",this.z)
             }
-        }
+
+            //computer raises the ball enough from back quadrants; player doesn't have this, so forces him to use targetquadrants
+            if(ComputerClass.swingTurn && zSafety){
+                console.log("on just in case before",this.z,this.zv)
+                if(ComputerClass.playerStandingOnCourtQuadrant==CPURIGHTBOTTOMCOURTQUADRANT || ComputerClass.playerStandingOnCourtQuadrant==CPULEFTBOTTOMCOURTQUADRANT){
+                    if(this.z<3.5)
+                        this.z=7;
+                console.log("on just in case after",this.z,this.zv)
+                }
+            zSafety=false;
+            }
 
             if (playerSwingTurn) {
                 PlayerClass.swingTurn = false;
@@ -454,11 +471,11 @@ function BallClass() {
             Sound.bounce();
         }
         if (this.z <= 0) {
-            this.zv *= -0.7;
+            this.zv *= -0.9;
             //console.log("this.zv here before MIN",this.zv,"thisz:",this.z)
             if(PlayerClass.swingTurn){
-                if (AI_Difficulty==0 || AI_Difficulty==1){
-                    this.z = 2.25;
+                if (minZandZV){
+                    this.z = minZ;
                     if(this.zv<0.8){
                         this.zv=minZVBounceValue;
                     }    
@@ -479,7 +496,6 @@ function BallClass() {
         //console.log(zIsActive)
         //console.log(this.z,this.zv)
         
-
         this.nextX = this.x + this.speedX;
         this.nextY = this.y + this.speedY;
 

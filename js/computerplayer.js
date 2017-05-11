@@ -20,6 +20,11 @@ var zIncreaseAtFront;//increase of z when ball too low for player only at front 
 var zIncreaseAtBack;//increase of z when ball too low for player only at back court quadrants
 var staminaRecharge;
 var runToTActive=true;
+var PLAYERSWINGBUFFER;
+var COMPUTERSWINGREDUCTION;
+var minZandZV=false;
+var minZ;
+var zSafety=false;
 
 
 function ComputerClass() {
@@ -46,13 +51,11 @@ function ComputerClass() {
             walkDelay=15;
             diversionLevelX=0.2;
             diversionLevelY=0.2;
+            minZandZV=true;
             minZVBounceValue=0.8;
-            if(PlayerClass.swingTurn){
-                SWINGBUFFER=6;//HITSQUAREW*.5
-            }
-            if(ComputerClass.swingTurn){
-                swingReduction=5;
-            }
+            minZ=2.25;
+            PLAYERSWINGBUFFER=6;//HITSQUAREW*.5
+            COMPUTERSWINGREDUCTION=2;
             zIncreaseBackTrigger=5;
             zIncreaseAtBack=6.5;
             zIncreaseFrontTrigger=2;
@@ -61,17 +64,15 @@ function ComputerClass() {
             runToTActive=false;
         }
         if(AI_Difficulty == 1){
-            COMPUTER_MOVE_SPEED=1.95;
+            COMPUTER_MOVE_SPEED=2;
             walkDelay=12;
             diversionLevelX=0.2;
             diversionLevelY=0.2;
+            minZandZV=true;
             minZVBounceValue=0.8;
-            if(PlayerClass.swingTurn){
-            SWINGBUFFER=4;//HITSQUAREW*.3
-            }
-            if(ComputerClass.swingTurn){
-                swingReduction=3;
-            }
+            minZ=2.25;
+            PLAYERSWINGBUFFER=3;//HITSQUAREW*.3
+            COMPUTERSWINGREDUCTION=1;
             zIncreaseBackTrigger=5;
             zIncreaseAtBack=6.5;
             zIncreaseFrontTrigger=2;
@@ -81,15 +82,14 @@ function ComputerClass() {
         }
         if(AI_Difficulty == 2){
             COMPUTER_MOVE_SPEED=2.5;
-            walkDelay=5;
-            diversionLevelX=0.1;
-            diversionLevelY=0.1;
-            if(PlayerClass.swingTurn){
-                SWINGBUFFER=0;//HITSQUAREW*0
-            }
-            if(ComputerClass.swingTurn){
-                swingReduction=0;
-            }
+            walkDelay=0;
+            diversionLevelX=0.0;
+            diversionLevelY=0.0;
+            minZandZV=false;
+            minZVBounceValue=0.8;
+            minZ=2.25;
+            PLAYERSWINGBUFFER=0;//HITSQUAREW*0
+            COMPUTERSWINGREDUCTION=0;
             staminaRecharge=0.25;
             zIncreaseBackTrigger=0.01;
             zIncreaseAtBack=8;
@@ -165,7 +165,7 @@ function ComputerClass() {
         var playerGotoY;
         var computerRunning = false;
 
-        if (this.isHit) {
+        if (this.isSwinging || this.isHit) {
             return;
         }
 
@@ -262,17 +262,20 @@ function ComputerClass() {
         if (ballBouncedOnFloor && BallClass.bouncedOnFrontWall && quadrantHit != 0 && this.swingTurn && BallClass.tinHit == false && BallClass.ballHitFloorBeforeWall == false && this.isHit==false) {
             this.isSwinging = true;
             computerFrameTimer = 2;
-            zIsActive=true;
+            if(AI_Difficulty==0 || AI_Difficulty==1){
+                zIsActive=true;    
+            }
+            zSafety=true;    
             switch (quadrantHit) {
                 case TOPRIGHTQUADRANT:
                     Sound.hit();
                     if (player1IsAtReachNow) {
+                        PlayerClass.isHit=true;
                         if (this.x > PlayerClass.x) {
                             PlayerClass.whichPic = p1_left_hit;
                         } else {
                             PlayerClass.whichPic = p1_right_hit;
                         }
-                        PlayerClass.isHit;
                         playerFrameTimer = 10;
                         playerStepsPerAnimFrame = 10;
                     }
@@ -281,12 +284,12 @@ function ComputerClass() {
                 case TOPLEFTQUADRANT:
                     Sound.hit();
                     if (player1IsAtReachNow) {
+                        PlayerClass.isHit=true;
                         if (this.x > PlayerClass.x) {
                             PlayerClass.whichPic = p1_left_hit;
                         } else {
                             PlayerClass.whichPic = p1_right_hit;
                         }
-                        PlayerClass.isHit;
                         playerFrameTimer = 10;
                         playerStepsPerAnimFrame = 10;
                     }
@@ -295,12 +298,12 @@ function ComputerClass() {
                 case BOTTOMRIGHTQUADRANT:
                     Sound.hit();
                     if (player1IsAtReachNow) {
+                        PlayerClass.isHit=true;
                         if (this.x > PlayerClass.x) {
                             PlayerClass.whichPic = p1_left_hit;
                         } else {
                             PlayerClass.whichPic = p1_right_hit;
                         }
-                        PlayerClass.isHit;
                         playerFrameTimer = 10;
                         playerStepsPerAnimFrame = 10;
                     }
@@ -309,12 +312,12 @@ function ComputerClass() {
                 case BOTTOMLEFTQUADRANT:
                     Sound.hit();
                     if (player1IsAtReachNow) {
+                        PlayerClass.isHit=true;
                         if (this.x > PlayerClass.x) {
                             PlayerClass.whichPic = p1_left_hit;
                         } else {
                             PlayerClass.whichPic = p1_right_hit;
                         }
-                        PlayerClass.isHit;
                         playerFrameTimer = 10;
                         playerStepsPerAnimFrame = 10;
                     }
