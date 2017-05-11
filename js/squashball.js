@@ -600,8 +600,8 @@ function BallClass() {
             //    console.log("Computer Swing turn: ", ComputerClass.swingTurn)
         }
 
-        if (this.firstReturn && this.zv > 0) {
-            this.zv = Math.max(this.zv, 1.25);
+        if (this.firstReturn && this.zv > 1.25) {
+            this.zv = 1.25;
             this.firstReturn = false;
         }
 
