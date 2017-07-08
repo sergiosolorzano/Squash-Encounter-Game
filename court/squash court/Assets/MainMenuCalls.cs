@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenuCalls : MonoBehaviour {
-    
-	public void GoToScene (string sceneToLoad) {
+
+
+    public void GoToScene (string sceneToLoad) {
         SceneManager.LoadScene(sceneToLoad);
 	}
 	
