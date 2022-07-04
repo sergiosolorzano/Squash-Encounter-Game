@@ -1,2 +1,2 @@
 # Squash-Encounter-Game
-Gamkedo.Club on browser game led by Sergio Solorzano, Play here https://hometeamgamedev.itch.io/squash-encounter
+Gamkedo.Club (now known as [HomeTeamGameDev](https://hometeamgamedev.com/) on browser game development I led at the club, Play here https://hometeamgamedev.itch.io/squash-encounter
